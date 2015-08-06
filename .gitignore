@@ -1,0 +1,24 @@
+# Node Modules
+node_modules/
+
+# Bower Components
+src/lib
+
+# SASS Cache
+.sass-cache/
+
+# Rebooted
+.rebooted
+
+# Mac crap
+.DS_Store
+
+# Build
+build/
+
+# Distibution File
+dist/
+
+# FTP Settings
+sftp-config.json
+sftp-config-alt.json

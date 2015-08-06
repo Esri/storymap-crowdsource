@@ -1,0 +1,26 @@
+{
+  "name": "storymaps-leaflet-boilerplate",
+  "version": "0.0.0",
+  "homepage": "",
+  "authors": [
+    "Esri"
+  ],
+  "keywords": [
+    "storymaps",
+    "esri"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "require": "http://requirejs.org/docs/release/2.1.20/minified/require.js",
+    "leaflet": "http://cdn.leafletjs.com/downloads/leaflet-1.0.0-b1.zip",
+    "esri-leaflet": "https://github.com/Esri/esri-leaflet/archive/v2.0.0-beta.5.zip"
+  }
+}
