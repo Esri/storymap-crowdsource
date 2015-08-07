@@ -29,11 +29,7 @@ exports.get = internals.Server = function (key, criteria) {
       },
       connections: [
         {
-          port: {
-            $filter: 'mode',
-            dist: 4000,
-            $default: 3000
-          },
+          port: 3000,
           labels: ['http'],
           router: {
             isCaseSensitive: false,

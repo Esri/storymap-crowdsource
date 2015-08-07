@@ -60,7 +60,6 @@
     });
     require(['app/core/Core']);
   </script>
-  <script src="//localhost:35729/livereload.js"></script>
   {% else %}
   <script>
     require(['javascript/app.js']);

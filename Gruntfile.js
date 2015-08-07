@@ -3,7 +3,7 @@ var Config = require('./config/');
 module.exports = function(grunt) {
 
   // Add loader for Grunt plugins
-  require("matchdep").filterDev(["grunt-*"]).forEach(grunt.loadNpmTasks);
+  require('matchdep').filterDev(['grunt-*']).forEach(grunt.loadNpmTasks);
 
   var configDev = new Config({
     mode: 'dev'
@@ -17,25 +17,56 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    browserSync: {
+      dev: {
+        bsFiles: {
+          src : ['.rebooted','src/javascript/**/*.js','src/resources/','build/']
+        },
+        options: {
+          proxy: 'localhost:' + configDev.server.manifest.connections[0].port,
+          port: 4000,
+          ui: {
+            port: 5000,
+            weinre: {
+              port: 5050
+            }
+          },
+          open: false
+        }
+      },
+      dist: {
+        bsFiles: {
+          src : 'dist/'
+        },
+        options: {
+          server: {
+            baseDir: './dist'
+          },
+          port: 8000,
+          ui: {
+            port: 9000,
+            weinre: {
+              port: 9090
+            }
+          }
+        }
+      }
+    },
+
     clean: {
       dist: ['dist/'],
       build: ['build/']
     },
 
     compass: {
-      options: {
-
-      },
       dev: {
         options: {
-          importPath: 'node_modules/calcite-web/dist/sass/',
           sassDir: 'src/stylesheets',
           cssDir: 'build/stylesheets'
         }
       },
       dist: {
         options: {
-          importPath: 'node_modules/calcite-web/dist/sass/',
           sassDir: 'src/stylesheets',
           cssDir: 'dist/stylesheets',
           outputStyle: 'compressed'
@@ -44,7 +75,7 @@ module.exports = function(grunt) {
     },
 
     concurrent: {
-      devWatch: ['nodemon:dev','watch'],
+      devWatch: ['nodemon:dev','watch','browserSync:dev'],
       options: {
         logConcurrentOutput: true
       }
@@ -101,16 +132,9 @@ module.exports = function(grunt) {
               console.log('restart');
               setTimeout(function() {
                 require('fs').writeFileSync('.rebooted', 'rebooted');
+                // require('fs').writeFileSync('build/rebooted.js', 'console.log("rebooted");');
               }, 1000);
             });
-          }
-        },
-        script: 'server.js'
-      },
-      dist: {
-        options: {
-          env: {
-            MODE: 'dist'
           }
         },
         script: 'server.js'
@@ -119,13 +143,10 @@ module.exports = function(grunt) {
 
     open: {
       options: {
-        delay: 2000
+        delay: 3000
       },
       dev: {
-        path: 'http://localhost:' + configDev.server.manifest.connections[0].port
-      },
-      dist: {
-        path: 'http://localhost:' + configDist.server.manifest.connections[0].port
+        path: 'http://localhost:4000'
       }
     },
 
@@ -161,12 +182,6 @@ module.exports = function(grunt) {
       jshint: {
         files: ['src/javascript/**/*.js'],
         tasks: ['jshint']
-      },
-      livereload: {
-        options: {
-          livereload: true
-        },
-        files: ['.rebooted','resources/','build/stylesheets/**/*','src/javascript/**/*.js']
       }
     }
 
@@ -174,6 +189,7 @@ module.exports = function(grunt) {
 
   // Grunt tasks
   grunt.registerTask('default', [
+    'clean:build',
     'jshint',
     'copy:requireDev',
     'compass:dev',
@@ -189,8 +205,7 @@ module.exports = function(grunt) {
     'swig:dist',
     'compass:dist',
     'requirejs',
-    'open:dist',
-    'nodemon:dist'
+    'browserSync:dist'
   ]);
 
 };
