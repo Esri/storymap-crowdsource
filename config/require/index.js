@@ -12,18 +12,7 @@ exports.get = internals.Require = function (key, criteria) {
     },
     paths: {
       'app': 'javascript',
-      'jquery': 'lib/jquery/dist/jquery.min',
-      'leaflet': 'lib/leaflet/leaflet',
-      'esri-leaflet': 'lib/esri-leaflet/dist/esri-leaflet'
-    },
-    shim: {
-      'leaflet': {
-        exports: 'L'
-      },
-      'esri-leaflet': {
-        deps: ['leaflet'],
-        exports: 'L'
-      }
+      'jquery': 'lib/jquery/dist/jquery.min'
     }
   });
 

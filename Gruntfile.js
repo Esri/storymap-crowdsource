@@ -58,22 +58,6 @@ module.exports = function(grunt) {
       build: ['build/']
     },
 
-    compass: {
-      dev: {
-        options: {
-          sassDir: 'src/stylesheets',
-          cssDir: 'build/stylesheets'
-        }
-      },
-      dist: {
-        options: {
-          sassDir: 'src/stylesheets',
-          cssDir: 'dist/stylesheets',
-          outputStyle: 'compressed'
-        }
-      }
-    },
-
     concurrent: {
       devWatch: ['nodemon:dev','watch','browserSync:dev'],
       options: {
@@ -82,28 +66,6 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      requireDist: {
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['src/lib/require/index.js'],
-          dest: 'dist/javascript/require/',
-          rename: function(dest,src){
-            return dest + src.replace('index.js','require.js');
-          }
-        }]
-      },
-      requireDev: {
-        files: [{
-          expand: true,
-          flatten: true,
-          src: ['src/lib/require/index.js'],
-          dest: 'src/javascript/require/',
-          rename: function(dest,src){
-            return dest + src.replace('index.js','require.js');
-          }
-        }]
-      },
       resources: {
         files: [{
           expand: true,
@@ -131,7 +93,7 @@ module.exports = function(grunt) {
             nodemon.on('restart',function(){
               console.log('restart');
               setTimeout(function() {
-                require('fs').writeFileSync('.rebooted', 'rebooted');
+                // require('fs').writeFileSync('.rebooted', 'rebooted');
                 // require('fs').writeFileSync('build/rebooted.js', 'console.log("rebooted");');
               }, 1000);
             });
@@ -175,10 +137,6 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      compass: {
-        files: ['src/stylesheets/**/*.scss'],
-        tasks: ['compass:dev']
-      },
       jshint: {
         files: ['src/javascript/**/*.js'],
         tasks: ['jshint']
@@ -191,8 +149,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'clean:build',
     'jshint',
-    'copy:requireDev',
-    'compass:dev',
     'open:dev',
     'concurrent:devWatch'
   ]);
@@ -200,10 +156,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'jshint',
-    'copy:requireDist',
     'copy:resources',
     'swig:dist',
-    'compass:dist',
     'requirejs',
     'browserSync:dist'
   ]);

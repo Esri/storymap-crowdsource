@@ -1,10 +1,8 @@
-# storymaps-leaflet-boilerplate
+# crowdsource-storytelling-template-js-dev
 
 ### Requirements
 - Node
 - Grunt
-- Ruby
-- Sass with Compass
 
 ### Set up Folder
 - `npm install`
