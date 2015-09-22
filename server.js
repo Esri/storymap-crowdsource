@@ -7,30 +7,18 @@ var internals = {
 };
 
 internals.manifest = internals.config.server.manifest;
-internals.rootPath = internals.config.server.staticPaths.root
-internals.buildPath = internals.config.server.staticPaths.build
+internals.rootPath = internals.config.server.staticPaths.root;
+internals.buildPath = internals.config.server.staticPaths.build;
 
-Glue.compose(internals.manifest,function(err,server){
+Glue.compose(internals.manifest,function (err, server) {
 
-  if (err){
+  if (err) {
+
     throw err;
+
   }
 
-  if (internals.config.environment === 'development'){
-    server.views({
-      engines: {
-        swig: require('swig')
-      },
-      relativeTo: internals.rootPath
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/',
-      handler: function (request, reply) {
-        reply.view('index',internals.config);
-      }
-    });
+  if (internals.config.environment === 'development') {
 
     // Path the build
     server.route({
@@ -43,16 +31,16 @@ Glue.compose(internals.manifest,function(err,server){
         }
       }
     });
+
   }
-  else{
-    server.route({
-      method: 'GET',
-      path: '/',
-      handler: {
-        file: Path.join(__dirname,internals.rootPath,'index.html')
-      }
-    });
-  }
+
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: {
+      file: Path.join(__dirname,internals.buildPath,'index.html')
+    }
+  });
 
   server.route({
     method: 'GET',
@@ -65,8 +53,10 @@ Glue.compose(internals.manifest,function(err,server){
     }
   });
 
-  server.start(function() {
+  server.start(function () {
+
     console.log('Server running at:',server.info.uri);
+
   });
 
 });

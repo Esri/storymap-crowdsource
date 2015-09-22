@@ -1,11 +1,10 @@
 var Hoek = require('hoek');
-var App = require('./app');
-var Require = require('./require');
 var Server = require('./server');
+var Pkg = require('../package.json');
 
 var internals = {};
 
-exports = module.exports = internals.Config = function(options){
+module.exports = internals.Config = function (options) {
 
   Hoek.assert(this.constructor === internals.Config, 'Config must be instantiated using new');
 
@@ -17,9 +16,12 @@ exports = module.exports = internals.Config = function(options){
 
   var settings = Hoek.applyToDefaults(defaults,options);
 
-  this.environment = settings.mode;
+  var envString = settings.mode === 'dev' ? 'dev' : '';
+  var dateStr = settings.mode === 'dev' ? '-' + require('moment')().format('DDMMYY') : '';
 
-  this.app = App.get('/',{mode: settings.mode});
-  this.require = Require.get('/',{mode: settings.mode});
+  this.environment = settings.mode;
   this.server = Server.get('/',{mode: settings.mode});
+  this.pkg = Pkg;
+  this.versionStr = envString + Pkg.version + dateStr;
+
 };

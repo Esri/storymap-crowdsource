@@ -10,9 +10,9 @@
 
     // Enforcing - true = enforce this rule, false = don't enforce this rule
     "bitwise"       : true,     // true: Prohibit bitwise operators (&, |, ^, etc.)
-    "camelcase"     : false,    // true: Identifiers must be in camelCase
+    "camelcase"     : true,    // true: Identifiers must be in camelCase
     "curly"         : true,     // true: Require {} for every new block or scope
-    "eqeqeq"        : false,    // true: Require triple equals (===) for comparison ** Just use triples with undefined, null, false, 0 and 1 **
+    "eqeqeq"        : true,    // true: Require triple equals (===) for comparison ** Just use triples with undefined, null, false, 0 and 1 **
     "forin"         : true,     // true: Require filtering for..in loops with obj.hasOwnProperty() ** Still needed until IE8 support is dropped **
     "immed"         : true,     // true: Require immediate invocations to be wrapped in parens e.g. `(function () { } ());` ** Avoids confusion and minification errors **
     "latedef"       : false,    // true: Require variables/functions to be defined before being used
@@ -30,12 +30,12 @@
     "unused"        : "vars",   // true: Require all defined variables be used
     "strict"        : false,    // true: Requires all functions run in ES5 Strict Mode ** Dojo style and existing codebase conflicts **
     "trailing"      : false,    // true: Prohibit trailing whitespaces
-    //"indent"        : 4,        // {int} Number of spaces to use for indentation
+    "indent"        : 2,        // {int} Number of spaces to use for indentation
     //"maxparams"     : false,    // {int} Max number of formal params allowed per function
     //"maxdepth"      : false,    // {int} Max depth of nested blocks (within functions)
     //"maxstatements" : false,    // {int} Max number statements per function
     //"maxcomplexity" : false,    // {int} Max cyclomatic complexity per function
-    //"maxlen"        : false,    // {int} Max number of characters per line
+    "maxlen"        : 150,    // {int} Max number of characters per line
 
     // Relaxing - false = continue to enforce this rule, true = don't enforce this rule (relax it)
     "asi"           : false,     // true: Tolerate Automatic Semicolon Insertion (no semicolons)
@@ -92,9 +92,14 @@
         "require"
     ],
     "globals"       : { // ** `false` = don't allow variable to be redefined locally
+        "__dirname": false,
+        "module": false,
+        "exports": false,
+        "process": false,
         "define": false,
         "require": false,
         "top": false,
         "self": false,
+        "app": false
     }
 }
