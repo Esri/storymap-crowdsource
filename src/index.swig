@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
+  <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+  <meta name="fragment" content="!">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-  <link type="image/ico" rel="shortcut icon" href="resources/images/meta/favicon.ico">
+  <link type="image/ico" rel="shortcut icon" href="//resources.esri.com/favicon.ico">
+  <link type="image/ico" rel="icon"  href="//resources.esri.com/favicon.ico">
 
-  <title>{{ app.meta.title | title }}</title>
+  <!--
+    To correctly reference your Story Maps Crowdsource App in search engine:
+     - create and fill out extensively an ArcGIS Online item that link to your final application
+     - edit the following four tags as well as the title tag above on line 5
+  -->
+  <meta name="description" content="">
 
-  <meta name="keywords" content="{{ app.meta.keywords }}">
-  <meta name="description" content="{{ app.meta.description }}">
-
-  <!--Facebook Open Graph-->
-  <meta property="og:title" content="{{ app.meta.title  | title }}">
-  <meta property="og:url" content="{{ app.meta.url }}">
-  <meta property="og:image" content="{{ app.meta.thumbnail }}">
-  <meta property="og:description" content="{{ app.meta.description }}">
-  <!--End Facebook-->
-
-  <!--Twitter Card Data-->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@{{ app.meta.twitterHandle }}">
-  <meta name="twitter:url" content="{{ app.meta.url }}">
-  <meta name="twitter:title" content="{{ app.meta.title  | title }}">
-  <meta name="twitter:description" content="{{ app.meta.description }}">
-  <meta name="twitter:image" content="{{ app.meta.thumbnail }}">
-  <!--End Facebook-->
+  <!-- Social Sharing -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content=""/>
+  <meta property="og:description" content=""/>
+  <meta property="og:image" content=""/>
+  <!-- END Social Sharing -->
 
   <!--[if lt IE 9]>
   <script type="text/javascript">
@@ -44,27 +41,18 @@
   </script>
   <![endif]-->
 
-  <link rel="stylesheet" href="{{ server.staticPaths.build }}stylesheets/app.css">
-
 </head>
 <body>
 
-  <script src="javascript/require/require.js"></script>
-  {% if environment === 'development' %}
-  <script>
-    require.config({
-      baseUrl: {{ JSON.stringify(require.baseUrl) }},
-      paths: {{ JSON.stringify(require.paths) }},
-      shim: {{ JSON.stringify(require.shim) }},
-      enforceDefine: true
-    });
-    require(['app/core/Core']);
+  <div id="app"></div>
+
+  <script type="text/javascript">
+    var app = {
+      version: '{{ versionStr }}',
+      pathJSAPI: '//jsdev.arcgis.com/3.15/'
+    };
   </script>
-  {% else %}
-  <script>
-    require(['javascript/app.js']);
-  </script>
-  {% endif %}
+  <script type="text/javascript" src="app/main-config.js"></script>
 
 </body>
 </html>

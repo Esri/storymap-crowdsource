@@ -1,0 +1,70 @@
+{
+  "requireSemicolons": true,
+  "requireCamelCaseOrUpperCaseIdentifiers": true,
+  "requirePaddingNewLineAfterVariableDeclaration": true,
+  "requireDotNotation": true,
+  "requirePaddingNewLinesAfterBlocks": true,
+  "requireSpaceBeforeObjectValues": true,
+  "requireSpaceBeforeBinaryOperators": true,
+  "requireSpaceAfterBinaryOperators": true,
+  "requireSpaceAfterLineComment": true,
+  "requireCommaBeforeLineBreak": true,
+  "requireCapitalizedComments": true,
+  "disallowMultipleVarDecl": true,
+  "disallowEmptyBlocks": true,
+  "disallowTrailingComma": true,
+  "disallowMultipleLineBreaks": true,
+  "disallowMultipleLineStrings": true,
+  "disallowMultipleSpaces": true,
+  "disallowQuotedKeysInObjects": true,
+  "disallowFunctionDeclarations": true,
+  "disallowSpacesInFunctionDeclaration": {
+    "beforeOpeningRoundBrace": true
+  },
+  "disallowSpacesInsideParentheses": true,
+  "disallowSpaceBeforeSemicolon": true,
+  "disallowSpaceBeforeComma": true,
+  "disallowNewlineBeforeBlockStatements": true,
+  "requirePaddingNewLinesBeforeLineComments": {
+    "allExcept": "firstAfterCurly"
+  },
+  "requirePaddingNewlinesInBlocks": {
+    "allExcept": [ "conditionals" ]
+  },
+  "requireSpaceBeforeBlockStatements": 1,
+  "requireCurlyBraces": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "try",
+    "catch",
+    "default"
+  ],
+  "requireSpaceAfterKeywords": [
+    "do",
+    "for",
+    "if",
+    "else",
+    "switch",
+    "case",
+    "try",
+    "catch",
+    "void",
+    "while",
+    "with",
+    "return",
+    "typeof",
+    "function"
+  ],
+  "disallowKeywordsOnNewLine": [
+    "else",
+    "while"
+  ],
+  "safeContextKeyword": ["self"],
+  "maximumLineLength": 150,
+  "validateLineBreaks": "LF",
+  "validateIndentation": 2,
+  "validateQuoteMarks": "'"
+}

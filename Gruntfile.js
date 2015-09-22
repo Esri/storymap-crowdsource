@@ -1,9 +1,6 @@
 var Config = require('./config/');
 
-module.exports = function(grunt) {
-
-  // Add loader for Grunt plugins
-  require('matchdep').filterDev(['grunt-*']).forEach(grunt.loadNpmTasks);
+module.exports = function (grunt) {
 
   var configDev = new Config({
     mode: 'dev'
@@ -11,6 +8,9 @@ module.exports = function(grunt) {
   var configDist = new Config({
     mode: 'dist'
   });
+
+  // Add loader for Grunt plugins
+  require('matchdep').filterDev([ 'grunt-*' ]).forEach(grunt.loadNpmTasks);
 
   // Project configuration.
   grunt.initConfig({
@@ -20,10 +20,10 @@ module.exports = function(grunt) {
     browserSync: {
       dev: {
         bsFiles: {
-          src : ['.rebooted','src/javascript/**/*.js','src/resources/','build/']
+          src : [ 'src/*.html','src/app/**/*.js','src/resources/','build/' ]
         },
         options: {
-          proxy: 'localhost:' + configDev.server.manifest.connections[0].port,
+          proxy: 'localhost:' + configDev.server.manifest.connections[ 0 ].port,
           port: 4000,
           ui: {
             port: 5000,
@@ -54,12 +54,12 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      dist: ['dist/'],
-      build: ['build/']
+      dist: [ 'dist/' ],
+      build: [ 'build/' ]
     },
 
     concurrent: {
-      devWatch: ['nodemon:dev','watch','browserSync:dev'],
+      devWatch: [ 'nodemon:dev','watch','browserSync:dev' ],
       options: {
         logConcurrentOutput: true
       }
@@ -67,36 +67,41 @@ module.exports = function(grunt) {
 
     copy: {
       resources: {
-        files: [{
+        files: [ {
           expand: true,
           cwd: 'src/',
-          src: ['resources/**'],
+          src: [ 'resources/**' ],
           dest: 'dist/'
-        }]
+        } ]
       }
     },
 
     jshint: {
-      files: ['src/javascript/**/*.js','!src/javascript/require/require.js'],
+      files: [ 'src/app/**/*.js' ],
       options: {jshintrc: '.jshintrc'}
     },
 
     nodemon: {
       dev: {
         options: {
-          watch: ['server.js','src/index.swig','./config','./config/require/builds'],
-          ext: 'js,swig',
+          watch: [ '*.js','./config/server/**/*.js' ],
+          ext: 'js,html',
           env: {
-            MODE: 'development'
+            MODE: 'dev'
           },
-          callback: function(nodemon){
-            nodemon.on('restart',function(){
+          callback: function (nodemon) {
+
+            nodemon.on('restart',function () {
+
               console.log('restart');
-              setTimeout(function() {
-                // require('fs').writeFileSync('.rebooted', 'rebooted');
-                // require('fs').writeFileSync('build/rebooted.js', 'console.log("rebooted");');
+              setTimeout(function () {
+
+                require('fs').writeFileSync('.rebooted', 'rebooted');
+
               }, 1000);
+
             });
+
           }
         },
         script: 'server.js'
@@ -114,32 +119,41 @@ module.exports = function(grunt) {
 
     requirejs: {
       options: {
-        baseUrl: 'src/',
-        paths: configDist.require.paths,
-        shim: configDist.require.shim
+        baseUrl: 'src/'
       },
       viewer: {
         options: {
           name: '../config/require/builds/app',
-          out: 'dist/javascript/app.js'
+          out: 'dist/javascript/app.min.js'
         }
       }
     },
 
     swig: {
-      options: {
-        data: configDist
+      dev: {
+        options: {
+          data: configDev
+        },
+        dest: 'build/index.html',
+        src: [ 'src/index.swig' ]
       },
       dist: {
+        options: {
+          data: configDist
+        },
         dest: 'dist/index.html',
-        src: ['src/index.swig']
+        src: [ 'src/index.swig' ]
       }
     },
 
     watch: {
+      swig: {
+        files: [ 'src/*.swig' ],
+        tasks: [ 'swig:dev' ]
+      },
       jshint: {
-        files: ['src/javascript/**/*.js'],
-        tasks: ['jshint']
+        files: [ 'src/app/**/*.js' ],
+        tasks: [ 'jshint' ]
       }
     }
 
@@ -149,6 +163,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'clean:build',
     'jshint',
+    'swig:dev',
     'open:dev',
     'concurrent:devWatch'
   ]);

@@ -30,15 +30,19 @@ exports.get = internals.Server = function (key, criteria) {
       connections: [
         {
           port: 3000,
-          labels: ['http'],
+          labels: [ 'http' ],
           router: {
             isCaseSensitive: false,
             stripTrailingSlash: true
           }
         }
-      ]
+      ],
+      plugins: {
+        inert: null
+      }
     }
   });
 
   return this.store.get(key, criteria);
+
 };
