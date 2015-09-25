@@ -1,10 +1,11 @@
 var Hoek = require('hoek');
 var Server = require('./server');
 var Pkg = require('../package.json');
+var moment = require('moment');
 
 var internals = {};
 
-module.exports = internals.Config = function (options) {
+module.exports = internals.Config = function(options) {
 
   Hoek.assert(this.constructor === internals.Config, 'Config must be instantiated using new');
 
@@ -17,7 +18,7 @@ module.exports = internals.Config = function (options) {
   var settings = Hoek.applyToDefaults(defaults,options);
 
   var envString = settings.mode === 'dev' ? 'dev' : '';
-  var dateStr = settings.mode === 'dev' ? '-' + require('moment')().format('DDMMYY') : '';
+  var dateStr = settings.mode === 'dev' ? '-' + moment().format('DDMMYY') : '';
 
   this.environment = settings.mode;
   this.server = Server.get('/',{mode: settings.mode});

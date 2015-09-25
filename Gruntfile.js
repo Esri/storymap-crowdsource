@@ -17,49 +17,13 @@ module.exports = function (grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    browserSync: {
-      dev: {
-        bsFiles: {
-          src : [ 'src/*.html','src/app/**/*.js','src/resources/','build/' ]
-        },
-        options: {
-          proxy: 'localhost:' + configDev.server.manifest.connections[ 0 ].port,
-          port: 4000,
-          ui: {
-            port: 5000,
-            weinre: {
-              port: 5050
-            }
-          },
-          open: false
-        }
-      },
-      dist: {
-        bsFiles: {
-          src : 'dist/'
-        },
-        options: {
-          server: {
-            baseDir: './dist'
-          },
-          port: 8000,
-          ui: {
-            port: 9000,
-            weinre: {
-              port: 9090
-            }
-          }
-        }
-      }
-    },
-
     clean: {
       dist: [ 'dist/' ],
       build: [ 'build/' ]
     },
 
     concurrent: {
-      devWatch: [ 'nodemon:dev','watch','browserSync:dev' ],
+      devWatch: [ 'nodemon:dev','watch' ],
       options: {
         logConcurrentOutput: true
       }
@@ -113,7 +77,7 @@ module.exports = function (grunt) {
         delay: 3000
       },
       dev: {
-        path: 'http://localhost:4000'
+        path: 'http://localhost:' + configDev.server.manifest.connections[ 0 ].port
       }
     },
 
@@ -125,6 +89,14 @@ module.exports = function (grunt) {
         options: {
           name: '../config/require/builds/app',
           out: 'dist/javascript/app.min.js'
+        }
+      }
+    },
+
+    sass: {
+      dev: {
+        files: {
+          'build/app/storymaps/Core.css': 'src/app/storymaps/Core.scss'
         }
       }
     },
@@ -147,13 +119,23 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      options: {
+        livereload: true,
+      },
       swig: {
         files: [ 'src/*.swig' ],
         tasks: [ 'swig:dev' ]
       },
+      sass: {
+        files: [ 'src/app/**/*.scss' ],
+        tasks: [ 'sass:dev' ]
+      },
       jshint: {
         files: [ 'src/app/**/*.js' ],
         tasks: [ 'jshint' ]
+      },
+      otherFiles: {
+        files: ['.rebooted']
       }
     }
 
@@ -164,6 +146,7 @@ module.exports = function (grunt) {
     'clean:build',
     'jshint',
     'swig:dev',
+    'sass:dev',
     'open:dev',
     'concurrent:devWatch'
   ]);

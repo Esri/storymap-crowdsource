@@ -28,6 +28,28 @@
   <meta property="og:image" content=""/>
   <!-- END Social Sharing -->
 
+  <script type="text/javascript">
+		//-------------------------------------------------------------------------------------------
+		//     Application configuration (ignored on ArcGIS Online, Portal and during development)
+		//-------------------------------------------------------------------------------------------
+		var configOptions = {
+			// Enter an application ID created through the Map Series builder
+			appid: "9b35c5f96c7843acbef9387b4e227482",
+			// Optionally to secure Series's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
+			// User will need to sign-in to access the viewer even if your application is public
+			oAuthAppId: "",
+			// Optionally to be able to use the appid URL parameter, configure here the list of application author
+			//  whose application are allowed to be viewed by this Map Series deployment
+			// This is the Portal username of the Series owner (e.g. ["user1"], ["user1", "user2"])
+			authorizedOwners: [""]
+		};
+		// Optionally sharing and proxy URLs can be configured in app/config.js. This is only required
+		//  when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the application isn't deployed as /home/MapSeries/ or /apps/MapSeries/.
+		// Optionally Bing Maps key, Geometry and Geocode service's URLs can be configured in app/commonConfig.js. This is only required
+		//  if the Organization or Portal for ArcGIS instance default configuration has to be overwritten. If the application is deployed
+		//  on Portal for ArcGIS as /home/MapSeries/ or /apps/MapSeries/, that configuration is available in ../commonConfig.js
+	</script>
+
   <!--[if lt IE 9]>
   <script type="text/javascript">
     alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
@@ -44,7 +66,15 @@
 </head>
 <body>
 
-  <div id="app"></div>
+  <div id="app">
+
+    <header class="navbar">
+      <div class="container">Story Map Crowdsource - ALPHA</div>
+    </header>
+
+    <div id="map" class="map"></div><!--/map-->
+
+  </div><!--/app-->
 
   <script type="text/javascript">
     var app = {
@@ -53,6 +83,7 @@
     };
   </script>
   <script type="text/javascript" src="app/main-config.js"></script>
+  {% if environment === 'dev' %}<script src="//localhost:35729/livereload.js"></script>{% endif %}
 
 </body>
 </html>

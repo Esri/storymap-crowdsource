@@ -3,13 +3,10 @@
   "requireCamelCaseOrUpperCaseIdentifiers": true,
   "requirePaddingNewLineAfterVariableDeclaration": true,
   "requireDotNotation": true,
-  "requirePaddingNewLinesAfterBlocks": true,
   "requireSpaceBeforeObjectValues": true,
   "requireSpaceBeforeBinaryOperators": true,
   "requireSpaceAfterBinaryOperators": true,
-  "requireSpaceAfterLineComment": true,
   "requireCommaBeforeLineBreak": true,
-  "requireCapitalizedComments": true,
   "disallowMultipleVarDecl": true,
   "disallowEmptyBlocks": true,
   "disallowTrailingComma": true,
@@ -25,12 +22,6 @@
   "disallowSpaceBeforeSemicolon": true,
   "disallowSpaceBeforeComma": true,
   "disallowNewlineBeforeBlockStatements": true,
-  "requirePaddingNewLinesBeforeLineComments": {
-    "allExcept": "firstAfterCurly"
-  },
-  "requirePaddingNewlinesInBlocks": {
-    "allExcept": [ "conditionals" ]
-  },
   "requireSpaceBeforeBlockStatements": 1,
   "requireCurlyBraces": [
     "if",
@@ -55,16 +46,13 @@
     "while",
     "with",
     "return",
-    "typeof",
-    "function"
+    "typeof"
   ],
   "disallowKeywordsOnNewLine": [
     "else",
     "while"
   ],
   "safeContextKeyword": ["self"],
-  "maximumLineLength": 150,
   "validateLineBreaks": "LF",
-  "validateIndentation": 2,
   "validateQuoteMarks": "'"
 }

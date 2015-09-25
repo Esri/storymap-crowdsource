@@ -35,7 +35,7 @@
     //"maxdepth"      : false,    // {int} Max depth of nested blocks (within functions)
     //"maxstatements" : false,    // {int} Max number statements per function
     //"maxcomplexity" : false,    // {int} Max cyclomatic complexity per function
-    "maxlen"        : 150,    // {int} Max number of characters per line
+    "maxlen"        : false,    // {int} Max number of characters per line
 
     // Relaxing - false = continue to enforce this rule, true = don't enforce this rule (relax it)
     "asi"           : false,     // true: Tolerate Automatic Semicolon Insertion (no semicolons)
@@ -100,6 +100,8 @@
         "require": false,
         "top": false,
         "self": false,
-        "app": false
+        "app": false,
+        "configOptions": false,
+        "commonConfig": false
     }
 }

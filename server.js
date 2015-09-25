@@ -10,15 +10,13 @@ internals.manifest = internals.config.server.manifest;
 internals.rootPath = internals.config.server.staticPaths.root;
 internals.buildPath = internals.config.server.staticPaths.build;
 
-Glue.compose(internals.manifest,function (err, server) {
+Glue.compose(internals.manifest, function(err, server) {
 
   if (err) {
-
     throw err;
-
   }
 
-  if (internals.config.environment === 'development') {
+  if (internals.config.environment === 'dev') {
 
     // Path the build
     server.route({
@@ -38,7 +36,7 @@ Glue.compose(internals.manifest,function (err, server) {
     method: 'GET',
     path: '/',
     handler: {
-      file: Path.join(__dirname,internals.buildPath,'index.html')
+      file: Path.join(__dirname,internals.buildPath, 'index.html')
     }
   });
 
@@ -54,9 +52,7 @@ Glue.compose(internals.manifest,function (err, server) {
   });
 
   server.start(function () {
-
-    console.log('Server running at:',server.info.uri);
-
+    console.log('Server running at:', server.info.uri);
   });
 
 });

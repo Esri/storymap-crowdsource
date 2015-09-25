@@ -2,7 +2,7 @@ var Confidence = require('confidence');
 
 var internals = {};
 
-exports.get = internals.Server = function (key, criteria) {
+exports.get = internals.Server = function(key, criteria) {
 
   this.store = new Confidence.Store({
     staticPaths: {
