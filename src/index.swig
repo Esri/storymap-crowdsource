@@ -34,7 +34,7 @@
 		//-------------------------------------------------------------------------------------------
 		var configOptions = {
 			// Enter an application ID created through the Map Series builder
-			appid: "9b35c5f96c7843acbef9387b4e227482",
+			appid: "fe63852d4c474da09240fa218dae9b99",
 			// Optionally to secure Series's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
 			// User will need to sign-in to access the viewer even if your application is public
 			oAuthAppId: "",

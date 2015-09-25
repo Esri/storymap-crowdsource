@@ -12,13 +12,6 @@ define([
 
   var internals = {};
 
-  var sampleData = {
-    webmap: '1970c1995b8f44749f4b9b6e81b5ba45',
-    mapOptions: {}
-  };
-
-  internals.appData = sampleData;
-
   internals.Data = declare([Evented],{
 
     constructor: function(options) {
@@ -30,10 +23,14 @@ define([
       console.log('Loading Data');
 
       arcgisUtils.getItem(app.indexCfg.appid).then(function(res) {
-        console.log(res);
+        if (res.item && res.itemData && res.itemData.values) {
+          internals.appItem = res.item;
+          internals.appData = res.itemData.values;
+          internals.onReady();
+        } else {
+          internals.onError(res);
+        }
       },internals.onError);
-
-      internals.onReady();
     },
 
     getWebmap: function() {
@@ -41,7 +38,7 @@ define([
     },
 
     getMapOptions: function() {
-      return internals.appData.mapOptions;
+      return internals.appData.settings.mapOptions;
     }
 
   });
