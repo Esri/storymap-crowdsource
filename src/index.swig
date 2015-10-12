@@ -33,13 +33,13 @@
 		//     Application configuration (ignored on ArcGIS Online, Portal and during development)
 		//-------------------------------------------------------------------------------------------
 		var configOptions = {
-			// Enter an application ID created through the Map Series builder
+			// Enter an application ID created through the Crowdsource builder
 			appid: "fe63852d4c474da09240fa218dae9b99",
 			// Optionally to secure Series's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
 			// User will need to sign-in to access the viewer even if your application is public
 			oAuthAppId: "",
 			// Optionally to be able to use the appid URL parameter, configure here the list of application author
-			//  whose application are allowed to be viewed by this Map Series deployment
+			//  whose application are allowed to be viewed by this Crowdsource deployment
 			// This is the Portal username of the Series owner (e.g. ["user1"], ["user1", "user2"])
 			authorizedOwners: [""]
 		};
@@ -56,25 +56,11 @@
     window.location = "http://browsehappy.com/";
   </script>
   <![endif]-->
-  <!--[if IE 9]>
-  <script type="text/javascript">
-    alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
-    window.location = "http://browsehappy.com/";
-  </script>
-  <![endif]-->
 
 </head>
 <body>
 
-  <div id="app">
-
-    <header class="navbar">
-      <div class="container">Story Map Crowdsource - ALPHA</div>
-    </header>
-
-    <div id="map" class="map"></div><!--/map-->
-
-  </div><!--/app-->
+  <div id="app"></div><!--/app-->
 
   <script type="text/javascript">
     var app = {

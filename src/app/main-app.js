@@ -1,9 +1,14 @@
 define.amd.jQuery = true;
 
 require([
-  'storymaps/Core'
+  'babel/App'
 ],function(
-  Core
+  App
 ) {
-  Core.init();
+
+  var internals = {
+    app: new App()
+  };
+
+  internals.app.init();
 });

@@ -67,28 +67,32 @@
         storymaps: path1 + 'app/storymaps',
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',
+        react: path1 + 'lib/react/build/react',
+        babel: path1 + 'build/app/storymaps',
         // AMD Loader Plugins
-        shim: path1 + 'lib/use-amd/use'
+        use: path1 + 'lib/use-amd/use'
       },
-      shim: {
+      use: {
         jquery: {
-          exports: '$'
+          attach: '$'
         }
       }
     };
 
   };
 
-  app.isProduction = internals.isProduction;
-
-  internals.defineDojoConfig();
-
-  app.isInBuilder = internals.getUrlVar('edit') || internals.getUrlVar('fromScratch') || internals.getUrlVar('fromscratch');
   app.indexCfg = configOptions;
 
+  app.mode = {
+    isProduction: internals.isProduction,
+    isBuilder: internals.getUrlVar('edit') || internals.getUrlVar('fromScratch') || internals.getUrlVar('fromscratch'),
+    isDebug: internals.getUrlVar('debug')
+  };
+
   // Load ArcGIS API for JavaScript
+  internals.defineDojoConfig();
   internals.loadCSS(app.pathJSAPI + 'esri/css/esri.css', true);
-  internals.loadCSS(app.pathJSAPI + 'dijit/themes/claro/claro.css', true);	
+  internals.loadCSS(app.pathJSAPI + 'dijit/themes/claro/claro.css', true);
   internals.loadJS(app.pathJSAPI + 'init.js', true);
 
   // Load Bootstrap
@@ -97,7 +101,7 @@
   // Load App Specific Files
   internals.loadJS('app/config.js');
   internals.loadJS('app/main-app.js');
-  internals.loadCSS('build/app/storymaps/Core.css');
+  internals.loadCSS('build/app/storymaps/App.css');
 
   // Enable Google Analytics on storymaps.esri.com
   if (app.isProduction && window.location.href.toLowerCase().indexOf('storymaps.esri.com') >= 0) {

@@ -22,3 +22,7 @@ dist/
 # FTP Settings
 sftp-config.json
 sftp-config-alt.json
+
+#testCredentials
+testCredentials.babel.js
+testCredentials.js

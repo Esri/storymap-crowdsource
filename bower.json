@@ -19,7 +19,9 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
+    "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/12f5f1c951f2fef2dfb86e4e41d218c2c9182dd6.zip",
     "jquery": "~2.1.4",
+    "react": "https://facebook.github.io/react/downloads/react-0.13.3.zip",
     "use-amd": "~0.4.0"
   }
 }

@@ -17,6 +17,22 @@ module.exports = function (grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    babel: {
+      options: {
+        sourceMaps: true,
+        modules: 'amd'
+      },
+      dev: {
+        files: [{
+          expand: true,
+          cwd: 'src/',
+          src: ['app/**/*.babel.js'],
+          dest: 'build/',
+          ext: '.js'
+        }]
+      }
+    },
+
     clean: {
       dist: [ 'dist/' ],
       build: [ 'build/' ]
@@ -96,7 +112,7 @@ module.exports = function (grunt) {
     sass: {
       dev: {
         files: {
-          'build/app/storymaps/Core.css': 'src/app/storymaps/Core.scss'
+          'build/app/storymaps/App.css': 'src/app/storymaps/App.scss'
         }
       }
     },
@@ -120,7 +136,7 @@ module.exports = function (grunt) {
 
     watch: {
       options: {
-        livereload: true,
+        livereload: true
       },
       swig: {
         files: [ 'src/*.swig' ],
@@ -130,12 +146,16 @@ module.exports = function (grunt) {
         files: [ 'src/app/**/*.scss' ],
         tasks: [ 'sass:dev' ]
       },
+      babel: {
+        files: [ 'src/app/**/*.babel.js' ],
+        tasks: [ 'babel' ]
+      },
       jshint: {
         files: [ 'src/app/**/*.js' ],
         tasks: [ 'jshint' ]
       },
       otherFiles: {
-        files: ['.rebooted']
+        files: ['.rebooted','src/app/**/*.html']
       }
     }
 
@@ -146,6 +166,7 @@ module.exports = function (grunt) {
     'clean:build',
     'jshint',
     'swig:dev',
+    'babel:dev',
     'sass:dev',
     'open:dev',
     'concurrent:devWatch'
