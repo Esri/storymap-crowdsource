@@ -4,7 +4,7 @@ var internals = {};
 
 internals.configSharingUrl = function() {
 
-  if (!app.indexCfg.sharingurl) {
+  if (!window.app.indexCfg.sharingurl) {
     // Determine if hosted or on a Portal
     let appLocation = document.location.pathname.indexOf('/apps/');
 
@@ -15,20 +15,20 @@ internals.configSharingUrl = function() {
     if (appLocation !== -1) {
 
       // Get the portal instance name
-      var instance = location.pathname.substr(0,appLocation);
+      var instance = location.pathname.substr(0, appLocation);
 
-      app.indexCfg.sharingurl = '//' + location.host + instance + '/sharing/content/items';
-      app.indexCfg.proxyurl = '//' + location.host + instance + '/sharing/proxy';
+      window.app.indexCfg.sharingurl = '//' + location.host + instance + '/sharing/content/items';
+      window.app.indexCfg.proxyurl = '//' + location.host + instance + '/sharing/proxy';
     } else {
-      app.indexCfg.sharingurl = app.cfg.DEFAULT_SHARING_URL;
+      window.app.indexCfg.sharingurl = window.app.cfg.DEFAULT_SHARING_URL;
     }
 
   }
 
-  if (app.indexCfg.sharingurl.match(/^http/)) {
-    arcgisUtils.arcgisUrl = app.indexCfg.sharingurl;
+  if (window.app.indexCfg.sharingurl.match(/^http/)) {
+    arcgisUtils.arcgisUrl = window.app.indexCfg.sharingurl;
   } else {
-    arcgisUtils.arcgisUrl = location.protocol + app.indexCfg.sharingurl;
+    arcgisUtils.arcgisUrl = location.protocol + window.app.indexCfg.sharingurl;
   }
 
 };

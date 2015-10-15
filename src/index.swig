@@ -2,7 +2,6 @@
 <html>
 <head>
 
-  <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
@@ -14,11 +13,14 @@
   <link type="image/ico" rel="shortcut icon" href="//resources.esri.com/favicon.ico">
   <link type="image/ico" rel="icon"  href="//resources.esri.com/favicon.ico">
 
+  <!-- htmlmin:ignore -->
   <!--
     To correctly reference your Story Maps Crowdsource App in search engine:
      - create and fill out extensively an ArcGIS Online item that link to your final application
-     - edit the following four tags as well as the title tag above on line 5
+     - edit the following six tags. For more information, see the following blog post:
+      (https://medium.com/@ssylviageo/grow-your-story-maps-audience-with-open-graph-tags-b7639cb65d5c)
   -->
+  <title></title>
   <meta name="description" content="">
 
   <!-- Social Sharing -->
@@ -44,12 +46,13 @@
 			authorizedOwners: [""]
 		};
 		// Optionally sharing and proxy URLs can be configured in app/config.js. This is only required
-		//  when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the application isn't deployed as /home/MapSeries/ or /apps/MapSeries/.
+		//   when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the application isn't deployed as /home/MapSeries/ or /apps/MapSeries/.
 		// Optionally Bing Maps key, Geometry and Geocode service's URLs can be configured in app/commonConfig.js. This is only required
-		//  if the Organization or Portal for ArcGIS instance default configuration has to be overwritten. If the application is deployed
-		//  on Portal for ArcGIS as /home/MapSeries/ or /apps/MapSeries/, that configuration is available in ../commonConfig.js
+		//   if the Organization or Portal for ArcGIS instance default configuration has to be overwritten. If the application is deployed
+		//   on Portal for ArcGIS as /home/MapSeries/ or /apps/MapSeries/, that configuration is available in ../commonConfig.js
 	</script>
-
+  
+  <!-- htmlmin:ignore -->
   <!--[if lt IE 9]>
   <script type="text/javascript">
     alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
@@ -60,7 +63,7 @@
 </head>
 <body>
 
-  <div id="app"></div><!--/app-->
+  <div id="app"></div>
 
   <script type="text/javascript">
     var app = {
@@ -68,7 +71,7 @@
       pathJSAPI: '//jsdev.arcgis.com/3.15/'
     };
   </script>
-  <script type="text/javascript" src="app/main-config.js"></script>
+  <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>
   {% if environment === 'dev' %}<script src="//localhost:35729/livereload.js"></script>{% endif %}
 
 </body>

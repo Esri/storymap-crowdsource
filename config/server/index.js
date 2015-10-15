@@ -1,3 +1,4 @@
+/*eslint-env node*/
 var Confidence = require('confidence');
 
 var internals = {};

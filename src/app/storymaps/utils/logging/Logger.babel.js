@@ -1,3 +1,4 @@
+/*eslint no-console: 0*/
 import $ from 'jquery';
 
 var internals = {};
@@ -9,17 +10,17 @@ export default internals.Logger = class Logger {
       source: 'Class Not Defined'
     };
 
-    $.extend(true,this,defaults,options);
+    $.extend(true, this, defaults, options);
   }
 
   logMessage(obj) {
     if (obj.type && internals.shouldLog(obj)) {
       switch (obj.type.toLowerCase()) {
         case 'error':
-          internals.logError(this.source,obj.error);
+          internals.logError.call(this, obj.error);
           break;
         case 'status':
-          internals.logStatus(this.source,obj.message);
+          internals.logStatus.call(this, obj.message);
           break;
       }
     }
@@ -28,22 +29,24 @@ export default internals.Logger = class Logger {
 };
 
 internals.shouldLog = function(obj) {
-  if (!obj.debugOnly || (obj.debugOnly && app.mode.isDebug)) {
+  if (!obj.debugOnly || (obj.debugOnly && window.app.mode.isDebug)) {
     return true;
   } else {
     return false;
   }
 };
 
-internals.logError = function(source,error) {
-  console.error('Error - ' + source + ': ',error);
+internals.logError = function(error) {
+  console.error('Error - ' + this.source + ': ', error);
 };
 
-internals.logStatus = function(source,message) {
-  console.log(source + ': ' + message);
+internals.logStatus = function(message) {
+  console.log(this.source + ': ' + message);
 };
 
-internals.onError = function(self,err) {
-  console.log('Logging Error',err);
-  self.emit('error',err);
+internals.onError = function(err) {
+  console.log('Logging Error', err);
+  if (this) {
+    this.emit('error', err);
+  }
 };

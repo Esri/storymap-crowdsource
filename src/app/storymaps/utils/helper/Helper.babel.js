@@ -14,7 +14,7 @@ export default internals.Helper = class Helper extends Evented {
 
     let defaults = {};
 
-    this._settings = $.extend(true,{},defaults,options);
+    this._settings = $.extend(true, {}, defaults, options);
   }
 
   init() {
@@ -25,31 +25,30 @@ export default internals.Helper = class Helper extends Evented {
       type: 'status',
       message: 'Loading'
     });
-    
+
     icons.init();
-    internals.onReady(this);
+    internals.onReady.call(this);
   }
 
 };
 
-internals.onReady = function(self) {
+internals.onReady = function() {
   internals.logger.logMessage({
     debugOnly: true,
     type: 'status',
     message: 'Ready'
   });
-  self.emit('load');
+  if (this.emit){
+    this.emit('load');
+  }
 };
 
-internals.onError = function(/*[self],error*/) {
-  let self = arguments.length === 2 ? arguments[0] : null;
-  let err = arguments.length === 2 ? arguments[1] : arguments[0];
-
+internals.onError = function(err) {
   internals.logger.logMessage({
     type: 'error',
     error: err
   });
-  if (self) {
-    self.emit('error',err);
+  if (this) {
+    this.emit('error', err);
   }
 };

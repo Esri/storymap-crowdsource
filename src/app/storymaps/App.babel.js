@@ -1,9 +1,11 @@
 import $ from 'jquery';
+import React from 'react'; // eslint-disable-line no-unused-vars
+import ReactDOM from 'reactDom';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisConfig from 'babel/utils/arcgis/Config';
 import Data from 'babel/core/data/Data';
 import Helper from 'babel/utils/helper/Helper';
-import Header from 'babel/ui/header/Header';
+import HeaderView from 'babel/ui/header/HeaderView';
 import MapView from 'babel/ui/map/MapView';
 import Evented from 'dojo/Evented';
 import domConstruct from 'dojo/dom-construct';
@@ -13,8 +15,8 @@ import domConstruct from 'dojo/dom-construct';
 import IdentityManager from 'esri/IdentityManager';
 import on from 'dojo/on';
 import cred from 'babel/core/testCredentials';
-on(IdentityManager, 'dialog-create', function() {
-  on(IdentityManager.dialog, 'show', function() {
+on(IdentityManager, 'dialog-create', () => {
+  on(IdentityManager.dialog, 'show', () => {
     IdentityManager.dialog.txtUser_.set('value', cred.user);
     IdentityManager.dialog.txtPwd_.set('value', cred.pw);
     IdentityManager.dialog.btnSubmit_.onClick();
@@ -34,11 +36,10 @@ export default internals.App = class App extends Evented {
       node: document.getElementById('app')
     };
 
-    this._settings = $.extend(true,{},defaults,options);
+    this._settings = $.extend(true, {}, defaults, options);
   }
 
   init() {
-    let self = this;
     let data = this._data = new Data();
     let helper = this._helper = new Helper();
 
@@ -54,10 +55,7 @@ export default internals.App = class App extends Evented {
     // Config ArcGIS Online
     ArcgisConfig.configSharingUrl();
 
-    data.on('load',function() {
-      internals.loadHeader(self);
-      internals.loadMap(self);
-    });
+    data.on('load', internals.createApp.bind(this));
 
     helper.init();
     data.init();
@@ -65,93 +63,91 @@ export default internals.App = class App extends Evented {
 
 };
 
-internals.loadHeader = function(self) {
-  let header = self._header = new Header({
-    data: self._data,
-    node: domConstruct.create('header',{class: 'header navbar'},self._settings.node)
-  });
+internals.createApp = function() {
+  let self = this;
 
-  header.on('load', function() {
-    self._appComponents.header.loaded = true;
-    internals.appReady(self);
-  });
-
-  header.init();
+  ReactDOM.render(<HeaderView test="foo" />, self._settings.node);
+  internals.loadMap.call(self);
 };
 
-internals.loadMap = function(self) {
+// internals.loadHeader = function(self) {
+//   ReactDOM.render(<HeaderView test="foo" />, self._settings.node);
+// };
+//
+internals.loadMap = function() {
 
-  let mapView = self._mapView = new MapView({
-    data: self._data,
-    node: domConstruct.create('div',{class: 'map-view'},self._settings.node)
+  let mapView = this._mapView = new MapView({
+    data: this._data,
+    node: domConstruct.create('div', {'class': 'map-view'}, this._settings.node)
   });
 
-  mapView.on('load', function() {
-    self._appComponents.mapView.loaded = true;
-    internals.appReady(self);
-  });
+  // mapView.on('load', function() {
+  //   self._appComponents.mapView.loaded = true;
+  //   internals.appReady(self);
+  // });
 
   mapView.init();
 
 };
 
-internals.appReady = function(self) {
+// internals.appReady = function(self) {
+//
+//   let ready = internals.checkReadyState(self._appComponents, 'loaded');
+//   let introReady = internals.checkReadyState(self._appComponents, 'loaded', 'introComponent');
+//
+//   if (!self._readyState.introLoaded && introReady) {
+//     self._readyState.introLoaded = true;
+//     internals.onIntroReady(self);
+//   }
+//
+//   if (!self._readyState.appLoaded && ready) {
+//     self._readyState.appLoaded = true;
+//     internals.onReady(self);
+//   }
+// };
+//
+// internals.checkReadyState = function(components, verifyKey, filterKey) {
+//
+//   var ready = true;
+//
+//   $.each(components, function() {
+//     if ((!filterKey || this[filterKey]) && !this[verifyKey]) {
+//       ready = false;
+//     }
+//   });
+//
+//   return ready;
+//
+// };
 
-  let ready = internals.checkReadyState(self._appComponents,'loaded');
-  let introReady = internals.checkReadyState(self._appComponents,'loaded','introComponent');
-
-  if (!self._readyState.introLoaded && introReady) {
-    self._readyState.introLoaded = true;
-    internals.onIntroReady(self);
-  }
-
-  if (!self._readyState.appLoaded && ready) {
-    self._readyState.appLoaded = true;
-    internals.onReady(self);
-  }
-};
-
-internals.checkReadyState = function(components,verifyKey,filterKey) {
-
-  var ready = true;
-
-  $.each(components,function() {
-    if ((!filterKey || this[filterKey]) && !this[verifyKey]) {
-      ready = false;
-    }
-  });
-
-  return ready;
-
-};
-
-internals.onIntroReady = function(self) {
+internals.onIntroReady = function() {
   internals.logger.logMessage({
     debugOnly: true,
     type: 'status',
     message: 'Intro Ready'
   });
-  self.emit('introReady');
+  if (this.emit){
+    this.emit('introReady');
+  }
 };
 
-internals.onReady = function(self) {
+internals.onReady = function() {
   internals.logger.logMessage({
     debugOnly: true,
     type: 'status',
     message: 'Ready'
   });
-  self.emit('load');
+  if (this.emit){
+    this.emit('load');
+  }
 };
 
-internals.onError = function(/*[self],error*/) {
-  let self = arguments.length === 2 ? arguments[0] : null;
-  let err = arguments.length === 2 ? arguments[1] : arguments[0];
-
+internals.onError = function(err) {
   internals.logger.logMessage({
     type: 'error',
     error: err
   });
-  if (self) {
-    self.emit('error',err);
+  if (this) {
+    this.emit('error', err);
   }
 };

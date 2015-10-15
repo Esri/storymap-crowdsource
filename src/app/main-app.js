@@ -1,10 +1,12 @@
-define.amd.jQuery = true;
+/*eslint prefer-arrow-callback: 0*/
+window.define.amd.jQuery = true;
 
 require([
   'babel/App'
-],function(
+], function(
   App
 ) {
+  'use strict';
 
   var internals = {
     app: new App()

@@ -1,4 +1,4 @@
-app.cfg = {
+window.app.cfg = {
 	defaults: {
 		appData: {
 			settings: {
@@ -10,13 +10,13 @@ app.cfg = {
 				},
 				globals: {
 					participateShort: 'Participate',
-	        participateLong: 'Share your experience',
-	        exploreText: 'Explore',
-	        social: {
+					participateLong: 'Share your experience',
+					exploreText: 'Explore',
+					social: {
 						facebook: true,
 						twitter: true,
-	          bitly: true
-	        }
+						bitly: true
+					}
 				}
 			}
 		}

@@ -18,7 +18,7 @@ export default internals.MapView = class MapView extends Evented {
       mapDiv: 'map'
     };
 
-    this._settings = $.extend(true,{},defaults,options);
+    this._settings = $.extend(true, {}, defaults, options);
   }
 
   init() {
@@ -27,44 +27,45 @@ export default internals.MapView = class MapView extends Evented {
       type: 'status',
       message: 'Loading'
     });
-    internals.createMap(this);
+    internals.createMap.call(this);
   }
 
 };
 
-internals.createMap = function(self) {
-  let mapDiv = self._settings.node || self._settings.mapDiv;
-  let webmap = self._settings.data.getWebmap();
-  let options = self._settings.data.getMapOptions();
-  let crowdsourceLayer = self._settings.data.getCrowdsourceLayer();
+internals.createMap = function() {
+  let self = this;
+  let mapDiv = this._settings.node || this._settings.mapDiv;
+  let webmap = this._settings.data.getWebmap();
+  let options = this._settings.data.getMapOptions();
+  let crowdsourceLayer = this._settings.data.getCrowdsourceLayer();
 
   if (webmap && options && crowdsourceLayer) {
-    arcgisUtils.createMap(webmap,mapDiv,options).then(function(response) {
+    arcgisUtils.createMap(webmap, mapDiv, options).then((response) => {
       let map = internals.map = response.map;
 
       if (map.loaded) {
         mapLoaded(map);
       } else {
-        map.on('load',function() {
+        map.on('load', () => {
           mapLoaded(map);
         });
       }
     });
   }
 
-  var mapLoaded = function(map) {
+  let mapLoaded = function(map) {
 
     if (crowdsourceLayer.id) {
       let originalLayer = map.getLayer(crowdsourceLayer.id);
       let url = originalLayer.url;
 
       originalLayer.hide();
-      addCluserLayer(map,url);
+      addCluserLayer(map, url);
     }
 
   };
 
-  var addCluserLayer = function(map,url) {
+  let addCluserLayer = function(map, url) {
 
     if (map && url) {
 
@@ -81,8 +82,8 @@ internals.createMap = function(self) {
       });
 
       // Map ready when cluster are first shown
-      on.once(clusterLayer,'clusters-shown',function() {
-        internals.onReady(self);
+      on.once(clusterLayer, 'clusters-shown', () => {
+        internals.onReady.call(self);
       });
 
       // Add cluster layer
@@ -93,26 +94,26 @@ internals.createMap = function(self) {
     }
 
   };
+
 };
 
-internals.onReady = function(self) {
+internals.onReady = function() {
   internals.logger.logMessage({
     debugOnly: true,
     type: 'status',
     message: 'Ready'
   });
-  self.emit('load');
+  if (this.emit){
+    this.emit('load');
+  }
 };
 
-internals.onError = function(/*[self],error*/) {
-  let self = arguments.length === 2 ? arguments[0] : null;
-  let err = arguments.length === 2 ? arguments[1] : arguments[0];
-
+internals.onError = function(err) {
   internals.logger.logMessage({
     type: 'error',
     error: err
   });
-  if (self) {
-    self.emit('error',err);
+  if (this) {
+    this.emit('error', err);
   }
 };

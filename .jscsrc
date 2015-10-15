@@ -54,5 +54,6 @@
   ],
   "safeContextKeyword": ["self"],
   "validateLineBreaks": "LF",
-  "validateQuoteMarks": "'"
+  "validateQuoteMarks": "'",
+  "esprima": "esprima-fb"
 }

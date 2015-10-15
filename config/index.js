@@ -1,3 +1,4 @@
+/*eslint-env node*/
 var Hoek = require('hoek');
 var Server = require('./server');
 var Pkg = require('../package.json');
@@ -23,6 +24,10 @@ module.exports = internals.Config = function(options) {
   this.environment = settings.mode;
   this.server = Server.get('/',{mode: settings.mode});
   this.pkg = Pkg;
+  this.pathMods = {
+    resourcePath: settings.mode === 'dev' ? 'build/' : '',
+    minPath: settings.mode === 'dev' ? '' : '.min'
+  };
   this.versionStr = envString + Pkg.version + dateStr;
 
 };
