@@ -51,7 +51,7 @@
 		//   if the Organization or Portal for ArcGIS instance default configuration has to be overwritten. If the application is deployed
 		//   on Portal for ArcGIS as /home/MapSeries/ or /apps/MapSeries/, that configuration is available in ../commonConfig.js
 	</script>
-  
+
   <!-- htmlmin:ignore -->
   <!--[if lt IE 9]>
   <script type="text/javascript">
@@ -61,9 +61,73 @@
   <![endif]-->
 
 </head>
-<body>
+<body class="claro">
+  <!-- htmlmin:ignore -->
+  <style>
+    /* CUSTOM CSS RULES */
+  </style>
+  <!-- htmlmin:ignore -->
 
   <div id="app"></div>
+
+  <!-- Loading -->
+	<style>
+
+		#loadingOverlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1100;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: #E5E5E5;
+			-webkit-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
+			-moz-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
+			box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
+		}
+
+		@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+		@-moz-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+		@-webkit-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+		@-ms-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+		@-o-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+		@keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+		@-moz-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+		@-webkit-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+		@-ms-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+		@-o-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+
+		#loadingOverlay.fadeOut {
+			-webkit-animation: fadeout 1.1s;
+			-moz-animation: fadeout 1.1s;
+			-ms-animation: fadeout 1.1s;
+			-o-animation: fadeout 1.1s;
+			animation: fadeout 1.1s;
+			-webkit-animation-fill-mode:forwards;
+			-moz-animation-fill-mode:forwards;
+			animation-fill-mode:forwards;
+		}
+
+		#loadingIndicator {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			z-index: 1101;
+		}
+
+		.loadingIndicator {
+			margin-left: -17px;
+			margin-top: -20px;
+		}
+	</style>
+
+	<div id="loadingOverlay">
+  	<div id="loadingIndicator" class="loadingIndicator">
+  		<img src="resources/images/loader-light.gif" />
+  	</div>
+  </div>
 
   <script type="text/javascript">
     var app = {

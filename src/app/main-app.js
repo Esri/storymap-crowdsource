@@ -2,15 +2,27 @@
 window.define.amd.jQuery = true;
 
 require([
-  'babel/App'
+  //----------------------------------------------
+  // Development - TODO to be removed for release
+  //----------------------------------------------
+  'babel/testCredentials',
+  //----------------------------------------------
+  'react',
+  'reactDom',
+  'babel/utils/arcgis/Arcgis',
+  'babel/components/crowdsource/CrowdsourceApp'
 ], function(
-  App
+  //----------------------------------------------
+  // Development - TODO to be removed for release
+  //----------------------------------------------
+  testCredentials, /*eslint no-unused-vars: 0*/
+  //----------------------------------------------
+  React,
+  ReactDOM,
+  Arcgis,
+  CrowdsourceApp
 ) {
   'use strict';
-
-  var internals = {
-    app: new App()
-  };
-
-  internals.app.init();
+  Arcgis.getAppItem();
+  ReactDOM.render(React.createElement(CrowdsourceApp), document.getElementById('app'));
 });

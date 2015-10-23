@@ -23,6 +23,10 @@
     "jquery": "~2.1.4",
     "react": "https://facebook.github.io/react/downloads/react-0.14.0.zip",
     "use-amd": "~0.4.0",
-    "text": "~2.0.14"
+    "text": "~2.0.14",
+    "flux": "~2.1.1",
+    "eventEmitter": "~4.3.0",
+    "immutable": "~3.7.5",
+    "chroma-js": "~1.1.1"
   }
 }

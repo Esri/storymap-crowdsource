@@ -1,13 +1,11 @@
 (function() {
 
-  var internals = {
-    isProduction: window.app.version.search('dev') < 0 ? true : false,
-    head: document.getElementsByTagName('head')[0]
-  };
+  const _isProduction = window.app.version.search('dev') < 0 ? true : false;
+  const head = document.getElementsByTagName('head')[0];
 
-  internals.configUrlString = function(url, isExternal) {
+  const _configUrlString = function configUrlString(url, isExternal) {
 
-    var newUrl;
+    let newUrl;
 
     if (isExternal) {
       newUrl = document.location.protocol === 'file:' ? 'http:' + url : url;
@@ -19,33 +17,33 @@
 
   };
 
-  internals.loadCSS = function(url, isExternal) {
+  const _loadCSS = function loadCSS(url, isExternal) {
 
-    var el = window.document.createElement('link');
+    const el = window.document.createElement('link');
 
     el.setAttribute('rel', 'stylesheet');
     el.setAttribute('type', 'text/css');
-    el.setAttribute('href', internals.configUrlString(url, isExternal));
+    el.setAttribute('href', _configUrlString(url, isExternal));
     window.document.getElementsByTagName('head')[0].appendChild(el);
 
   };
 
-  internals.loadJS = function(url, isExternal) {
-    window.document.write('<script language="javascript" type="text/javascript" src="' + internals.configUrlString(url, isExternal) + '"><\/script>');
+  const _loadJS = function loadJS(url, isExternal) {
+    window.document.write('<script language="javascript" type="text/javascript" src="' + _configUrlString(url, isExternal) + '"><\/script>');
   };
 
-  internals.getUrlVar = function(name) {
+  const _getUrlVar = function getUrlVar(name) {
 
-    var vars = [];
-    var hash;
+    let hash;
+    const vars = [];
 
     if (window.location.href.indexOf('?') === -1) {
       return null;
     }
 
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    const hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 
-    for (var i = 0; i < hashes.length; i++) {
+    for (let i = 0; i < hashes.length; i++) {
       hash = hashes[i].split('=');
       hash[0] = hash[0].split('#')[0];
       vars.push(hash[0]);
@@ -56,9 +54,9 @@
 
   };
 
-  internals.defineDojoConfig = function() {
+  const _defineDojoConfig = function defineDojoConfig() {
 
-    var path1 = location.pathname.replace(/\/[^/]+$/, '/');
+    const path1 = location.pathname.replace(/\/[^/]+$/, '/');
 
     window.dojoConfig = {
       parseOnLoad: true,
@@ -67,7 +65,7 @@
       useDeferredInstrumentation: true,
       paths: {
         storymaps: path1 + 'app/storymaps',
-        babel: path1 + 'build/app/storymaps',
+        babel: path1 + 'build/app',
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',
         react: path1 + 'lib/react/build/react',
@@ -82,49 +80,45 @@
   window.app.indexCfg = window.configOptions;
 
   window.app.mode = {
-    isProduction: internals.isProduction,
-    isBuilder: internals.getUrlVar('edit') || internals.getUrlVar('fromScratch') || internals.getUrlVar('fromscratch'),
-    isDebug: internals.getUrlVar('debug')
+    isProduction: _isProduction,
+    isBuilder: _getUrlVar('edit') || _getUrlVar('fromScratch') || _getUrlVar('fromscratch'),
+    isDebug: _getUrlVar('debug')
   };
 
   // Load ArcGIS API for JavaScript
-  internals.defineDojoConfig();
-  internals.loadCSS(window.app.pathJSAPI + 'esri/css/esri.css', true);
-  internals.loadCSS(window.app.pathJSAPI + 'dijit/themes/claro/claro.css', true);
-  internals.loadJS(window.app.pathJSAPI + 'init.js', true);
+  _defineDojoConfig();
+  _loadCSS(window.app.pathJSAPI + 'esri/css/esri.css', true);
+  _loadCSS(window.app.pathJSAPI + 'dijit/themes/claro/claro.css', true);
+  _loadJS(window.app.pathJSAPI + 'init.js', true);
 
-  var pathMods = {
-    amdDir: internals.isProduction ? '' : '/storymaps',
-    minPath: internals.isProduction ? '.min' : '',
-    resourcePath: internals.isProduction ? '' : 'build/'
+  const pathMods = {
+    mainCss: _isProduction ? '/main-app' : '/components/crowdsource/CrowdsourceApp',
+    minPath: _isProduction ? '.min' : '',
+    resourcePath: _isProduction ? '' : 'build/'
   };
 
   // Load Bootstrap
-  internals.loadCSS('app' + pathMods.amdDir + '/calcite-bootstrap/calcite-bootstrap' + pathMods.minPath + '.css');
+  _loadCSS('app/themes/calcite-bootstrap/calcite-bootstrap' + pathMods.minPath + '.css');
 
   // Load App Specific Files
-  internals.loadCSS(pathMods.resourcePath + 'app' + pathMods.amdDir + '/App' + pathMods.minPath + '.css');
-  internals.loadJS(pathMods.resourcePath + 'app/config' + pathMods.minPath + '.js');
-  if (internals.isProduction){
-    internals.loadJS('app/App.min.js');
-  } else {
-    internals.loadJS('app/main-app.js');
-  }
+  _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + pathMods.minPath + '.css');
+  _loadJS(pathMods.resourcePath + 'app/config' + pathMods.minPath + '.js');
+  _loadJS('app/main-app' + pathMods.minPath + '.js');
 
   // Enable Google Analytics on storymaps.esri.com
-  if (internals.isProduction && window.location.href.toLowerCase().indexOf('storymaps.esri.com') >= 0) {
-    var _gaq = _gaq || [];
+  if (_isProduction && window.location.href.toLowerCase().indexOf('storymaps.esri.com') >= 0) {
+    const _gaq = _gaq || [];
 
     _gaq.push(['_setAccount', 'UA-26529417-1']);
     _gaq.push(['_trackPageview']);
 
     (function() {
-      var ga = document.createElement('script');
+      const ga = document.createElement('script');
 
       ga.type = 'text/javascript'; ga.async = true;
 
       ga.src = (document.location.protocol === 'https:' ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0];
+      const s = document.getElementsByTagName('script')[0];
 
       s.parentNode.insertBefore(ga, s);
     })();

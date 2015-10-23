@@ -15,6 +15,8 @@ module.exports = function (grunt) {
 
   // Add loader for Grunt plugins
   require('matchdep').filterDev([ 'grunt-*' ]).forEach(grunt.loadNpmTasks);
+  // Write temp file so grunt does not fail to read
+  grunt.file.write('build/app/themes/default.css','DEFAULT_THEME_CSS_APPENDED_HERE');
 
   // Project configuration.
   grunt.initConfig({
@@ -32,7 +34,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'src/',
-          src: ['app/storymaps/**/*.babel.js'],
+          src: ['app/**/*.babel.js','!app/config.babel.js','!app/commonConfig.babel.js','!app/main-config.babel.js'],
           dest: 'build/',
           ext: '.js'
         }]
@@ -85,8 +87,12 @@ module.exports = function (grunt) {
         + 'https://github.com/Esri/crowdsource-storytelling-template-js */'
 			},
 			viewerJS: {
-				src: ['dist/app/App.min.js'],
-				dest: 'dist/app/App.min.js'
+				src: ['dist/app/main-app.min.js'],
+				dest: 'dist/app/main-app.min.js'
+			},
+      viewerCSS: {
+				src: ['dist/app/main-app.min.css'],
+				dest: 'dist/app/main-app.min.css'
 			}
     },
 
@@ -101,9 +107,9 @@ module.exports = function (grunt) {
       calciteIcons: {
         files: [ {
           expand: true,
-          cwd: 'src/app/storymaps/',
+          cwd: 'src/app/themes/',
           src: [ 'calcite-bootstrap/fonts/' ],
-          dest: 'dist/app/'
+          dest: 'dist/app/themes'
         } ]
       },
       resources: {
@@ -119,7 +125,7 @@ module.exports = function (grunt) {
     cssmin: {
       calcite: {
         files: {
-          'dist/app/calcite-bootstrap/calcite-bootstrap.min.css': ['src/app/storymaps/calcite-bootstrap/calcite-bootstrap.css']
+          'dist/app/themes/calcite-bootstrap/calcite-bootstrap.min.css': ['src/app/themes/calcite-bootstrap/calcite-bootstrap.css']
         }
       }
     },
@@ -161,7 +167,7 @@ module.exports = function (grunt) {
               console.log('restart');
               setTimeout(function () {
 
-                require('fs').writeFileSync('.rebooted', 'rebooted');
+                grunt.file.write('.rebooted', 'rebooted');
 
               }, 1000);
 
@@ -202,6 +208,19 @@ module.exports = function (grunt) {
 						flags: 'g'
           }
         ]
+      },
+      defaultTheme: {
+        src: ['build/app/config.js'],
+        actions: [
+          {
+            name: 'Add Default CSS String',
+						search: 'DEFAULT_THEME_CSS_APPENDED_HERE',
+						replace: function() {
+              return grunt.file.read('build/app/themes/default.css').trim();
+            },
+						flags: 'g'
+          }
+        ]
       }
     },
 
@@ -215,7 +234,7 @@ module.exports = function (grunt) {
           dijit: 'empty:',
           dojox: 'empty:',
           storymaps: 'app/storymaps',
-          babel: '../build/app/storymaps',
+          babel: '../build/app',
           lib: 'lib',
           jquery: 'lib/jquery/dist/jquery',
           react: 'lib/react/build/react',
@@ -230,25 +249,42 @@ module.exports = function (grunt) {
       viewerJS: {
         options: {
           name: '../config/requireBuilds/viewerJS',
-          out: 'dist/app/App.min.js'
+          out: 'dist/app/main-app.min.js'
         }
       }
     },
 
     sass: {
       dev: {
+        options: {
+          includePaths: ['src/app/components/']
+        },
         files: {
-          'build/app/storymaps/App.css': 'src/app/storymaps/App.scss'
+          'build/app/components/crowdsource/CrowdsourceApp.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
         }
       },
       dist: {
         options: {
+          includePaths: ['src/app/components/'],
           outputStyle: 'compressed',
           sourceMap: false
         },
         files: {
-          'dist/app/App.min.css': 'src/app/storymaps/App.scss'
+          'dist/app/main-app.min.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
         }
+      },
+      themes: {
+        options: {
+          outputStyle: 'compressed',
+          sourceMap: false
+        },
+        files: [ {
+          expand: true,
+          cwd: 'src/',
+          src: [ 'app/themes/**/*.scss' ],
+          dest: 'build/',
+          ext: '.css'
+        } ]
       }
     },
 
@@ -294,15 +330,19 @@ module.exports = function (grunt) {
       },
       babel: {
         files: [ 'src/app/**/*.babel.js' ],
-        tasks: [ 'babel' ]
+        tasks: [ 'babel','sass:themes','regex-replace:defaultTheme' ]
       },
       eslint: {
         files: [ 'src/app/**/*.js' ],
         tasks: [ 'eslint' ]
       },
       sass: {
-        files: [ 'src/app/**/*.scss' ],
+        files: [ 'src/app/components/**/*.scss'],
         tasks: [ 'sass:dev' ]
+      },
+      themes: {
+        files: [ 'src/app/themes/**/*.scss' ],
+        tasks: [ 'babel','sass:themes','regex-replace:defaultTheme' ]
       },
       swig: {
         files: [ 'src/*.swig' ],
@@ -321,6 +361,8 @@ module.exports = function (grunt) {
     'clean:build',
     'swig:dev',
     'babel',
+    'sass:themes',
+    'regex-replace:defaultTheme',
     'sass:dev',
     'open:dev',
     'concurrent:devWatch'
@@ -337,9 +379,12 @@ module.exports = function (grunt) {
     'regex-replace:distHtml',
     'sass:dist',
     'babel',
+    'sass:themes',
+    'regex-replace:defaultTheme',
     'requirejs',
     'uglify',
-    'concat:viewerJS'
+    'concat:viewerJS',
+    'concat:viewerCSS'
   ]);
 
   grunt.registerTask('test', [

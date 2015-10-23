@@ -1,0 +1,32 @@
+$headerHeight: 50px;
+
+.header {
+  height: $headerHeight;
+
+  img.logo{
+    height: $headerHeight - 20px;
+    margin: 10px 15px;
+  }
+
+  .title {
+    margin: 0 15px;
+    line-height: $headerHeight;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .secondary-content{
+    line-height: $headerHeight;
+  }
+
+  .participate{
+    font-size: 1.5em;
+
+    svg {
+      height: 3em;
+      width: 3em;
+    }
+  }
+
+}

@@ -1,0 +1,21 @@
+.header {
+  background-color: #3e3d3e;
+  color: #fff;
+
+  .share{
+    color: #aaa;
+
+    &:hover{
+      color: #fff;
+    }
+  }
+
+  .participate{
+    color: #4d8fbb;
+
+    &:hover{
+      color: #75c3d8;
+    }
+  }
+
+}

@@ -1,23 +1,26 @@
 window.app.cfg = {
 	defaults: {
 		appData: {
-			settings: {
-				header: {
-					logo: {
-						url: 'resources/images/logo/esri-logo.svg',
-						link: 'http://www.esri.com/'
+			values: {
+				settings: {
+					header: {
+						logo: {
+							source: 'resources/images/logo/esri-logo-reversed.svg',
+							link: 'http://www.esri.com/'
+						}
+					},
+					globals: {
+						participateShort: 'Participate',
+						participateLong: 'Share your experience',
+						exploreText: 'Explore',
+						social: {
+							facebook: true,
+							twitter: true,
+							bitly: true
+						}
 					}
 				},
-				globals: {
-					participateShort: 'Participate',
-					participateLong: 'Share your experience',
-					exploreText: 'Explore',
-					social: {
-						facebook: true,
-						twitter: true,
-						bitly: true
-					}
-				}
+				theme: 'DEFAULT_THEME_CSS_APPENDED_HERE'
 			}
 		}
 	},

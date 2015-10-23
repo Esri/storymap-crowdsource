@@ -15,7 +15,7 @@
 - `grunt build`
 
 ### Browswer Support
-- IE10+
+- IE9+
 - Chrome
 - Safari
 - Firefox
