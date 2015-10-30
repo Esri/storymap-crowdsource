@@ -4,13 +4,13 @@ import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
 
 export const ArcgisActions = {
 
-  receiveAppItem: function(arg) {
+  receiveAppItem: function(options) {
 
     const defaults = {
       item: false,
       itemData: false
     };
-    const response = $.extend(true, {}, defaults, arg);
+    const response = $.extend(true, {}, defaults, options);
 
     AppDispatcher.dispatch({
       type: ActionTypes.arcgis.RECEIVE_APP_ITEM,

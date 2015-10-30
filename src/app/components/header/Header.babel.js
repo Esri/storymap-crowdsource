@@ -1,7 +1,7 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
-import ShareButtonPane from 'babel/components/sharing/ShareButtonPane';
+import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
 
 export const Header = class Header extends React.Component {
 

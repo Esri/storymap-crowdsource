@@ -7,22 +7,21 @@ export const Webmap = class Webmap extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this._MapController = WebmapController;
   }
 
   componentDidMount() {
     const mapDiv = ReactDOM.findDOMNode(this);
+    const MapController = this._MapController;
 
-    this._webmapController = new WebmapController({
+    this.mapController = new MapController({
       node: mapDiv
     });
   }
 
   componentDidUpdate() {
-    const options = {
-      webmap: this.props.webmap
-    };
-
-    this._webmapController.createMap(options);
+    this.mapController.createMap(this.props.controllerOptions);
   }
 
   render() {
@@ -40,12 +39,18 @@ export const Webmap = class Webmap extends React.Component {
 
 Webmap.propTypes = {
   className: React.PropTypes.string,
-  webmap: React.PropTypes.string
+  controllerOptions: React.PropTypes.shape({
+    webmap: React.PropTypes.string,
+    mapOptions: React.PropTypes.shape()
+  })
 };
 
 Webmap.defaultProps = {
   className: '',
-  webmap: ''
+  controllerOptions: {
+    webmap: '',
+    mapOptions: {}
+  }
 };
 
 export default Webmap;

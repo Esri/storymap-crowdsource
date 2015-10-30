@@ -4,7 +4,12 @@ const arcgis = keyMirror({
   RECEIVE_APP_ITEM: null
 },'lower-dashed');
 
+const map = keyMirror({
+  RECEIVE_FEATURES: null
+},'lower-dashed');
+
 export const ActionTypes = {
-  arcgis
+  arcgis,
+  map
 };
 export default ActionTypes;

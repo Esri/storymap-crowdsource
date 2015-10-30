@@ -1,8 +1,8 @@
-import EventEmitter from 'lib/eventEmitter/EventEmitter';
+import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 
 const CHANGE_EVENT = 'change';
 
-export const Store = class Store extends EventEmitter {
+export const Store = class Store extends EventsEmitter {
 
   constructor() {
     super();

@@ -237,6 +237,7 @@ module.exports = function (grunt) {
           babel: '../build/app',
           lib: 'lib',
           jquery: 'lib/jquery/dist/jquery',
+          velocity: 'lib/velocity/velocity',
           react: 'lib/react/build/react',
           reactDom: 'lib/react/build/react-dom',
           // AMD Loader plugins

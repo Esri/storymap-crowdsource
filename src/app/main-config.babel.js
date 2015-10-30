@@ -1,7 +1,6 @@
 (function() {
 
   const _isProduction = window.app.version.search('dev') < 0 ? true : false;
-  const head = document.getElementsByTagName('head')[0];
 
   const _configUrlString = function configUrlString(url, isExternal) {
 
@@ -68,6 +67,7 @@
         babel: path1 + 'build/app',
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',
+        velocity: path1 + 'lib/velocity/velocity',
         react: path1 + 'lib/react/build/react',
         reactDom: path1 + 'lib/react/build/react-dom',
         // AMD Loading plugins

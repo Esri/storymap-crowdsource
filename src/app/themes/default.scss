@@ -1,6 +1,10 @@
+html, body{
+  background: #000;
+  color: #fff;
+}
+
 .header {
   background-color: #3e3d3e;
-  color: #fff;
 
   .share{
     color: #aaa;
@@ -18,4 +22,8 @@
     }
   }
 
+}
+
+.pane-navigation{
+  background-color: #6e6e6e;
 }

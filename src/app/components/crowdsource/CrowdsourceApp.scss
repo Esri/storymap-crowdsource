@@ -1,5 +1,9 @@
 // Crowdsource Base
 @import "styles/base/Base";
 
+// Crowdsource layout
+@import "styles/layouts/Scroll";
+
 // UI Components
 @import "header/Header";
+@import "gallery/ThumbnailGallery";

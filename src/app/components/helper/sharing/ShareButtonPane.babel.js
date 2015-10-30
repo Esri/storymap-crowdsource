@@ -1,5 +1,6 @@
 import React from 'react';
-import ShareButton from 'babel/components/sharing/ShareButton';
+import Helper from 'babel/utils/helper/Helper';
+import ShareButton from 'babel/components/helper/sharing/ShareButton';
 
 export const ShareButtonPane = class ShareButtonPane extends React.Component {
 
@@ -9,12 +10,15 @@ export const ShareButtonPane = class ShareButtonPane extends React.Component {
 
   render() {
 
+    const shareClass = Helper.classnames([this.props.className, {
+      'sharing-buttons': true
+    }]);
     const facebookBtn = this.props.social.facebook ? <ShareButton type="facebook" /> : null;
     const twitterBtn = this.props.social.twitter ? <ShareButton type="twitter" /> : null;
     const bitlyBtn = this.props.social.bitly ? <ShareButton type="bitly" /> : null;
 
     return (
-      <span className="sharing-buttons">
+      <span className={shareClass}>
         {facebookBtn}{twitterBtn}{bitlyBtn}
       </span>
     );

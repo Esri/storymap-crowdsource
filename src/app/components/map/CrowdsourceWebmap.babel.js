@@ -1,51 +1,37 @@
 import React from 'react';
-import ReactDOM from 'reactDom';
-import Helper from 'babel/utils/helper/Helper';
+import Webmap from 'babel/components/map/Webmap';
 import CrowdsourceWebmapController from 'babel/components/map/CrowdsourceWebmapController';
 
-export const Webmap = class Webmap extends React.Component {
+export const CrowdsourceWebmap = class CrowdsourceWebmap extends Webmap {
 
   constructor(props) {
     super(props);
-  }
 
-  componentDidMount() {
-    const mapDiv = ReactDOM.findDOMNode(this);
-
-    this._webmapController = new CrowdsourceWebmapController({
-      node: mapDiv
-    });
-  }
-
-  componentDidUpdate() {
-    const options = {
-      webmap: this.props.webmap
-    };
-
-    this._webmapController.createMap(options);
-  }
-
-  render() {
-
-    const mapClass = Helper.classnames([this.props.className, {
-      'map-pane': true
-    }]);
-
-    return (
-      <div className={mapClass}></div>
-    );
+    this._MapController = CrowdsourceWebmapController;
   }
 
 };
 
 Webmap.propTypes = {
   className: React.PropTypes.string,
-  webmap: React.PropTypes.string
+  controllerOptions: React.PropTypes.shape({
+    webmap: React.PropTypes.string,
+    mapOptions: React.PropTypes.shape(),
+    crowdsourceLayer: React.PropTypes.shape({
+      id: React.PropTypes.string
+    })
+  })
 };
 
 Webmap.defaultProps = {
   className: '',
-  webmap: ''
+  controllerOptions: {
+    webmap: '',
+    mapOptions: {},
+    crowdsourceLayer: {
+      id: ''
+    }
+  }
 };
 
-export default Webmap;
+export default CrowdsourceWebmap;

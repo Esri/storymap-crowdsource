@@ -9,6 +9,12 @@ window.app.cfg = {
 							link: 'http://www.esri.com/'
 						}
 					},
+					map: {
+						crowdsourceLayer: {
+							thumbnail: 'thumbnail'
+						},
+						mapOptions: {}
+					},
 					globals: {
 						participateShort: 'Participate',
 						participateLong: 'Share your experience',
@@ -20,7 +26,10 @@ window.app.cfg = {
 						}
 					}
 				},
-				theme: 'DEFAULT_THEME_CSS_APPENDED_HERE'
+				layout: {
+					className: 'scroll',
+					theme: 'DEFAULT_THEME_CSS_APPENDED_HERE'
+				}
 			}
 		}
 	},

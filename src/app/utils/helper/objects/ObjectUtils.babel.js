@@ -42,7 +42,15 @@ export const clean = function clean(obj,deleteEmptyKeys) {
   return obj;
 };
 
+export const getDescendentProperty = function getDescendentProperty(obj, str) {
+  // Get Object Properties Using Dot Notation String
+  return str.split('.').reduce((o, x) => {
+    return o[x];
+  }, obj);
+};
+
 export default {
-  clean: clean,
-  KeyMirror: KeyMirror
+  clean,
+  getDescendentProperty,
+  KeyMirror
 };
