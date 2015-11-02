@@ -31,10 +31,10 @@ export const Header = class Header extends React.Component {
           <h4 className="title region-center">{this.props.title}</h4>
         </div>
         <div className="secondary-content region-right">
-          <button className="participate text-btn">
-            <span dangerouslySetInnerHTML={participateIconHtml}></span>
-            {this.props.participateText}
-          </button>
+          <span className="participate">
+            <span className="icon" dangerouslySetInnerHTML={participateIconHtml}></span>
+            <span className="text">{this.props.participateText}</span>
+          </span>
           <ShareButtonPane social={this.props.social} />
         </div>
       </header>

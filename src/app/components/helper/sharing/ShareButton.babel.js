@@ -11,7 +11,8 @@ export const ShareButton = class ShareButton extends React.Component {
   render() {
 
     const shareClass = Helper.classnames([this.props.className, this.props.type, {
-      share: true
+      'share': true,
+      'share-btn': true
     }]);
     const icon = getIcon(this.props.type);
     const iconHtml = {

@@ -58,12 +58,14 @@
     const path1 = location.pathname.replace(/\/[^/]+$/, '/');
 
     window.dojoConfig = {
+      isBuiderMode: window.app.mode.isBuider,
       parseOnLoad: true,
       isDebug: false,
       async: true,
       useDeferredInstrumentation: true,
       paths: {
         storymaps: path1 + 'app/storymaps',
+        translations: path1 + 'resources/translations',
         babel: path1 + 'build/app',
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',

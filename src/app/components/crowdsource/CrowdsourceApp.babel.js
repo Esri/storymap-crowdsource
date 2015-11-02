@@ -1,3 +1,5 @@
+import $ from 'jquery';
+import 'velocity';
 import React from 'react';
 import AppDataStore from 'babel/stores/AppDataStore';
 import FeatureStore from 'babel/stores/FeatureStore';
@@ -5,6 +7,20 @@ import Helper from 'babel/utils/helper/Helper';
 import Header from 'babel/components/header/Header';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
+import viewerText from 'dojo/i18n!translations/viewer/nls/template';
+
+// Translated Text Strings
+const CHANGE_VIEW_TO_GALLERY = viewerText.themeSpecific.scroll.changeView.galleryView;
+const CHANGE_VIEW_TO_MAP = viewerText.themeSpecific.scroll.changeView.mapView;
+
+// Icons
+const downArrowHtml = {
+  __html: getIcon('arrow-down-open')
+};
+const upArrowHtml = {
+  __html: getIcon('arrow-up-open')
+};
 
 const _getCrowdsourceState = function getCrowdsourceState() {
   const appData = AppDataStore.getAppData();
@@ -66,13 +82,19 @@ export default class CrowdsourceApp extends React.Component {
         <style>{layout.theme}</style>
         <Header className="region-top" {...headerProps}/>
         <div className="region-center main-content">
-          <div className="content-pane">
+          <div className="content-pane map-view">
             <CrowdsourceWebmap className="region-center" {...webmapProps}/>
-            <div className="region-bottom pane-navigation"></div>
+          <div className="region-bottom pane-navigation" onClick={this.changeView.bind(this,'gallery')}>
+              <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
+              <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+            </div>
           </div>
-          <div className="content-pane">
-            <div className="region-top pane-navigation"></div>
-          <ThumbnailGallery className="region-center" {...galleryProps}/>
+          <div className="content-pane gallery-view">
+            <div className="region-top pane-navigation" onClick={this.changeView.bind(this,'map')}>
+              <span className="text">{CHANGE_VIEW_TO_MAP}</span>
+              <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
+            </div>
+            <ThumbnailGallery className="region-center" {...galleryProps}/>
           </div>
         </div>
       </div>
@@ -81,5 +103,25 @@ export default class CrowdsourceApp extends React.Component {
 
   onChange() {
     this.setState(_getCrowdsourceState());
+  }
+
+  changeView(view) {
+    const duration = 800;
+    const easing = 'easeInOutQuart';
+    let el;
+
+    switch (view) {
+      case 'gallery':
+        el = $('.content-pane.gallery-view');
+        break;
+      default:
+        el = $('.content-pane.map-view');
+    }
+
+    el.velocity('scroll',{
+      container: $('.main-content'),
+      duration,
+      easing
+    });
   }
 }

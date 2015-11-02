@@ -1,8 +1,7 @@
 .scroll{
 
   .main-content {
-    // TODO Make hidden
-    overflow: auto;
+    overflow: hidden;
   }
 
   .content-pane {
@@ -12,7 +11,17 @@
   }
 
   .pane-navigation {
-    height: 50px;
+    padding: 4px 0 0;
+    text-align: center;
+    cursor: pointer;
+
+    .icon {
+      margin-left: 10px;
+      height: 2em;
+      width: 2em;
+      transform: translateY(-2px);
+      -ms-transform: translateY(-2px);
+    }
   }
 
 }

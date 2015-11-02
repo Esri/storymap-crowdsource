@@ -77,44 +77,36 @@
 
 @-webkit-keyframes blurIn {
   0% {
-    -webkit-filter: blur(10px);
     opacity: 0
   }
   100% {
-    -webkit-filter: blur(0px);
     opacity: 1
   }
 }
 
 @-moz-keyframes blurIn {
   0% {
-    -webkit-filter: blur(10px);
     opacity: 0
   }
   100% {
-    -webkit-filter: blur(0px);
     opacity: 1
   }
 }
 
 @-o-keyframes blurIn {
   0% {
-    -webkit-filter: blur(10px);
     opacity: 0
   }
   100% {
-    -webkit-filter: blur(0px);
     opacity: 1
   }
 }
 
 @keyframes blurIn {
   0% {
-    -webkit-filter: blur(10px);
     opacity: 0
   }
   100% {
-    -webkit-filter: blur(0px);
     opacity: 1
   }
 }

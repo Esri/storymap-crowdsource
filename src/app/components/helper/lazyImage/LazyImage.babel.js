@@ -103,7 +103,7 @@ LazyImage.defaultProps = {
     backgroundRepeat: 'none',
     backgroundSize: 'cover'
   },
-  threshold: -200
+  threshold: 200
 };
 
 export default LazyImage;

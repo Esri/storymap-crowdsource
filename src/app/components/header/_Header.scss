@@ -2,31 +2,54 @@ $headerHeight: 50px;
 
 .header {
   height: $headerHeight;
+  overflow: hidden;
 
   img.logo{
     height: $headerHeight - 20px;
-    margin: 10px 15px;
+    margin: 10px 30px 10px 10px;
   }
 
   .title {
-    margin: 0 15px;
-    line-height: $headerHeight;
+    display: inline;
+    line-height: $headerHeight - 2px;
+    margin: 0;
+    font-size: 1.3em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .secondary-content{
-    line-height: $headerHeight;
-  }
+    padding: 0 15px;
+    line-height: $headerHeight - 5px;
 
-  .participate{
-    font-size: 1.5em;
+    .participate {
+      position: relative;
+      cursor: pointer;
+      margin-right: 30px;
+      padding: 10px;
 
-    svg {
-      height: 3em;
-      width: 3em;
+      .text {
+        font-size: 1.5em;
+        vertical-align: middle;
+      }
+
+      .icon {
+        height: 2.5em;
+        width: 2.5em;
+      }
+
     }
+
+    .share {
+      padding: 10px 3px;
+
+      svg {
+        height: 1.2em;
+        width: 1.2em;
+      }
+    }
+
   }
 
 }

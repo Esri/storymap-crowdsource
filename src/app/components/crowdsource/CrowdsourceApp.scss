@@ -4,6 +4,9 @@
 // Crowdsource layout
 @import "styles/layouts/Scroll";
 
+// Helper Components
+@import "helper/sharing/ShareButtonPane";
+
 // UI Components
 @import "header/Header";
 @import "gallery/ThumbnailGallery";

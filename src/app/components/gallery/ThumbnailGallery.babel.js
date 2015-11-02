@@ -32,7 +32,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
               const photoUrl = this.props.thumbnailUrlPrepend + 'http://pipsum.com/300x300.jpg?' + (index % 20) +/*attr[this.props.thumbnailKey]*/ + this.props.thumbnailUrlAppend;
               const itemStyle = {
                 height: this.state.tileSettings.tileSize,
-                width: endTile ? this.state.tileSettings.tileSize : this.state.tileSettings.tileSize
+                width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
               };
 
               return (
