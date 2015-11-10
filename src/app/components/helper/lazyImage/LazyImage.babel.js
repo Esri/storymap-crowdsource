@@ -9,12 +9,6 @@ export const LazyImage = class LazyImage extends React.Component {
   constructor(props) {
     super(props);
 
-    (function($) {
-      $.fn.hasScrollBar = function hasScrollBar() {
-        return this.get(0).scrollHeight > this.height();
-      };
-    })(jQuery);
-
     this.onWindowScroll = this.onWindowScroll.bind(this);
 
     this.state = {

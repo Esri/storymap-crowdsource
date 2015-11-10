@@ -1,5 +1,11 @@
+// Bourbon Mixins
+@import "bourbon";
+
 // Crowdsource Base
 @import "styles/base/Base";
+@import "styles/base/Helper";
+@import "styles/base/Mixins";
+@import "styles/animations/Animations";
 
 // Crowdsource layout
 @import "styles/layouts/Scroll";
@@ -8,5 +14,6 @@
 @import "helper/sharing/ShareButtonPane";
 
 // UI Components
+@import "intro/IntroSplash";
 @import "header/Header";
 @import "gallery/ThumbnailGallery";

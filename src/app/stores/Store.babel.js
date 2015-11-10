@@ -1,6 +1,5 @@
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
-
-const CHANGE_EVENT = 'change';
+import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
 export const Store = class Store extends EventsEmitter {
 
@@ -9,15 +8,15 @@ export const Store = class Store extends EventsEmitter {
   }
 
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(Events.common.CHANGE, callback);
   }
 
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(Events.common.CHANGE, callback);
   }
 
   emitChange() {
-    this.emit(CHANGE_EVENT);
+    this.emit(Events.common.CHANGE);
   }
 
 };

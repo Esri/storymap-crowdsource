@@ -1,18 +1,22 @@
-import $ from 'jquery';
-import 'velocity';
 import React from 'react';
-import AppDataStore from 'babel/stores/AppDataStore';
-import FeatureStore from 'babel/stores/FeatureStore';
+import CrowdsourceAppController from 'babel/components/crowdsource/CrowdsourceAppController';
 import Helper from 'babel/utils/helper/Helper';
+import IntroSplash from 'babel/components/intro/IntroSplash';
 import Header from 'babel/components/header/Header';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
-import viewerText from 'dojo/i18n!translations/viewer/nls/template';
+import AppActions from 'babel/actions/AppActions';
+import {Components} from 'babel/constants/CrowdsourceAppConstants';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
-// Translated Text Strings
+// TRANSLATED TEXT STRINGS START
+// Layout
 const CHANGE_VIEW_TO_GALLERY = viewerText.themeSpecific.scroll.changeView.galleryView;
 const CHANGE_VIEW_TO_MAP = viewerText.themeSpecific.scroll.changeView.mapView;
+// Intro
+const OR_TEXT = viewerText.themeSpecific.scroll.intro.or;
+// TRANSLATED TEXT STRINGS END
 
 // Icons
 const downArrowHtml = {
@@ -22,43 +26,45 @@ const upArrowHtml = {
   __html: getIcon('arrow-up-open')
 };
 
-const _getCrowdsourceState = function getCrowdsourceState() {
-  const appData = AppDataStore.getAppData();
-  const features = FeatureStore.getFeatures();
-
-  return {
-    appData: appData.values,
-    features
-  };
-};
-
 export default class CrowdsourceApp extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
 
-    this.state = _getCrowdsourceState();
+    this._controller = new CrowdsourceAppController();
+    this._controller.on('state-change', (state) => {
+      this.setState(state);
+    });
+
+    this.state = this._controller.appState;
   }
 
   componentDidMount() {
-    Helper.layout.enableRegionLayout();
-    AppDataStore.addChangeListener(this.onChange);
-    FeatureStore.addChangeListener(this.onChange);
+    this._controller.mount();
   }
 
   componentWillUnmount() {
-    AppDataStore.removeChangeListener(this.onChange);
-    FeatureStore.removeChangeListener(this.onChange);
+    this._controller.unmount();
   }
 
   render() {
     const layout = this.state.appData.layout;
+    const introProps = {
+      title: this.state.appData.settings.intro.title,
+      subtitle: this.state.appData.settings.intro.subtitle,
+      background: this.state.appData.settings.intro.background,
+      exploreText: this.state.appData.settings.globals.exploreText,
+      seperatorText: OR_TEXT,
+      participateText: this.state.appData.settings.globals.participateLong,
+      loadingMessage: this.state.loadState.loadingMessage,
+      appLoaded: this.state.loadState.isReady
+    };
     const headerProps = {
       title: this.state.appData.settings.header.title,
       logo: this.state.appData.settings.header.logo,
       participateText: this.state.appData.settings.globals.participateShort,
-      social: this.state.appData.settings.globals.social
+      social: this.state.appData.settings.globals.social,
+      appLoaded: this.state.loadState.isReady
     };
     const galleryProps = {
       items: this.state.features,
@@ -69,7 +75,7 @@ export default class CrowdsourceApp extends React.Component {
       controllerOptions: {
         webmap: this.state.appData.settings.map.webmap,
         crowdsourceLayer: this.state.appData.settings.map.crowdsourceLayer,
-        mapOptions: this.state.appData.settings.map.mapOptions
+        webmapOptions: this.state.appData.settings.map.webmapOptions
       }
     };
 
@@ -80,17 +86,18 @@ export default class CrowdsourceApp extends React.Component {
     return (
       <div className={appClasses}>
         <style>{layout.theme}</style>
+        <IntroSplash {...introProps}/>
         <Header className="region-top" {...headerProps}/>
         <div className="region-center main-content">
           <div className="content-pane map-view">
             <CrowdsourceWebmap className="region-center" {...webmapProps}/>
-          <div className="region-bottom pane-navigation" onClick={this.changeView.bind(this,'gallery')}>
+          <div className="region-bottom pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
               <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
               <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
             </div>
           </div>
           <div className="content-pane gallery-view">
-            <div className="region-top pane-navigation" onClick={this.changeView.bind(this,'map')}>
+            <div className="region-top pane-navigation" onClick={AppActions.setView.bind(null,Components.names.MAP)}>
               <span className="text">{CHANGE_VIEW_TO_MAP}</span>
               <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
             </div>
@@ -101,27 +108,4 @@ export default class CrowdsourceApp extends React.Component {
     );
   }
 
-  onChange() {
-    this.setState(_getCrowdsourceState());
-  }
-
-  changeView(view) {
-    const duration = 800;
-    const easing = 'easeInOutQuart';
-    let el;
-
-    switch (view) {
-      case 'gallery':
-        el = $('.content-pane.gallery-view');
-        break;
-      default:
-        el = $('.content-pane.map-view');
-    }
-
-    el.velocity('scroll',{
-      container: $('.main-content'),
-      duration,
-      easing
-    });
-  }
 }

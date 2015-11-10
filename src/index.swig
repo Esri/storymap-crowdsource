@@ -78,8 +78,8 @@
 			top: 0;
 			left: 0;
 			z-index: 1100;
-			width: 100%;
-			height: 100%;
+			width: 100vw;
+			height: 100vh;
 			overflow: hidden;
 			background-color: #E5E5E5;
 			-webkit-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
@@ -112,21 +112,22 @@
 
 		#loadingIndicator {
 			position: fixed;
+      margin: -30px 0 0 -30px;
 			top: 50%;
 			left: 50%;
-			z-index: 1101;
+			z-index: 1102;
 		}
 
-		.loadingIndicator {
-			margin-left: -17px;
-			margin-top: -20px;
+    #loadingIndicator img {
+			height: 60px;
+      width: 60px;
 		}
 	</style>
 
 	<div id="loadingOverlay">
-  	<div id="loadingIndicator" class="loadingIndicator">
-  		<img src="resources/images/loader-light.gif" />
-  	</div>
+    <div id="loadingIndicator" class="loadingIndicator">
+      <img src="resources/images/loader-light.gif" />
+    </div>
   </div>
 
   <script type="text/javascript">

@@ -1,0 +1,28 @@
+// CSS PREFIX START
+@mixin css3-prefix-all($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+@mixin box-shadow($str) {
+  -webkit-box-shadow: #{$str};
+  box-shadow: #{$str};
+}
+
+// CSS PREFIX END
+
+// ANIMATIONS START
+@mixin fade($name, $startOpacity, $endOpacity) {
+  @include keyframes ($name) {
+    0% {
+      opacity: $startOpacity;
+    }
+    100% {
+      opacity: $endOpacity;
+    }
+  };
+}

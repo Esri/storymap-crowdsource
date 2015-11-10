@@ -1,10 +1,11 @@
 define({
-  root: ({
+  root: {
     loading: {
-      'long': 'Application is initializing'
+      initializing: 'Application is initializing',
+      map: 'Loading map'
     },
     social: {
-      buttons: {
+      buttonTitleAttr: {
         facebook: 'Share on Facebook',
         twitter: 'Share on Twitter',
         link: 'Get embed code or copy a short link'
@@ -15,8 +16,11 @@ define({
         changeView: {
           mapView: 'Map View',
           galleryView: 'Thumbnail View'
+        },
+        intro: {
+          or: 'Or'
         }
       }
     }
-  })
+  }
 });

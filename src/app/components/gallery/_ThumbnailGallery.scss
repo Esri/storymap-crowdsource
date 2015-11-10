@@ -49,64 +49,14 @@
       }
 
       .background-fill {
-        position: absolute;
-        bottom: 0;
-        height: 100%;
-        width: 100%;
         background-color: #000;
-        opacity: 0.7;
+        bottom: 0;
         z-index: 1;
       }
     }
 
-    .background-image.lazy-image {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      z-index: 0;
-
-      &.loaded {
-        -webkit-animation: blurIn 2s;
-        -moz-animation: blurIn 2s;
-        -o-animation: blurIn 2s;
-        animation: blurIn 2s;
-      }
+    .background-image.lazy-image.loaded {
+      @include animation(fadeIn 2s);
     }
-  }
-}
-
-@-webkit-keyframes blurIn {
-  0% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
-  }
-}
-
-@-moz-keyframes blurIn {
-  0% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
-  }
-}
-
-@-o-keyframes blurIn {
-  0% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
-  }
-}
-
-@keyframes blurIn {
-  0% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
   }
 }

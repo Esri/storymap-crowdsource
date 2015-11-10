@@ -15,11 +15,11 @@ export const ShareButtonPane = class ShareButtonPane extends React.Component {
     }]);
     const facebookBtn = this.props.social.facebook ? <ShareButton type="facebook" /> : null;
     const twitterBtn = this.props.social.twitter ? <ShareButton type="twitter" /> : null;
-    const bitlyBtn = this.props.social.bitly ? <ShareButton type="bitly" /> : null;
+    const linkBtn = this.props.social.link ? <ShareButton type="link" /> : null;
 
     return (
       <span className={shareClass}>
-        {facebookBtn}{twitterBtn}{bitlyBtn}
+        {facebookBtn}{twitterBtn}{linkBtn}
       </span>
     );
   }
@@ -29,7 +29,7 @@ ShareButtonPane.propTypes = {
   social: React.PropTypes.shape({
     facebook: React.PropTypes.bool,
     twitter: React.PropTypes.bool,
-    bitly: React.PropTypes.bool
+    link: React.PropTypes.bool
   })
 };
 
@@ -37,7 +37,7 @@ ShareButtonPane.defaultProps = {
   social: {
     facebook: false,
     twitter: false,
-    bitly: false
+    link: false
   }
 };
 

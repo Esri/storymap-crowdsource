@@ -4,6 +4,11 @@ $headerHeight: 50px;
   height: $headerHeight;
   overflow: hidden;
 
+  &.has-data {
+    @include animation(slideInHeader 1s);
+    z-index: 1102;
+  }
+
   img.logo{
     height: $headerHeight - 20px;
     margin: 10px 30px 10px 10px;
@@ -17,6 +22,7 @@ $headerHeight: 50px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 
   .secondary-content{
@@ -27,7 +33,15 @@ $headerHeight: 50px;
       position: relative;
       cursor: pointer;
       margin-right: 30px;
-      padding: 10px;
+
+      &.participate-btn-enter {
+        opacity: 0;
+      }
+
+      &.participate-btn-enter-active {
+        opacity: 1;
+        @include transition(opacity 1s);
+      }
 
       .text {
         font-size: 1.5em;
@@ -42,7 +56,7 @@ $headerHeight: 50px;
     }
 
     .share {
-      padding: 10px 3px;
+      padding: 0 3px;
 
       svg {
         height: 1.2em;
@@ -53,3 +67,12 @@ $headerHeight: 50px;
   }
 
 }
+
+@include keyframes(slideInHeader) {
+  0% {
+    top: -$headerHeight;
+  }
+  100% {
+    top: 0;
+  }
+};

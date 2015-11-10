@@ -1,3 +1,5 @@
+import jQuery from 'jquery';
+
 (function($) {
   // Check if element is scrollable
   $.fn.isScrollable = function() {

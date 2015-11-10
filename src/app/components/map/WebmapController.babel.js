@@ -46,7 +46,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
         this._map = null;
       }
 
-      arcgisUtils.createMap(this._settings.webmap, mapDiv, this._settings.mapOptions).then((response) => {
+      arcgisUtils.createMap(this._settings.webmap, mapDiv, this._settings.webmapOptions).then((response) => {
         this._map = response.map;
         this._map.webmapId = this._settings.webmap;
 

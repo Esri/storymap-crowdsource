@@ -1,9 +1,30 @@
 $paneNavigation: #6e6e6e;
 $actionText: #4d8fbb;
+$shadowColor: #fff;
 
 html, body{
   background: #000;
   color: #fff;
+}
+
+.splash {
+  color: #000;
+
+  .background-fill {
+    background-color: #E5E5E5;
+  }
+
+  .action-seperator {
+    text-shadow:
+      -1px -1px 50px $shadowColor,
+      1px -1px 50px $shadowColor,
+      -1px 1px 50px $shadowColor,
+      1px 1px 50px $shadowColor,
+      -1px -1px 10px $shadowColor,
+      1px -1px 10px $shadowColor,
+      -1px 1px 10px $shadowColor,
+      1px 1px 10px $shadowColor;
+  }
 }
 
 .header {

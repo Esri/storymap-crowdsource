@@ -221,6 +221,28 @@ module.exports = function (grunt) {
 						flags: 'g'
           }
         ]
+      },
+      i18nAlias: {
+        src: ['dist/app/main-config.min.js'],
+        actions: [
+          {
+            name: 'Remove i18n Alias',
+						search: 'i18n:"dojo/i18n"',
+						replace: '',
+						flags: 'g'
+          }
+        ]
+      },
+      i18nPlugin: {
+        src: ['dist/**/*.js'],
+        actions: [
+          {
+            name: 'Replace i18n! with dojo/i18n!',
+						search: 'i18n!',
+						replace: 'dojo/i18n!',
+						flags: 'g'
+          }
+        ]
       }
     },
 
@@ -233,17 +255,16 @@ module.exports = function (grunt) {
           esri: 'empty:',
           dijit: 'empty:',
           dojox: 'empty:',
-          storymaps: 'app/storymaps',
+          translations: 'empty:',
           babel: '../build/app',
           lib: 'lib',
           jquery: 'lib/jquery/dist/jquery',
           velocity: 'lib/velocity/velocity',
-          react: 'lib/react/build/react',
+          react: 'lib/react/build/react-with-addons',
           reactDom: 'lib/react/build/react-dom',
-          // AMD Loader plugins
-          text: 'lib/text/text'
+          // AMD Plugins
+          i18n: 'lib/i18n/i18n'
         },
-        stubModules: ['text'],
         inlineText: true,
 				separateCSS: true
       },
@@ -256,17 +277,16 @@ module.exports = function (grunt) {
     },
 
     sass: {
+      options: {
+        includePaths: ['src/app/components/','src/lib/bourbon/app/assets/stylesheets']
+      },
       dev: {
-        options: {
-          includePaths: ['src/app/components/']
-        },
         files: {
           'build/app/components/crowdsource/CrowdsourceApp.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
         }
       },
       dist: {
         options: {
-          includePaths: ['src/app/components/'],
           outputStyle: 'compressed',
           sourceMap: false
         },
@@ -385,7 +405,9 @@ module.exports = function (grunt) {
     'requirejs',
     'uglify',
     'concat:viewerJS',
-    'concat:viewerCSS'
+    'concat:viewerCSS',
+    'regex-replace:i18nAlias',
+    'regex-replace:i18nPlugin'
   ]);
 
   grunt.registerTask('test', [

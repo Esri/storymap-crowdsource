@@ -1,33 +1,44 @@
 import $ from 'jquery';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
+import Helper from 'babel/utils/helper/Helper';
 
 export const ThumbnailGalleryController = class ThumbnailGalleryController extends EventsEmitter {
 
   constructor(options) {
     super(options);
 
-    let defaults = {
+    this.onResize = this.onResize.bind(this);
+
+    const defaults = {
+      node: 'body',
       size: 200
     };
 
     this._settings = $.extend(true, {}, defaults, options);
 
-    $(window).resize(() => {
-      const tileSettings = this.getTileSettings();
-
-      this.emit('resize',tileSettings);
-    });
+    $(window).on('resize',this.onResize);
   }
 
-  getTileSettings() {
-    const docWidth = $('html,body').width();
-    const rowLength = Math.floor(docWidth / this._settings.size);
-    const tileSize = (docWidth / rowLength);
+  unmount() {
+    $(window).off('resize',this.onResize);
+  }
+
+  get tileSettings() {
+    const scrollbarWidth = Helper.layout.getScrollbarWidth();
+    const nodeWidth = $(this._settings.node).width() - scrollbarWidth;
+    const rowLength = Math.floor(nodeWidth / this._settings.size);
+    const tileSize = (nodeWidth / rowLength) || 200;
 
     return ({
       tilesPerRow: rowLength,
       tileSize
     });
+  }
+
+  onResize() {
+    const tileSettings = this.tileSettings;
+
+    this.emit('resize',tileSettings);
   }
 
 };

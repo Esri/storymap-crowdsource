@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import ThumbnailGalleryController from 'babel/components/gallery/ThumbnailGalleryController';
@@ -7,14 +8,27 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      tileSettings: {}
+    };
+  }
 
-    this._galleryController = new ThumbnailGalleryController();
-    this._galleryController.on('resize',(tileSettings) => {
+  componentDidMount() {
+    const node = 'body';//ReactDOM.findDOMNode(this);
+
+    this._controller = new ThumbnailGalleryController({
+      node
+    });
+    this._controller.on('resize',(tileSettings) => {
       this.setState({tileSettings: tileSettings});
     });
-    this.state = {
-      tileSettings: this._galleryController.getTileSettings()
-    };
+    this.setState({
+      tileSettings: this._controller.tileSettings
+    });
+  }
+
+  componentWillUnmount() {
+    this._controller.unmount();
   }
 
   render() {

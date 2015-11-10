@@ -43,14 +43,14 @@ const _AppDataStoreClass = class AppDataStoreClass extends Store {
     super();
   }
 
-  getOriginalItem() {
+  get originalItem() {
     return {
       item: _originialItem,
       itemData: _originialItemData
     };
   }
 
-  getAppData() {
+  get appData() {
     const current = _getCurrentAppData(true);
 
     if (current) {
@@ -84,8 +84,6 @@ AppDataStore.dispatchToken = AppDispatcher.register((payload) => {
       }
       AppDataStore.emitChange();
       break;
-    default:
-
   }
 
 });

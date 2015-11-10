@@ -63,17 +63,19 @@
       isDebug: false,
       async: true,
       useDeferredInstrumentation: true,
+      map: {
+        '*': {
+          i18n: 'dojo/i18n'
+        }
+      },
       paths: {
-        storymaps: path1 + 'app/storymaps',
         translations: path1 + 'resources/translations',
         babel: path1 + 'build/app',
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',
         velocity: path1 + 'lib/velocity/velocity',
-        react: path1 + 'lib/react/build/react',
-        reactDom: path1 + 'lib/react/build/react-dom',
-        // AMD Loading plugins
-        text: path1 + 'lib/text/text'
+        react: path1 + 'lib/react/build/react-with-addons',
+        reactDom: path1 + 'lib/react/build/react-dom'
       }
     };
 

@@ -1,8 +1,3 @@
-// TODO remove once intro is done
-#loadingOverlay {
-  display: none;
-}
-
 html, body{
   overflow: hidden;
 }
@@ -16,6 +11,8 @@ html, body{
   height: 100%;
   width: 100%;
 
+
+  // REGION LAYOUT
   .region-left, .region-center, .region-top, .region-bottom{
     position: absolute;
     left: 0;
@@ -37,13 +34,40 @@ html, body{
   .region-top, .region-bottom {
     width: 100%;
   }
+  // REGION LAYOUT END
 
+  // BASE ICON STYLE
   svg.icon {
     display: inline-block;
     width: 1em;
     height: 1em;
     vertical-align: middle;
     fill: currentColor;
+  }
+
+  // STRECTCH BACKGROUND FILL CONTAINERS
+  .background-fill {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.7;
+    z-index: 0;
+  }
+
+  // AUTOMATICALLY STRECTCH BACKGROUND IMAGES
+  .background-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+
+  // BUTTONS
+  .text-btn {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
   }
 
 }

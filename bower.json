@@ -19,15 +19,15 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/12f5f1c951f2fef2dfb86e4e41d218c2c9182dd6.zip",
-    "jquery": "~2.1.4",
-    "react": "https://facebook.github.io/react/downloads/react-0.14.0.zip",
-    "use-amd": "~0.4.0",
-    "text": "~2.0.14",
-    "flux": "~2.1.1",
-    "eventEmitter": "~4.3.0",
-    "immutable": "~3.7.5",
     "chroma-js": "~1.1.1",
-    "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip"
+    "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/0510ee5268af27dacca08c789dc8f61d2152d77a.zip",
+    "eventEmitter": "~4.3.0",
+    "flux": "~2.1.1",
+    "i18n": "https://github.com/requirejs/i18n/archive/2.0.6.zip",
+    "immutable": "~3.7.5",
+    "jquery": "~2.1.4",
+    "react": "https://facebook.github.io/react/downloads/react-0.14.2.zip",
+    "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
+    "bourbon": "~4.2.6"
   }
 }

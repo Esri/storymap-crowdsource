@@ -1,7 +1,10 @@
+import $ from 'jquery';
 import Logger from 'babel/utils/logging/Logger';
 import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
 import MapActions from 'babel/actions/MapActions';
+import AppActions from 'babel/actions/AppActions';
+import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
 const _logger = new Logger({
   source: 'CrowdsourceWebmapController'
@@ -26,8 +29,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   onMapLoad() {
     _logStatus('Webmap ' + this._map.webmapId + ' is loaded',true);
-    // TODO Move to layer loaded
-    this.emit('load');
     this.createClusterLayer();
   }
 
@@ -41,20 +42,24 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
       if (url) {
         const clusterDefaults = {
           objectIdField,
+          disablePopup: true,
           distance: 100,
           id: 'crowdsourceClusters',
           labelColor: '#fff',
           resolution: map.extent.getWidth() / map.width,
-          url: url
+          url
         };
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
+
+        window.cl = clusterLayer;
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {
           if (!this.loaded) {
             this.loaded = true;
             this.emit('load');
+            AppActions.componentLoaded(Components.names.MAP);
           }
 
           // Get original features in current extent

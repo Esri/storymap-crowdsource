@@ -3,6 +3,7 @@ window.app.cfg = {
 		appData: {
 			values: {
 				settings: {
+					intro: {},
 					header: {
 						logo: {
 							source: 'resources/images/logo/esri-logo-reversed.svg',
@@ -13,16 +14,19 @@ window.app.cfg = {
 						crowdsourceLayer: {
 							thumbnail: 'thumbnail'
 						},
-						mapOptions: {}
+						webmapOptions: {
+							ignorePopups: true,
+							mapOptions: {}
+						}
 					},
 					globals: {
 						participateShort: 'Participate',
 						participateLong: 'Share your experience',
-						exploreText: 'Explore',
+						exploreText: 'Explore the map',
 						social: {
 							facebook: true,
 							twitter: true,
-							bitly: true
+							link: true
 						}
 					}
 				},

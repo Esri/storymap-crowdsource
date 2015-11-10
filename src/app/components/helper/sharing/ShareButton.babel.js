@@ -1,6 +1,9 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
+import viewerText from 'i18n!translations/viewer/nls/template';
+
+const titleAttrText = viewerText.social.buttonTitleAttr;
 
 export const ShareButton = class ShareButton extends React.Component {
 
@@ -12,7 +15,8 @@ export const ShareButton = class ShareButton extends React.Component {
 
     const shareClass = Helper.classnames([this.props.className, this.props.type, {
       'share': true,
-      'share-btn': true
+      'share-btn': true,
+      'text-btn': true
     }]);
     const icon = getIcon(this.props.type);
     const iconHtml = {
@@ -20,8 +24,12 @@ export const ShareButton = class ShareButton extends React.Component {
     };
 
     return (
-      <span className={shareClass} dangerouslySetInnerHTML={iconHtml}></span>
+      <button className={shareClass} dangerouslySetInnerHTML={iconHtml} title={titleAttrText[this.props.type]} onClick={this.onShare.bind(this,this.props.type)}></button>
     );
+  }
+
+  onShare(type) {
+    alert('TODO: share ' + type);
   }
 
 };
@@ -31,7 +39,7 @@ ShareButton.propTypes = {
 };
 
 ShareButton.defaultProps = {
-  type: 'bitly'
+  type: 'link'
 };
 
 export default ShareButton;
