@@ -27,7 +27,7 @@ export const ThumbnailGalleryController = class ThumbnailGalleryController exten
     const scrollbarWidth = Helper.layout.getScrollbarWidth();
     const nodeWidth = $(this._settings.node).width() - scrollbarWidth;
     const rowLength = Math.floor(nodeWidth / this._settings.size);
-    const tileSize = (nodeWidth / rowLength) || 200;
+    const tileSize = (nodeWidth / rowLength) || this._settings.size;
 
     return ({
       tilesPerRow: rowLength,

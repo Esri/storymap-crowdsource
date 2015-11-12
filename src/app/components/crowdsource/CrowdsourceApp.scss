@@ -1,14 +1,9 @@
-// Bourbon Mixins
-@import "bourbon";
+@import "styles/base/SharedImports";
 
 // Crowdsource Base
 @import "styles/base/Base";
 @import "styles/base/Helper";
-@import "styles/base/Mixins";
 @import "styles/animations/Animations";
-
-// Crowdsource layout
-@import "styles/layouts/Scroll";
 
 // Helper Components
 @import "helper/sharing/ShareButtonPane";
@@ -16,4 +11,9 @@
 // UI Components
 @import "intro/IntroSplash";
 @import "header/Header";
+@import "map/Map";
 @import "gallery/ThumbnailGallery";
+
+html,body,#app,.crowdsource-app {
+  overflow: hidden;
+}

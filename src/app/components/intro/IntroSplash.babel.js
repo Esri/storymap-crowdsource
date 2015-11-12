@@ -26,8 +26,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
   render() {
 
     const introClass = Helper.classnames([this.props.className, {
-      'splash': true,
-      'has-data': this.props.title.length > 0
+      splash: true
     }]);
 
     const loader = this.props.appLoaded ? null : (

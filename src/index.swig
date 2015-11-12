@@ -72,15 +72,15 @@
 
   <!-- Loading -->
 	<style>
+    html,body {
+      margin: 0;
+      padding: 0;
+    }
 
 		#loadingOverlay {
-			position: absolute;
-			top: 0;
-			left: 0;
 			z-index: 1100;
 			width: 100vw;
 			height: 100vh;
-			overflow: hidden;
 			background-color: #E5E5E5;
 			-webkit-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
 			-moz-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
@@ -93,22 +93,6 @@
 		@-ms-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 		@-o-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 
-		@keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
-		@-moz-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
-		@-webkit-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
-		@-ms-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
-		@-o-keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
-
-		#loadingOverlay.fadeOut {
-			-webkit-animation: fadeout 1.1s;
-			-moz-animation: fadeout 1.1s;
-			-ms-animation: fadeout 1.1s;
-			-o-animation: fadeout 1.1s;
-			animation: fadeout 1.1s;
-			-webkit-animation-fill-mode:forwards;
-			-moz-animation-fill-mode:forwards;
-			animation-fill-mode:forwards;
-		}
 
 		#loadingIndicator {
 			position: fixed;
@@ -116,6 +100,11 @@
 			top: 50%;
 			left: 50%;
 			z-index: 1102;
+      -webkit-animation: fadein 1.1s;
+      -moz-animation: fadein 1.1s;
+      -ms-animation: fadein 1.1s;
+      -o-animation: fadein 1.1s;
+      animation: fadein 1.1s;
 		}
 
     #loadingIndicator img {

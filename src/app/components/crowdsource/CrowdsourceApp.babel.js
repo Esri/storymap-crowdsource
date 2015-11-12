@@ -11,20 +11,9 @@ import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
 // TRANSLATED TEXT STRINGS START
-// Layout
-const CHANGE_VIEW_TO_GALLERY = viewerText.themeSpecific.scroll.changeView.galleryView;
-const CHANGE_VIEW_TO_MAP = viewerText.themeSpecific.scroll.changeView.mapView;
 // Intro
-const OR_TEXT = viewerText.themeSpecific.scroll.intro.or;
+const OR_TEXT = viewerText.intro.or;
 // TRANSLATED TEXT STRINGS END
-
-// Icons
-const downArrowHtml = {
-  __html: getIcon('arrow-down-open')
-};
-const upArrowHtml = {
-  __html: getIcon('arrow-up-open')
-};
 
 export default class CrowdsourceApp extends React.Component {
 
@@ -83,27 +72,60 @@ export default class CrowdsourceApp extends React.Component {
       'crowdsource-app': true
     }]);
 
+    const getLayoutConfiguration = function getLayoutConfiguration(layout) {
+      switch (layout) {
+        case 'sidePanel':
+          break;
+        default:
+          // SCROLL LAYOUT
+
+          // Translation Strings
+          const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.scroll.changeView.galleryView;
+          const CHANGE_VIEW_TO_MAP = viewerText.layouts.scroll.changeView.mapView;
+
+          // Icons
+          const downArrowHtml = {
+            __html: getIcon('arrow-down-open')
+          };
+          const upArrowHtml = {
+            __html: getIcon('arrow-up-open')
+          };
+
+          const scroll = (
+            <div className="main-content">
+              <div className="content-pane map-view">
+                <CrowdsourceWebmap {...webmapProps}/>
+                <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
+                  <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
+                  <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+                </div>
+              </div>
+              <div className="content-pane gallery-view">
+                <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.MAP)}>
+                  <span className="text">{CHANGE_VIEW_TO_MAP}</span>
+                  <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
+                </div>
+                <ThumbnailGallery {...galleryProps}/>
+              </div>
+            </div>
+          );
+
+          return scroll;
+      }
+    };
+
     return (
       <div className={appClasses}>
+        {/* THEME AND LAYOUT STYLES */}
+        <style>{layout.styles}</style>
         <style>{layout.theme}</style>
+
+        {/* COMMON VIEWER COMPONENTS */}
+        <Header {...headerProps}/>
         <IntroSplash {...introProps}/>
-        <Header className="region-top" {...headerProps}/>
-        <div className="region-center main-content">
-          <div className="content-pane map-view">
-            <CrowdsourceWebmap className="region-center" {...webmapProps}/>
-          <div className="region-bottom pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
-              <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
-              <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
-            </div>
-          </div>
-          <div className="content-pane gallery-view">
-            <div className="region-top pane-navigation" onClick={AppActions.setView.bind(null,Components.names.MAP)}>
-              <span className="text">{CHANGE_VIEW_TO_MAP}</span>
-              <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
-            </div>
-            <ThumbnailGallery className="region-center" {...galleryProps}/>
-          </div>
-        </div>
+
+        {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
+        {getLayoutConfiguration(layout.type)}
       </div>
     );
   }

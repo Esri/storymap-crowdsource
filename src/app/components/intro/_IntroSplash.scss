@@ -1,6 +1,5 @@
 .splash {
-  position: absolute;
-  top: 0;
+  position: relative;
   height: 100vh;
   width: 100vw;
   background-color: #E5E5E5;
@@ -39,7 +38,7 @@
   }
 
   .background-image.lazy-image.loaded {
-    @include animation(fadeIn 3s);
+    @include animation(fadeIn 1.5s);
   }
 
   .title-pane {
@@ -71,8 +70,8 @@
     position: absolute;
     bottom: 130px;
     text-align: center;
-    width: 40vw;
-    left: 30vw;
+    width: 80vw;
+    left: 10vw;
 
     &.wait-for-action-enter {
       opacity: 0;
@@ -95,6 +94,7 @@
 
     button {
       position: relative;
+      margin: 10px 0;
 
       &:hover .background-fill {
         opacity: 0.9;
@@ -108,37 +108,4 @@
       }
     }
   }
-
-  &.has-data {
-    .loadingIndicator {
-      top: calc(100% - 160px);
-      @include animation(moveLoadingIndicator 3s);
-    }
-
-    .title-pane {
-      opacity: 1;
-      @include animation(fadeInTitle 3s);
-    }
-  }
 }
-
-@include keyframes(moveLoadingIndicator) {
-  0% {
-    top: 50%;
-  }
-  100% {
-    top: calc(100% - 160px);
-  }
-};
-
-@include keyframes(fadeInTitle) {
-  0% {
-    opacity: 0;
-  }
-  66% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-};

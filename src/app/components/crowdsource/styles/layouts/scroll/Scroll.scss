@@ -1,0 +1,34 @@
+@import "crowdsource/styles/base/SharedImports";
+
+// Component Specifics
+@import "header/Header";
+@import "intro/IntroSplash";
+
+
+.main-content {
+  position: absolute;
+  top: $headerHeight;
+  height: calc(100vh - #{$headerHeight});
+  width: 100vw;
+  overflow: hidden;
+
+  .content-pane {
+    .map, .thumbnail-gallery {
+      height: calc(100% - 40px);
+    }
+
+    .pane-navigation {
+      display: table-cell;
+      vertical-align: middle;
+      height: 40px;
+      width: 100vw;
+      text-align: center;
+      cursor: pointer;
+
+      .text, .icon {
+        margin: 0 5px;
+      }
+    }
+  }
+
+}

@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import 'velocity';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
-import Helper from 'babel/utils/helper/Helper';
 import AppDataStore from 'babel/stores/AppDataStore';
 import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
@@ -75,7 +74,6 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   }
 
   mount() {
-    Helper.layout.enableRegionLayout();
     $(window).on('resize',this.updateAppView.bind(this,{duration: 0}));
     AppDataStore.addChangeListener(this.onStateChange);
     CrowdsourceAppStore.addLoadStateListener(this.onStateChange);

@@ -1,4 +1,6 @@
+import $ from 'jquery';
 import React from 'react';
+import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
@@ -11,17 +13,23 @@ export const Header = class Header extends React.Component {
 
   constructor(props) {
     super(props);
+    this.updateTitleWidth = this.updateTitleWidth.bind(this);
   }
 
   componentDidUpdate() {
-    Helper.layout.resetRegionLayout(true);
+    this.node = ReactDOM.findDOMNode(this);
+    this.updateTitleWidth();
+    $(window).on('resize',this.updateTitleWidth);
+  }
+
+  componentWillUnmount() {
+    $(window).off('resize',this.updateTitleWidth);
   }
 
   render() {
 
     const headerClass = Helper.classnames([this.props.className, {
-      'header': true,
-      'has-data': this.props.title.length > 0
+      header: true
     }]);
     const participateIconHtml = {
       __html: getIcon('participate')
@@ -35,24 +43,40 @@ export const Header = class Header extends React.Component {
 
     return (
       <header className={headerClass}>
-        <div className="primary-content region-center">
-          <a href={this.props.logo.link} className="logo-link region-left" target="_blank">
+        <div className="cell-wrapper">
+          <a href={this.props.logo.link} className="logo-link cell" target="_blank">
             <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
           </a>
-          <h4 className="title region-center" onClick={AppActions.setView.bind(null,Components.names.INTRO)}>{this.props.title}</h4>
+          <div className="cell fill-cell">
+            <h4 className="title" onClick={AppActions.setView.bind(null,Components.names.INTRO)}>{this.props.title}</h4>
+          </div>
+          <ReactCSSTransitionGroup
+            className="cell"
+            component="div"
+            transitionName="participate-btn"
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={1} >
+            {participateBtn}
+          </ReactCSSTransitionGroup>
+          <ShareButtonPane className="cell" social={this.props.social} />
         </div>
-        <ReactCSSTransitionGroup
-          className="secondary-content region-right"
-          component="div"
-          transitionName="participate-btn"
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={1} >
-          {participateBtn}
-          <ShareButtonPane social={this.props.social} />
-        </ReactCSSTransitionGroup>
       </header>
     );
 
+  }
+
+  updateTitleWidth() {
+    const node = $(this.node);
+    const fullWidth = node.outerWidth();
+    let siblingWidth = 0;
+
+    node.find('img').load(this.updateTitleWidth);
+
+    node.find('.cell').not('.fill-cell').each(function(){
+      siblingWidth += $(this).outerWidth();
+    });
+
+    node.find('.title').width(fullWidth - siblingWidth);
   }
 
   onParticipateClick() {

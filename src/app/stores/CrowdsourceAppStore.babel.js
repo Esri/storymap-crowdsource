@@ -1,9 +1,9 @@
-import AppStore from 'babel/stores/AppStore';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
+import AppStore from 'babel/stores/AppStore';
+import ViewerText from 'i18n!translations/viewer/nls/template';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
-import {Events} from 'babel/constants/CrowdsourceAppConstants';
-import viewerText from 'i18n!translations/viewer/nls/template';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
+import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
 let _features = [];
 let _viewState = {
@@ -25,23 +25,24 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
     return _features;
   }
 
-  get viewState() {
-    return _viewState;
-  }
-
   get loadState() {
     const isReady = this.isReady;
     let loadingMessage;
 
     if (!this._loadedComponents.appData && !this._loadedComponents.map) {
-      loadingMessage = viewerText.loading.initializing;
+      loadingMessage = ViewerText.loading.initializing;
     } else {
-      loadingMessage = viewerText.loading.map;
+      loadingMessage = ViewerText.loading.map;
     }
 
     return {isReady,loadingMessage};
   }
 
+  get viewState() {
+    return _viewState;
+  }
+
+  // View State
   addViewStateListener(callback) {
     this.on(Events.appState.VIEW_STATE, callback);
   }
@@ -53,7 +54,6 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
   emitViewState() {
     this.emit(Events.appState.VIEW_STATE);
   }
-
 };
 
 export const CrowdsourceAppStore = new _CrowdsourceAppStoreClass();
@@ -82,7 +82,7 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       _viewState.current = payload.component;
       CrowdsourceAppStore.emitViewState();
       break;
-  }
+    }
 
 });
 

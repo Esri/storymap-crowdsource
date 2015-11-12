@@ -1,78 +1,76 @@
-$headerHeight: 50px;
-
 .header {
+  position: fixed;
   height: $headerHeight;
+  top: 0;
   overflow: hidden;
 
-  &.has-data {
-    @include animation(slideInHeader 1s);
-    z-index: 1102;
+  .cell-wrapper {
+    display: table;
+    height: 100%;
+    width: 100%;
+  }
+
+  .cell {
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &:first-child {
+      padding: 0 ($headerMargin * 3) 0 $headerMargin;
+    }
+
+    &:last-child {
+      padding: 0 $headerMargin 0;
+    }
+
+    &.fill-cell {
+      width: 100%;
+    }
   }
 
   img.logo{
-    height: $headerHeight - 20px;
-    margin: 10px 30px 10px 10px;
+    height: $headerHeight - ($headerMargin * 2);
   }
 
   .title {
-    display: inline;
-    line-height: $headerHeight - 2px;
     margin: 0;
     font-size: 1.3em;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
   }
 
-  .secondary-content{
-    padding: 0 15px;
-    line-height: $headerHeight - 5px;
+  .participate {
+    cursor: pointer;
+    margin: 0  ($headerMargin * 2) 0 ($headerMargin * 3);
 
-    .participate {
-      position: relative;
-      cursor: pointer;
-      margin-right: 30px;
-
-      &.participate-btn-enter {
-        opacity: 0;
-      }
-
-      &.participate-btn-enter-active {
-        opacity: 1;
-        @include transition(opacity 1s);
-      }
-
-      .text {
-        font-size: 1.5em;
-        vertical-align: middle;
-      }
-
-      .icon {
-        height: 2.5em;
-        width: 2.5em;
-      }
-
+    &.participate-btn-enter {
+      opacity: 0;
     }
 
-    .share {
-      padding: 0 3px;
-
-      svg {
-        height: 1.2em;
-        width: 1.2em;
-      }
+    &.participate-btn-enter-active {
+      opacity: 1;
+      @include transition(opacity 1s);
     }
 
+    .text {
+      font-size: 1.5em;
+      vertical-align: middle;
+    }
+
+    .icon {
+      height: 2.5em;
+      width: 2.5em;
+    }
+
+  }
+  .share {
+    padding: 0 5px;
+
+    svg {
+      height: 1.2em;
+      width: 1.2em;
+    }
   }
 
 }
-
-@include keyframes(slideInHeader) {
-  0% {
-    top: -$headerHeight;
-  }
-  100% {
-    top: 0;
-  }
-};

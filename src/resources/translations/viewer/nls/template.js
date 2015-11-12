@@ -4,6 +4,9 @@ define({
       initializing: 'Application is initializing',
       map: 'Loading map'
     },
+    intro: {
+      or: 'Or'
+    },
     social: {
       buttonTitleAttr: {
         facebook: 'Share on Facebook',
@@ -11,14 +14,11 @@ define({
         link: 'Get embed code or copy a short link'
       }
     },
-    themeSpecific: {
+    layouts: {
       scroll: {
         changeView: {
           mapView: 'Map View',
           galleryView: 'Thumbnail View'
-        },
-        intro: {
-          or: 'Or'
         }
       }
     }

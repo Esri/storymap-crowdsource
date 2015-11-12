@@ -31,7 +31,8 @@ window.app.cfg = {
 					}
 				},
 				layout: {
-					className: 'scroll',
+					type: 'scroll',
+					styles: 'SCROLL_LAYOUT_CSS_APPENDED_HERE',
 					theme: 'DEFAULT_THEME_CSS_APPENDED_HERE'
 				}
 			}

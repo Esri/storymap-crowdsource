@@ -27,7 +27,7 @@ export const Webmap = class Webmap extends React.Component {
   render() {
 
     const mapClass = Helper.classnames([this.props.className, {
-      'map-pane': true
+      map: true
     }]);
 
     return (

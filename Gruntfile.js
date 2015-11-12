@@ -209,11 +209,24 @@ module.exports = function (grunt) {
           }
         ]
       },
+      defaultLayout: {
+        src: ['build/app/config.js'],
+        actions: [
+          {
+            name: 'Add Scroll CSS Layout String',
+						search: 'SCROLL_LAYOUT_CSS_APPENDED_HERE',
+						replace: function() {
+              return grunt.file.read('build/app/layouts/scroll.css').trim();
+            },
+						flags: 'g'
+          }
+        ]
+      },
       defaultTheme: {
         src: ['build/app/config.js'],
         actions: [
           {
-            name: 'Add Default CSS String',
+            name: 'Add Default CSS Theme String',
 						search: 'DEFAULT_THEME_CSS_APPENDED_HERE',
 						replace: function() {
               return grunt.file.read('build/app/themes/default.css').trim();
@@ -278,7 +291,7 @@ module.exports = function (grunt) {
 
     sass: {
       options: {
-        includePaths: ['src/app/components/','src/lib/bourbon/app/assets/stylesheets']
+        includePaths: ['src/app/components','src/lib/bourbon/app/assets/stylesheets']
       },
       dev: {
         files: {
@@ -292,6 +305,16 @@ module.exports = function (grunt) {
         },
         files: {
           'dist/app/main-app.min.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
+        }
+      },
+      layouts: {
+        options: {
+          includePaths: ['src/app/components','src/lib/bourbon/app/assets/stylesheets'],
+          outputStyle: 'compressed',
+          sourceMap: false
+        },
+        files: {
+          'build/app/layouts/scroll.css': 'src/app/components/crowdsource/styles/layouts/scroll/Scroll.scss'
         }
       },
       themes: {
@@ -351,19 +374,23 @@ module.exports = function (grunt) {
       },
       babel: {
         files: [ 'src/app/**/*.babel.js' ],
-        tasks: [ 'babel','sass:themes','regex-replace:defaultTheme' ]
+        tasks: [ 'babel','sass:themes','sass:layouts','regex-replace:defaultLayout','regex-replace:defaultTheme' ]
       },
       eslint: {
         files: [ 'src/app/**/*.js' ],
         tasks: [ 'eslint' ]
       },
       sass: {
-        files: [ 'src/app/components/**/*.scss'],
+        files: [ 'src/app/components/**/*.scss','!src/app/components/crowdsource/styles/layouts/**/*.scss' ],
         tasks: [ 'sass:dev' ]
+      },
+      layouts: {
+        files: ['src/app/components/crowdsource/styles/layouts/**/*.scss'],
+        tasks: [ 'babel','sass:layouts','sass:themes','regex-replace:defaultLayout','regex-replace:defaultTheme' ]
       },
       themes: {
         files: [ 'src/app/themes/**/*.scss' ],
-        tasks: [ 'babel','sass:themes','regex-replace:defaultTheme' ]
+        tasks: [ 'babel','sass:themes','sass:layouts','regex-replace:defaultTheme','regex-replace:defaultLayout' ]
       },
       swig: {
         files: [ 'src/*.swig' ],
@@ -383,7 +410,9 @@ module.exports = function (grunt) {
     'swig:dev',
     'babel',
     'sass:themes',
+    'sass:layouts',
     'regex-replace:defaultTheme',
+    'regex-replace:defaultLayout',
     'sass:dev',
     'open:dev',
     'concurrent:devWatch'
@@ -401,7 +430,9 @@ module.exports = function (grunt) {
     'sass:dist',
     'babel',
     'sass:themes',
+    'sass:layouts',
     'regex-replace:defaultTheme',
+    'regex-replace:defaultLayout',
     'requirejs',
     'uglify',
     'concat:viewerJS',

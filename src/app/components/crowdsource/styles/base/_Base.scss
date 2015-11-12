@@ -1,40 +1,9 @@
-html, body{
-  overflow: hidden;
-}
+.crowdsource-app {
 
-#app{
-  height: 100vh;
-  width: 100vw;
-}
-
-.crowdsource-app{
-  height: 100%;
-  width: 100%;
-
-
-  // REGION LAYOUT
-  .region-left, .region-center, .region-top, .region-bottom{
-    position: absolute;
-    left: 0;
-  }
-
-  .region-right{
-    position: absolute;
-    right: 0;
-  }
-
-  .region-bottom{
-    bottom: 0;
-  }
-
-  .region-left, .region-right {
+  .content-pane {
     height: 100%;
-  }
-
-  .region-top, .region-bottom {
     width: 100%;
   }
-  // REGION LAYOUT END
 
   // BASE ICON STYLE
   svg.icon {

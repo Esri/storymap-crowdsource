@@ -1,0 +1,14 @@
+.header {
+  width: 100vw;
+  z-index: 1102;
+  @include animation(slideInHeader 1s);
+}
+
+@include keyframes(slideInHeader) {
+  0% {
+    top: -$headerHeight;
+  }
+  100% {
+    top: 0;
+  }
+};
