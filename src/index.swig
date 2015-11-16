@@ -87,24 +87,12 @@
 			box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
 		}
 
-		@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-		@-moz-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-		@-webkit-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-		@-ms-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-		@-o-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-
-
 		#loadingIndicator {
 			position: fixed;
       margin: -30px 0 0 -30px;
 			top: 50%;
 			left: 50%;
 			z-index: 1102;
-      -webkit-animation: fadein 1.1s;
-      -moz-animation: fadein 1.1s;
-      -ms-animation: fadein 1.1s;
-      -o-animation: fadein 1.1s;
-      animation: fadein 1.1s;
 		}
 
     #loadingIndicator img {

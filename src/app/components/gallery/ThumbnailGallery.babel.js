@@ -14,7 +14,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
   }
 
   componentDidMount() {
-    const node = 'body';//ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this);
 
     this._controller = new ThumbnailGalleryController({
       node
@@ -50,7 +50,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
               };
 
               return (
-                <li className="gallery-item" key={attr[this.props.idKey]} style={itemStyle} data-thumbnail={photoUrl}>
+                <li className="gallery-item" key={attr[this.props.idKey]} style={itemStyle} data-object-id={attr[this.props.idKey]} data-thumbnail={photoUrl}>
                   <LazyImage className="background-image" src={photoUrl}></LazyImage>
                   <div className="info-card">
                     <h6>{attr[this.props.titleKey]}</h6>
