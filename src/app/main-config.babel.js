@@ -75,7 +75,9 @@
         jquery: path1 + 'lib/jquery/dist/jquery',
         velocity: path1 + 'lib/velocity/velocity',
         react: path1 + 'lib/react/build/react-with-addons',
-        reactDom: path1 + 'lib/react/build/react-dom'
+        reactDom: path1 + 'lib/react/build/react-dom',
+        // AMD Plugins
+        mode: path1 + 'build/app/utils/amd/plugins/AppMode'
       }
     };
 
@@ -96,6 +98,7 @@
   _loadJS(window.app.pathJSAPI + 'init.js', true);
 
   const pathMods = {
+    builderPath: window.app.mode.isBuilder ? '-builder' : '',
     mainCss: _isProduction ? '/main-app' : '/components/crowdsource/CrowdsourceApp',
     minPath: _isProduction ? '.min' : '',
     resourcePath: _isProduction ? '' : 'build/'
@@ -107,7 +110,7 @@
   // Load App Specific Files
   _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + pathMods.minPath + '.css');
   _loadJS(pathMods.resourcePath + 'app/config' + pathMods.minPath + '.js');
-  _loadJS('app/main-app' + pathMods.minPath + '.js');
+  _loadJS('app/main-app' + pathMods.builderPath + pathMods.minPath + '.js');
 
   // Enable Google Analytics on storymaps.esri.com
   if (_isProduction && window.location.href.toLowerCase().indexOf('storymaps.esri.com') >= 0) {

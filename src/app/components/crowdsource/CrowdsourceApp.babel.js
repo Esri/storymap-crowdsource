@@ -1,6 +1,7 @@
 import React from 'react';
 import CrowdsourceAppController from 'babel/components/crowdsource/CrowdsourceAppController';
 import Helper from 'babel/utils/helper/Helper';
+import BuilderBanner from 'mode!isBuilder?babel/components/builder/banner/Banner';
 import IntroSplash from 'babel/components/intro/IntroSplash';
 import Header from 'babel/components/header/Header';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
@@ -72,6 +73,8 @@ export default class CrowdsourceApp extends React.Component {
       'crowdsource-app': true
     }]);
 
+    const builderBanner = BuilderBanner ? <BuilderBanner /> : null;
+
     const getLayoutConfiguration = function getLayoutConfiguration(layout) {
       switch (layout) {
         case 'sidePanel':
@@ -119,6 +122,9 @@ export default class CrowdsourceApp extends React.Component {
         {/* THEME AND LAYOUT STYLES */}
         <style>{layout.styles}</style>
         <style>{layout.theme}</style>
+
+        {/* BUILDER BANNER */}
+        {builderBanner}
 
         {/* COMMON VIEWER COMPONENTS */}
         <Header {...headerProps}/>

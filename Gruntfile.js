@@ -86,6 +86,10 @@ module.exports = function (grunt) {
         + 'This application is released under the Apache License V2.0 by Esri http://www.esri.com/ - '
         + 'https://github.com/Esri/crowdsource-storytelling-template-js */'
 			},
+      builderJS: {
+				src: ['dist/app/main-app-builder.min.js'],
+				dest: 'dist/app/main-app-builder.min.js'
+			},
 			viewerJS: {
 				src: ['dist/app/main-app.min.js'],
 				dest: 'dist/app/main-app.min.js'
@@ -276,15 +280,26 @@ module.exports = function (grunt) {
           react: 'lib/react/build/react-with-addons',
           reactDom: 'lib/react/build/react-dom',
           // AMD Plugins
+          mode: '../build/app/utils/amd/plugins/AppMode',
           i18n: 'lib/i18n/i18n'
         },
         inlineText: true,
-				separateCSS: true
+				separateCSS: true,
+				preserveLicenseComments: false
       },
       viewerJS: {
         options: {
           name: '../config/requireBuilds/viewerJS',
           out: 'dist/app/main-app.min.js'
+        }
+      },
+      builderJS: {
+        options: {
+          config: {
+            mode: 'isBuilder'
+          },
+          name: '../config/requireBuilds/viewerJS',
+          out: 'dist/app/main-app-builder.min.js'
         }
       }
     },
