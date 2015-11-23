@@ -1,0 +1,19 @@
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $primary-font-sanserif, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+.serif-face {
+  font-family: $primary-font-serif, Georgia, serif;
+}
+
+blockquote {
+  font-family: $primary-font-serif, Georgia, serif;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $primary-font-monospace, 'Consolas', 'Andale Mono', 'Lucida Console', 'Monaco', 'Courier New', Courier, monospace;
+}

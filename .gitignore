@@ -19,6 +19,9 @@ build/
 # Distibution File
 dist/
 
+# Google Fonts
+src/resources/fonts/google/
+
 # FTP Settings
 sftp-config.json
 sftp-config-alt.json

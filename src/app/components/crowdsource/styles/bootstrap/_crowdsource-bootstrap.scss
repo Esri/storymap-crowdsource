@@ -1,0 +1,28 @@
+$bootstrap: '' !default;
+
+@if $bootstrap == 'calcite' {
+  // Add Calcite Colors
+  @import "calcite/colors-default";
+  // Set variable to change the primary typeface in the font stack
+  $primary-font-sanserif: '';
+  $primary-font-serif: '';
+  $primary-headings-weight: 300;
+  
+  @import "calcite/variables";
+  // Calcite Components
+  @import "calcite/forms-custom";
+  @import "calcite/navbar-custom";
+  @import "calcite/type-custom";
+}
+
+@if $bootstrap == 'calcite' or $bootstrap == 'default' {
+  // Base
+  @import "bootstrap/normalize";
+  @import "bootstrap/mixins";
+  @import "bootstrap/variables";
+
+  // Bootstrap Components
+  @import "bootstrap/forms";
+  @import "bootstrap/navbar";
+  @import "bootstrap/type";
+}

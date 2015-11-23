@@ -120,18 +120,18 @@ export default class CrowdsourceApp extends React.Component {
     return (
       <div className={appClasses}>
         {/* THEME AND LAYOUT STYLES */}
-        <style>{layout.styles}</style>
-        <style>{layout.theme}</style>
+        <style>{layout.font + layout.styles + layout.theme}</style>
 
         {/* BUILDER BANNER */}
         {builderBanner}
 
-        {/* COMMON VIEWER COMPONENTS */}
-        <Header {...headerProps}/>
-        <IntroSplash {...introProps}/>
-
-        {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
-        {getLayoutConfiguration(layout.type)}
+        <div className="viewer">
+          {/* COMMON VIEWER COMPONENTS */}
+          <Header {...headerProps}/>
+          <IntroSplash {...introProps}/>
+          {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
+          {getLayoutConfiguration(layout.type)}
+        </div>
       </div>
     );
   }

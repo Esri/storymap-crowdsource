@@ -2,6 +2,7 @@
 /*eslint no-console: 0*/
 /*eslint quote-props: [2, "as-needed"]*/
 /*eslint prefer-arrow-callback: 0*/
+var Path = require('path');
 var Config = require('./config/');
 
 module.exports = function (grunt) {
@@ -16,7 +17,7 @@ module.exports = function (grunt) {
   // Add loader for Grunt plugins
   require('matchdep').filterDev([ 'grunt-*' ]).forEach(grunt.loadNpmTasks);
   // Write temp file so grunt does not fail to read
-  grunt.file.write('build/app/themes/default.css','DEFAULT_THEME_CSS_APPENDED_HERE');
+  grunt.file.write('build/app/themes/scroll/default.css','DEFAULT_THEME_CSS_APPENDED_HERE');
 
   // Project configuration.
   grunt.initConfig({
@@ -75,7 +76,9 @@ module.exports = function (grunt) {
 
     clean: {
       dist: [ 'dist/' ],
-      build: [ 'build/' ]
+      build: [ 'build/' ],
+      fontsSrc: ['src/resources/fonts/google/'],
+      fontsDist: ['dist/resources/css','dist/resources/scss']
     },
 
     concat: {
@@ -95,8 +98,12 @@ module.exports = function (grunt) {
 				dest: 'dist/app/main-app.min.js'
 			},
       viewerCSS: {
-				src: ['dist/app/main-app.min.css'],
-				dest: 'dist/app/main-app.min.css'
+        files: [ {
+          expand: true,
+          cwd: 'dist/',
+          src: [ 'app/*.min.css' ],
+          dest: 'dist/'
+        } ]
 			}
     },
 
@@ -108,14 +115,6 @@ module.exports = function (grunt) {
     },
 
     copy: {
-      calciteIcons: {
-        files: [ {
-          expand: true,
-          cwd: 'src/app/themes/',
-          src: [ 'calcite-bootstrap/fonts/' ],
-          dest: 'dist/app/themes'
-        } ]
-      },
       resources: {
         files: [ {
           expand: true,
@@ -126,20 +125,14 @@ module.exports = function (grunt) {
       }
     },
 
-    cssmin: {
-      calcite: {
-        files: {
-          'dist/app/themes/calcite-bootstrap/calcite-bootstrap.min.css': ['src/app/themes/calcite-bootstrap/calcite-bootstrap.css']
-        }
-      }
-    },
-
     eslint: {
       options: {
           configFile: '.eslintrc'
       },
       target: ['src/app/**/*.js']
     },
+
+    googlefonts: configDev.fonts.getGoogleFontsConfig(),
 
     htmlmin: {
       dist: {
@@ -152,6 +145,14 @@ module.exports = function (grunt) {
         },
         files: {
           'dist/index.html': 'dist/index.html'
+        }
+      }
+    },
+
+    mkdir: {
+      googlefonts: {
+        options: {
+          create: ['src/resources/fonts/google/css']
         }
       }
     },
@@ -213,6 +214,19 @@ module.exports = function (grunt) {
           }
         ]
       },
+      defaultFonts: {
+        src: ['build/app/config.js'],
+        actions: [
+          {
+            name: 'Add Font CSS to default config',
+						search: 'DEFAULT_FONT_CSS_APPENDED_HERE',
+						replace: function() {
+              return grunt.file.read('build/resources/fonts/google/css/latoMerriweather.css').trim();
+            },
+						flags: 'g'
+          }
+        ]
+      },
       defaultLayout: {
         src: ['build/app/config.js'],
         actions: [
@@ -233,7 +247,7 @@ module.exports = function (grunt) {
             name: 'Add Default CSS Theme String',
 						search: 'DEFAULT_THEME_CSS_APPENDED_HERE',
 						replace: function() {
-              return grunt.file.read('build/app/themes/default.css').trim();
+              return grunt.file.read('build/app/themes/scroll/default.css').trim();
             },
 						flags: 'g'
           }
@@ -257,6 +271,17 @@ module.exports = function (grunt) {
             name: 'Replace i18n! with dojo/i18n!',
 						search: 'i18n!',
 						replace: 'dojo/i18n!',
+						flags: 'g'
+          }
+        ]
+      },
+      stylesheetQuotes: {
+        src: ['build/**/*.css'],
+        actions: [
+          {
+            name: 'Replace single quotes with double quotes',
+						search: '\'',
+						replace: '"',
 						flags: 'g'
           }
         ]
@@ -306,11 +331,19 @@ module.exports = function (grunt) {
 
     sass: {
       options: {
-        includePaths: ['src/app/components','src/lib/bourbon/app/assets/stylesheets']
+        includePaths: ['src/app/components/',
+        'src/lib/bourbon/app/assets/stylesheets/',
+        'src/lib/calcite-bootstrap/sass/',
+        'src/lib/bootstrap-sass/assets/stylesheets/']
       },
       dev: {
         files: {
-          'build/app/components/crowdsource/CrowdsourceApp.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
+          'build/app/components/crowdsource/CrowdsourceApp.css': 'src/app/components/crowdsource/CrowdsourceApp.scss',
+          'build/app/components/crowdsource/CrowdsourceApp-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-builder.scss',
+          'build/app/components/crowdsource/CrowdsourceApp-calcite.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite.scss',
+          'build/app/components/crowdsource/CrowdsourceApp-calcite-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite-builder.scss',
+          'build/app/components/crowdsource/CrowdsourceApp-bootstrap.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap.scss',
+          'build/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.scss'
         }
       },
       dist: {
@@ -319,8 +352,26 @@ module.exports = function (grunt) {
           sourceMap: false
         },
         files: {
-          'dist/app/main-app.min.css': 'src/app/components/crowdsource/CrowdsourceApp.scss'
+          'dist/app/main-app.min.css': 'src/app/components/crowdsource/CrowdsourceApp.scss',
+          'dist/app/main-app-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-builder.scss',
+          'dist/app/main-app-calcite.min.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite.scss',
+          'dist/app/main-app-calcite-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite-builder.scss',
+          'dist/app/main-app-bootstrap.min.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap.scss',
+          'dist/app/main-app-bootstrap-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.scss'
         }
+      },
+      fonts: {
+        options: {
+          outputStyle: 'compressed',
+          sourceMap: false
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/',
+          src: ['resources/fonts/google/css/*.scss'],
+          dest: 'build/',
+          ext: '.css'
+        }]
       },
       layouts: {
         options: {
@@ -337,13 +388,13 @@ module.exports = function (grunt) {
           outputStyle: 'compressed',
           sourceMap: false
         },
-        files: [ {
+        files: [{
           expand: true,
           cwd: 'src/',
           src: [ 'app/themes/**/*.scss' ],
           dest: 'build/',
           ext: '.css'
-        } ]
+        }]
       }
     },
 
@@ -389,7 +440,7 @@ module.exports = function (grunt) {
       },
       babel: {
         files: [ 'src/app/**/*.babel.js' ],
-        tasks: [ 'babel','sass:themes','sass:layouts','regex-replace:defaultLayout','regex-replace:defaultTheme' ]
+        tasks: ['babelAndAppend']
       },
       eslint: {
         files: [ 'src/app/**/*.js' ],
@@ -399,13 +450,17 @@ module.exports = function (grunt) {
         files: [ 'src/app/components/**/*.scss','!src/app/components/crowdsource/styles/layouts/**/*.scss' ],
         tasks: [ 'sass:dev' ]
       },
+      fonts: {
+        files: ['src/resources/fonts/google/**/*.scss'],
+        tasks: ['babelAndAppend']
+      },
       layouts: {
         files: ['src/app/components/crowdsource/styles/layouts/**/*.scss'],
-        tasks: [ 'babel','sass:layouts','sass:themes','regex-replace:defaultLayout','regex-replace:defaultTheme' ]
+        tasks: ['babelAndAppend']
       },
       themes: {
         files: [ 'src/app/themes/**/*.scss' ],
-        tasks: [ 'babel','sass:themes','sass:layouts','regex-replace:defaultTheme','regex-replace:defaultLayout' ]
+        tasks: ['babelAndAppend']
       },
       swig: {
         files: [ 'src/*.swig' ],
@@ -414,20 +469,37 @@ module.exports = function (grunt) {
       otherFiles: {
         files: ['.rebooted', 'src/app/**/*.html']
       }
+    },
+
+    concatFontStyle: {
+      files: [ 'src/resources/fonts/google/css/*.scss' ]
     }
 
+  });
+
+  grunt.registerMultiTask('concatFontStyle','Add default styles to google font stylesheets',function(){
+    var files = this.filesSrc;
+
+    files.map(function(file) {
+      var name = Path.basename(file,'.scss');
+
+      var styles = grunt.file.read(file).trim() + configDev.fonts.getSassVariables(name) + grunt.file.read('config/fonts/defaultStyle.scss').trim();
+
+      grunt.file.delete(file);
+      grunt.file.write(file,styles);
+    });
   });
 
   // Grunt tasks
   grunt.registerTask('default', [
     'eslint',
     'clean:build',
+    'clean:fontsSrc',
+    'mkdir:googlefonts',
+    'googlefonts',
+    'concatFontStyle',
     'swig:dev',
-    'babel',
-    'sass:themes',
-    'sass:layouts',
-    'regex-replace:defaultTheme',
-    'regex-replace:defaultLayout',
+    'babelAndAppend',
     'sass:dev',
     'open:dev',
     'concurrent:devWatch'
@@ -436,18 +508,16 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'eslint',
     'clean:dist',
-    'copy:calciteIcons',
+    'clean:fontsDist',
+    'mkdir:googlefonts',
+    'googlefonts',
+    'concatFontStyle',
     'copy:resources',
-    'cssmin:calcite',
     'swig:dist',
     'htmlmin:dist',
     'regex-replace:distHtml',
     'sass:dist',
-    'babel',
-    'sass:themes',
-    'sass:layouts',
-    'regex-replace:defaultTheme',
-    'regex-replace:defaultLayout',
+    'babelAndAppend',
     'requirejs',
     'uglify',
     'concat:viewerJS',
@@ -461,4 +531,14 @@ module.exports = function (grunt) {
     'browserSync:dist'
   ]);
 
+  grunt.registerTask('babelAndAppend', [
+    'babel',
+    'sass:layouts',
+    'sass:themes',
+    'sass:fonts',
+    'regex-replace:stylesheetQuotes',
+    'regex-replace:defaultLayout',
+    'regex-replace:defaultTheme',
+    'regex-replace:defaultFonts'
+  ]);
 };

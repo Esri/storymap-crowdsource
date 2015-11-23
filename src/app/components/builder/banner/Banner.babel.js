@@ -1,10 +1,20 @@
 import React from 'react';
+import Helper from 'babel/utils/helper/Helper';
 
 export const BuilderBanner = class BuilderBanner extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
 
+    const bannerClass = Helper.classnames([this.props.className,
+      ['nav','navbar']
+    ]);
+
     return (
-      <header className="nav navbar navbar-default">
+      <header className={bannerClass}>
 
       </header>
     );

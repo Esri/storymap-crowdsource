@@ -1,0 +1,25 @@
+@import "crowdsource/styles/base/SharedImports";
+
+// Crowdsource Base
+@import "crowdsource/styles/base/Base";
+@import "crowdsource/styles/base/Helper";
+@import "crowdsource/styles/animations/Animations";
+
+// Helper Components
+@import "helper/sharing/ShareButtonPane";
+
+// UI Components
+@import "intro/IntroSplash";
+@import "header/Header";
+@import "map/Map";
+@import "gallery/ThumbnailGallery";
+
+html,body,#app,.crowdsource-app,.viewer {
+  overflow: hidden;
+}
+
+.viewer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}

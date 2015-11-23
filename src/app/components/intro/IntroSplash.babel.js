@@ -65,7 +65,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
         <div className="title-pane">
           <div className="background-fill"></div>
           <h1 className="title">{this.props.title}</h1>
-          <h2 className="subtitle">{this.props.subtitle}</h2>
+          <h2 className="subtitle serif-face">{this.props.subtitle}</h2>
         </div>
         <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
           {loader}

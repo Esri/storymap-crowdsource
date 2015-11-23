@@ -32,6 +32,7 @@ window.app.cfg = {
 				},
 				layout: {
 					type: 'scroll',
+					font: 'DEFAULT_FONT_CSS_APPENDED_HERE',
 					styles: 'SCROLL_LAYOUT_CSS_APPENDED_HERE',
 					theme: 'DEFAULT_THEME_CSS_APPENDED_HERE'
 				}
