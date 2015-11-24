@@ -149,14 +149,6 @@ module.exports = function (grunt) {
       }
     },
 
-    mkdir: {
-      googlefonts: {
-        options: {
-          create: ['src/resources/fonts/google/css']
-        }
-      }
-    },
-
     nodemon: {
       dev: {
         options: {
@@ -495,7 +487,6 @@ module.exports = function (grunt) {
     'eslint',
     'clean:build',
     'clean:fontsSrc',
-    'mkdir:googlefonts',
     'googlefonts',
     'concatFontStyle',
     'swig:dev',
@@ -509,7 +500,6 @@ module.exports = function (grunt) {
     'eslint',
     'clean:dist',
     'clean:fontsDist',
-    'mkdir:googlefonts',
     'googlefonts',
     'concatFontStyle',
     'copy:resources',
