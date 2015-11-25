@@ -11,8 +11,8 @@ const _onError = function onError(err) {
   });
 };
 
-export const getAppItem = function getAppItem() {
-  arcgisUtils.getItem(window.app.indexCfg.appid).then((res) => {
+export const getDataById = function getDataById(item) {
+  arcgisUtils.getItem(item).then((res) => {
 
     if (res.item && res.itemData && res.itemData.values) {
       ArcgisActions.receiveAppItem({
@@ -25,4 +25,6 @@ export const getAppItem = function getAppItem() {
   }, _onError);
 };
 
-export default getAppItem;
+export default {
+  getDataById
+};

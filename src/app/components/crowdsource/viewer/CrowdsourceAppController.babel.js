@@ -4,6 +4,7 @@ import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import AppDataStore from 'babel/stores/AppDataStore';
 import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
+import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
 const _animationDefaults = {
   duration: 1000,
@@ -49,7 +50,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   constructor(options) {
     super(options);
 
-    this.onStateChange = this.onStateChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.updateAppView = this.updateAppView.bind(this);
 
     const defaults = {};
@@ -74,31 +75,34 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   }
 
   mount() {
+    // Add listeners
     $(window).on('resize',this.updateAppView.bind(this,{duration: 0}));
-    AppDataStore.addChangeListener(this.onStateChange);
-    CrowdsourceAppStore.addLoadStateListener(this.onStateChange);
-    CrowdsourceAppStore.addChangeListener(this.onStateChange);
-    CrowdsourceAppStore.addViewStateListener(this.updateAppView);
+    AppDataStore.addChangeListener(this.onChange);
+    CrowdsourceAppStore.addChangeListener(this.onChange);
   }
 
   unmount() {
+    // Remover listeners
     $(window).off('resize',this.updateAppView);
-    AppDataStore.removeChangeListener(this.onStateChange);
-    CrowdsourceAppStore.removeLoadStateListener(this.onStateChange);
-    CrowdsourceAppStore.removeChangeListener(this.onStateChange);
-    CrowdsourceAppStore.removeViewStateListener(this.updateAppView);
+    AppDataStore.removeChangeListener(this.onChange);
+    CrowdsourceAppStore.removeChangeListener(this.onChange);
   }
 
   onAppReady() {
     this._ready = true;
-    CrowdsourceAppStore.removeLoadStateListener(this.onStateChange);
     $('#loadingOverlay').hide();
   }
 
-  onStateChange() {
-    const state = this.appState;
+  onChange(type) {
+    switch (type) {
+      case Events.appState.VIEW_STATE:
+        this.updateAppView();
+        break;
+      default:
+        const state = this.appState;
 
-    this.emit('state-change',state);
+        this.emit('state-change',state);
+    }
   }
 
   updateAppView(options) {

@@ -306,7 +306,7 @@ module.exports = function (grunt) {
       },
       viewerJS: {
         options: {
-          name: '../config/requireBuilds/viewerJS',
+          name: '../config/requireBuilds/main-app',
           out: 'dist/app/main-app.min.js'
         }
       },
@@ -315,7 +315,7 @@ module.exports = function (grunt) {
           config: {
             mode: 'isBuilder'
           },
-          name: '../config/requireBuilds/viewerJS',
+          name: '../config/requireBuilds/main-app',
           out: 'dist/app/main-app-builder.min.js'
         }
       }
@@ -330,12 +330,12 @@ module.exports = function (grunt) {
       },
       dev: {
         files: {
-          'build/app/components/crowdsource/CrowdsourceApp.css': 'src/app/components/crowdsource/CrowdsourceApp.scss',
-          'build/app/components/crowdsource/CrowdsourceApp-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-builder.scss',
-          'build/app/components/crowdsource/CrowdsourceApp-calcite.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite.scss',
-          'build/app/components/crowdsource/CrowdsourceApp-calcite-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite-builder.scss',
-          'build/app/components/crowdsource/CrowdsourceApp-bootstrap.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap.scss',
-          'build/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.scss'
+          'build/app/components/crowdsource/viewer/CrowdsourceApp.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp.scss',
+          'build/app/components/crowdsource/builder/CrowdsourceApp-builder.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder.scss',
+          'build/app/components/crowdsource/viewer/CrowdsourceApp-calcite.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-calcite.scss',
+          'build/app/components/crowdsource/builder/CrowdsourceApp-builder-calcite.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder-calcite.scss',
+          'build/app/components/crowdsource/viewer/CrowdsourceApp-bootstrap.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-bootstrap.scss',
+          'build/app/components/crowdsource/builder/CrowdsourceApp-builder-bootstrap.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder-bootstrap.scss'
         }
       },
       dist: {
@@ -344,12 +344,12 @@ module.exports = function (grunt) {
           sourceMap: false
         },
         files: {
-          'dist/app/main-app.min.css': 'src/app/components/crowdsource/CrowdsourceApp.scss',
-          'dist/app/main-app-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-builder.scss',
-          'dist/app/main-app-calcite.min.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite.scss',
-          'dist/app/main-app-calcite-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-calcite-builder.scss',
-          'dist/app/main-app-bootstrap.min.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap.scss',
-          'dist/app/main-app-bootstrap-builder.min.css': 'src/app/components/crowdsource/CrowdsourceApp-bootstrap-builder.scss'
+          'dist/app/main-app.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp.scss',
+          'dist/app/main-app-builder.min.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder.scss',
+          'dist/app/main-app-calcite.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-calcite.scss',
+          'dist/app/main-app-builder-calcite.min.css': 'src/app/components/builder/crowdsource/CrowdsourceApp-builder-calcite.scss',
+          'dist/app/main-app-bootstrap.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-bootstrap.scss',
+          'dist/app/main-app-builder-bootstrap.min.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder-bootstrap.scss'
         }
       },
       fonts: {

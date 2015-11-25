@@ -1,4 +1,11 @@
+#app {
+  height: 100vh;
+  width: 100vw;
+}
+
 .crowdsource-app {
+  height: 100%;
+  width: 100%;
 
   .content-pane {
     height: 100%;
@@ -36,6 +43,10 @@
     padding: 0;
     margin: 0;
     background: none;
+    border: none;
+  }
+
+  .navbar {
     border: none;
   }
 

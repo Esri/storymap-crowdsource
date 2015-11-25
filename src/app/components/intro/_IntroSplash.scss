@@ -1,7 +1,7 @@
 .splash {
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: #E5E5E5;
   @include box-shadow(inset 0px 0px 82px 19px rgba(0,0,0,0.3));
   z-index: 1101;
@@ -43,9 +43,9 @@
 
   .title-pane {
     position: absolute;
-    width: 76vw;
-    top: 25vh;
-    left: 12vw;
+    width: 76%;
+    top: 25%;
+    left: 12%;
     text-align: center;
     opacity: 0;
 
@@ -70,8 +70,8 @@
     position: absolute;
     bottom: 130px;
     text-align: center;
-    width: 80vw;
-    left: 10vw;
+    width: 80%;
+    left: 10%;
 
     &.wait-for-action-enter {
       opacity: 0;

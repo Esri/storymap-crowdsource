@@ -99,8 +99,9 @@
 
   const pathMods = {
     bootstrapPath: window.app.indexCfg.bootstrapTheme === '' ? '-calcite' : '',
-    builderPath: window.app.mode.isBuilder && _isProduction ? '-builder' : '',
-    mainCss: _isProduction ? '/main-app' : '/components/crowdsource/CrowdsourceApp',
+    cssBuilderPath: window.app.mode.isBuilder ? '-builder' : '',
+    jsBuilderPath: _isProduction && window.app.mode.isBuilder ? '-builder' : '',
+    mainCss: _isProduction ? '/main-app' : '/components/crowdsource/' + (window.app.mode.isBuilder ? 'builder' : 'viewer') + '/CrowdsourceApp',
     minPath: _isProduction ? '.min' : '',
     resourcePath: _isProduction ? '' : 'build/'
   };
@@ -108,20 +109,15 @@
   if (window.app.indexCfg.bootstrapTheme.toLowerCase() === 'defualt') {
     pathMods.bootstrapPath = '-bootstrap';
   } else if (window.app.indexCfg.bootstrapTheme && window.app.indexCfg.bootstrapTheme.search('http')) {
-    alert(1);
     _loadCSS(window.app.indexCfg.bootstrapTheme, true);
   } else if (pathMods.bootstrapPath === '') {
     _loadCSS(window.app.indexCfg.bootstrapTheme);
   }
 
   // Load App Specific Files
-  _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + pathMods.bootstrapPath + pathMods.builderPath + pathMods.minPath + '.css');
+  _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + pathMods.cssBuilderPath + pathMods.bootstrapPath + pathMods.minPath + '.css');
   _loadJS(pathMods.resourcePath + 'app/config' + pathMods.minPath + '.js');
-  _loadJS('app/main-app' + pathMods.builderPath + pathMods.minPath + '.js');
-
-  if (window.app.mode.isBuilder) {
-    _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + '-builder' + pathMods.minPath + '.css');
-  }
+  _loadJS('app/main-app' + pathMods.jsBuilderPath + pathMods.minPath + '.js');
 
   // Enable Google Analytics on storymaps.esri.com
   if (_isProduction && window.location.href.toLowerCase().indexOf('storymaps.esri.com') >= 0) {

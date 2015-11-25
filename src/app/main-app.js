@@ -10,7 +10,7 @@ require([
   'react',
   'reactDom',
   'babel/utils/arcgis/Arcgis',
-  'babel/components/crowdsource/CrowdsourceApp'
+  'babel/components/crowdsource/viewer/CrowdsourceApp'
 ], function(
   //----------------------------------------------
   // Development - TODO to be removed for release
@@ -23,6 +23,7 @@ require([
   CrowdsourceApp
 ) {
   'use strict';
-  Arcgis.getAppItem();
+  // TODO require config so we can be sure its loaded
+  Arcgis.AppItem.getDataById(window.app.indexCfg.appid);
   ReactDOM.render(React.createElement(CrowdsourceApp), document.getElementById('app'));
 });

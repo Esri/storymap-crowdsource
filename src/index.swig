@@ -76,7 +76,13 @@
   </style>
   <!-- htmlmin:ignore -->
 
-  <div id="app"></div>
+  <div id="app">
+    <div id="loadingOverlay">
+      <div id="loadingIndicator" class="loadingIndicator">
+        <img src="resources/images/loader-light.gif" />
+      </div>
+    </div>
+  </div>
 
   <!-- Loading -->
 	<style>
@@ -86,6 +92,8 @@
     }
 
 		#loadingOverlay {
+      position: absolute;
+      top: 0;
 			z-index: 1100;
 			width: 100vw;
 			height: 100vh;
@@ -108,12 +116,6 @@
       width: 60px;
 		}
 	</style>
-
-	<div id="loadingOverlay">
-    <div id="loadingIndicator" class="loadingIndicator">
-      <img src="resources/images/loader-light.gif" />
-    </div>
-  </div>
 
   <script type="text/javascript">
     var app = {

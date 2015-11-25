@@ -7,11 +7,12 @@ $bootstrap: '' !default;
   $primary-font-sanserif: '';
   $primary-font-serif: '';
   $primary-headings-weight: 300;
-  
+
   @import "calcite/variables";
   // Calcite Components
   @import "calcite/forms-custom";
   @import "calcite/navbar-custom";
+  @import "calcite/buttons-custom";
   @import "calcite/type-custom";
 }
 
@@ -24,5 +25,6 @@ $bootstrap: '' !default;
   // Bootstrap Components
   @import "bootstrap/forms";
   @import "bootstrap/navbar";
+  @import "bootstrap/buttons";
   @import "bootstrap/type";
 }

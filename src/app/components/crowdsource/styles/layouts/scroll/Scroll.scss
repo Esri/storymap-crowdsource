@@ -8,8 +8,8 @@
 .main-content {
   position: absolute;
   top: $headerHeight;
-  height: calc(100vh - #{$headerHeight});
-  width: 100vw;
+  height: calc(100% - #{$headerHeight});
+  width: 100%;
   overflow: hidden;
 
   .content-pane {

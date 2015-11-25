@@ -41,19 +41,6 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
   get viewState() {
     return _viewState;
   }
-
-  // View State
-  addViewStateListener(callback) {
-    this.on(Events.appState.VIEW_STATE, callback);
-  }
-
-  removeViewStateListener(callback) {
-    this.removeListener(Events.appState.VIEW_STATE, callback);
-  }
-
-  emitViewState() {
-    this.emit(Events.appState.VIEW_STATE);
-  }
 };
 
 export const CrowdsourceAppStore = new _CrowdsourceAppStoreClass();
@@ -65,12 +52,12 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
   switch (action) {
     case ActionTypes.app.COMPONENT_LOADED:
       CrowdsourceAppStore._loadedComponents[payload.component] = true;
-      CrowdsourceAppStore.emitLoadState();
+      CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       break;
     case ActionTypes.arcgis.RECEIVE_APP_ITEM:
       if (!CrowdsourceAppStore._loadedComponents.appData && payload.response && payload.response.item && payload.response.itemData){
         CrowdsourceAppStore._loadedComponents.appData = true;
-        CrowdsourceAppStore.emitLoadState();
+        CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       }
       break;
     case ActionTypes.map.RECEIVE_FEATURES:
@@ -80,7 +67,7 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
     case ActionTypes.app.SET_VIEW:
       _viewState.previous = _viewState.current;
       _viewState.current = payload.component;
-      CrowdsourceAppStore.emitViewState();
+      CrowdsourceAppStore.emitChange(Events.appState.VIEW_STATE);
       break;
     }
 

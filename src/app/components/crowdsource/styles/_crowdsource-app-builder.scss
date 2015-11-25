@@ -1,9 +1,8 @@
-.builder-banner {
-  height: 50px;
-  width: 100%;
-}
+$buiderBannerHeight: 55px;
+
+@import "builder/banner/Banner";
 
 .viewer {
-  height: calc(100% - 50px);
+  height: calc(100% - #{$buiderBannerHeight});
   width: 100%;
 }

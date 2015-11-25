@@ -16,7 +16,10 @@ export const Store = class Store extends EventsEmitter {
   }
 
   emitChange() {
-    this.emit(Events.common.CHANGE);
+    const argsArray = [].slice.call(arguments) || [];
+    const eventedArg = [Events.common.CHANGE].concat(argsArray);
+
+    this.emit.apply(this,eventedArg);
   }
 
 };

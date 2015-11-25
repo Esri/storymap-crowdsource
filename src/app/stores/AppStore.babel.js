@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import Store from 'babel/stores/Store';
-import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
 export const AppStoreClass = class AppStoreClass extends Store {
   constructor() {
@@ -26,18 +25,6 @@ export const AppStoreClass = class AppStoreClass extends Store {
 
   get isReady() {
     return this._appReady || this._checkReadyState();
-  }
-
-  addLoadStateListener(callback) {
-    this.on(Events.appState.LOAD_STATE, callback);
-  }
-
-  removeLoadStateListener(callback) {
-    this.removeListener(Events.appState.LOAD_STATE, callback);
-  }
-
-  emitLoadState() {
-    this.emit(Events.appState.LOAD_STATE);
   }
 };
 

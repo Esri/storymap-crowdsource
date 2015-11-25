@@ -1,7 +1,7 @@
 import React from 'react';
-import CrowdsourceAppController from 'babel/components/crowdsource/CrowdsourceAppController';
 import Helper from 'babel/utils/helper/Helper';
-import BuilderBanner from 'mode!isBuilder?babel/components/builder/banner/Banner';
+import CrowdsourceAppController from 'babel/components/crowdsource/viewer/CrowdsourceAppController';
+import CrowdsourceBuilder from 'mode!isBuilder?babel/components/crowdsource/builder/CrowdsourceAppBuilder';
 import IntroSplash from 'babel/components/intro/IntroSplash';
 import Header from 'babel/components/header/Header';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
@@ -69,11 +69,7 @@ export default class CrowdsourceApp extends React.Component {
       }
     };
 
-    const appClasses = Helper.classnames([layout.className, {
-      'crowdsource-app': true
-    }]);
-
-    const builderBanner = BuilderBanner ? <BuilderBanner /> : null;
+    const appClasses = Helper.classnames(['crowdsource-app', layout.className]);
 
     const getLayoutConfiguration = function getLayoutConfiguration(layout) {
       switch (layout) {
@@ -122,8 +118,7 @@ export default class CrowdsourceApp extends React.Component {
         {/* THEME AND LAYOUT STYLES */}
         <style>{layout.font + layout.styles + layout.theme}</style>
 
-        {/* BUILDER BANNER */}
-        {builderBanner}
+        { CrowdsourceBuilder ? <CrowdsourceBuilder /> : null }
 
         <div className="viewer">
           {/* COMMON VIEWER COMPONENTS */}
