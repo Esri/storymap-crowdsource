@@ -76,6 +76,7 @@
         velocity: path1 + 'lib/velocity/velocity',
         react: path1 + 'lib/react/build/react-with-addons',
         reactDom: path1 + 'lib/react/build/react-dom',
+        bootstrap: path1 + 'lib/bootstrap-sass/assets/javascripts/bootstrap',
         // AMD Plugins
         mode: path1 + 'build/app/utils/amd/plugins/AppMode'
       }

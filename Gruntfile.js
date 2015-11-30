@@ -296,6 +296,7 @@ module.exports = function (grunt) {
           velocity: 'lib/velocity/velocity',
           react: 'lib/react/build/react-with-addons',
           reactDom: 'lib/react/build/react-dom',
+          bootstrap: 'lib/bootstrap-sass/assets/javascripts/bootstrap',
           // AMD Plugins
           mode: '../build/app/utils/amd/plugins/AppMode',
           i18n: 'lib/i18n/i18n'
