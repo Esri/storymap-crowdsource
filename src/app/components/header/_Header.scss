@@ -30,7 +30,6 @@
 
   img.logo{
     height: $headerHeight - ($headerMargin * 2);
-    vertical-align: middle;
   }
 
   .title {
@@ -39,7 +38,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    vertical-align: middle;
   }
 
   .participate {
@@ -69,7 +67,6 @@
   }
   .share {
     padding: 0 5px;
-    vertical-align: middle;
 
     svg {
       height: 1.2em;

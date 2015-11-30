@@ -107,7 +107,7 @@
     resourcePath: _isProduction ? '' : 'build/'
   };
 
-  if (window.app.indexCfg.bootstrapTheme.toLowerCase() === 'defualt') {
+  if (window.app.indexCfg.bootstrapTheme.toLowerCase() === 'default') {
     pathMods.bootstrapPath = '-bootstrap';
   } else if (window.app.indexCfg.bootstrapTheme && window.app.indexCfg.bootstrapTheme.search('http')) {
     _loadCSS(window.app.indexCfg.bootstrapTheme, true);
@@ -117,7 +117,6 @@
 
   // Load App Specific Files
   _loadCSS(pathMods.resourcePath + 'app' + pathMods.mainCss + pathMods.cssBuilderPath + pathMods.bootstrapPath + pathMods.minPath + '.css');
-  _loadJS(pathMods.resourcePath + 'app/config' + pathMods.minPath + '.js');
   _loadJS('app/main-app' + pathMods.jsBuilderPath + pathMods.minPath + '.js');
 
   // Enable Google Analytics on storymaps.esri.com

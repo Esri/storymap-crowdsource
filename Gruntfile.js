@@ -89,6 +89,10 @@ module.exports = function (grunt) {
         + 'This application is released under the Apache License V2.0 by Esri http://www.esri.com/ - '
         + 'https://github.com/Esri/crowdsource-storytelling-template-js */'
 			},
+      config: {
+        src: ['build/app/config.js'],
+        dest: 'dist/app/config.js'
+      },
       builderJS: {
 				src: ['dist/app/main-app-builder.min.js'],
 				dest: 'dist/app/main-app-builder.min.js'
@@ -348,7 +352,7 @@ module.exports = function (grunt) {
           'dist/app/main-app.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp.scss',
           'dist/app/main-app-builder.min.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder.scss',
           'dist/app/main-app-calcite.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-calcite.scss',
-          'dist/app/main-app-builder-calcite.min.css': 'src/app/components/builder/crowdsource/CrowdsourceApp-builder-calcite.scss',
+          'dist/app/main-app-builder-calcite.min.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder-calcite.scss',
           'dist/app/main-app-bootstrap.min.css': 'src/app/components/crowdsource/viewer/CrowdsourceApp-bootstrap.scss',
           'dist/app/main-app-builder-bootstrap.min.css': 'src/app/components/crowdsource/builder/CrowdsourceApp-builder-bootstrap.scss'
         }
@@ -420,7 +424,6 @@ module.exports = function (grunt) {
       },
       distConfig: {
         files: [{
-          'dist/app/config.min.js': ['build/app/config.js'],
           'dist/app/commonConfig.min.js': ['build/app/commonConfig.js'],
           'dist/app/main-config.min.js': ['build/app/main-config.js']
         }]
@@ -511,8 +514,7 @@ module.exports = function (grunt) {
     'babelAndAppend',
     'requirejs',
     'uglify',
-    'concat:viewerJS',
-    'concat:viewerCSS',
+    'concat',
     'regex-replace:i18nAlias',
     'regex-replace:i18nPlugin'
   ]);

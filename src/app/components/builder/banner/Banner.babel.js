@@ -21,7 +21,8 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
     ]);
 
     const backgroundImageStyle = {
-      backgroundSize: 'auto'
+      backgroundSize: 'auto',
+      backgroundRepeat: 'repeat-x'
     };
 
     return (

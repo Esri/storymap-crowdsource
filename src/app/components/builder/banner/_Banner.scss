@@ -1,4 +1,9 @@
 .builder-banner {
+  margin: 0;
+
+  .background-fill {
+    height: $buiderBannerHeight;
+  }
 
   .container-fluid {
     position: relative;
