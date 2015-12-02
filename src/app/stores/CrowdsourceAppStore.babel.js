@@ -9,6 +9,7 @@ let _features = [];
 let _viewState = {
   current: Components.names.INTRO
 };
+let _loadingErrorMessage = '';
 
 const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStore {
 
@@ -19,6 +20,10 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
       appData: false,
       map: false
     };
+
+    if (window.app.mode.fromScratch) {
+      this._loadedComponents.appData = true;
+    }
   }
 
   get features() {
@@ -35,7 +40,7 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
       loadingMessage = ViewerText.loading.map;
     }
 
-    return {isReady,loadingMessage};
+    return {isReady,loadingMessage,error: _loadingErrorMessage};
   }
 
   get viewState() {
@@ -50,6 +55,10 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.type;
 
   switch (action) {
+    case ActionTypes.app.LOADING_ERROR:
+      _loadingErrorMessage = payload.message;
+      CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
+      break;
     case ActionTypes.app.COMPONENT_LOADED:
       CrowdsourceAppStore._loadedComponents[payload.component] = true;
       CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);

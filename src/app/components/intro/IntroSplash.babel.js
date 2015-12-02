@@ -29,13 +29,20 @@ export const IntroSplash = class IntroSplash extends React.Component {
       splash: true
     }]);
 
-    const loader = this.props.appLoaded ? null : (
+    const loader = this.props.appLoaded || this.props.appError.length > 0 ? null : (
       <div className="loadingIndicator">
         <div className="background-fill"></div>
         <img src="resources/images/loader-light.gif" />
-      <p className="loading-message">{this.props.loadingMessage}</p>
+        <p className="loading-message">{this.props.loadingMessage}</p>
       </div>
     );
+
+    const error = this.props.appError.length > 0 ? (
+      <div className="loading-error-message alert alert-danger">
+        <h5 className="error-heading"><strong>{this.props.appErrorHeading}:</strong></h5>
+        <p className="message">{this.props.appError}</p>
+      </div>
+    ) : null;
 
     const actionBtns = this.props.appLoaded ? (
       <div className="action-buttons">
@@ -69,6 +76,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
         </div>
         <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
           {loader}
+          {error}
           {actionBtns}
         </ReactCSSTransitionGroup>
       </div>
@@ -86,6 +94,8 @@ export const IntroSplash = class IntroSplash extends React.Component {
 };
 
 IntroSplash.propTypes = {
+  appError: React.PropTypes.string,
+  appErrorHeading: React.PropTypes.string,
   appLoaded: React.PropTypes.bool,
   background: React.PropTypes.shape(),
   exploreText: React.PropTypes.string,
@@ -97,6 +107,8 @@ IntroSplash.propTypes = {
 };
 
 IntroSplash.defaultProps = {
+  appError: '',
+  appErrorHeading: 'An error has occured',
   appLoaded: false,
   background: {},
   exploreText: '',

@@ -2,6 +2,7 @@ import $ from 'jquery';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Layout from 'babel/utils/helper/layout/Layout';
 import ObjectUtils from 'babel/utils/helper/objects/ObjectUtils';
+import MathUtils from 'babel/utils/helper/math/MathUtils';
 
 const _classnames = function classnames() {
   let classes = '';
@@ -40,5 +41,6 @@ export default {
   icons: Icons,
   classnames: _classnames,
   layout: Layout,
-  objectUtils: ObjectUtils
+  objectUtils: ObjectUtils,
+  mathUtils: MathUtils
 };

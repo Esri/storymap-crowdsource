@@ -1,14 +1,30 @@
 import $ from 'jquery';
 import Immutable from 'lib/immutable/dist/immutable';
 import Store from 'babel/stores/Store';
-import Helper from 'babel/utils/helper/Helper';
+import Logger from 'babel/utils/logging/Logger';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
+import builderOptionsConfig from 'mode!isBuilder?babel/builderOptionsConfig';
+
+const _logger = new Logger({source: 'AppDataStore'});
+
+const _onError = function onError(err) {
+  _logger.logMessage({
+    type: 'error',
+    error: err
+  });
+};
 
 let _originialItem;
 let _originialItemData;
 let _appDataVersions = [];
-const _appDataDefaults = window.app.cfg.defaults.appData  || {};
+let _appDataDefaults = false;
+
+if (window.app.mode.fromScratch && builderOptionsConfig && builderOptionsConfig.builderDefaults) {
+  _appDataDefaults = builderOptionsConfig.builderDefaults.defaults.appData;
+} else if (window.app.mode.fromScratch) {
+  _onError('The default configuration is missing from the codebase.');
+}
 
 const _getCurrentAppData = function getCurrentAppData(toJS){
   const current = _appDataVersions[_appDataVersions.length -1];
@@ -56,9 +72,7 @@ const _AppDataStoreClass = class AppDataStoreClass extends Store {
     if (current) {
       return current;
     } else {
-      let defaultsClone = $.extend(true,{}, _appDataDefaults);
-
-      return Helper.objectUtils.clean(defaultsClone);
+      return _appDataDefaults;
     }
   }
 

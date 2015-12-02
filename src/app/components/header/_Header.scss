@@ -3,6 +3,7 @@
   height: $headerHeight;
   top: 0;
   overflow: hidden;
+  z-index: 902;
 
   .cell-wrapper {
     display: table;

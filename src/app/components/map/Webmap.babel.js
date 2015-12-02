@@ -18,6 +18,10 @@ export const Webmap = class Webmap extends React.Component {
     this.mapController = new MapController({
       node: mapDiv
     });
+
+    if (this.props.controllerOptions.webmap) {
+      this.mapController.createMap(this.props.controllerOptions);
+    }
   }
 
   componentDidUpdate() {

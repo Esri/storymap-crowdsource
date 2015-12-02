@@ -211,7 +211,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultFonts: {
-        src: ['build/app/config.js'],
+        src: ['build/app/builderOptionsConfig.js'],
         actions: [
           {
             name: 'Add Font CSS to default config',
@@ -224,7 +224,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultLayout: {
-        src: ['build/app/config.js'],
+        src: ['build/app/builderOptionsConfig.js'],
         actions: [
           {
             name: 'Add Scroll CSS Layout String',
@@ -237,7 +237,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultTheme: {
-        src: ['build/app/config.js'],
+        src: ['build/app/builderOptionsConfig.js'],
         actions: [
           {
             name: 'Add Default CSS Theme String',
@@ -276,8 +276,8 @@ module.exports = function (grunt) {
         actions: [
           {
             name: 'Replace single quotes with double quotes',
-						search: '\'',
-						replace: '"',
+						search: '\"',
+						replace: '\'',
 						flags: 'g'
           }
         ]

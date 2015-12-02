@@ -14,6 +14,7 @@ import viewerText from 'i18n!translations/viewer/nls/template';
 // TRANSLATED TEXT STRINGS START
 // Intro
 const OR_TEXT = viewerText.intro.or;
+const LOADING_ERROR_HEADING = viewerText.errors.loading.header;
 // TRANSLATED TEXT STRINGS END
 
 export default class CrowdsourceApp extends React.Component {
@@ -47,7 +48,9 @@ export default class CrowdsourceApp extends React.Component {
       seperatorText: OR_TEXT,
       participateText: this.state.appData.settings.globals.participateLong,
       loadingMessage: this.state.loadState.loadingMessage,
-      appLoaded: this.state.loadState.isReady
+      appLoaded: this.state.loadState.isReady,
+      appErrorHeading: LOADING_ERROR_HEADING,
+      appError: this.state.loadState.error
     };
     const headerProps = {
       title: this.state.appData.settings.header.title,
@@ -69,7 +72,7 @@ export default class CrowdsourceApp extends React.Component {
       }
     };
 
-    const appClasses = Helper.classnames(['crowdsource-app', layout.className]);
+    const appClasses = Helper.classnames(['crowdsource-app']);
 
     const getLayoutConfiguration = function getLayoutConfiguration(layout) {
       switch (layout) {

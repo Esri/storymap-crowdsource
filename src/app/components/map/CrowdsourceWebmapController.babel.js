@@ -56,11 +56,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {
-          if (!this.loaded) {
-            this.loaded = true;
-            this.emit('load');
-            AppActions.componentLoaded(Components.names.MAP);
-          }
+          this.onLoad();
 
           // Get original features in current extent
           const features = clusterLayer._inExtent();
@@ -79,8 +75,18 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
       } else if (layer)  {
         _onError('Layer ' + this._settings.crowdsourceLayer.id + ' does not exist in map.');
       }
+    } else if (window.app.mode.fromScratch) {
+      this.onLoad();
     } else {
       _onError('Crowdsource layer id not specified.');
+    }
+  }
+
+  onLoad() {
+    if (!this.loaded) {
+      this.loaded = true;
+      this.emit('load');
+      AppActions.componentLoaded(Components.names.MAP);
     }
   }
 

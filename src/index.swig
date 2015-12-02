@@ -94,7 +94,7 @@
 		#loadingOverlay {
       position: absolute;
       top: 0;
-			z-index: 1100;
+			z-index: 900;
 			width: 100vw;
 			height: 100vh;
 			background-color: #E5E5E5;
@@ -108,7 +108,7 @@
       margin: -30px 0 0 -30px;
 			top: 50%;
 			left: 50%;
-			z-index: 1102;
+			z-index: 902;
 		}
 
     #loadingIndicator img {
@@ -120,7 +120,7 @@
   <script type="text/javascript">
     var app = {
       version: '{{ versionStr }}',
-      pathJSAPI: '//jsdev.arcgis.com/3.15/'
+      pathJSAPI: '//js.arcgis.com/3.15/'
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>

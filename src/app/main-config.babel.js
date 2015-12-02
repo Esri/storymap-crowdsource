@@ -88,8 +88,9 @@
 
   window.app.mode = {
     isProduction: _isProduction,
-    isBuilder: _getUrlVar('edit') || _getUrlVar('fromScratch') || _getUrlVar('fromscratch'),
-    isDebug: _getUrlVar('debug')
+    isBuilder: _getUrlVar('edit') || _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false,
+    isDebug: _getUrlVar('debug') || false,
+    fromScratch: _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false
   };
 
   // Load ArcGIS API for JavaScript

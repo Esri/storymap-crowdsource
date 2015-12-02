@@ -6,6 +6,25 @@ import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
+const _emptyAppData = {
+  values: {
+    settings: {
+      intro: {},
+      header: {
+        logo: {}
+      },
+      map: {
+        crowdsourceLayer: {},
+        webmapOptions: {}
+      },
+      globals: {
+        social: {}
+      }
+    },
+    layout: {}
+  }
+};
+
 const _animationDefaults = {
   duration: 1000,
   easing: 'easeInOutQuart'
@@ -56,10 +75,12 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     const defaults = {};
 
     this._settings = $.extend(true, {}, defaults, options);
+
+    window.test = this;
   }
 
   get appState(){
-    const appData = AppDataStore.appData;
+    const appData = AppDataStore.appData || _emptyAppData;
     const features = CrowdsourceAppStore.features;
     const loadState = CrowdsourceAppStore.loadState;
 
