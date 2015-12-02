@@ -33,6 +33,28 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     }
   }
 
+  userIsAppPublisher() {
+    return this.hasUserPrivileges(['portal:user:createItem','portal:publisher:publishFeatures']);
+  }
+
+  hasUserPrivileges(privileges) {
+    const user = this.getPortalUser();
+
+    if (user) {
+      if ($.isArray(privileges)) {
+        return $.grep(privileges, (v) => {
+            return $.inArray(v, user.privileges) !== -1;
+        }).length === privileges.length;
+      } else {
+        _onError('Privileges should be an array.');
+        return false;
+      }
+    } else {
+      _onError('No user available.');
+      return false;
+    }
+  }
+
 };
 
 export default Portal;

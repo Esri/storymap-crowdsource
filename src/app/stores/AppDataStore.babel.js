@@ -1,30 +1,23 @@
 import $ from 'jquery';
 import Immutable from 'lib/immutable/dist/immutable';
 import Store from 'babel/stores/Store';
-import Logger from 'babel/utils/logging/Logger';
+// import Logger from 'babel/utils/logging/Logger';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
-import builderOptionsConfig from 'mode!isBuilder?babel/builderOptionsConfig';
 
-const _logger = new Logger({source: 'AppDataStore'});
+// const _logger = new Logger({source: 'AppDataStore'});
 
-const _onError = function onError(err) {
-  _logger.logMessage({
-    type: 'error',
-    error: err
-  });
-};
+// const _onError = function onError(err) {
+//   _logger.logMessage({
+//     type: 'error',
+//     error: err
+//   });
+// };
 
 let _originialItem;
 let _originialItemData;
 let _appDataVersions = [];
 let _appDataDefaults = false;
-
-if (window.app.mode.fromScratch && builderOptionsConfig && builderOptionsConfig.builderDefaults) {
-  _appDataDefaults = builderOptionsConfig.builderDefaults.defaults.appData;
-} else if (window.app.mode.fromScratch) {
-  _onError('The default configuration is missing from the codebase.');
-}
 
 const _getCurrentAppData = function getCurrentAppData(toJS){
   const current = _appDataVersions[_appDataVersions.length -1];
@@ -86,6 +79,9 @@ AppDataStore.dispatchToken = AppDispatcher.register((payload) => {
 
   switch (action) {
     case ActionTypes.arcgis.RECEIVE_APP_ITEM:
+      if (payload.response.defaultData) {
+        _updateAppData(payload.response.defaultData);
+      }
       if (payload.response && payload.response.item) {
         _originialItem = Immutable.fromJS(payload.response.item);
       }

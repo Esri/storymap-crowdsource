@@ -30,6 +30,7 @@ define({
 				unspecifiedConfigOwner: 'Authorized owner hasn\'t been configured.',
 				invalidConfigOwner: 'Story owner is not authorized.',
 				createMap: 'Unable to create map',
+        notAuthorizedCreateNew: 'You are not authorized to create a new story. You must have access to create new items and publish new hosted feature services in your organization. Contact your ArcGIS Online Organiztion administrator for more privileges.',
 				notAuthorized: 'You are not authorized to access this story',
 				upgradeBrowser: '<a href="http://browsehappy.com/" target="_blank">Please update your browser</a>.',
 				mapLoadingFail: 'Something went wrong, the Map did not load correctly.',

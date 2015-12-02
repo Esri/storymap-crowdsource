@@ -20,10 +20,6 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
       appData: false,
       map: false
     };
-
-    if (window.app.mode.fromScratch) {
-      this._loadedComponents.appData = true;
-    }
   }
 
   get features() {
@@ -34,10 +30,10 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
     const isReady = this.isReady;
     let loadingMessage;
 
-    if (!this._loadedComponents.appData && !this._loadedComponents.map) {
-      loadingMessage = ViewerText.loading.initializing;
-    } else {
+    if (this._loadedComponents.appData && !this._loadedComponents.map) {
       loadingMessage = ViewerText.loading.map;
+    } else {
+      loadingMessage = ViewerText.loading.initializing;
     }
 
     return {isReady,loadingMessage,error: _loadingErrorMessage};
@@ -64,7 +60,7 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       break;
     case ActionTypes.arcgis.RECEIVE_APP_ITEM:
-      if (!CrowdsourceAppStore._loadedComponents.appData && payload.response && payload.response.item && payload.response.itemData){
+      if (!CrowdsourceAppStore._loadedComponents.appData && ((payload.response && payload.response.item && payload.response.itemData) || payload.response.defaultData)){
         CrowdsourceAppStore._loadedComponents.appData = true;
         CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       }
