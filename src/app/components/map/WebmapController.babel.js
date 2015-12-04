@@ -2,6 +2,7 @@ import $ from 'jquery';
 import arcgisUtils from 'esri/arcgis/utils';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import Logger from 'babel/utils/logging/Logger';
+import AppActions from 'babel/actions/AppActions';
 
 const _logger = new Logger({
   source: 'WebmapController'
@@ -40,7 +41,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
     $.extend(true, this._settings, defaults, options);
 
-    if (this._settings.webmap && (!this._map || (this._map.webmapId && this._map.webmapId !== this._settings.webmap))) {
+    if (this._settings.webmap && (this._settings.webmap !== this._errorWebmapId) && (!this._map || (this._map.webmapId && this._map.webmapId !== this._settings.webmap))) {
       if (this._map) {
         this._map.destroy();
         this._map = null;
@@ -48,7 +49,10 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
       arcgisUtils.createMap(this._settings.webmap, mapDiv, this._settings.webmapOptions).then((response) => {
         this._map = response.map;
-        this._map.webmapId = this._settings.webmap;
+
+        if (response.errors) {
+          this.handleMapResponseErrors(response.errors);
+        }
 
         if (this._map.loaded) {
           this.onMapLoad();
@@ -58,7 +62,22 @@ export const WebmapController = class WebmapController extends EventsEmitter {
           });
         }
       },(error) => {
+        this._errorWebmapId = this._settings.webmap;
+        if (error.toString().search('You do not have access') > -1) {
+          AppActions.showLoadingError('notAuthorizedMap');
+        }
         _onError(error);
+      });
+    }
+  }
+
+  handleMapResponseErrors(errors) {
+    if ($.isArray(errors)) {
+      $.each(errors, function() {
+        if (this.toString().search('You do not have access') > -1) {
+          AppActions.showLoadingError('notAuthorizedLayers');
+        }
+        _onError(this);
       });
     }
   }

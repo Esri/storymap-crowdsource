@@ -37,14 +37,16 @@ export const IntroSplash = class IntroSplash extends React.Component {
       </div>
     );
 
+    const appError = {__html: this.props.appError};
+
     const error = this.props.appError.length > 0 ? (
       <div className="loading-error-message alert alert-danger">
-        <h5 className="error-heading"><strong>{this.props.appErrorHeading}:</strong></h5>
-        <p className="message">{this.props.appError}</p>
+        <h5 className="error-heading"><strong>{this.props.appErrorHeading}</strong></h5>
+        <p className="message" dangerouslySetInnerHTML={appError}></p>
       </div>
     ) : null;
 
-    const actionBtns = this.props.appLoaded ? (
+    const actionBtns = this.props.appLoaded && this.props.appError.length <= 0 ? (
       <div className="action-buttons">
         <button className="participate text-btn" onClick={this.onParticipateClick}>
           <div className="background-fill"></div>

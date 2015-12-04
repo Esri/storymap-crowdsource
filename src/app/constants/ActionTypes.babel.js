@@ -1,6 +1,7 @@
 import keyMirror from 'babel/utils/helper/objects/KeyMirror';
 
 const app = keyMirror({
+  AUTHORIZATION: null,
   COMPONENT_LOADED: null,
   LOADING_ERROR: null,
   SCRIPTS_LOADED: null,

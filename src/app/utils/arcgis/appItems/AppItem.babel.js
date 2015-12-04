@@ -1,6 +1,7 @@
 import arcgisUtils from 'esri/arcgis/utils';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisActions from 'babel/actions/ArcgisActions';
+import AppActions from 'babel/actions/AppActions';
 
 const _logger = new Logger({source: 'ArcGIS - AppItem'});
 
@@ -22,7 +23,12 @@ export const getDataById = function getDataById(item) {
     } else {
       _onError(res);
     }
-  }, _onError);
+  },(err) => {
+    if (err.toString().search('You do not have access') > -1) {
+      AppActions.showLoadingError('notAuthorizedApp');
+    }
+    _onError(err);
+  });
 };
 
 export default {

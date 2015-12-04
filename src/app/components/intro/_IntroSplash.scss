@@ -18,6 +18,15 @@
     left: 50%;
     text-align: center;
     z-index: 902;
+
+    &.wait-for-action-enter {
+      opacity: 0;
+    }
+
+    &.wait-for-action-enter-active {
+      opacity: 1;
+      @include transition(opacity 1s);
+    }
   }
 
   .loadingIndicator {

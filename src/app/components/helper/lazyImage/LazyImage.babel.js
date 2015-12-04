@@ -18,6 +18,10 @@ export const LazyImage = class LazyImage extends React.Component {
   }
 
   componentDidMount() {
+    this.markAsLoaded = () => {
+      this.setState({ loaded: true });
+    };
+
     this._scrollableParents = $(ReactDOM.findDOMNode(this)).parents().filter(function(){
       return $(this).isScrollable();
     });
@@ -34,6 +38,8 @@ export const LazyImage = class LazyImage extends React.Component {
 
   componentWillUnmount() {
     this.onVisible();
+
+    this.markAsLoaded = () => {};
   }
 
   onVisible() {
@@ -53,7 +59,7 @@ export const LazyImage = class LazyImage extends React.Component {
       const preload = new Image();
 
       preload.onload = () => {
-        this.setState({ loaded: true });
+        this.markAsLoaded();
       };
       preload.src = this.props.src;
 

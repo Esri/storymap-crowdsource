@@ -33,8 +33,9 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
   }
 
   createClusterLayer() {
-    if (this._settings.crowdsourceLayer && this._settings.crowdsourceLayer.id) {
-      const map = this._map;
+    const map = this._map;
+
+    if (this._settings.crowdsourceLayer && this._settings.crowdsourceLayer.id && map.getLayer(this._settings.crowdsourceLayer.id)) {
       const layer = map.getLayer(this._settings.crowdsourceLayer.id);
       const url = layer ? layer.url : null;
       const objectIdField = layer.objectIdField;
@@ -51,8 +52,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         };
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
-
-        window.cl = clusterLayer;
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {
@@ -78,7 +77,8 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
     } else if (window.app.mode.fromScratch) {
       this.onLoad();
     } else {
-      _onError('Crowdsource layer id not specified.');
+      _onError('Crowdsource layer not found. Check layer ID and make sure you have permission to access the feature layer.');
+      AppActions.showLoadingError('crowdsourceLayerNotFound');
     }
   }
 

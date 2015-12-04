@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import ArcgisPortal from 'esri/arcgis/Portal';
+import AppDataStore from 'babel/stores/AppDataStore';
 import Logger from 'babel/utils/logging/Logger';
 
 const _logger = new Logger({source: 'ArcGIS - Portal'});
@@ -35,6 +36,12 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   userIsAppPublisher() {
     return this.hasUserPrivileges(['portal:user:createItem','portal:publisher:publishFeatures']);
+  }
+
+  userIsAppEditor() {
+    const appItem = AppDataStore.originalItem ? AppDataStore.originalItem.item : null;
+
+    return (appItem && appItem.itemControl && appItem.itemControl === 'update' || appItem.itemControl === 'admin');
   }
 
   hasUserPrivileges(privileges) {

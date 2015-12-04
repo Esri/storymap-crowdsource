@@ -22,6 +22,13 @@ const _onError = function onError(err) {
 
 export const AppActions = {
 
+  authorization: function authorization(authorized) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.app.AUTHORIZATION,
+      authorized
+    });
+  },
+
   componentLoaded: function componentLoaded(component) {
 
     if (typeof component === 'string') {
@@ -35,13 +42,23 @@ export const AppActions = {
 
   },
 
-  showLoadingError: function showLoadingError(error) {
+  showLoadingError: function showLoadingError(error,options) {
     let message = '';
+
+    const defaults = {};
+    const settings = $.extend(true, {}, defaults, options);
 
     if (_loadingErrors[error]) {
       message = _loadingErrors[error];
     } else {
       message = _loadingErrors.appLoadingFail;
+    }
+
+    if (settings.prepend) {
+      message = settings.prepend + ' ' + message;
+    }
+    if (settings.append) {
+      message = message + ' ' + settings.append;
     }
 
     AppDispatcher.dispatch({

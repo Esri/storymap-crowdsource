@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import AppDataStore from 'babel/stores/AppDataStore';
-import CrowdsourceAppBuilderStore from 'babel/stores/CrowdsourceAppBuilderStore';
+import PortalStore from 'babel/stores/PortalStore';
 // import {Components} from 'babel/constants/CrowdsourceAppConstants';
 // import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
@@ -24,13 +24,13 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   mount() {
     // Add listeners
     AppDataStore.addChangeListener(this.onChange);
-    CrowdsourceAppBuilderStore.addChangeListener(this.onChange);
+    PortalStore.addChangeListener(this.onChange);
   }
 
   unmount() {
     // Remover listeners
     AppDataStore.removeChangeListener(this.onChange);
-    CrowdsourceAppBuilderStore.removeChangeListener(this.onChange);
+    PortalStore.removeChangeListener(this.onChange);
   }
 
   onChange(type) {

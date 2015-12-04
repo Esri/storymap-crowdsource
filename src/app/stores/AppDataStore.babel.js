@@ -18,6 +18,7 @@ let _originialItem;
 let _originialItemData;
 let _appDataVersions = [];
 let _appDataDefaults = false;
+let _loadingErrors = false;
 
 const _getCurrentAppData = function getCurrentAppData(toJS){
   const current = _appDataVersions[_appDataVersions.length -1];
@@ -53,19 +54,28 @@ const _AppDataStoreClass = class AppDataStoreClass extends Store {
   }
 
   get originalItem() {
-    return {
-      item: _originialItem,
-      itemData: _originialItemData
-    };
+    if (_originialItem) {
+      return {
+        item: _originialItem.toJS(),
+        itemData: _originialItemData.toJS()
+      };
+    } else {
+      return false;
+    }
+
   }
 
   get appData() {
-    const current = _getCurrentAppData(true);
+    if (!_loadingErrors) {
+      const current = _getCurrentAppData(true);
 
-    if (current) {
-      return current;
+      if (current) {
+        return current;
+      } else {
+        return _appDataDefaults;
+      }
     } else {
-      return _appDataDefaults;
+      return false;
     }
   }
 
@@ -92,6 +102,13 @@ AppDataStore.dispatchToken = AppDispatcher.register((payload) => {
         _updateAppData(appData);
 
       }
+      AppDataStore.emitChange();
+      break;
+    case ActionTypes.app.AUTHORIZATION:
+      AppDataStore.emitChange();
+      break;
+    case ActionTypes.app.LOADING_ERROR:
+      _loadingErrors = true;
       AppDataStore.emitChange();
       break;
   }
