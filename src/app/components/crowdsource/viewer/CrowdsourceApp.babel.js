@@ -39,6 +39,7 @@ export default class CrowdsourceApp extends React.Component {
   }
 
   render() {
+    const errorMessage = this.state.loadState.error;
     const layout = this.state.appData.layout;
     const introProps = {
       title: this.state.appData.settings.intro.title,
@@ -50,7 +51,7 @@ export default class CrowdsourceApp extends React.Component {
       loadingMessage: this.state.loadState.loadingMessage,
       appLoaded: this.state.loadState.isReady,
       appErrorHeading: LOADING_ERROR_HEADING,
-      appError: this.state.loadState.error
+      appError: errorMessage
     };
     const headerProps = {
       title: this.state.appData.settings.header.title,
@@ -75,44 +76,46 @@ export default class CrowdsourceApp extends React.Component {
     const appClasses = Helper.classnames(['crowdsource-app']);
 
     const getLayoutConfiguration = function getLayoutConfiguration(layout) {
-      switch (layout) {
-        case 'sidePanel':
-          break;
-        default:
-          // SCROLL LAYOUT
+      if (layout && errorMessage.length <= 0) {
+        switch (layout) {
+          case 'sidePanel':
+            break;
+          default:
+            // Translation Strings
+            const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.scroll.changeView.galleryView;
+            const CHANGE_VIEW_TO_MAP = viewerText.layouts.scroll.changeView.mapView;
 
-          // Translation Strings
-          const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.scroll.changeView.galleryView;
-          const CHANGE_VIEW_TO_MAP = viewerText.layouts.scroll.changeView.mapView;
+            // Icons
+            const downArrowHtml = {
+              __html: getIcon('arrow-down-open')
+            };
+            const upArrowHtml = {
+              __html: getIcon('arrow-up-open')
+            };
 
-          // Icons
-          const downArrowHtml = {
-            __html: getIcon('arrow-down-open')
-          };
-          const upArrowHtml = {
-            __html: getIcon('arrow-up-open')
-          };
-
-          const scroll = (
-            <div className="main-content">
-              <div className="content-pane map-view">
-                <CrowdsourceWebmap {...webmapProps}/>
-                <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
-                  <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
-                  <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+            const scroll = (
+              <div className="main-content">
+                <div className="content-pane map-view">
+                  <CrowdsourceWebmap {...webmapProps}/>
+                  <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
+                    <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
+                    <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+                  </div>
+                </div>
+                <div className="content-pane gallery-view">
+                  <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.MAP)}>
+                    <span className="text">{CHANGE_VIEW_TO_MAP}</span>
+                    <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
+                  </div>
+                  <ThumbnailGallery {...galleryProps}/>
                 </div>
               </div>
-              <div className="content-pane gallery-view">
-                <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.MAP)}>
-                  <span className="text">{CHANGE_VIEW_TO_MAP}</span>
-                  <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
-                </div>
-                <ThumbnailGallery {...galleryProps}/>
-              </div>
-            </div>
-          );
+            );
 
-          return scroll;
+            return scroll;
+        }
+      } else {
+        return null;
       }
     };
 
