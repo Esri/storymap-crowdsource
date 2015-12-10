@@ -29,6 +29,7 @@
     "jquery": "~2.1.4",
     "react": "https://facebook.github.io/react/downloads/react-0.14.2.zip",
     "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
-    "bourbon": "~4.2.6"
+    "bourbon": "~4.2.6",
+    "lodash": "~3.10.1"
   }
 }

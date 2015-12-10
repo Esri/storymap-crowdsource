@@ -30,6 +30,14 @@ define({
         exploreText: 'Explore the map'
       }
     },
+    itempageDefaults: {
+      webmap: {
+        titleAppend: 'web map'
+      },
+      featureService: {
+        titleAppend: 'feature service'
+      }
+    },
     errors: {
       loading: {
         notAuthorizedCreateNew: 'You are not authorized to create a new story. You must have access to create new items and publish new hosted feature services in your organization. Contact your ArcGIS Online Organiztion administrator for more privileges.',

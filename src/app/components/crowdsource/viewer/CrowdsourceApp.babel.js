@@ -131,7 +131,7 @@ export default class CrowdsourceApp extends React.Component {
           <Header {...headerProps}/>
           <IntroSplash {...introProps}/>
           {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
-          {getLayoutConfiguration(layout.type)}
+          {getLayoutConfiguration(layout.id)}
         </div>
       </div>
     );
