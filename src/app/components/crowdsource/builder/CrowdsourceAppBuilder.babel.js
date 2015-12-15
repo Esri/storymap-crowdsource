@@ -1,6 +1,8 @@
+import $ from 'jquery';
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import BuilderBanner from 'babel/components/builder/banner/Banner';
+import Modal from 'babel/components/helper/modal/Modal';
 import CrowdsourceAppBuilderController from 'babel/components/crowdsource/builder/CrowdsourceAppBuilderController';
 
 // TRANSLATED TEXT STRINGS START
@@ -30,12 +32,27 @@ export default class CrowdsourceAppBuiler extends React.Component {
   render() {
 
     const appClasses = Helper.classnames('crowdsource-builder');
+    const modalClasses = Helper.classnames(['settings-modal']);
+    const settingsModal = $.extend(true,{
+      className: modalClasses
+    },this.state.settingsModal);
 
     return (
       <div className={appClasses}>
-        <BuilderBanner />
+        {this.props.bannerVisible ? <BuilderBanner brandOnly={this.state.hideBannerContent} /> : null}
+        {this.state.settingsModal ? <Modal {...settingsModal} /> : null }
       </div>
     );
   }
 
 }
+
+CrowdsourceAppBuiler.propTypes = {
+  bannerVisible: React.PropTypes.bool,
+  errorMessage: React.PropTypes.string
+};
+
+CrowdsourceAppBuiler.defaultProps = {
+  bannerVisible: false,
+  errorMessage: ''
+};

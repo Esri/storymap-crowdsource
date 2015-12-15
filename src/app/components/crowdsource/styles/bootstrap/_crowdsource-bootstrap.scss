@@ -19,7 +19,7 @@ $bootstrap: '' !default;
   @import "calcite/navbar-custom";
   // @import "calcite/navs-tabs-custom";
   // @import "calcite/pager-custom";
-  // @import "calcite/tooltips-custom";
+  @import "calcite/tooltips-custom";
   // @import "calcite/labels-custom";
   // @import "calcite/listgroups-custom";
   // @import "calcite/panels-custom";
@@ -75,11 +75,11 @@ $bootstrap: '' !default;
   // @import "bootstrap/panels";
   // @import "bootstrap/responsive-embed";
   // @import "bootstrap/wells";
-  // @import "bootstrap/close";
+  @import "bootstrap/close";
 
   // Components w/ JavaScript
-  // @import "bootstrap/modals";
-  // @import "bootstrap/tooltip";
+  @import "bootstrap/modals";
+  @import "bootstrap/tooltip";
   // @import "bootstrap/popovers";
   // @import "bootstrap/carousel";
   //

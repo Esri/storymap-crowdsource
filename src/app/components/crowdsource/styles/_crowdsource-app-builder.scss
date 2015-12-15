@@ -1,8 +1,18 @@
-$buiderBannerHeight: 50px;
+@import "calcite/colors-default";
 
+$buiderBannerHeight: 50px;
+$nameStandard: $Calcite_Gray_300;
+$nameHighlight: $Calcite_Blue_200;
+
+@import "crowdsource/styles/settingsModals/Layout";
 @import "builder/banner/Banner";
 
 .viewer {
   height: calc(100% - #{$buiderBannerHeight});
+  width: 100%;
+}
+
+.no-banner .viewer {
+  height: 100%;
   width: 100%;
 }

@@ -1,0 +1,54 @@
+@import "calcite/colors-default";
+
+.settings-modal.layout {
+
+  .modal-content {
+    border: none;
+  }
+
+  .modal-header, .modal-footer {
+    border: none;
+  }
+
+  .modal-footer {
+    text-align: center;
+  }
+
+  .modal-title{
+    color: $nameStandard;
+
+    .title {
+      margin: 0;
+    }
+
+    strong {
+      color: $nameHighlight;
+    }
+  }
+
+  .layout-option {
+    border-radius: 15px;
+
+    &:hover {
+      background-color: $Calcite_Gray_150;
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: $Calcite_Highlight_Blue_100;
+      cursor: default;
+    }
+
+    .layout-thumbnail {
+      max-width: 100%;
+      margin: 15px 0;
+    }
+
+    a.btn-link {
+      display: inline-block;
+      margin-left: -12px;
+      margin-bottom: 9px;
+    }
+  }
+
+}

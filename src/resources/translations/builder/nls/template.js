@@ -1,10 +1,13 @@
 define({
   root: {
+    common: {
+      appName: 'Crowdsource',
+      appNameAppend: 'Builder',
+      buttons: {
+        next: 'Next'
+      }
+    },
     banner: {
-      header: {
-        appName: 'Crowdsource',
-        append: 'Builder'
-      },
       buttons: {
         help: 'Help',
         preview: 'View Live',
@@ -14,6 +17,21 @@ define({
       },
       hintText: {
         notSaved: 'Story isn\'t saved yet'
+      }
+    },
+    settingsModals: {
+      layout: {
+        welcome: 'Welcome to',
+        header: 'Which layout do you want to use?',
+        headerHint: 'You can change the layout anytime from the settings dialog.',
+        preview: 'View a live example',
+        commonAltText: 'layout preview.',
+        selection: {
+          scroll: {
+            name: 'Scroll',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, doloremque!'
+          }
+        }
       }
     },
     appDataPlaceholderText: {

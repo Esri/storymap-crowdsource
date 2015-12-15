@@ -100,7 +100,7 @@ LazyImage.defaultProps = {
   src: '',
   style: {
     backgroundPosition: 'center',
-    backgroundRepeat: 'none',
+    backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
   },
   threshold: 200

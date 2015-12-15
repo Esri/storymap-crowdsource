@@ -2,10 +2,10 @@ import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import AppStore from 'babel/stores/AppStore';
 import AppDataStore from 'babel/stores/AppDataStore';
 import AppActions from 'babel/actions/AppActions';
-import ArcgisActions from 'babel/actions/ArcgisActions';
+// import ArcgisActions from 'babel/actions/ArcgisActions';
 import {Portal} from 'babel/utils/arcgis/Arcgis';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
-import {builderDefaults} from 'babel/builderOptionsConfig';
+// import {builderDefaults} from 'babel/builderOptionsConfig';
 
 let _portal = false;
 let _isAuthorized = false;
@@ -20,9 +20,9 @@ const _loadPortal = function loadPortal() {
     if (window.app.mode.fromScratch) {
       if (_portal.userIsAppPublisher()) {
         _isAuthorized = true;
-        ArcgisActions.receiveAppItem({
-          defaultData: builderDefaults.appData
-        });
+        // ArcgisActions.receiveAppItem({
+        //   defaultData: builderDefaults.appData
+        // });
       } else {
         AppActions.showLoadingError('notAuthorizedCreateNew');
       }

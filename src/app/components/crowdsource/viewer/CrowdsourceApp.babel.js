@@ -41,6 +41,10 @@ export default class CrowdsourceApp extends React.Component {
   render() {
     const errorMessage = this.state.loadState.error;
     const layout = this.state.appData.layout;
+    const builderProps = {
+      bannerVisible: this.state.builderBannerVisible,
+      errorMessage
+    };
     const introProps = {
       title: this.state.appData.settings.intro.title,
       subtitle: this.state.appData.settings.intro.subtitle,
@@ -73,7 +77,9 @@ export default class CrowdsourceApp extends React.Component {
       }
     };
 
-    const appClasses = Helper.classnames(['crowdsource-app']);
+    const appClasses = Helper.classnames(['crowdsource-app'],{
+      'no-banner': window.app.mode.isBuilder && !builderProps.bannerVisible ? true : false
+    });
 
     const getLayoutConfiguration = function getLayoutConfiguration(layout) {
       if (layout && errorMessage.length <= 0) {
@@ -124,7 +130,7 @@ export default class CrowdsourceApp extends React.Component {
         {/* THEME AND LAYOUT STYLES */}
         <style>{layout.font + layout.styles + layout.theme}</style>
 
-        { CrowdsourceBuilder ? <CrowdsourceBuilder /> : null }
+        { CrowdsourceBuilder ? <CrowdsourceBuilder {...builderProps} /> : null }
 
         <div className="viewer">
           {/* COMMON VIEWER COMPONENTS */}

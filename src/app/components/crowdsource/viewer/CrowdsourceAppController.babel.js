@@ -3,6 +3,7 @@ import 'velocity';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import AppDataStore from 'babel/stores/AppDataStore';
 import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
+import CrowdsourceBuilderAppStore from 'mode!isBuilder?babel/stores/CrowdsourceBuilderAppStore';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
@@ -83,6 +84,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     const appData = AppDataStore.appData || _emptyAppData;
     const features = CrowdsourceAppStore.features;
     const loadState = CrowdsourceAppStore.loadState;
+    const builderBannerVisible = CrowdsourceBuilderAppStore ? CrowdsourceBuilderAppStore.bannerVisible : false;
 
     if (!this._ready && loadState.isReady) {
       this.onAppReady();
@@ -90,6 +92,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
 
     return {
       appData: appData.values,
+      builderBannerVisible,
       features,
       loadState
     };
@@ -100,6 +103,9 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     $(window).on('resize',this.updateAppView.bind(this,{duration: 0}));
     AppDataStore.addChangeListener(this.onChange);
     CrowdsourceAppStore.addChangeListener(this.onChange);
+    if (CrowdsourceBuilderAppStore) {
+      CrowdsourceBuilderAppStore.addChangeListener(this.onChange);
+    }
   }
 
   unmount() {
@@ -107,6 +113,9 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     $(window).off('resize',this.updateAppView);
     AppDataStore.removeChangeListener(this.onChange);
     CrowdsourceAppStore.removeChangeListener(this.onChange);
+    if (CrowdsourceBuilderAppStore) {
+      CrowdsourceBuilderAppStore.addChangeListener(this.onChange);
+    }
   }
 
   onAppReady() {

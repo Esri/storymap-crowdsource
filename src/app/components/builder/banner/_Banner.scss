@@ -10,12 +10,12 @@
   }
 
   .app-name {
-    color: #368ec6;
+    color: $nameHighlight;
     font-weight: bold;
   }
 
   .append {
-    color: #cfcfcf;
+    color: $nameStandard;
   }
 
 }

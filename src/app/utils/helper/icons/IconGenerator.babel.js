@@ -30,6 +30,12 @@ const _icons = {
     viewBox: '0 0 1024 1024',
     path: 'M554.667 426.667h128v128h-128v298.667h-128v-298.667h-128v-128h128v-53.547c0-50.731 15.957-114.816 47.701-149.845 31.744-35.115 71.381-52.608 118.869-52.608h89.429v128h-89.6c-21.248 0-38.4 17.152-38.4 38.357v89.643z'
   },
+  'help': {
+    id: 'icon-help',
+    html: '<svg class="icon icon-help"><use xlink:href="#icon-help"></use></svg>',
+    viewBox: '0 0 1024 1024',
+    path: 'M642 480q40-40 40-96 0-70-50-120t-120-50-120 50-50 120h84q0-34 26-60t60-26 60 26 26 60-26 60l-52 54q-50 54-50 120v22h84q0-66 50-120zM554 810v-84h-84v84h84zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z'
+  },
   'link': {
     id: 'icon-link',
     html: '<svg class="icon icon-link"><use xlink:href="#icon-link"></use></svg>',
@@ -58,18 +64,20 @@ const _loadSymbol = function loadSymbol(iconObj) {
     $('body').append('<svg id="' + SVG_WRAPPER_ID + '" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs></defs></svg>');
   }
 
-  const svgNS = 'http://www.w3.org/2000/svg';
-  const path = document.createElementNS(svgNS,'path');
+  if ($('#' + iconObj.id).length === 0) {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const path = document.createElementNS(svgNS,'path');
 
-  const symbol = document.createElementNS(svgNS,'symbol');
+    const symbol = document.createElementNS(svgNS,'symbol');
 
-  path.setAttribute('class', 'path1');
-  path.setAttribute('d', iconObj.path);
-  symbol.setAttribute('id', iconObj.id);
-  symbol.setAttribute('viewBox', iconObj.viewBox);
+    path.setAttribute('class', 'path1');
+    path.setAttribute('d', iconObj.path);
+    symbol.setAttribute('id', iconObj.id);
+    symbol.setAttribute('viewBox', iconObj.viewBox);
 
-  symbol.appendChild(path);
-  document.getElementById(SVG_WRAPPER_ID).getElementsByTagName('defs')[0].appendChild(symbol);
+    symbol.appendChild(path);
+    document.getElementById(SVG_WRAPPER_ID).getElementsByTagName('defs')[0].appendChild(symbol);
+  }
 };
 
 export const getIcon = function getIcon(icon) {

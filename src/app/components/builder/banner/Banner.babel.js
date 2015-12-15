@@ -7,6 +7,7 @@ import 'bootstrap/transition';
 import builderText from 'i18n!translations/builder/nls/template';
 
 const bannerText = builderText.banner;
+const commonText = builderText.common;
 
 export const BuilderBanner = class BuilderBanner extends React.Component {
 
@@ -25,33 +26,41 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
       backgroundRepeat: 'repeat-x'
     };
 
+    const mobileMenuButton = this.props.brandOnly ? null : (
+      <button type="button" className="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar">
+        <span className="sr-only">Toggle navigation</span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+      </button>
+    );
+
+    const bannerButtons = this.props.brandOnly ? null : (
+      <div id="builder-banner" className="navbar-collapse collapse">
+        <ul className="nav navbar-nav">
+          <li><a href="#settings">{bannerText.buttons.settings}</a></li>
+          <li><a href="#share">{bannerText.buttons.share}</a></li>
+          <li><a href="#preview">{bannerText.buttons.preview}</a></li>
+          <li><a href="#help">{bannerText.buttons.help}</a></li>
+        </ul>
+        <ul className="nav navbar-nav navbar-right">
+          <li><p className="navbar-text">{bannerText.hintText.notSaved}</p></li>
+          <li><button className="save btn btn-primary navbar-btn">{bannerText.buttons.save}</button></li>
+        </ul>
+      </div>
+    );
+
     return (
       <nav className={bannerClass}>
         <LazyImage className="background-image" style={backgroundImageStyle} src={'resources/images/builder/builder-banner-background.png'} />
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
+            { mobileMenuButton }
             <div className="navbar-brand">
-              <span className="app-name">{bannerText.header.appName}</span> <span className="append">{bannerText.header.append}</span>
+              <span className="app-name">{commonText.appName}</span> <span className="append">{commonText.appNameAppend}</span>
             </div>
           </div>
-          <div id="builder-banner" className="navbar-collapse collapse">
-            <ul className="nav navbar-nav">
-              <li><a href="#settings">{bannerText.buttons.settings}</a></li>
-              <li><a href="#share">{bannerText.buttons.share}</a></li>
-              <li><a href="#preview">{bannerText.buttons.preview}</a></li>
-              <li><a href="#help">{bannerText.buttons.help}</a></li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><p className="navbar-text">{bannerText.hintText.notSaved}</p></li>
-              <li><button className="save btn btn-primary navbar-btn">{bannerText.buttons.save}</button></li>
-            </ul>
-          </div>
+          { bannerButtons }
         </div>
       </nav>
     );
@@ -60,9 +69,11 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
 };
 
 BuilderBanner.propTypes = {
+  brandOnly: React.PropTypes.bool
 };
 
 BuilderBanner.defaultProps = {
+  brandOnly: false
 };
 
 export default BuilderBanner;
