@@ -88,8 +88,8 @@ export default class CrowdsourceApp extends React.Component {
             break;
           default:
             // Translation Strings
-            const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.scroll.changeView.galleryView;
-            const CHANGE_VIEW_TO_MAP = viewerText.layouts.scroll.changeView.mapView;
+            const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.stacked.changeView.galleryView;
+            const CHANGE_VIEW_TO_MAP = viewerText.layouts.stacked.changeView.mapView;
 
             // Icons
             const downArrowHtml = {
@@ -99,7 +99,7 @@ export default class CrowdsourceApp extends React.Component {
               __html: getIcon('arrow-up-open')
             };
 
-            const scroll = (
+            const stacked = (
               <div className="main-content">
                 <div className="content-pane map-view">
                   <CrowdsourceWebmap {...webmapProps}/>
@@ -118,7 +118,7 @@ export default class CrowdsourceApp extends React.Component {
               </div>
             );
 
-            return scroll;
+            return stacked;
         }
       } else {
         return null;

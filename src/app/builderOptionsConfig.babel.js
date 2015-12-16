@@ -22,7 +22,7 @@ export const builderDefaults = {
 				},
 				map: {
 					crowdsourceLayer: {},
-					webmap: '8b3d38c0819547faa83f7b7aca80bd76',
+					webmap: '',
 					webmapOptions: {
 						ignorePopups: true,
 						mapOptions: {}
@@ -40,9 +40,9 @@ export const builderDefaults = {
 				}
 			},
 			layout: {
-				id: 'scroll',
+				id: 'stacked',
 				font: "DEFAULT_FONT_CSS_APPENDED_HERE",
-				styles: "SCROLL_LAYOUT_CSS_APPENDED_HERE",
+				styles: "STACKED_LAYOUT_CSS_APPENDED_HERE",
 				theme: "DEFAULT_THEME_CSS_APPENDED_HERE"
 			}
 		}

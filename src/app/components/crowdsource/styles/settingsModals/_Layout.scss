@@ -4,6 +4,11 @@
 
   .modal-content {
     border: none;
+
+    .always-change-hint {
+      margin-left: 8px;
+      vertical-align: middle;
+    }
   }
 
   .modal-header, .modal-footer {
@@ -28,6 +33,23 @@
 
   .layout-option {
     border-radius: 15px;
+    margin: 5px 0;
+
+    .selected-icon {
+      display: none;
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      margin: 2px 0 0 -13px;
+      border-radius: 20px;
+      background-color: $Calcite_Highlight_Blue_100;
+      color: $Calcite_Blue_a250;
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
 
     &:hover {
       background-color: $Calcite_Gray_150;
@@ -37,6 +59,10 @@
     &.selected {
       background-color: $Calcite_Highlight_Blue_100;
       cursor: default;
+
+      .selected-icon {
+        display: block;
+      }
     }
 
     .layout-thumbnail {
@@ -44,7 +70,7 @@
       margin: 15px 0;
     }
 
-    a.btn-link {
+    .view-live {
       display: inline-block;
       margin-left: -12px;
       margin-bottom: 9px;

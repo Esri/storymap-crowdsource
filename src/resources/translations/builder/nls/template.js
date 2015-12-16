@@ -27,8 +27,12 @@ define({
         preview: 'View a live example',
         commonAltText: 'layout preview.',
         selection: {
-          scroll: {
-            name: 'Scroll',
+          stacked: {
+            name: 'Stacked',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, doloremque!'
+          },
+          sidePanel: {
+            name: 'Side Panel',
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, doloremque!'
           }
         }

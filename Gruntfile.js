@@ -17,7 +17,7 @@ module.exports = function (grunt) {
   // Add loader for Grunt plugins
   require('matchdep').filterDev([ 'grunt-*' ]).forEach(grunt.loadNpmTasks);
   // Write temp file so grunt does not fail to read
-  grunt.file.write('build/app/themes/scroll/default.css','DEFAULT_THEME_CSS_APPENDED_HERE');
+  grunt.file.write('build/app/themes/stacked/default.css','DEFAULT_THEME_CSS_APPENDED_HERE');
 
   // Project configuration.
   grunt.initConfig({
@@ -227,10 +227,10 @@ module.exports = function (grunt) {
         src: ['build/app/builderOptionsConfig.js'],
         actions: [
           {
-            name: 'Add Scroll CSS Layout String',
-						search: 'SCROLL_LAYOUT_CSS_APPENDED_HERE',
+            name: 'Add Stacked CSS Layout String',
+						search: 'STACKED_LAYOUT_CSS_APPENDED_HERE',
 						replace: function() {
-              return grunt.file.read('build/app/layouts/scroll.css').trim();
+              return grunt.file.read('build/app/layouts/stacked.css').trim();
             },
 						flags: 'g'
           }
@@ -243,7 +243,7 @@ module.exports = function (grunt) {
             name: 'Add Default CSS Theme String',
 						search: 'DEFAULT_THEME_CSS_APPENDED_HERE',
 						replace: function() {
-              return grunt.file.read('build/app/themes/scroll/default.css').trim();
+              return grunt.file.read('build/app/themes/stacked/default.css').trim();
             },
 						flags: 'g'
           }
@@ -377,7 +377,7 @@ module.exports = function (grunt) {
           sourceMap: false
         },
         files: {
-          'build/app/layouts/scroll.css': 'src/app/components/crowdsource/styles/layouts/scroll/Scroll.scss'
+          'build/app/layouts/stacked.css': 'src/app/components/crowdsource/styles/layouts/stacked/Stacked.scss'
         }
       },
       themes: {

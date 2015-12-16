@@ -15,7 +15,7 @@ define({
       }
     },
     layouts: {
-      scroll: {
+      stacked: {
         changeView: {
           mapView: 'Map View',
           galleryView: 'Thumbnail View'

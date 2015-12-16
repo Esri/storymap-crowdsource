@@ -24,6 +24,12 @@ const _icons = {
     viewBox: '0 0 1024 1024',
     path: 'M132.198 711.219c-13.926 13.722-36.301 13.722-50.125 0s-13.875-35.891 0-49.613l404.89-400.896c13.824-13.722 36.198-13.722 50.125 0l404.89 400.896c13.824 13.722 13.824 35.891 0 49.613-13.875 13.722-36.301 13.722-50.074 0l-379.904-365.619-379.802 365.619z'
   },
+  'circled-check': {
+    id: 'icon-circled-check',
+    html: '<svg class="icon icon-circled-check"><use xlink:href="#icon-circled-check"></use></svg>',
+    viewBox: '0 0 1024 1024',
+    path: 'M426 726l384-384-60-62-324 324-152-152-60 60zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z'
+  },
   'facebook': {
     id: 'icon-facebook',
     html: '<svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>',
@@ -58,6 +64,7 @@ const _icons = {
 
 // Alias List
 _icons.bitly = _icons.link;
+_icons.selected = _icons['circled-check'];
 
 const _loadSymbol = function loadSymbol(iconObj) {
   if ($('#' + SVG_WRAPPER_ID).length === 0) {

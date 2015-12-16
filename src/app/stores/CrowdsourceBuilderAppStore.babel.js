@@ -1,12 +1,46 @@
+import $ from 'jquery';
+import Immutable from 'lib/immutable/dist/immutable';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import AppStore from 'babel/stores/AppStore';
 import AppDataStore from 'babel/stores/AppDataStore';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
+import BuilderConstants from 'babel/constants/CrowdsourceBuilderAppConstants';
 import {Events} from 'babel/constants/CrowdsourceBuilderAppConstants';
+import {builderDefaults} from 'babel/builderOptionsConfig';
 
 let _activeModal = '';
 let _authourized = false;
 let _bannerVisible = false;
+
+let _scratchAppDataVersions = [];
+let _scratchAppDataDefaults = builderDefaults.appData;
+
+const _getCurrentScratchAppData = function getCurrentScratchAppData(toJS){
+  const current = _scratchAppDataVersions[_scratchAppDataVersions.length -1];
+
+  if (current && toJS) {
+    return current.toJS();
+  } else if (current) {
+    return current;
+  } else {
+    return;
+  }
+
+};
+
+const _updateScratchAppData = function updateScratchAppData(newData) {
+  let appData;
+  const previous = _getCurrentScratchAppData();
+
+  if (!previous) {
+    const withDefaults = $.extend(true,{}, _scratchAppDataDefaults, newData);
+
+    appData = Immutable.fromJS(withDefaults);
+  } else {
+    appData = previous.mergeDeep(newData);
+  }
+  _scratchAppDataVersions.push(appData);
+};
 
 const _CrowdsourceBuilderAppStoreClass = class CrowdsourceBuilderAppStoreClass extends AppStore {
 
@@ -14,7 +48,7 @@ const _CrowdsourceBuilderAppStoreClass = class CrowdsourceBuilderAppStoreClass e
     super();
   }
 
-  get settingsModal() {
+  get activeModal() {
     switch (_activeModal) {
       case 'layout':
         return 'layout';
@@ -29,6 +63,20 @@ const _CrowdsourceBuilderAppStoreClass = class CrowdsourceBuilderAppStoreClass e
 
   get bannerVisible() {
     return _bannerVisible;
+  }
+
+  get scratchAppData() {
+    if (!AppDataStore.appData && window.app.mode.fromScratch) {
+      const current = _getCurrentScratchAppData(true);
+
+      if (current) {
+        return current;
+      } else {
+        return _scratchAppDataDefaults;
+      }
+    } else {
+      return false;
+    }
   }
 
 };
@@ -47,7 +95,10 @@ CrowdsourceBuilderAppStore.dispatchToken = AppDispatcher.register((payload) => {
         CrowdsourceBuilderAppStore.emitChange(Events.appState.SETTINGS_VIEW);
       }
       break;
-    }
+    case BuilderConstants.ActionTypes.app.UPDATE_APP_DATA:
+      _updateScratchAppData(payload.data);
+      CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.UPDATE_APP_DATA);
+  }
 
 });
 
