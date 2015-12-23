@@ -26,7 +26,7 @@ export default class Modal extends React.Component {
 
   render() {
 
-    const modalClasses = Helper.classnames([this.props.className,this.props.classNames,'modal','fade']);
+    const modalClasses = Helper.classnames([this.props.className,this.props.classNames,'modal']);
     const verticalHelperClass = Helper.classnames('vertical-alignment-helper',{
       'is-centered': this.props.verticallyCentered
     });

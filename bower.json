@@ -27,9 +27,10 @@
     "i18n": "https://github.com/requirejs/i18n/archive/2.0.6.zip",
     "immutable": "~3.7.5",
     "jquery": "~2.1.4",
-    "react": "https://facebook.github.io/react/downloads/react-0.14.2.zip",
+    "react": "https://facebook.github.io/react/downloads/react-0.14.3.zip",
     "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
     "bourbon": "~4.2.6",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "validatorjs": "https://github.com/skaterdav85/validatorjs/archive/84624cb9bcea7b3fe18bba0fe077007624fd94a9.zip"
   }
 }

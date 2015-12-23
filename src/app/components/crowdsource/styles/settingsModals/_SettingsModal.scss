@@ -1,0 +1,29 @@
+@import "calcite/colors-default";
+
+.settings-modal {
+
+  .modal-content {
+    border: none;
+  }
+
+  .modal-header, .modal-footer {
+    border: none;
+  }
+
+  .modal-footer {
+    text-align: center;
+  }
+
+  .modal-title{
+    color: $nameStandard;
+
+    .title {
+      margin: 0;
+    }
+
+    strong {
+      color: $nameHighlight;
+    }
+  }
+
+}

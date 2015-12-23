@@ -4,6 +4,7 @@ $buiderBannerHeight: 50px;
 $nameStandard: $Calcite_Gray_300;
 $nameHighlight: $Calcite_Blue_200;
 
+@import "crowdsource/styles/settingsModals/SettingsModal";
 @import "crowdsource/styles/settingsModals/Layout";
 @import "builder/banner/Banner";
 

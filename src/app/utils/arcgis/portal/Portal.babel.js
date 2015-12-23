@@ -43,6 +43,17 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     }
   }
 
+  getUserFolders() {
+    const dfd = new Deferred();
+    const user = this.getPortalUser();
+
+    user.getFolders().then((folders) => {
+      dfd.resolve(folders);
+    },_onError);
+
+    return dfd;
+  }
+
   userIsAppPublisher() {
     return this.hasUserPrivileges(['portal:user:createItem','portal:publisher:publishFeatures']);
   }
@@ -69,6 +80,38 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
       _onError('No user available.');
       return false;
     }
+  }
+
+  isNameAvailable(options) {
+    const dfd = new Deferred();
+    const defaults = {};
+    const settings = $.extend(true, {}, defaults, options);
+    const portalId = this.id;
+    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'portals/' + portalId + '/isServiceNameAvailable';
+
+    const content = {
+      name: settings.name,
+      type: 'Feature Service',
+      f: 'json'
+    };
+
+    esriRequest({
+      url,
+      handleAs: 'json',
+      content
+    }).then((res) => {
+      if (res.available || res.available === false) {
+        dfd.resolve(res);
+      } else {
+        _onError(res);
+        dfd.reject(res);
+      }
+    },(err) => {
+      _onError(err);
+      dfd.reject(err);
+    });
+
+    return dfd;
   }
 
   createService(options) {
@@ -246,7 +289,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     const username = this.getPortalUser().username;
     const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
-    const appItem = AppDataStore.originalItem ? AppDataStore.originalItem.item : builderDefaults.appItemDefaults;
+    const appItem = AppDataStore.originalItem ? AppDataStore.originalItem.item : builderDefaults.builderDefaults.appItem;
     const appData = AppDataStore.appData;
 
     // Remove properties that don't have to be committed

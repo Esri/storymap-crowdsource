@@ -21,8 +21,9 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
 
   get appState() {
     const activeModal = CrowdsourceBuilderAppStore.activeModal;
-    const authorized = CrowdsourceBuilderAppStore.authorized;
     const appData = CrowdsourceBuilderAppStore.scratchAppData || AppDataStore.appData;
+    const authorized = CrowdsourceBuilderAppStore.authorized;
+    let continueDisabled = false;
     let hideBannerContent = false;
 
     if (activeModal) {
@@ -31,11 +32,17 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     if (!authorized) {
       hideBannerContent = true;
     }
+    if (activeModal === 'itemNameScratch' && CrowdsourceBuilderAppStore.scratchAppData) {
+      continueDisabled = true;
+    }
 
     return {
       appData: appData.values || appData,
       activeModal,
-      hideBannerContent
+      continueDisabled,
+      hideBannerContent,
+      portal: PortalStore.portalInstance,
+      userFolders: PortalStore.userFolders
     };
   }
 

@@ -8,9 +8,12 @@
 
 // Helper Components
 @import "helper/sharing/ShareButtonPane";
+@import "helper/modal/Modal";
+
+// Forms
+@import "forms/Forms";
 
 // UI Components
-@import "helper/modal/Modal";
 @import "intro/IntroSplash";
 @import "header/Header";
 @import "map/Map";

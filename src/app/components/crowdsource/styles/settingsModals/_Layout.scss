@@ -2,33 +2,9 @@
 
 .settings-modal.layout {
 
-  .modal-content {
-    border: none;
-
-    .always-change-hint {
-      margin-left: 8px;
-      vertical-align: middle;
-    }
-  }
-
-  .modal-header, .modal-footer {
-    border: none;
-  }
-
-  .modal-footer {
-    text-align: center;
-  }
-
-  .modal-title{
-    color: $nameStandard;
-
-    .title {
-      margin: 0;
-    }
-
-    strong {
-      color: $nameHighlight;
-    }
+  .modal-content .always-change-hint {
+    margin-left: 8px;
+    vertical-align: middle;
   }
 
   .layout-option {

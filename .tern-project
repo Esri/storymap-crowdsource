@@ -1,0 +1,39 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [
+    "path/to/your/js/**/*.js"
+  ],
+  "dontLoad": [
+    "path/to/your/js/**/*.js"
+  ],
+  "plugins": {
+    "complete_strings": {},
+    "node": {},
+    "lint": {},
+    "requirejs": {
+      "baseURL": "./src",
+      "paths": {
+        "dojo": "empty:",
+        "esri": "empty:",
+        "dijit": "empty:",
+        "dojox": "empty:",
+        "translations": "empty:",
+        "babel": "../build/app",
+        "lib": "lib",
+        "jquery": "lib/jquery/dist/jquery",
+        "velocity": "lib/velocity/velocity",
+        "react": "lib/react/build/react-with-addons",
+        "reactDom": "lib/react/build/react-dom",
+        "bootstrap": "lib/bootstrap-sass/assets/javascripts/bootstrap",
+        "mode": "../build/app/utils/amd/plugins/AppMode",
+        "i18n": "lib/i18n/i18n"
+      }
+    },
+    "modules": {},
+    "es_modules": {}
+  }
+}

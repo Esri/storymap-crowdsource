@@ -46,13 +46,12 @@ export const builderDefaults = {
 				theme: "DEFAULT_THEME_CSS_APPENDED_HERE"
 			}
 		}
+	},
+	appItem: {
+		tags: ['Story Map, Story Maps, Crowdsource'],
+		type: 'Web Mapping Application',
+		typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
 	}
-};
-
-export const appItemDefaults = {
-	tags: ['Story Map, Story Maps, Crowdsource'],
-	type: 'Web Mapping Application',
-	typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
 };
 
 export const featureServiceDefaults = {
@@ -232,7 +231,6 @@ export const builderOptions = {
 };
 
 export default {
-	appItemDefaults,
 	basemapsWebmapDefinitions,
 	builderDefaults,
 	builderOptions,

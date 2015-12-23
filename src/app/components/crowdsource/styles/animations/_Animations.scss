@@ -1,2 +1,22 @@
 @include fade(fadeIn,0,100);
 @include fade(fadeOut,100,0);
+
+// MODAL FADE IN/OUT START
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-enter.modal-enter-active {
+  opacity: 1;
+  @include transition(opacity 300ms ease-in 700ms);
+}
+
+.modal-leave {
+  opacity: 1;
+}
+
+.modal-leave.modal-leave-active {
+  opacity: 0;
+  @include transition(opacity 300ms ease-in 0s);
+}
+// MODAL FADE IN/OUT START

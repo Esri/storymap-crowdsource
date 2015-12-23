@@ -10,7 +10,7 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
   constructor(props) {
     super(props);
 
-    this.selectLayout = this.selectLayout.bind(this);
+    this.saveData = this.saveData.bind(this);
     this.stopPropagation = this.stopPropagation.bind(this);
   }
 
@@ -37,7 +37,7 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
           const altText = layouts[layout].name + ' ' + builderText.settingsModals.layout.commonAltText;
 
           return (
-            <div className={layoutClasses} key={index} onClick={this.selectLayout.bind(this,layout)}>
+            <div className={layoutClasses} key={index} onClick={this.saveData.bind(this,layout,'.id')}>
               <div className="col-xs-12 col-md-5">
                 <div className="selected-icon" dangerouslySetInnerHTML={selectedIconHtml}></div>
                 <img className="layout-thumbnail" alt={altText} src={layoutImg} />
@@ -45,7 +45,7 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
               <div className="col-xs-12 col-md-7">
                 <h4 className="layout-name">{layouts[layout].name}</h4>
                 <p className="layout-description">{layouts[layout].description}</p>
-              <a href="http://www.example.com" className="view-live btn btn-link btn-sm" target="_blank" onClick={this.stopPropagation}>{builderText.settingsModals.layout.preview}</a>
+                <a href="http://www.example.com" className="view-live btn btn-link btn-sm" target="_blank" onClick={this.stopPropagation}>{builderText.settingsModals.layout.preview}</a>
               </div>
             </div>
           );
@@ -54,23 +54,27 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
     );
   }
 
-  selectLayout(layout) {
-    BuilderAction.updateAppData('values.layout.id',layout);
+  saveData(value,dataStoragePath) {
+    const DATA_STORAGE_PATH = dataStoragePath ? this.props.dataStoragePath + dataStoragePath : this.props.dataStoragePath;
+
+    BuilderAction.updateAppData(DATA_STORAGE_PATH,value);
   }
 
-  stopPropagation(e) {
-    e.stopPropagation();
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
 };
 
 SettingsLayout.propTypes = {
   alwaysChangeHint: React.PropTypes.bool,
+  dataStoragePath: React.PropTypes.string,
   selected: React.PropTypes.string
 };
 
 SettingsLayout.defaultProps = {
   alwaysChangeHint: false,
+  dataStoragePath: 'values',
   selected: ''
 };
 
