@@ -17,7 +17,7 @@ require([
   //----------------------------------------------
   // Development - TODO to be removed for release
   //----------------------------------------------
-  testCredentials, /*eslint no-unused-vars: 0*/
+  testCredentials,  // eslint-disable-line no-unused-vars
   //----------------------------------------------
   React,
   ReactDOM,

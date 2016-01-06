@@ -16,8 +16,6 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
   render() {
 
-    const self = this;
-
     const appName = {
       id: 'smCrowdsource_settings_itemName_appName',
       label: formText.appName.label,
@@ -54,22 +52,15 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       validations: ['arcgisServiceNameFormat','arcgisIsServiceNameAvailable']
     };
 
-    const getUserFolders = function getUserFolders() {
-      const homeFolder = [{
-        value: false,
-        label: self.props.portal.getPortalUser().username + ' (' + formText.folderSelection.rootFolder + ')'
-      }];
-
-      const userFolders = [];
-
-      self.props.userFolders.map((folder) => {
-        userFolders.push({
-          value: folder.id,
-          label: folder.title
-        });
-      });
-
-      return homeFolder.concat(userFolders);
+    const folder = {
+      id: 'smCrowdsource_settings_itemName_folder',
+      label: formText.featureServiceName.label,
+      inputAttr: {
+        type: 'select',
+        placeholder: formText.folderSelection.label,
+        required: true
+      },
+      options: this.getUserFolders()
     };
 
     return (
@@ -89,12 +80,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
                 <p>{builderText.settingsModals.itemName.advancedDescription}</p>
                 <Input {...mapName}></Input>
                 <Input {...layerName}></Input>
-                <Select
-                  id="smCrowdsource_settings_itemName_folder"
-                  label={formText.folderSelection.label}
-                  options={getUserFolders()}
-                  validations="required">
-                </Select>
+                <Select {...folder}></Select>
               </div>
             </form>
           </div>
@@ -111,6 +97,24 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
   showAdvancedOptions() {
     $('#smCrowdsource_settings_itemName_advanceOptions_toggle').attr('aria-expanded',true);
     $('#smCrowdsource_settings_itemName_advanceOptions').collapse('show');
+  }
+
+  getUserFolders() {
+    const homeFolder = [{
+      value: false,
+      label: this.props.portal.getPortalUser().username + ' (' + formText.folderSelection.rootFolder + ')'
+    }];
+
+    const userFolders = [];
+
+    this.props.userFolders.map((folder) => {
+      userFolders.push({
+        value: folder.id,
+        label: folder.title
+      });
+    });
+
+    return homeFolder.concat(userFolders);
   }
 
 };

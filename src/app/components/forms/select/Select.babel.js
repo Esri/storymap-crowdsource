@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
+import FormGroup from 'babel/components/forms/base/FormGroup';
 import Logger from 'babel/utils/logging/Logger';
-import {validate} from 'babel/utils/validations/Validate';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
 const formText = ViewerText.forms.select;
@@ -17,30 +17,15 @@ const _onError = function onError(err) {
   });
 };
 
-export default class Select extends React.Component {
+export default class Select extends FormGroup {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      errors: false,
-      isValid: true
-    };
-
-    this.onInput = this.onInput.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
 
-    const inputClasses = Helper.classnames([this.props.className,'select-input','form-group',{
+    const inputClasses = Helper.classnames([this.props.className,'select','form-group',{
       'has-error': !this.state.isValid
     }]);
 
@@ -50,10 +35,10 @@ export default class Select extends React.Component {
         <select
           id={this.props.id}
           className="form-control"
-          ref={(ref) => this.selectInput = ref}
-          value=""
-          onInput={this.onInput}
-          onBlur={this.onBlur}
+          ref={(ref) => this.input = ref}
+          defaultValue={formText.noDefaultSelection ? '' : null}
+          onInput={this.validateForm}
+          onBlur={this.validateForm}
           {...this.props.inputAttr}>
           {this.props.noDefaultSelection ? <option disabled value="">{formText.noDefaultSelection}</option> : null}
           {
@@ -68,53 +53,9 @@ export default class Select extends React.Component {
             })
           }
         </select>
-        {!this.state.isValid && this.state.errors && this.state.errors.length > 0 ? (
-          <ul className="text-danger form-error-message">
-            {this.state.errors.map((error,index) => {
-              return (
-                <li key={index}>
-                  <strong><small>
-                    {error}
-                  </small></strong>
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
+        {this.getErrorMessage ? this.getErrorMessage() : null}
       </div>
     );
-  }
-
-  onInput() {
-    this.validateForm();
-  }
-
-  onBlur() {
-    this.validateForm();
-  }
-
-  validateForm() {
-    const value = this.selectInput.value;
-
-    const pass = function pass(res) {
-      this.setState({
-        errors: false,
-        isValid: res.isValid
-      });
-    };
-
-    const fail = function fail(res) {
-      this.setState({
-        errors: res.errors,
-        isValid: res.isValid
-      });
-    };
-
-    validate({
-      value,
-      validations: this.props.validations,
-      attributeName: this.props.validationName || this.props.label.toLowerCase()
-    }).then(pass.bind(this),fail.bind(this));
   }
 
 }
@@ -125,7 +66,7 @@ Select.propTypes = {
   label: React.PropTypes.string,
   noDefaultSelection: React.PropTypes.bool,
   options: React.PropTypes.array,
-  validations: React.PropTypes.string
+  validations: React.PropTypes.array
 };
 
 Select.defaultProps = {
@@ -134,5 +75,5 @@ Select.defaultProps = {
   label: '',
   noDefaultSelection: false,
   options: [],
-  validations: ''
+  validations: []
 };
