@@ -22,10 +22,7 @@ define({
     settingsModals: {
       common: {
         advancedOptions: 'Advanced Options',
-        welcome: 'Welcome to',
-        buttons: {
-          fix: 'Fix it!'
-        }
+        welcome: 'Welcome to'
       },
       itemName: {
         header: 'What do you want to call your Crowdsource story?',
@@ -96,11 +93,11 @@ define({
       }
     },
     validations: {
-      defaultMessages: {
-        arcgisItemName: 'The :attribute may not contain < or >.',
-        arcgisServiceNameFormat: 'The :attribute may contain only contain letters, numbers, and underscores.'
-      },
       arcgis: {
+        naming: {
+          arcgisItemName: 'The <% attribute %> may not contain < or >.',
+          arcgisServiceNameFormat: 'The <% attribute %> may contain only contain letters, numbers, and underscores.'
+        },
         portal: {
           unableToCheckName: 'An unknown error occured and we are unable to check if the name is available. Please try again later.',
           nameNotString: 'Name must be normal text',

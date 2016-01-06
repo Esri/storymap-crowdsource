@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import _ from 'lib/lodash/lodash';
 import Deferred from 'dojo/Deferred';
 import esriRequest from 'esri/request';
 import ArcgisPortal from 'esri/arcgis/Portal';
@@ -138,7 +137,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
         featureServiceItem.title = name + ' - ' + builderText.itempageDefaults.featureService.titleAppend;
       }
       if (!createParameters.name) {
-        createParameters.name = _.camelCase(name);
+        createParameters.name = name;
       }
 
       const content = $.extend(true, featureServiceItem, {

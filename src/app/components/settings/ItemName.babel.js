@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import React from 'react';
-import TextInput from 'babel/components/forms/textInput/TextInput';
-import SelectInput from 'babel/components/forms/selectInput/SelectInput';
+import Input from 'babel/components/forms/input/Input';
+import Select from 'babel/components/forms/select/Select';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
@@ -18,19 +18,40 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
     const self = this;
 
-    const appNameInputAttr = {
-      placeholder: formText.appName.placeholder,
-      maxLength: 120
+    const appName = {
+      id: 'smCrowdsource_settings_itemName_appName',
+      label: formText.appName.label,
+      inputAttr: {
+        type: 'text',
+        placeholder: formText.appName.placeholder,
+        maxLength: 120,
+        required: true
+      },
+      validations: ['arcgisItemName']
     };
 
-    const mapNameInputAttr = {
-      placeholder: formText.mapName.placeholder,
-      maxLength: 120
+    const mapName = {
+      id: 'smCrowdsource_settings_itemName_mapName',
+      label: formText.mapName.label,
+      inputAttr: {
+        type: 'text',
+        placeholder: formText.mapName.placeholder,
+        maxLength: 120,
+        required: true
+      },
+      validations: ['arcgisItemName']
     };
 
-    const layerNameInputAttr = {
-      placeholder: formText.featureServiceName.placeholder,
-      maxLength: 120
+    const layerName = {
+      id: 'smCrowdsource_settings_itemName_layerName',
+      label: formText.featureServiceName.label,
+      inputAttr: {
+        type: 'text',
+        placeholder: formText.featureServiceName.placeholder,
+        maxLength: 120,
+        required: true
+      },
+      validations: ['arcgisServiceNameFormat','arcgisIsServiceNameAvailable']
     };
 
     const getUserFolders = function getUserFolders() {
@@ -59,36 +80,21 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
               {builderText.settingsModals.itemName.header}
             </h5>
             <form>
-              <TextInput
-                id="smCrowdsource_settings_itemName_appName"
-                label={formText.appName.label}
-                inputAttr={appNameInputAttr}
-                validations="required|max:120|arcgisItemName">
-              </TextInput>
+              <Input {...appName}></Input>
               <button id="smCrowdsource_settings_itemName_advanceOptions_toggle" className="btn btn-default btn-xs" type="button" onClick={this.toggleAdvancedOptions} aria-expanded="false" aria-controls="smCrowdsource_settings_itemName_advanceOptions">
                 {builderText.settingsModals.common.advancedOptions}
               </button>
               <div id="smCrowdsource_settings_itemName_advanceOptions" className="collapse">
                 <hr></hr>
                 <p>{builderText.settingsModals.itemName.advancedDescription}</p>
-                <TextInput
-                  id="smCrowdsource_settings_itemName_mapName"
-                  label={formText.mapName.label}
-                  inputAttr={mapNameInputAttr}
-                  validations="required|max:120|arcgisItemName">
-                </TextInput>
-                <TextInput
-                  id="smCrowdsource_settings_itemName_layerName"
-                  label={formText.featureServiceName.label}
-                  inputAttr={layerNameInputAttr}
-                  validations="required|max:120|arcgisServiceNameFormat">
-                </TextInput>
-                <SelectInput
+                <Input {...mapName}></Input>
+                <Input {...layerName}></Input>
+                <Select
                   id="smCrowdsource_settings_itemName_folder"
                   label={formText.folderSelection.label}
                   options={getUserFolders()}
                   validations="required">
-                </SelectInput>
+                </Select>
               </div>
             </form>
           </div>
