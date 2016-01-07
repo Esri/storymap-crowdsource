@@ -3,33 +3,32 @@ import Deferred from 'dojo/Deferred';
 import PortalStore from 'babel/stores/PortalStore';
 import ValidationUtils from 'babel/utils/validations/ValidationUtils';
 import BuilderText from 'i18n!translations/builder/nls/template';
+import 'babel/utils/helper/strings/StringUtils';
 
-const ValitdateText = BuilderText.validations.arcgis.portal;
+const ValitdateText = BuilderText.validations.arcgis;
 
 const PortalRules = {
-  arcgisIsServiceNameAvailable: function arcgisIsServiceNameAvailable(options) {
+  arcgisIsServiceName: function arcgisIsServiceName(options) {
     let res = {
 			isValid: true,
 			error: false
 		};
-    const defaults = {
-      errorMessage: ValitdateText.nameNotAvailableFS
-    };
+    const defaults = {};
     const settings = $.extend(true,{},defaults,options);
 		const msgOptions = {
 			attribute: settings.attribute
 		};
-    const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
+    const errorMessage = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.portal.nameNotAvailableFS,msgOptions);
 
     const portal = PortalStore.portalInstance;
 
-    const getValidLayerName = function getValidLayerName() {
+    const getValidLayerName = function getValidLayerName(value) {
       const dfd = new Deferred();
-      let i = 1;
+      let i = 0;
 
       const checkName = function checkName() {
         const append = '_' + i;
-        const name = settings.value.slice(0,120 - append.length) + append;
+        const name = i === 0 ? value.slice(0,120) : value.slice(0,120 - append.length) + append;
 
         portal.isNameAvailable({
           name
@@ -61,7 +60,7 @@ const PortalRules = {
         } else if (response.available === false) {
           res.isValid = false;
           res.error = errorMessage;
-          getValidLayerName().then((response) => {
+          getValidLayerName(settings.value).then((response) => {
             res.fixValue = response;
             dfd.resolve(res);
           },() => {
@@ -75,6 +74,19 @@ const PortalRules = {
       },() => {
         res.isValid = false;
         res.error = ValitdateText.unableToCheckName;
+        dfd.resolve(res);
+      });
+      return dfd;
+    } else if (settings.value && typeof settings.value === 'string' && settings.value.length > 0 && settings.value.match(/[^a-zA-Z0-9_]/gi)) {
+      const dfd = new Deferred();
+      const correctFormat = settings.value.toCamelCase().replace(/[^a-zA-Z0-9_]/gi,'');
+
+      res.isValid = false;
+      res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.naming.arcgisServiceNameFormat,msgOptions);
+      getValidLayerName(correctFormat).then((response) => {
+        res.fixValue = response;
+        dfd.resolve(res);
+      },() => {
         dfd.resolve(res);
       });
       return dfd;

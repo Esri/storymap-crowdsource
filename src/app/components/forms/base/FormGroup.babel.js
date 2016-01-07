@@ -12,7 +12,7 @@ export default class FormGroup extends React.Component {
     this.state = {
       errors: false,
       isValid: true,
-      noInput: true
+      changed: false
     };
 
     this.getErrorMessage = this.getErrorMessage.bind(this);
@@ -30,10 +30,12 @@ export default class FormGroup extends React.Component {
     if (this.input.value) {
       this.validateForm();
     }
+    this.updateValue();
   }
 
   componentDidUpdate() {
     this.validator.setValidations(this.getValidations());
+    this.updateValue();
   }
 
   render() {
@@ -64,9 +66,9 @@ export default class FormGroup extends React.Component {
   }
 
   onChange() {
-    if (this.state.noInput) {
+    if (!this.state.changed) {
       this.setState({
-        noInput: false
+        changed: true
       });
     }
     this.validateForm();
@@ -165,9 +167,29 @@ export default class FormGroup extends React.Component {
     }
   }
 
+  updateValue() {
+    const commonChecks = this.props.autoUpdate.when && this.props.autoUpdate.value && this.props.autoUpdate.value !== this.input.value;
+
+    if (commonChecks && this.props.autoUpdate.when === 'always') {
+      this.input.value = this.props.autoUpdate.value;
+    } else if (commonChecks && this.props.autoUpdate.when === 'notChanged' && !this.state.changed) {
+      this.input.value = this.props.autoUpdate.value;
+    }
+  }
+
 }
 
 FormGroup.propTypes = {
+  autoUpdate: React.PropTypes.shape({
+    when: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.oneOf(['always', 'notChanged'])
+    ]),
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.string
+    ])
+  }),
   dataStoragePath: React.PropTypes.string,
   id: React.PropTypes.string,
   inputAttr: React.PropTypes.shape({
@@ -178,6 +200,10 @@ FormGroup.propTypes = {
 };
 
 FormGroup.defaultProps = {
+  autoUpdate: {
+    when: false,
+    value: false
+  },
   dataStoragePath: 'values',
   id: '',
   inputAttr: {

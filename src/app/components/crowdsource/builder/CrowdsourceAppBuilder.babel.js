@@ -10,7 +10,6 @@ import builderText from 'i18n!translations/builder/nls/template';
 import BuilderAction from 'babel/actions/BuilderActions';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-const DATA_STORAGE_PATH_BASE = 'values';
 
 // TRANSLATED TEXT STRINGS START
 // TRANSLATED TEXT STRINGS END
@@ -66,9 +65,9 @@ export default class CrowdsourceAppBuiler extends React.Component {
       },
       title: welcomeTitle,
       body: <SettingsLayout
-        dataStoragePath={DATA_STORAGE_PATH_BASE + '.layout'}
+        dataStoragePath={'COMMON_layout'}
         alwaysChangeHint={true}
-        selected={this.state.appData.layout.id}>
+        selected={this.state.appData.app.data.values.layout.id}>
       </SettingsLayout>,
       footer: continueButton
     };
@@ -82,7 +81,9 @@ export default class CrowdsourceAppBuiler extends React.Component {
       },
       title: welcomeTitle,
       body: <SettingsItemName
-        dataStoragePath={DATA_STORAGE_PATH_BASE + '.settings'}
+        webmapName={this.state.appData.webmap.item.title}
+        layerName={this.state.appData.layer.item.title}
+        dataStoragePath={'COMMON_settings'}
         userFolders={this.state.userFolders}
         portal={this.state.portal}>
       </SettingsItemName>,

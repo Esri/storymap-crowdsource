@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
@@ -60,20 +61,12 @@ export default class Select extends FormGroup {
 
 }
 
-Select.propTypes = {
-  id: React.PropTypes.string,
-  inputAttr: React.PropTypes.shape(),
-  label: React.PropTypes.string,
+$.extend(true,Select.propTypes,{
   noDefaultSelection: React.PropTypes.bool,
-  options: React.PropTypes.array,
-  validations: React.PropTypes.array
-};
+  options: React.PropTypes.array
+});
 
-Select.defaultProps = {
-  id: '',
-  inputAttr: {},
-  label: '',
+$.extend(true,Select.defaultProps,{
   noDefaultSelection: false,
-  options: [],
-  validations: []
-};
+  options: []
+});

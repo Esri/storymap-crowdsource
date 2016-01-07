@@ -2,55 +2,71 @@ import Helper from 'babel/utils/helper/Helper';
 import builderText from 'i18n!translations/builder/nls/template';
 
 export const builderDefaults = {
-	appData: {
-		values: {
-			settings: {
-				intro: {
-					title: '',
-					subtitle: builderText.appDataPlaceholderText.intro.subtitle,
-					background: {
-						type: 'photo',
-						source: 'resources/images/splash/splash' + Helper.mathUtils.getRandomIntInclusive(1,12) + '.jpg'
+	app: {
+		data: {
+			values: {
+				settings: {
+					intro: {
+						title: '',
+						subtitle: builderText.appDataPlaceholderText.intro.subtitle,
+						background: {
+							type: 'photo',
+							source: 'resources/images/splash/splash' + Helper.mathUtils.getRandomIntInclusive(1,12) + '.jpg'
+						}
+					},
+					header: {
+						title: '',
+						logo: {
+							source: 'resources/images/logo/esri-logo-reversed.svg',
+							link: 'http://www.esri.com/'
+						}
+					},
+					map: {
+						crowdsourceLayer: {},
+						webmap: '',
+						webmapOptions: {
+							ignorePopups: true,
+							mapOptions: {}
+						}
+					},
+					globals: {
+						participateShort: builderText.appDataPlaceholderText.globals.participateShort,
+						participateLong: builderText.appDataPlaceholderText.globals.participateLong,
+						exploreText: builderText.appDataPlaceholderText.globals.exploreText,
+						social: {
+							facebook: true,
+							twitter: true,
+							link: true
+						}
 					}
 				},
-				header: {
-					title: '',
-					logo: {
-						source: 'resources/images/logo/esri-logo-reversed.svg',
-						link: 'http://www.esri.com/'
-					}
-				},
-				map: {
-					crowdsourceLayer: {},
-					webmap: '',
-					webmapOptions: {
-						ignorePopups: true,
-						mapOptions: {}
-					}
-				},
-				globals: {
-					participateShort: builderText.appDataPlaceholderText.globals.participateShort,
-					participateLong: builderText.appDataPlaceholderText.globals.participateLong,
-					exploreText: builderText.appDataPlaceholderText.globals.exploreText,
-					social: {
-						facebook: true,
-						twitter: true,
-						link: true
-					}
+				layout: {
+					id: 'stacked',
+					font: "DEFAULT_FONT_CSS_APPENDED_HERE",
+					styles: "STACKED_LAYOUT_CSS_APPENDED_HERE",
+					theme: "DEFAULT_THEME_CSS_APPENDED_HERE"
 				}
-			},
-			layout: {
-				id: 'stacked',
-				font: "DEFAULT_FONT_CSS_APPENDED_HERE",
-				styles: "STACKED_LAYOUT_CSS_APPENDED_HERE",
-				theme: "DEFAULT_THEME_CSS_APPENDED_HERE"
 			}
+		},
+		item: {
+			title: '',
+			tags: ['Story Map, Story Maps, Crowdsource'],
+			type: 'Web Mapping Application',
+			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
 		}
 	},
-	appItem: {
-		tags: ['Story Map, Story Maps, Crowdsource'],
-		type: 'Web Mapping Application',
-		typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
+	webmap: {
+		item: {
+			title: '',
+			tags: ['Story Map, Story Maps, Crowdsource'],
+			type: 'Web Map',
+			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Web Map']
+		}
+	},
+	layer: {
+		item: {
+			title: ''
+		}
 	}
 };
 
@@ -188,12 +204,6 @@ export const crowdsourceLayerDefinition = {
 	}]
 };
 
-export const webmapItemDefaults = {
-	tags: ['Story Map, Story Maps, Crowdsource'],
-	type: 'Web Map',
-	typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Web Map']
-};
-
 export const crowdsourceLayerWebmapDefinition = {
 	visibility: true,
 	opacity: 1,
@@ -237,6 +247,5 @@ export default {
 	crowdsourceLayerDefinition,
 	crowdsourceLayerWebmapDefinition,
 	featureServiceItemDefaults,
-	featureServiceDefaults,
-	webmapItemDefaults
+	featureServiceDefaults
 };
