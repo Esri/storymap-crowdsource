@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import React from 'react';
+import ReactDOM from 'reactDom';
 import Validator from 'babel/utils/validations/Validator';
+import FormActions from 'babel/actions/FormActions';
 import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
@@ -87,6 +89,9 @@ export default class FormGroup extends React.Component {
     const value = this.input.value;
 
     const finished = function finished(res) {
+
+      FormActions.validationFinished(ReactDOM.findDOMNode(this),res.isValid);
+
       this.setState({
         errors: res.errors && res.errors.length > 0 ? res.errors : false,
         isValid: res.isValid

@@ -37,9 +37,7 @@ export const BuilderActions = {
         if (fromScratch && currentData.app.data.values.settings.intro.title === currentData.webmap.item.title) {
           lang.setObject('webmap.item.title',value,newAppData);
         }
-
         if (fromScratch) {
-
           layerNameValidator.validate(currentData.app.data.values.settings.intro.title).then((res) => {
 
             const getFormatedLayerName = function getFormatedLayerName() {

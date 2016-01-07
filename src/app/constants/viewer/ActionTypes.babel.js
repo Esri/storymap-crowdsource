@@ -13,6 +13,10 @@ const arcgis = keyMirror({
   RECEIVE_APP_ITEM: null
 },'lower-dashed');
 
+const forms = keyMirror({
+  VALIDATION_FINISHED: null
+},'lower-dashed');
+
 const map = keyMirror({
   RECEIVE_FEATURES: null
 },'lower-dashed');
@@ -20,6 +24,7 @@ const map = keyMirror({
 export const ActionTypes = {
   app,
   arcgis,
+  forms,
   map
 };
 export default ActionTypes;
