@@ -65,11 +65,7 @@ define({
     },
     appDataPlaceholderText: {
       intro: {
-        title: 'Add your title here',
         subtitle: 'Add your your subtitle here'
-      },
-      header: {
-        title: 'Add a banner title here'
       },
       globals: {
         participateShort: 'Participate',

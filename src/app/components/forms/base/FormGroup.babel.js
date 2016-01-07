@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React from 'react';
 import Validator from 'babel/utils/validations/Validator';
+import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
 export default class FormGroup extends React.Component {
@@ -10,10 +11,13 @@ export default class FormGroup extends React.Component {
 
     this.state = {
       errors: false,
-      isValid: true
+      isValid: true,
+      noInput: true
     };
 
     this.getErrorMessage = this.getErrorMessage.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.validateForm = this.validateForm.bind(this);
   }
 
@@ -22,6 +26,10 @@ export default class FormGroup extends React.Component {
       validations: this.getValidations(),
       attribute: this.props.label
     });
+
+    if (this.input.value) {
+      this.validateForm();
+    }
   }
 
   componentDidUpdate() {
@@ -55,6 +63,19 @@ export default class FormGroup extends React.Component {
     }
   }
 
+  onChange() {
+    if (this.state.noInput) {
+      this.setState({
+        noInput: false
+      });
+    }
+    this.validateForm();
+  }
+
+  onBlur() {
+    this.validateForm();
+  }
+
   fixValue(value) {
     this.input.value = value;
     this.validateForm();
@@ -68,6 +89,10 @@ export default class FormGroup extends React.Component {
         errors: res.errors && res.errors.length > 0 ? res.errors : false,
         isValid: res.isValid
       });
+
+      if (res.isValid) {
+        this.saveData(value);
+      }
     };
 
     this.validator.validate(value).then(finished.bind(this));
@@ -132,9 +157,18 @@ export default class FormGroup extends React.Component {
     return validations;
   }
 
+  saveData(value) {
+    if (this.props.dataStoragePath !== 'WEBMAP_ITEM.title' && BuilderAction){
+      const DATA_STORAGE_PATH = this.props.dataStoragePath;
+
+      BuilderAction.updateAppData(DATA_STORAGE_PATH,value);
+    }
+  }
+
 }
 
 FormGroup.propTypes = {
+  dataStoragePath: React.PropTypes.string,
   id: React.PropTypes.string,
   inputAttr: React.PropTypes.shape({
     type: React.PropTypes.string
@@ -144,6 +178,7 @@ FormGroup.propTypes = {
 };
 
 FormGroup.defaultProps = {
+  dataStoragePath: 'values',
   id: '',
   inputAttr: {
     type: 'text'

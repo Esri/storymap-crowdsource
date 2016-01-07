@@ -37,8 +37,8 @@ export default class Select extends FormGroup {
           className="form-control"
           ref={(ref) => this.input = ref}
           defaultValue={formText.noDefaultSelection ? '' : null}
-          onInput={this.validateForm}
-          onBlur={this.validateForm}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
           {...this.props.inputAttr}>
           {this.props.noDefaultSelection ? <option disabled value="">{formText.noDefaultSelection}</option> : null}
           {

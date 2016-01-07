@@ -6,7 +6,7 @@ export const builderDefaults = {
 		values: {
 			settings: {
 				intro: {
-					title: builderText.appDataPlaceholderText.intro.title,
+					title: '',
 					subtitle: builderText.appDataPlaceholderText.intro.subtitle,
 					background: {
 						type: 'photo',
@@ -14,7 +14,7 @@ export const builderDefaults = {
 					}
 				},
 				header: {
-					title: builderText.appDataPlaceholderText.header.title,
+					title: '',
 					logo: {
 						source: 'resources/images/logo/esri-logo-reversed.svg',
 						link: 'http://www.esri.com/'

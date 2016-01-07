@@ -21,8 +21,8 @@ export default class Input extends FormGroup {
           id={this.props.id}
           className="form-control"
           ref={(ref) => this.input = ref}
-          onInput={this.validateForm}
-          onBlur={this.validateForm}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
           {...this.props.inputAttr}>
         </input>
         {this.getErrorMessage ? this.getErrorMessage() : null}

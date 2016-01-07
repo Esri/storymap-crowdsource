@@ -19,6 +19,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     const appName = {
       id: 'smCrowdsource_settings_itemName_appName',
       label: formText.appName.label,
+      dataStoragePath: this.props.dataStoragePath + '.intro.title',
       inputAttr: {
         type: 'text',
         placeholder: formText.appName.placeholder,
@@ -31,6 +32,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     const mapName = {
       id: 'smCrowdsource_settings_itemName_mapName',
       label: formText.mapName.label,
+      dataStoragePath: 'WEBMAP_ITEM.title',
       inputAttr: {
         type: 'text',
         placeholder: formText.mapName.placeholder,
@@ -43,6 +45,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     const layerName = {
       id: 'smCrowdsource_settings_itemName_layerName',
       label: formText.featureServiceName.label,
+      dataStoragePath: 'LAYER_ITEM.title',
       inputAttr: {
         type: 'text',
         placeholder: formText.featureServiceName.placeholder,
@@ -55,6 +58,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     const folder = {
       id: 'smCrowdsource_settings_itemName_folder',
       label: formText.featureServiceName.label,
+      dataStoragePath: 'APP_ITEM.ownerFolder',
       inputAttr: {
         type: 'select',
         placeholder: formText.folderSelection.label,
@@ -121,6 +125,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
 SettingsItemName.propTypes = {
   appName: React.PropTypes.string,
+  dataStoragePath: React.PropTypes.string,
   portal: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.shape()
@@ -130,6 +135,7 @@ SettingsItemName.propTypes = {
 
 SettingsItemName.defaultProps = {
   appName: '',
+  dataStoragePath: 'values',
   portal: false,
   userFolders: []
 };

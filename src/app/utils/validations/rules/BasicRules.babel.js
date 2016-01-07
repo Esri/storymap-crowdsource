@@ -55,11 +55,13 @@ const BasicRules = {
     const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
 
     if (settings.regex && typeof settings.regex === 'object' && settings.value && settings.value.match(settings.regex)) {
+			const value = settings.prefix ? settings.prefix(settings.value) : settings.value;
+
 			res = {
 				isValid: false,
-				error: errorMessage,
-				fixValue: settings.value.replace(settings.regex,'')
+				error: errorMessage
 			};
+			res.fixValue = value.replace(settings.regex,'');
     }
 
     return res;
