@@ -65,7 +65,10 @@ export const builderDefaults = {
 	},
 	layer: {
 		item: {
-			title: ''
+			title: '',
+			tags: ['Story Map, Story Maps, Crowdsource'],
+			type: 'Web Map',
+			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Feature Service']
 		}
 	}
 };
@@ -98,12 +101,6 @@ export const featureServiceDefaults = {
 		xssPreventionRule: 'InputOnly',
 		xssInputRule: 'sanitizeInvalid'
 	}
-};
-
-export const featureServiceItemDefaults = {
-	tags: ['Story Map, Story Maps, Crowdsource'],
-	type: 'Web Map',
-	typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Feature Service']
 };
 
 export const crowdsourceLayerDefinition = {
@@ -246,6 +243,5 @@ export default {
 	builderOptions,
 	crowdsourceLayerDefinition,
 	crowdsourceLayerWebmapDefinition,
-	featureServiceItemDefaults,
 	featureServiceDefaults
 };

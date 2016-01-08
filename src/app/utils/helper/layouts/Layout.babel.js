@@ -30,8 +30,6 @@ export const getScrollbarWidth = function getScrollbarWidth() {
   return scrollbarWidth;
 };
 
-window.test = getStylesheetAsString;
-
 export default {
   getStylesheetAsString,
   getScrollbarWidth

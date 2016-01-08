@@ -29,6 +29,8 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   onMapLoad() {
     _logStatus('Webmap ' + this._map.webmapId + ' is loaded',true);
+    // TODO Move into clusters shown
+    this.onLoad();
     this.createClusterLayer();
   }
 
@@ -55,8 +57,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {
-          this.onLoad();
-
           // Get original features in current extent
           const features = clusterLayer._inExtent();
 

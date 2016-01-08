@@ -61,6 +61,12 @@
 	</script>
 
   <!-- htmlmin:ignore -->
+  <!--[if IE 9]>
+  <script type="text/javascript">
+    alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
+    window.location = "http://browsehappy.com/";
+  </script>
+  <![endif]-->
   <!--[if lt IE 9]>
   <script type="text/javascript">
     alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
@@ -76,11 +82,11 @@
   </style>
   <!-- htmlmin:ignore -->
 
-  <div id="app">
-    <div id="loadingOverlay">
-      <div id="loadingIndicator" class="loadingIndicator">
-        <img src="resources/images/loader-light.gif" />
-      </div>
+  <div id="app"></div>
+
+  <div id="loadingOverlay">
+    <div id="loadingIndicator" class="loadingIndicator">
+      <img src="resources/images/loader-light.gif" />
     </div>
   </div>
 
@@ -94,7 +100,7 @@
 		#loadingOverlay {
       position: absolute;
       top: 0;
-			z-index: 900;
+			z-index: 899;
 			width: 100vw;
 			height: 100vh;
 			background-color: #E5E5E5;
@@ -104,16 +110,19 @@
 		}
 
 		#loadingIndicator {
-			position: fixed;
-      margin: -30px 0 0 -30px;
-			top: 50%;
-			left: 50%;
-			z-index: 902;
+      position: fixed;
+      margin: -50px 0 0 -50px;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      z-index: 900;
 		}
 
     #loadingIndicator img {
-			height: 60px;
+      position: relative;
+      height: 60px;
       width: 60px;
+      margin: 20px;
 		}
 	</style>
 

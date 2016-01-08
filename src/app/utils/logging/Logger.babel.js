@@ -17,13 +17,6 @@ const _logStatus = function logStatus(message) {
   console.log(this.source + ': ' + message);
 };
 
-// const _onError = function onError(err) {
-//   console.log('Logging Error', err);
-//   if (this) {
-//     this.emit('error', err);
-//   }
-// };
-
 export const Logger = class Logger {
 
   constructor(options) {

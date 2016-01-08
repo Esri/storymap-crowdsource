@@ -1,17 +1,27 @@
+import $ from 'jquery';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import AppStore from 'babel/stores/AppStore';
 import AppDataStore from 'babel/stores/AppDataStore';
 import AppActions from 'babel/actions/AppActions';
+import ArcgisUtil from 'babel/utils/arcgis/Arcgis';
 import Logger from 'babel/utils/logging/Logger';
 import {Portal} from 'babel/utils/arcgis/Arcgis';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
 
 const _logger = new Logger({source: 'PortalStore'});
 
-const _onError = function onError(err) {
+const _onError = function onError(error) {
   _logger.logMessage({
     type: 'error',
-    error: err
+    error
+  });
+};
+
+const _onStatus = function onStatus(message,debugOnly) {
+  _logger.logMessage({
+    type: 'status',
+    debugOnly,
+    message
   });
 };
 
@@ -57,6 +67,69 @@ const _PortalStoreClass = class PortalStoreClass extends AppStore {
 
   get portalInstance() {
     return _portal;
+  }
+
+  createAppItemsFromScratch(scratchData) {
+    const saveFinished = function saveFinished(res) {
+      const urlQuery = $.extend(window.app.urlCfg,{
+        appid: res.id,
+        edit: true
+      });
+
+      delete urlQuery.fromScratch;
+
+      const urlParams = $.param(urlQuery);
+
+      window.app.mode.fromScratch = false;
+      window.history.replaceState({},scratchData.app.item.title,'?' + urlParams);
+      ArcgisUtil.AppItem.getDataById(res.id);
+    };
+
+    const createApp = function createApp(webmapId,csLayerId) {
+      _portal.saveApp({
+        contentFolder: scratchData.app.item.ownerFolder,
+        item: scratchData.app.item,
+        data: scratchData.app.data,
+        webmapId,
+        csLayerId
+      }).then((res) => {
+        if (res.success) {
+          _onStatus('App Item Created: ' + JSON.stringify(res),true);
+          saveFinished(res);
+        } else {
+          _onError(res);
+        }
+      },_onError);
+    };
+
+    const createWebmap = function createWebmap(crowdsourceLayerItemId,crowdsourceLayerUrl) {
+      _portal.saveWebmap({
+        contentFolder: scratchData.webmap.item.ownerFolder,
+        item: scratchData.webmap.item,
+        crowdsourceLayerItemId,
+        crowdsourceLayerUrl
+      }).then((res) => {
+        if (res.createResponse && res.createResponse.success) {
+          _onStatus('Webmap Item Created: ' + JSON.stringify(res),true);
+          createApp(res.createResponse.id,res.csLayerId);
+        } else {
+          _onError(res);
+        }
+      },_onError);
+    };
+
+    const createService = function() {
+      _portal.createService({
+        contentFolder: scratchData.layer.item.ownerFolder,
+        item: scratchData.layer.item
+      }).then((res) => {
+        createWebmap(res.crowdsourceLayerItemId,res.crowdsourceLayerUrl);
+        _onStatus('Feature Service Created: ' + JSON.stringify(res),true);
+      },_onError);
+    };
+
+    createService();
+
   }
 
 };

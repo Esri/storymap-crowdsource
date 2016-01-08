@@ -3,6 +3,7 @@ import Immutable from 'lib/immutable/dist/immutable';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import AppStore from 'babel/stores/AppStore';
 import AppDataStore from 'babel/stores/AppDataStore';
+import PortalStore from 'babel/stores/PortalStore';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
 import BuilderConstants from 'babel/constants/CrowdsourceBuilderAppConstants';
 import {Events} from 'babel/constants/CrowdsourceBuilderAppConstants';
@@ -110,14 +111,16 @@ CrowdsourceBuilderAppStore.dispatchToken = AppDispatcher.register((payload) => {
       CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.UPDATE_APP_DATA);
       break;
     case ActionTypes.forms.VALIDATION_FINISHED:
-      const nodeIndex = $.inArray(payload.node,_formErrors);
+      if (_activeModal === 'itemNameScratch') {
+        const nodeIndex = $.inArray(payload.node,_formErrors);
 
-      if (nodeIndex > -1 && payload.valid) {
-        _formErrors.splice(nodeIndex,1);
-      } else if (nodeIndex === -1 && payload.valid === false) {
-        _formErrors.push(payload.node);
+        if (nodeIndex > -1 && payload.valid) {
+          _formErrors.splice(nodeIndex,1);
+        } else if (nodeIndex === -1 && payload.valid === false) {
+          _formErrors.push(payload.node);
+        }
+        CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.VALIDATION_FINISHED);
       }
-      CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.UPDATE_APP_DATA);
       break;
     case BuilderConstants.ActionTypes.app.SETTINGS_NEXT:
       switch (_activeModal) {
@@ -125,9 +128,19 @@ CrowdsourceBuilderAppStore.dispatchToken = AppDispatcher.register((payload) => {
           _activeModal = 'itemNameScratch';
           _formErrors = [];
           break;
+        case 'itemNameScratch':
+          _activeModal = 'savingFromScratch';
+          _formErrors = [];
+          PortalStore.createAppItemsFromScratch(_getCurrentScratchAppData(true));
+          break;
         default:
           _activeModal = '';
       }
+      CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.SETTINGS_NEXT);
+      break;
+    case ActionTypes.arcgis.RECEIVE_APP_ITEM:
+      _bannerVisible = true;
+      _activeModal = '';
       CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.SETTINGS_NEXT);
       break;
   }

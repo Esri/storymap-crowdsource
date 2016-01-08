@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Immutable from 'lib/immutable/dist/immutable';
 import Store from 'babel/stores/Store';
+import lang from 'dojo/_base/lang';
 // import Logger from 'babel/utils/logging/Logger';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import {ActionTypes} from 'babel/constants/CrowdsourceAppConstants';
@@ -51,6 +52,8 @@ const _AppDataStoreClass = class AppDataStoreClass extends Store {
 
   constructor() {
     super();
+
+    window.app.data = this.appData;
   }
 
   get originalItem() {
@@ -89,19 +92,17 @@ AppDataStore.dispatchToken = AppDispatcher.register((payload) => {
 
   switch (action) {
     case ActionTypes.arcgis.RECEIVE_APP_ITEM:
-      if (payload.response.defaultData) {
-        _updateAppData(payload.response.defaultData);
-      }
+      let appData = {};
+
       if (payload.response && payload.response.item) {
         _originialItem = Immutable.fromJS(payload.response.item);
+        lang.setObject('app.item',payload.response.item,appData);
       }
       if (payload.response && payload.response.itemData) {
-        const appData = payload.response.itemData;
-
-        _originialItemData = Immutable.fromJS(appData);
-        _updateAppData(appData);
-
+        _originialItemData = Immutable.fromJS(payload.response.itemData);
+        lang.setObject('app.data',payload.response.itemData,appData);
       }
+      _updateAppData(appData);
       AppDataStore.emitChange();
       break;
     case ActionTypes.app.AUTHORIZATION:

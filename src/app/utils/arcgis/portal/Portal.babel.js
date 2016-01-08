@@ -1,18 +1,18 @@
 import $ from 'jquery';
 import Deferred from 'dojo/Deferred';
+import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
 import ArcgisPortal from 'esri/arcgis/Portal';
 import AppDataStore from 'babel/stores/AppDataStore';
 import Logger from 'babel/utils/logging/Logger';
 import builderDefaults from 'babel/builderOptionsConfig';
-import builderText from 'i18n!translations/builder/nls/template';
 
 const _logger = new Logger({source: 'ArcGIS - Portal'});
 
-const _onError = function onError(err) {
+const _onError = function onError(error) {
   _logger.logMessage({
     type: 'error',
-    error: err
+    error
   });
 };
 
@@ -26,10 +26,6 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     };
 
     this._settings = $.extend(true, {}, defaults, options);
-    // TODO Remove globals
-    window.saveApp = this.saveApp.bind(this);
-    window.saveWebmap = this.saveWebmap.bind(this);
-    window.createService = this.createService.bind(this);
 
     if (this._settings.signInOnLoad) {
       this.on('load',() => {
@@ -115,29 +111,21 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   createService(options) {
     const deferred = new Deferred();
-    const defaults = {
-      contentFolder: AppDataStore.originalItem ? AppDataStore.originalItem.ownerFolder : false
-    };
+    const defaults = {};
     const settings = $.extend(true, {}, defaults, options);
     const username = this.getPortalUser().username;
     const token = this.getPortalUser().credential.token;
     const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
-    const appData = AppDataStore.appData;
-    let name = appData.values.settings.intro.title;
     let response = {};
 
     const createFeatureService = function createFeatureService() {
       const dfd = new Deferred();
       const url = baseRequestPath + '/createService';
-      const featureServiceItem = builderDefaults.featureServiceItemDefaults;
+      const featureServiceItem = settings.item;
       const createParameters = builderDefaults.featureServiceDefaults;
 
-      // TODO let user name feature service
-      if (!featureServiceItem.title) {
-        featureServiceItem.title = name + ' - ' + builderText.itempageDefaults.featureService.titleAppend;
-      }
       if (!createParameters.name) {
-        createParameters.name = name;
+        createParameters.name = featureServiceItem.title;
       }
 
       const content = $.extend(true, featureServiceItem, {
@@ -222,19 +210,17 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   saveWebmap(options) {
     const dfd = new Deferred();
-    const defaults = {
-      contentFolder: AppDataStore.originalItem ? AppDataStore.originalItem.ownerFolder : false
-    };
+    const defaults = {};
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
-    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '' + '/addItem');
-    const webmapItem = builderDefaults.webmapItemDefaults;
-    const appData = AppDataStore.appData;
+    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '') + '/addItem';
+    const webmapItem = settings.item;
     const webmapJSON = {};
+    const csLayerId = 'crowdsource-layer-' + new Date().getTime();
     const csLayer = $.extend(true, {}, builderDefaults.crowdsourceLayerWebmapDefinition, {
       // TODO add popup fields
-      id: 'crowdsource-layer-' + new Date().getTime(),
+      id: csLayerId,
       title: 'Crowdsource Layer',
       url: settings.crowdsourceLayerUrl + '/0',
       itemId: settings.crowdsourceLayerItemId
@@ -244,13 +230,9 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     webmapItem.tags = webmapItem.tags ? webmapItem.tags.join(',') : '';
     webmapItem.typeKeywords = webmapItem.typeKeywords.join(',');
 
-    if (!webmapItem.title) {
-      webmapItem.title = appData.values.settings.intro.title + ' - ' + builderText.itempageDefaults.webmap.titleAppend;
-    }
-
     webmapJSON.operationalLayers = [csLayer];
     webmapJSON.baseMap = builderDefaults.basemapsWebmapDefinitions.lightGray;
-    webmapJSON.version = '1.6';
+    webmapJSON.version = '2.3';
 
     $.extend(true, webmapItem, {
       // Add Webmap JSON
@@ -266,7 +248,10 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
       usePost: true
     }).then((res) => {
       if (res.success) {
-        dfd.resolve(res);
+        dfd.resolve({
+          csLayerId,
+          createResponse: res
+        });
       } else {
         _onError(res);
         dfd.reject(res);
@@ -281,15 +266,16 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   saveApp(options) {
     const dfd = new Deferred();
-    const defaults = {
-      contentFolder: AppDataStore.originalItem ? AppDataStore.originalItem.ownerFolder : false
-    };
+    const defaults = {};
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
     const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
-    const appItem = AppDataStore.originalItem ? AppDataStore.originalItem.item : builderDefaults.builderDefaults.appItem;
-    const appData = AppDataStore.appData;
+    const appItem = settings.item;
+    const appData = settings.data;
+
+    lang.setObject('values.settings.map.webmap',settings.webmapId,appData);
+    lang.setObject('values.settings.map.crowdsourceLayer.id',settings.csLayerId,appData);
 
     // Remove properties that don't have to be committed
     delete appItem.avgRating;
@@ -318,9 +304,6 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     appItem.tags = appItem.tags ? appItem.tags.join(',') : '';
     appItem.typeKeywords = appItem.typeKeywords.join(',');
 
-    if (!appItem.title) {
-      appItem.title = appData.values.settings.intro.title;
-    }
     if (!appItem.snippet) {
       appItem.snippet = appData.values.settings.intro.subtitle;
     }

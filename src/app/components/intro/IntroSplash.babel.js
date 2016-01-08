@@ -1,7 +1,7 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import AppActions from 'babel/actions/AppActions';
-import IntroController from 'babel/components/intro/IntroSplashController';
+import Loader from 'babel/components/helper/loading/Loader';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
@@ -11,16 +11,6 @@ export const IntroSplash = class IntroSplash extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this._controller = new IntroController();
-  }
-
-  componentDidMount() {
-    this._controller.mount();
-  }
-
-  componentDidUpdate() {
-    this._controller.propsUpdated();
   }
 
   render() {
@@ -30,11 +20,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
     }]);
 
     const loader = this.props.appLoaded || this.props.appError.length > 0 ? null : (
-      <div className="loadingIndicator">
-        <div className="background-fill"></div>
-        <img src="resources/images/loader-light.gif" />
-        <p className="loading-message">{this.props.loadingMessage}</p>
-      </div>
+      <Loader message={this.props.loadingMessage}></Loader>
     );
 
     const appError = {__html: this.props.appError};

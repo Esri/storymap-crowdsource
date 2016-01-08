@@ -29,31 +29,9 @@
     }
   }
 
-  .loadingIndicator {
-    position: fixed;
-    margin: -50px 0 0 -30px;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    z-index: 902;
-
-    &.wait-for-action-leave {
-      opacity: 0;
-      @include transition(opacity 1s);
-    }
-
-    img {
-      position: relative;
-      height: 60px;
-      width: 60px;
-      margin: 20px;
-    }
-
-    .loading-message {
-      position: relative;
-      margin: -20px 20px 20px;
-      color: #000;
-    }
+  .loadingIndicator.wait-for-action-leave {
+    opacity: 0;
+    @include transition(opacity 1s);
   }
 
   .background-image.lazy-image.loaded {

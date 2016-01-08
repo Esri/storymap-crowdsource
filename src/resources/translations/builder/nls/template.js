@@ -16,8 +16,11 @@ define({
         save: 'Save'
       },
       hintText: {
-        notSaved: 'Story isn\'t saved yet'
+        saved: 'Story saved'
       }
+    },
+    fromScratchMessage: {
+      saving: 'Creating Application Items'
     },
     settingsModals: {
       common: {

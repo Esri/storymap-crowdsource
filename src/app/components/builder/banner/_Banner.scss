@@ -1,8 +1,13 @@
 .builder-banner {
   margin: 0;
+  z-index: 1000;
 
   .background-fill {
     height: $buiderBannerHeight;
+  }
+
+  .background-image.lazy-image.loaded {
+    @include animation(fadeIn 1.5s);
   }
 
   .container-fluid {

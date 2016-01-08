@@ -7,11 +7,13 @@ require([
   //----------------------------------------------
   'babel/testCredentials',
   //----------------------------------------------
+  'jquery',
   'react',
   'reactDom',
   'babel/actions/AppActions',
   'babel/utils/arcgis/Arcgis',
   'babel/components/crowdsource/viewer/CrowdsourceApp',
+  'esri/urlUtils',
   'babel/config'
 ], function(
   //----------------------------------------------
@@ -19,13 +21,18 @@ require([
   //----------------------------------------------
   testCredentials,  // eslint-disable-line no-unused-vars
   //----------------------------------------------
+  $,
   React,
   ReactDOM,
   AppActions,
   Arcgis,
-  CrowdsourceApp
+  CrowdsourceApp,
+  UrlUtils
 ) {
   'use strict';
+
+  window.app.urlCfg = UrlUtils.urlToObject(window.location.href).query;
+  $.extend(true,window.app.indexCfg,window.app.urlCfg);
 
   AppActions.default.scriptsLoaded();
   if (!window.app.mode.fromScratch) {
@@ -33,6 +40,8 @@ require([
       Arcgis.AppItem.getDataById(window.app.indexCfg.appid);
     } else {
       AppActions.default.showLoadingError('invalidConfigNoApp');
+      // TODO better error before redirect
+      window.location.replace('?fromScratch');
     }
   }
   ReactDOM.render(React.createElement(CrowdsourceApp), document.getElementById('app'));

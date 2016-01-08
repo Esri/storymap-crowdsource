@@ -41,7 +41,8 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
     $.extend(true, this._settings, defaults, options);
 
-    if (this._settings.webmap && (this._settings.webmap !== this._errorWebmapId) && (!this._map || (this._map.webmapId && this._map.webmapId !== this._settings.webmap))) {
+    if (this._settings.webmap && (this._loadingMap !== this._settings.webmap) && (this._settings.webmap !== this._errorWebmapId) && (!this._map || (this._map.webmapId && this._map.webmapId !== this._settings.webmap))) {
+      this._loadingMap = this._settings.webmap;
       if (this._map) {
         this._map.destroy();
         this._map = null;
@@ -55,9 +56,11 @@ export const WebmapController = class WebmapController extends EventsEmitter {
         }
 
         if (this._map.loaded) {
+          this._loadingMap = false;
           this.onMapLoad();
         } else {
           this._map.on('load', () => {
+            this._loadingMap = false;
             this.onMapLoad();
           });
         }

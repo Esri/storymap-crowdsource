@@ -60,7 +60,7 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       break;
     case ActionTypes.arcgis.RECEIVE_APP_ITEM:
-      if (!CrowdsourceAppStore._loadedComponents.appData && ((payload.response && payload.response.item && payload.response.itemData) || payload.response.defaultData)){
+      if (!CrowdsourceAppStore._loadedComponents.appData && (payload.response && payload.response.item && payload.response.itemData)){
         CrowdsourceAppStore._loadedComponents.appData = true;
         CrowdsourceAppStore.emitChange(Events.appState.LOAD_STATE);
       }

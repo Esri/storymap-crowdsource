@@ -1,0 +1,21 @@
+.loadingIndicator {
+  position: fixed;
+  margin: -50px 0 0 -30px;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  z-index: 902;
+
+  img {
+    position: relative;
+    height: 60px;
+    width: 60px;
+    margin: 20px;
+  }
+
+  .loading-message {
+    position: relative;
+    margin: -20px 20px 20px;
+    color: #000;
+  }
+}

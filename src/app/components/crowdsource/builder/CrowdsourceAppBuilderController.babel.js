@@ -23,7 +23,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     const activeModal = CrowdsourceBuilderAppStore.activeModal;
     const appData = CrowdsourceBuilderAppStore.scratchAppData || AppDataStore.appData;
     const formErrors = CrowdsourceBuilderAppStore ? CrowdsourceBuilderAppStore.formErrors : 0;
-    const authorized = CrowdsourceBuilderAppStore.authorized;
+    const authorized = PortalStore.isAuthorized;
     let continueDisabled = false;
     let hideBannerContent = false;
 
@@ -65,6 +65,11 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     switch (type) {
       default:
         const state = this.appState;
+
+        if (state.activeModal === 'itemNameScratch' ) {
+          // Remove Loader
+          $('#loadingIndicator').remove();
+        }
 
         this.emit('state-change',state);
     }

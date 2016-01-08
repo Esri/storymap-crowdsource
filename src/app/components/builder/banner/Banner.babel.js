@@ -44,8 +44,7 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
           <li><a href="#help">{bannerText.buttons.help}</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li><p className="navbar-text">{bannerText.hintText.notSaved}</p></li>
-          <li><button className="save btn btn-primary navbar-btn">{bannerText.buttons.save}</button></li>
+          <li><p className="navbar-text">{bannerText.hintText.saved}</p></li>
         </ul>
       </div>
     );

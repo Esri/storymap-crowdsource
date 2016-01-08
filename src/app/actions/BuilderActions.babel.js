@@ -75,9 +75,11 @@ export const BuilderActions = {
         lang.setObject('layer.item.title',value,newAppData);
         break;
       case 'COMMON_settings.ownerFolder':
-        lang.setObject('app.item.ownerFolder',value,newAppData);
-        lang.setObject('webmap.item.ownerFolder',value,newAppData);
-        lang.setObject('layer.item.ownerFolder',value,newAppData);
+        const folder = value === 'false' ? '' : value;
+        
+        lang.setObject('app.item.ownerFolder',folder,newAppData);
+        lang.setObject('webmap.item.ownerFolder',folder,newAppData);
+        lang.setObject('layer.item.ownerFolder',folder,newAppData);
         break;
       default:
         lang.setObject(keyString,value,newAppData);
