@@ -20,7 +20,8 @@ define({
       }
     },
     fromScratchMessage: {
-      saving: 'Creating Application Items'
+      saving: 'Creating Application Items',
+      layerNameInWebmap: 'Crowdsource Layer (DO NOTE DELETE)'
     },
     settingsModals: {
       common: {
@@ -86,7 +87,7 @@ define({
     },
     errors: {
       loading: {
-        notAuthorizedCreateNew: 'You are not authorized to create a new story. You must have access to create new items and publish new hosted feature services in your organization. Contact your ArcGIS Online Organiztion administrator for more privileges.',
+        notAuthorizedCreateNew: 'You are not authorized to create a Crowdsource story. An organizational account with privileges to create new items and publish features is required. Please contact your ArcGIS administrator for assistance.',
         notAuthorizedEdit: 'You are not authorized to edit this story. If you are not the owner, make sure you have been <a href="http://blogs.esri.com/esri/arcgis/2015/07/14/enable-colleagues-to-update-your-maps-and-apps/" target="-blank">given edit permissions</a> by the owner. You must also have access to edit items and publish new hosted feature services in your organization. Contact your ArcGIS Online Organiztion administrator for more privileges.',
         crowdsourceLayerNotFound: 'Something went wrong, the app could not find or load the crowdsource map layer correctly. Make sure you have permission to view the feature service.'
       }

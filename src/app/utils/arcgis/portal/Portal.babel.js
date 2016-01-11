@@ -6,6 +6,7 @@ import ArcgisPortal from 'esri/arcgis/Portal';
 import AppDataStore from 'babel/stores/AppDataStore';
 import Logger from 'babel/utils/logging/Logger';
 import builderDefaults from 'babel/builderOptionsConfig';
+import builderText from 'i18n!translations/builder/nls/template';
 
 const _logger = new Logger({source: 'ArcGIS - Portal'});
 
@@ -221,7 +222,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const csLayer = $.extend(true, {}, builderDefaults.crowdsourceLayerWebmapDefinition, {
       // TODO add popup fields
       id: csLayerId,
-      title: 'Crowdsource Layer',
+      title: builderText.fromScratchMessage.layerNameInWebmap,
       url: settings.crowdsourceLayerUrl + '/0',
       itemId: settings.crowdsourceLayerItemId
     });

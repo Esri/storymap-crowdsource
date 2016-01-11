@@ -40,8 +40,6 @@ require([
       Arcgis.AppItem.getDataById(window.app.indexCfg.appid);
     } else {
       AppActions.default.showLoadingError('invalidConfigNoApp');
-      // TODO better error before redirect
-      window.location.replace('?fromScratch');
     }
   }
   ReactDOM.render(React.createElement(CrowdsourceApp), document.getElementById('app'));

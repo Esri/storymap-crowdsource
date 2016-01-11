@@ -11,10 +11,12 @@ import AppActions from 'babel/actions/AppActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 // TRANSLATED TEXT STRINGS START
 // Intro
 const OR_TEXT = viewerText.intro.or;
-const LOADING_ERROR_HEADING = viewerText.errors.loading.header;
+const LOADING_ERROR_HEADING = viewerText.errors.loading.heading;
 // TRANSLATED TEXT STRINGS END
 
 export default class CrowdsourceApp extends React.Component {
@@ -54,6 +56,9 @@ export default class CrowdsourceApp extends React.Component {
           {/* COMMON VIEWER COMPONENTS */}
           {this.Header}
           {this.Intro}
+          <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
+            {this.Error}
+          </ReactCSSTransitionGroup>
           {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
           {this.Layout}
         </div>
@@ -82,6 +87,29 @@ export default class CrowdsourceApp extends React.Component {
       };
 
       return <CrowdsourceBuilder {...options} />;
+    } else {
+      return null;
+    }
+  }
+
+  get Error() {
+    if (this.state.loadState && this.state.loadState.error.length > 0) {
+      const appError = {__html: this.state.loadState.error};
+      let errorActionBtn = null;
+
+      const redirectToScratchBuilder = function redirectToScratchBuilder() {
+        window.location.replace('?fromScratch');
+      };
+
+      if (this.state.loadState.error === viewerText.errors.loading.invalidConfigNoApp) {
+        errorActionBtn = (<button className="btn btn-primary error-action-button" onClick={redirectToScratchBuilder}>{viewerText.errors.actionsBtns.startFromScratch}</button>);
+      }
+
+      return (<div className="loading-error-message alert alert-danger">
+        <h5 className="error-heading"><strong>{LOADING_ERROR_HEADING}</strong></h5>
+        <p className="message" dangerouslySetInnerHTML={appError}></p>
+        {errorActionBtn}
+      </div>);
     } else {
       return null;
     }

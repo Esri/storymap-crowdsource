@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import on from 'dojo/on';
 import Logger from 'babel/utils/logging/Logger';
 import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
@@ -29,8 +30,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   onMapLoad() {
     _logStatus('Webmap ' + this._map.webmapId + ' is loaded',true);
-    // TODO Move into clusters shown
-    this.onLoad();
     this.createClusterLayer();
   }
 
@@ -54,6 +53,12 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         };
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
+
+        on.once(layer,'update-end',() => {
+          if (layer.graphics && layer.graphics.length === 0) {
+            this.onLoad();
+          }
+        });
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {

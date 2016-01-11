@@ -40,6 +40,9 @@ define({
       }
     },
     errors: {
+      actionsBtns: {
+        startFromScratch: 'Start building a new Crowdsource Story'
+      },
       loading: {
         heading: 'An Error Has Occured',
         invalidConfig: 'Invalid configuration',
