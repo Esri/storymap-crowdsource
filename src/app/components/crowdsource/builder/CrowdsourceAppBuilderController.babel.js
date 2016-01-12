@@ -3,6 +3,7 @@ import React from 'react'; //eslint-disable-line no-unused-vars
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import AppDataStore from 'babel/stores/AppDataStore';
 import PortalStore from 'babel/stores/PortalStore';
+import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
 import CrowdsourceBuilderAppStore from 'babel/stores/CrowdsourceBuilderAppStore';
 // import {Components} from 'babel/constants/CrowdsourceAppConstants';
 // import {Events} from 'babel/constants/CrowdsourceAppConstants';
@@ -22,7 +23,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   get appState() {
     const activeModal = CrowdsourceBuilderAppStore.activeModal;
     const appData = CrowdsourceBuilderAppStore.scratchAppData || AppDataStore.appData;
-    const formErrors = CrowdsourceBuilderAppStore ? CrowdsourceBuilderAppStore.formErrors : 0;
+    const itemNameErrors = CrowdsourceAppStore ? CrowdsourceAppStore.getFormErrors('BUILDER_SETTINGS_ITEM_NAMES') : false;
     const authorized = PortalStore.isAuthorized;
     let continueDisabled = false;
     let hideBannerContent = false;
@@ -33,7 +34,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     if (!authorized) {
       hideBannerContent = true;
     }
-    if (activeModal === 'itemNameScratch' && (formErrors > 0 || !appData.app.item.title || !appData.webmap.item.title || !appData.layer.item.title)) {
+    if (activeModal === 'itemNameScratch' && ((itemNameErrors && itemNameErrors > 0) || !appData.app.item.title || !appData.webmap.item.title || !appData.layer.item.title)) {
       continueDisabled = true;
     }
 
@@ -51,6 +52,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     // Add listeners
     AppDataStore.addChangeListener(this.onChange);
     PortalStore.addChangeListener(this.onChange);
+    CrowdsourceAppStore.addChangeListener(this.onChange);
     CrowdsourceBuilderAppStore.addChangeListener(this.onChange);
   }
 
@@ -58,6 +60,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     // Remover listeners
     AppDataStore.removeChangeListener(this.onChange);
     PortalStore.removeChangeListener(this.onChange);
+    CrowdsourceAppStore.addChangeListener(this.onChange);
     CrowdsourceBuilderAppStore.addChangeListener(this.onChange);
   }
 

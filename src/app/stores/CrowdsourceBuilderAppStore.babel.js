@@ -12,7 +12,6 @@ import {builderDefaults} from 'babel/builderOptionsConfig';
 let _activeModal = '';
 let _authourized = false;
 let _bannerVisible = false;
-let _formErrors = [];
 
 let _scratchAppDataVersions = [];
 let _scratchAppDataDefaults = builderDefaults;
@@ -66,14 +65,6 @@ const _CrowdsourceBuilderAppStoreClass = class CrowdsourceBuilderAppStoreClass e
     return _bannerVisible;
   }
 
-  get formErrors() {
-    if ($.isArray(_formErrors)) {
-      return _formErrors.length;
-    } else {
-      return 0;
-    }
-  }
-
   get scratchAppData() {
     if (!AppDataStore.appData && window.app.mode.fromScratch) {
       const current = _getCurrentScratchAppData(true);
@@ -110,27 +101,13 @@ CrowdsourceBuilderAppStore.dispatchToken = AppDispatcher.register((payload) => {
       }
       CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.UPDATE_APP_DATA);
       break;
-    case ActionTypes.forms.VALIDATION_FINISHED:
-      if (_activeModal === 'itemNameScratch') {
-        const nodeIndex = $.inArray(payload.node,_formErrors);
-
-        if (nodeIndex > -1 && payload.valid) {
-          _formErrors.splice(nodeIndex,1);
-        } else if (nodeIndex === -1 && payload.valid === false) {
-          _formErrors.push(payload.node);
-        }
-        CrowdsourceBuilderAppStore.emitChange(BuilderConstants.ActionTypes.app.VALIDATION_FINISHED);
-      }
-      break;
     case BuilderConstants.ActionTypes.app.SETTINGS_NEXT:
       switch (_activeModal) {
         case 'layoutScratch':
           _activeModal = 'itemNameScratch';
-          _formErrors = [];
           break;
         case 'itemNameScratch':
           _activeModal = 'savingFromScratch';
-          _formErrors = [];
           PortalStore.createAppItemsFromScratch(_getCurrentScratchAppData(true));
           break;
         default:

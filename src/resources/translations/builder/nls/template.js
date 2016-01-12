@@ -19,6 +19,22 @@ define({
         saved: 'Story saved'
       }
     },
+    contribute: {
+      defaultForm: {
+        name: {
+          label: 'Name',
+          placeholder: 'Enter name'
+        },
+        description: {
+          label: 'Description',
+          placeholder: 'Enter a description'
+        },
+        location: {
+          label: 'Location',
+          placeholder: 'Enter a location'
+        }
+      }
+    },
     fromScratchMessage: {
       saving: 'Creating Application Items',
       layerNameInWebmap: 'Crowdsource Layer (DO NOTE DELETE)'

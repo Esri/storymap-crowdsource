@@ -18,6 +18,15 @@ export const MapActions = {
       features
     });
 
+  },
+
+  receiveFieldDefinitions: function receiveFieldDefinitions(fields) {
+    if ($.isArray(fields)) {
+      AppDispatcher.dispatch({
+        type: ActionTypes.map.RECEIVE_FIELD_DEFINITIONS,
+        fields
+      });
+    }
   }
 
 };

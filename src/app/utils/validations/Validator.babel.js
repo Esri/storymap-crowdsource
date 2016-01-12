@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Deferred from 'dojo/Deferred';
 import Logger from 'babel/utils/logging/Logger';
 import BasicRules from 'babel/utils/validations/rules/BasicRules';
+import LocationRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/LocationRules';
 import ItemRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/ItemRules';
 import PortalRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/PortalRules';
 
@@ -16,6 +17,7 @@ const _onError = function onError(err) {
 
 const _rules = $.extend(true,{},
   BasicRules,
+  LocationRules,
   ItemRules,
   PortalRules
 );
@@ -41,6 +43,7 @@ export class Validator {
 
     if (this._pendingValidation && this._pendingValidation.isFulfilled && !this._pendingValidation.isFulfilled()) {
       this._pendingValidation.resolve({
+        newValidation: true,
         errors: [],
         isValid: true
       });
@@ -77,10 +80,12 @@ export class Validator {
     const isValid = res && res.isValid ? res.isValid : false;
     const error = res && res.error ? res.error : false;
     const fixValue = res && res.fixValue ? res.fixValue : false;
+    const extras = res && res.extras ? res.extras : false;
 
     this._validationResults[rule] = {
       isValid,
       error,
+      extras,
       fixValue
     };
 
@@ -91,6 +96,7 @@ export class Validator {
     let count = 0;
     const res = {
       errors: [],
+      extras: [],
       isValid: true
     };
 
@@ -106,6 +112,9 @@ export class Validator {
           message: current.error,
           fixValue: current.fixValue
         });
+      }
+      if (current.extras && $.isArray(current.extras)) {
+        res.extras = res.extras.concat(current.extras);
       }
     });
 

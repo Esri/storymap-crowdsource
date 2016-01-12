@@ -6,6 +6,7 @@ import IntroSplash from 'babel/components/intro/IntroSplash';
 import Header from 'babel/components/header/Header';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
+import ContributePanel from 'babel/components/contribute/ContributePanel';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import AppActions from 'babel/actions/AppActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
@@ -138,6 +139,7 @@ export default class CrowdsourceApp extends React.Component {
         const stacked = (
           <div className="main-content">
             <div className="content-pane map-view">
+              {this.ContributePanel}
               {this.Webmap}
               <div className="pane-navigation" onClick={AppActions.setView.bind(null,Components.names.GALLERY)}>
                 <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
@@ -228,6 +230,21 @@ export default class CrowdsourceApp extends React.Component {
       };
 
       return <ThumbnailGallery {...options}/>;
+    } else {
+      return null;
+    }
+  }
+
+  get ContributePanel() {
+    if (this.state.contributing && this.state.appData) {
+      const appData = this.state.appData.app.data.values;
+      const options = {
+        title: appData.settings.globals.participateLong,
+        fields: appData.settings.contribute.fields,
+        fieldDefinitions: this.state.contributing.fieldDefinitions
+      };
+
+      return <ContributePanel {...options}></ContributePanel>;
     } else {
       return null;
     }

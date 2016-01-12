@@ -60,8 +60,6 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   }
 
   get appState(){
-    const appData = AppDataStore.appData;
-    const features = CrowdsourceAppStore.features;
     const loadState = CrowdsourceAppStore.loadState;
     const builderBannerVisible = CrowdsourceBuilderAppStore ? CrowdsourceBuilderAppStore.bannerVisible : false;
 
@@ -70,9 +68,10 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     }
 
     return {
-      appData,
+      appData: AppDataStore.appData,
       builderBannerVisible,
-      features,
+      features: CrowdsourceAppStore.features,
+      contributing: CrowdsourceAppStore.contributing,
       loadState
     };
   }
@@ -103,14 +102,13 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   }
 
   onChange(type) {
-    switch (type) {
-      case Events.appState.VIEW_STATE:
-        this.updateAppView();
-        break;
-      default:
-        const state = this.appState;
+    if (type === Events.appState.VIEW_STATE || type === Events.appState.CONTRIBUTE) {
+      this.updateAppView();
+    }
+    if (type !== Events.appState.VIEW_STATE) {
+      const state = this.appState;
 
-        this.emit('state-change',state);
+      this.emit('state-change',state);
     }
   }
 

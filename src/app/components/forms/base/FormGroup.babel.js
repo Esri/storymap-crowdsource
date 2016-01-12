@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import React from 'react';
-import ReactDOM from 'reactDom';
 import Validator from 'babel/utils/validations/Validator';
 import FormActions from 'babel/actions/FormActions';
 import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
@@ -87,12 +86,16 @@ export default class FormGroup extends React.Component {
 
   validateForm() {
     const value = this.input.value;
+    const nodeId = this.props.formId + '_' + this.props.id;
 
     const finished = function finished(res) {
 
-      FormActions.validationFinished(ReactDOM.findDOMNode(this),res.isValid);
+      if (!res.newValidation) {
+        FormActions.validationFinished(this.props.formId,nodeId,res.isValid);
+      }
 
       this.setState({
+        extras: res.extras && res.extras.length > 0 ? res.extras : false,
         errors: res.errors && res.errors.length > 0 ? res.errors : false,
         isValid: res.isValid
       });
@@ -102,6 +105,7 @@ export default class FormGroup extends React.Component {
       }
     };
 
+    FormActions.validationStarted(this.props.formId,nodeId);
     this.validator.validate(value).then(finished.bind(this));
   }
 
@@ -109,9 +113,27 @@ export default class FormGroup extends React.Component {
     const validations = this.props.validations;
     const type = this.props.inputAttr.type || 'text';
 
-    let validation = false;
+    const addToValidations = function addToValidations(validation) {
+      if (validation && $.inArray(validation.rule,validations) === -1 && $.grep(validations,(val) => {
+        if (typeof val === 'object' && val.rule && val.rule === validation.rule) {
+          return true;
+        } else {
+          return false;
+        }
+      }).length === 0) {
+        validations.push(validation);
+      }
+    };
+
+    if (this.defaultValidations && $.isArray(this.defaultValidations)) {
+      $.each(this.defaultValidations,(index) => {
+        addToValidations(this.defaultValidations[index]);
+      });
+    }
 
     $.each(this.props.inputAttr,(key,value) => {
+      let validation = false;
+
       // TODO add all validations http://www.w3schools.com/tags/tag_input.asp
       switch (key.toLowerCase()) {
         case 'required':
@@ -150,15 +172,7 @@ export default class FormGroup extends React.Component {
           break;
       }
 
-      if (validation && $.inArray(validation.rule,validations) === -1 && $.grep(validations,(val) => {
-        if (typeof val === 'object' && val.rule && val.rule === validation.rule) {
-          return true;
-        } else {
-          return false;
-        }
-      }).length === 0) {
-        validations.push(validation);
-      }
+      addToValidations(validation);
     });
 
     return validations;
@@ -185,6 +199,7 @@ export default class FormGroup extends React.Component {
 }
 
 FormGroup.propTypes = {
+  formId: React.PropTypes.string,
   autoUpdate: React.PropTypes.shape({
     when: React.PropTypes.oneOfType([
       React.PropTypes.bool,
@@ -205,6 +220,7 @@ FormGroup.propTypes = {
 };
 
 FormGroup.defaultProps = {
+  formId: '',
   autoUpdate: {
     when: false,
     value: false

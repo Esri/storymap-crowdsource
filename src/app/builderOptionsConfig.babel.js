@@ -6,6 +6,27 @@ export const builderDefaults = {
 		data: {
 			values: {
 				settings: {
+					contribute: {
+						fields: [{
+							type: 'text',
+							fieldID: 'name',
+							label: builderText.contribute.defaultForm.name.label,
+							placeholder: builderText.contribute.defaultForm.name.placeholder,
+							validations: ['required']
+						},{
+							type: 'location',
+							fieldID: 'location_name',
+							label: builderText.contribute.defaultForm.location.label,
+							placeholder: builderText.contribute.defaultForm.location.placeholder,
+							validations: ['required']
+						},{
+							type: 'textarea',
+							fieldID: 'description',
+							label: builderText.contribute.defaultForm.description.label,
+							placeholder: builderText.contribute.defaultForm.description.placeholder,
+							validations: ['required']
+						}]
+					},
 					intro: {
 						title: '',
 						subtitle: builderText.appDataPlaceholderText.intro.subtitle,
@@ -49,33 +70,36 @@ export const builderDefaults = {
 			}
 		},
 		item: {
-			title: '',
-			tags: ['Story Map, Story Maps, Crowdsource'],
-			type: 'Web Mapping Application',
-			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
+			'title': '',
+			'protected': true,
+			'tags': ['Story Map, Story Maps, Crowdsource'],
+			'type': 'Web Mapping Application',
+			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
 		}
 	},
 	webmap: {
 		item: {
-			title: '',
-			tags: ['Story Map, Story Maps, Crowdsource'],
-			type: 'Web Map',
-			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Web Map']
+			'title': '',
+			'protected': true,
+			'tags': ['Story Map, Story Maps, Crowdsource'],
+			'type': 'Web Map',
+			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Web Map']
 		}
 	},
 	layer: {
 		item: {
-			title: '',
-			tags: ['Story Map, Story Maps, Crowdsource'],
-			type: 'Web Map',
-			typeKeywords: ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Feature Service']
+			'title': '',
+			'protected': true,
+			'tags': ['Story Map, Story Maps, Crowdsource'],
+			'type': 'Web Map',
+			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Feature Service']
 		}
 	}
 };
 
 export const featureServiceDefaults = {
-	capabilities: 'Query,Sync',
-	supportsDisconnectedEditing: true,
+	capabilities: 'Create,Query,Editing,Sync',
+	supportsDisconnectedEditing: false,
 	spatialReference: {
 		wkid: 4326
 	},
@@ -91,7 +115,7 @@ export const featureServiceDefaults = {
 	units: 'esriDecimalDegrees',
 	editorTrackingInfo: {
 		enableEditorTracking: true,
-		enableOwnershipAccessControl: false,
+		enableOwnershipAccessControl: true,
 		allowOthersToQuery: true,
 		allowOthersToUpdate: false,
 		allowOthersToDelete: false
@@ -142,6 +166,7 @@ export const crowdsourceLayerDefinition = {
 			labelingInfo: null
 		},
 		capabilities: 'Create,Query,Editing,Sync',
+		hasStaticData: false,
 		hasAttachments: true,
 		objectIdField: 'objectid',
 		fields: [{
@@ -197,7 +222,70 @@ export const crowdsourceLayerDefinition = {
       editable: false,
       domain: null,
       defaultValue: null
-    }]
+    },
+		{
+			name: 'name',
+			type: 'esriFieldTypeString',
+			alias: 'Name',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 256
+		},
+		{
+			name: 'description',
+			type: 'esriFieldTypeString',
+			alias: 'Description',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 1500
+		},
+		{
+			name: 'location_name',
+			type: 'esriFieldTypeString',
+			alias: 'Location Name',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 256
+		},
+		{
+			name: 'thumb_url',
+			type: 'esriFieldTypeString',
+			alias: 'Thumbnail URL',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 256
+		},
+		{
+			name: 'image_url',
+			type: 'esriFieldTypeString',
+			alias: 'Image URL',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 256
+		},
+		{
+			name: 'hidden',
+			type: 'esriFieldTypeInteger',
+			alias: 'Hidden',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 2
+		},
+		{
+			name: 'vetted',
+			type: 'esriFieldTypeInteger',
+			alias: 'Vetted',
+			domain: null,
+			editable: true,
+			nullable: true,
+			length: 2
+		}]
 	}]
 };
 

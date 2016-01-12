@@ -27,6 +27,12 @@ define({
         noDefaultSelection: 'Please choose an option...'
       }
     },
+    contribute: {
+      location: {
+        search: 'Search',
+        notFound: 'The location you searched for cannot be found. Please try again and be as specifc as you can.'
+      }
+    },
     validations: {
       fix: 'Fix it!',
       basic: {

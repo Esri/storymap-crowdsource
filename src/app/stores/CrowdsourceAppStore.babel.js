@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import AppDispatcher from 'babel/dispatcher/AppDispatcher';
 import AppStore from 'babel/stores/AppStore';
 import ViewerText from 'i18n!translations/viewer/nls/template';
@@ -6,10 +7,13 @@ import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import {Events} from 'babel/constants/CrowdsourceAppConstants';
 
 let _features = [];
+let _formErrors = {};
 let _viewState = {
   current: Components.names.INTRO
 };
 let _loadingErrorMessage = '';
+let _fieldDefinitions = false;
+let _contributeSession = false;
 
 const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStore {
 
@@ -41,6 +45,24 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
 
   get viewState() {
     return _viewState;
+  }
+
+  get contributing() {
+    if (_contributeSession && _fieldDefinitions) {
+      return {
+        fieldDefinitions: _fieldDefinitions
+      };
+    } else {
+      return false;
+    }
+  }
+
+  getFormErrors(formId) {
+    if (formId && $.isArray(_formErrors[formId])) {
+      return _formErrors[formId].length;
+    } else {
+      return 0;
+    }
   }
 };
 
@@ -74,7 +96,39 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       _viewState.current = payload.component;
       CrowdsourceAppStore.emitChange(Events.appState.VIEW_STATE);
       break;
-    }
+    case ActionTypes.map.RECEIVE_FIELD_DEFINITIONS:
+      _fieldDefinitions = payload.fields;
+      CrowdsourceAppStore.emitChange();
+      break;
+    case ActionTypes.forms.FORM_CREATED:
+      _formErrors[payload.formId] = [];
+      break;
+    case ActionTypes.forms.FORM_COMPLETED:
+      delete _formErrors[payload.formId];
+      break;
+    case ActionTypes.forms.VALIDATION_STARTED:
+    case ActionTypes.forms.VALIDATION_FINISHED:
+      const errorArray = _formErrors[payload.formId];
+      const nodeIndex = $.inArray(payload.node,errorArray);
+
+      if (errorArray) {
+        if (action === ActionTypes.forms.VALIDATION_FINISHED && nodeIndex > -1 && payload.valid) {
+          errorArray.splice(nodeIndex,1);
+        } else if (nodeIndex === -1 && !payload.valid) {
+          errorArray.push(payload.node);
+        }
+        CrowdsourceAppStore.emitChange(Events.forms.VALIDATION_EVENT);
+      }
+      break;
+    case ActionTypes.contribute.START:
+      _contributeSession = true;
+      if (_viewState.previous !== Components.names.MAP) {
+        _viewState.previous = _viewState.current;
+        _viewState.current = Components.names.MAP;
+      }
+      CrowdsourceAppStore.emitChange(Events.appState.CONTRIBUTE);
+      break;
+  }
 
 });
 

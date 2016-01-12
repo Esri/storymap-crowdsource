@@ -2,6 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import Input from 'babel/components/forms/input/Input';
 import Select from 'babel/components/forms/select/Select';
+import FormActions from 'babel/actions/FormActions';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
@@ -12,11 +13,22 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this._formId = 'BUILDER_SETTINGS_ITEM_NAMES';
+  }
+
+  componentDidMount() {
+    FormActions.formCreated(this._formId);
+  }
+
+  componentWillUnmount() {
+    FormActions.formCompleted(this._formId);
   }
 
   render() {
 
     const appName = {
+      formId: this._formId,
       id: 'smCrowdsource_settings_itemName_appName',
       label: formText.appName.label,
       dataStoragePath: this.props.dataStoragePath + '.appName',
@@ -30,6 +42,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     };
 
     const mapName = {
+      formId: this._formId,
       id: 'smCrowdsource_settings_itemName_mapName',
       label: formText.mapName.label,
       dataStoragePath: this.props.dataStoragePath + '.webmapName',
@@ -47,6 +60,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     };
 
     const layerName = {
+      formId: this._formId,
       id: 'smCrowdsource_settings_itemName_layerName',
       label: formText.featureServiceName.label,
       dataStoragePath: this.props.dataStoragePath + '.layerName',
@@ -64,6 +78,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     };
 
     const folder = {
+      formId: this._formId,
       id: 'smCrowdsource_settings_itemName_folder',
       label: formText.featureServiceName.label,
       dataStoragePath: this.props.dataStoragePath + '.ownerFolder',

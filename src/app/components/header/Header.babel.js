@@ -5,6 +5,7 @@ import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
 import AppActions from 'babel/actions/AppActions';
+import ContributeActions from 'babel/actions/ContributeActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -78,7 +79,7 @@ export const Header = class Header extends React.Component {
   }
 
   onParticipateClick() {
-    alert('TODO: Share Entry');
+    ContributeActions.startContributing();
   }
 };
 
