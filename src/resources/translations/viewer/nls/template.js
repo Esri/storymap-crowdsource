@@ -1,7 +1,7 @@
 define({
   root: {
     loading: {
-      initializing: 'Application is initializing',
+      initializing: 'Loading story',
       map: 'Loading map'
     },
     intro: {
@@ -62,7 +62,7 @@ define({
 				upgradeBrowser: '<a href="http://browsehappy.com/" target="_blank">Please update your browser</a>.',
 				mapLoadingFail: 'Something went wrong, the map did not load correctly.',
         appLoadingFail: 'Something went wrong, the app did not load correctly.',
-        crowdsourceLayerNotFound: 'Something went wrong, the app could not find or load the crowdsource map layer correctly.'
+        crowdsourceLayerNotFound: 'Something went wrong, the story could not find or load the crowdsource map layer correctly.'
       }
     }
   }
