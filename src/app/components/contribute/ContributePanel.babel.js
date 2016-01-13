@@ -36,9 +36,9 @@ export default class ContributePanel extends React.Component {
       <div className={contributeClasses}>
         <div className="row">
           <div className="col-xs-12">
-            <h5>
+            <h3>
                 {this.props.title}
-            </h5>
+            </h3>
             <form>
               {this.props.fields.map((field,index) => {
                 if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
@@ -60,7 +60,7 @@ export default class ContributePanel extends React.Component {
                     case 'textarea':
                       return <Textarea {...options}></Textarea>;
                     case 'location':
-                      return <Location {...options}></Location>;
+                      return <Location map={this.props.map} {...options}></Location>;
                     default:
                       return <Input {...options}></Input>;
                   }
@@ -90,11 +90,13 @@ export default class ContributePanel extends React.Component {
 ContributePanel.propTypes = {
   title: React.PropTypes.string,
   fields: React.PropTypes.array,
-  fieldDefinitions: React.PropTypes.array
+  fieldDefinitions: React.PropTypes.array,
+  map: React.PropTypes.shape({})
 };
 
 ContributePanel.defaultProps = {
   title: '',
   fields: [],
-  fieldDefinitions: []
+  fieldDefinitions: [],
+  map: {}
 };

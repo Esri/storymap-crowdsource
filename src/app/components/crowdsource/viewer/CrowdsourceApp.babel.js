@@ -43,7 +43,7 @@ export default class CrowdsourceApp extends React.Component {
 
   render() {
 
-    const appClasses = Helper.classnames(['crowdsource-app'],{
+    const appClasses = Helper.classnames(['crowdsource-app',this.state.appData ? this.state.appData.app.data.values.layout.id : null],{
       'no-banner': window.app.mode.isBuilder && this.state.builderBannerVisible ? false : true
     });
 
@@ -241,7 +241,8 @@ export default class CrowdsourceApp extends React.Component {
       const options = {
         title: appData.settings.globals.participateLong,
         fields: appData.settings.contribute.fields,
-        fieldDefinitions: this.state.contributing.fieldDefinitions
+        fieldDefinitions: this.state.contributing.fieldDefinitions,
+        map: this.state.contributing.map
       };
 
       return <ContributePanel {...options}></ContributePanel>;

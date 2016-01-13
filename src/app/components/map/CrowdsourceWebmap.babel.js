@@ -16,7 +16,7 @@ Webmap.propTypes = {
   className: React.PropTypes.string,
   controllerOptions: React.PropTypes.shape({
     webmap: React.PropTypes.string,
-    mapOptions: React.PropTypes.shape(),
+    mapOptions: React.PropTypes.shape({}),
     crowdsourceLayer: React.PropTypes.shape({
       id: React.PropTypes.string
     })

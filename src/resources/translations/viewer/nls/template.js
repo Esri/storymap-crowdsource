@@ -52,6 +52,7 @@ define({
       loading: {
         heading: 'An Error Has Occured',
         invalidConfig: 'Invalid configuration',
+        inaccessibleApp: 'Web Mapping Application does not exist or is inaccessible.',
 				invalidConfigNoApp: 'Web Mapping Application identifier not specified in index.html.',
 				unspecifiedConfigOwner: 'Authorized owner hasn\'t been configured.',
 				invalidConfigOwner: 'Story owner is not authorized.',

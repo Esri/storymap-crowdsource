@@ -12,7 +12,8 @@ let _viewState = {
   current: Components.names.INTRO
 };
 let _loadingErrorMessage = '';
-let _fieldDefinitions = false;
+let _map = false;
+let _layer = false;
 let _contributeSession = false;
 
 const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStore {
@@ -48,9 +49,10 @@ const _CrowdsourceAppStoreClass = class CrowdsourceAppStoreClass extends AppStor
   }
 
   get contributing() {
-    if (_contributeSession && _fieldDefinitions) {
+    if (_contributeSession && _layer && _layer.fields && _map) {
       return {
-        fieldDefinitions: _fieldDefinitions
+        fieldDefinitions: _layer.fields,
+        map: _map
       };
     } else {
       return false;
@@ -96,8 +98,9 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       _viewState.current = payload.component;
       CrowdsourceAppStore.emitChange(Events.appState.VIEW_STATE);
       break;
-    case ActionTypes.map.RECEIVE_FIELD_DEFINITIONS:
-      _fieldDefinitions = payload.fields;
+    case ActionTypes.map.STORE_MAP_OBJECTS:
+      _map = payload.map;
+      _layer = payload.layer;
       CrowdsourceAppStore.emitChange();
       break;
     case ActionTypes.forms.FORM_CREATED:
@@ -122,7 +125,7 @@ CrowdsourceAppStore.dispatchToken = AppDispatcher.register((payload) => {
       break;
     case ActionTypes.contribute.START:
       _contributeSession = true;
-      if (_viewState.previous !== Components.names.MAP) {
+      if (_viewState.current !== Components.names.MAP) {
         _viewState.previous = _viewState.current;
         _viewState.current = Components.names.MAP;
       }

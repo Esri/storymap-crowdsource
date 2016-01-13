@@ -36,7 +36,7 @@
 		//-------------------------------------------------------------------------------------------
 		var configOptions = {
 			// Enter an application ID created through the Crowdsource builder
-			appid: "fe63852d4c474da09240fa218dae9b99",
+			appid: "",
 			// Optionally to secure Series's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
 			// User will need to sign-in to access the viewer even if your application is public
 			oAuthAppId: "",

@@ -372,7 +372,6 @@ module.exports = function (grunt) {
       },
       layouts: {
         options: {
-          includePaths: ['src/app/components','src/lib/bourbon/app/assets/stylesheets'],
           outputStyle: 'compressed',
           sourceMap: false
         },

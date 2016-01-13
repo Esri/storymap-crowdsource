@@ -20,13 +20,12 @@ export const MapActions = {
 
   },
 
-  receiveFieldDefinitions: function receiveFieldDefinitions(fields) {
-    if ($.isArray(fields)) {
-      AppDispatcher.dispatch({
-        type: ActionTypes.map.RECEIVE_FIELD_DEFINITIONS,
-        fields
-      });
-    }
+  storeMapObjects: function saveMapObjects(map,layer) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.map.STORE_MAP_OBJECTS,
+      map,
+      layer
+    });
   }
 
 };

@@ -66,6 +66,24 @@ export default class FormGroup extends React.Component {
     }
   }
 
+  getExtras(type) {
+    if (typeof type === 'string' && this.state.extras && $.isArray(this.state.extras)) {
+      const filter = $.grep(this.state.extras,(item) => {
+        return item.type === type;
+      });
+
+      if (filter.length === 0) {
+        return false;
+      } else if (filter.length === 1) {
+        return filter[0];
+      } else {
+        return filter;
+      }
+    } else {
+      return false;
+    }
+  }
+
   onChange() {
     if (!this.state.changed) {
       this.setState({
@@ -85,7 +103,6 @@ export default class FormGroup extends React.Component {
   }
 
   validateForm() {
-    const value = this.input.value;
     const nodeId = this.props.formId + '_' + this.props.id;
 
     const finished = function finished(res) {
@@ -101,12 +118,12 @@ export default class FormGroup extends React.Component {
       });
 
       if (res.isValid) {
-        this.saveData(value);
+        this.saveData(this.input.value);
       }
     };
 
     FormActions.validationStarted(this.props.formId,nodeId);
-    this.validator.validate(value).then(finished.bind(this));
+    this.validator.validate(this.input.value).then(finished.bind(this));
   }
 
   getValidations() {

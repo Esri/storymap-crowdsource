@@ -27,7 +27,8 @@ const ItemRules = {
 				address: {
 					singleLine: settings.value
 				},
-				maxLocations: 1,
+				maxLocations: 5,
+				categories: ['Populated Place'],
 				outFields: ['*']
 			}, (response) => {
 				const match = response[0];
@@ -35,7 +36,8 @@ const ItemRules = {
 				if (match) {
 					res.extras = [{
 						type: 'addressToLocation',
-						match
+						match,
+						response: response
 					}];
 					dfd.resolve(res);
 				} else {

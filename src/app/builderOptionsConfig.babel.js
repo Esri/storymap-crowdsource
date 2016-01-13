@@ -70,29 +70,26 @@ export const builderDefaults = {
 			}
 		},
 		item: {
-			'title': '',
-			'protected': true,
-			'tags': ['Story Map, Story Maps, Crowdsource'],
-			'type': 'Web Mapping Application',
-			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource', 'JavaScript', 'Map', 'Mapping Site', 'Online Map', 'Ready To Use', 'selfConfigured', 'Web Map']
+			title: '',
+			tags: ['Story Map,Story Maps,Crowdsource'],
+			type: 'Web Mapping Application',
+			typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']
 		}
 	},
 	webmap: {
 		item: {
-			'title': '',
-			'protected': true,
-			'tags': ['Story Map, Story Maps, Crowdsource'],
-			'type': 'Web Map',
-			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Web Map']
+			title: '',
+			tags: ['Story Map,Story Maps,Crowdsource'],
+			type: 'Web Map',
+			typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource-Webmap','Web Map']
 		}
 	},
 	layer: {
 		item: {
-			'title': '',
-			'protected': true,
-			'tags': ['Story Map, Story Maps, Crowdsource'],
-			'type': 'Web Map',
-			'typeKeywords': ['Story Map', 'Story Maps', 'Crowdsource','StoryMap-Crowdsource-Webmap', 'Feature Service']
+			title: '',
+			tags: ['Story Map,Story Maps,Crowdsource'],
+			type: 'Web Map',
+			typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource-Layer','Feature Service']
 		}
 	}
 };
@@ -315,8 +312,8 @@ export const basemapsWebmapDefinitions = {
 
 export const builderOptions = {
 	layouts: [{
-		id: 'scroll',
-		style: "SCROLL_LAYOUT_CSS_APPENDED_HERE"
+		id: 'stacked',
+		style: "STACKED_LAYOUT_CSS_APPENDED_HERE"
 	}],
 	fonts: [{
 		id: 'latoMerriweather',

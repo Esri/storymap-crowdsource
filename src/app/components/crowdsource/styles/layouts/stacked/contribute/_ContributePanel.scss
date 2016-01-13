@@ -1,0 +1,13 @@
+.stacked {
+  .contribute-panel {
+    position: absolute;
+    height: calc(100% - #{$paneNavigationHeight});
+    right: 10%;
+    width: 30%;
+    min-width: 300px;
+    max-width: 500px;
+    // TODO Move colors elsewhere
+    background-color: #fff;
+    color: #333;
+  }
+}

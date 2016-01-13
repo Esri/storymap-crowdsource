@@ -152,7 +152,7 @@ SettingsItemName.propTypes = {
   dataStoragePath: React.PropTypes.string,
   portal: React.PropTypes.oneOfType([
     React.PropTypes.bool,
-    React.PropTypes.shape()
+    React.PropTypes.shape({})
   ]),
   userFolders: React.PropTypes.array
 };

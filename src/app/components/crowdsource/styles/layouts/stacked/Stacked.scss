@@ -1,8 +1,11 @@
+$paneNavigationHeight: 40px;
+
 @import "crowdsource/styles/base/SharedImports";
 
 // Component Specifics
 @import "header/Header";
 @import "intro/IntroSplash";
+@import "contribute/ContributePanel";
 
 
 .main-content {
@@ -14,13 +17,13 @@
 
   .content-pane {
     .map, .thumbnail-gallery {
-      height: calc(100% - 40px);
+      height: calc(100% - #{$paneNavigationHeight});
     }
 
     .pane-navigation {
       display: table-cell;
       vertical-align: middle;
-      height: 40px;
+      height: $paneNavigationHeight;
       width: 100vw;
       text-align: center;
       cursor: pointer;

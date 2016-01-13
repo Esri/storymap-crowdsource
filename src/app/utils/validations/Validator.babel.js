@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Deferred from 'dojo/Deferred';
 import Logger from 'babel/utils/logging/Logger';
 import BasicRules from 'babel/utils/validations/rules/BasicRules';
-import LocationRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/LocationRules';
+import LocationRules from 'babel/utils/validations/rules/arcgis/LocationRules';
 import ItemRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/ItemRules';
 import PortalRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/PortalRules';
 

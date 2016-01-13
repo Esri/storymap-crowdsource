@@ -3,6 +3,7 @@ import Helper from 'babel/utils/helper/Helper';
 import AppActions from 'babel/actions/AppActions';
 import Loader from 'babel/components/helper/loading/Loader';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
+import ContributeActions from 'babel/actions/ContributeActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -73,7 +74,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
   }
 
   onParticipateClick() {
-    alert('TODO: Share Entry');
+    ContributeActions.startContributing();
   }
 
   onExploreClick() {
@@ -85,7 +86,7 @@ IntroSplash.propTypes = {
   appError: React.PropTypes.string,
   appErrorHeading: React.PropTypes.string,
   appLoaded: React.PropTypes.bool,
-  background: React.PropTypes.shape(),
+  background: React.PropTypes.shape({}),
   exploreText: React.PropTypes.string,
   loadingMessage: React.PropTypes.string,
   participateText: React.PropTypes.string,

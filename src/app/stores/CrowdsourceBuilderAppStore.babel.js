@@ -89,10 +89,14 @@ CrowdsourceBuilderAppStore.dispatchToken = AppDispatcher.register((payload) => {
 
   switch (action) {
     case ActionTypes.app.AUTHORIZATION:
+      AppDispatcher.waitFor([AppDataStore.dispatchToken,PortalStore.dispatchToken]);
       if (window.app.mode.fromScratch && !AppDataStore.appData && payload.authorized) {
-        _activeModal = 'layoutScratch';
-        _authourized = true;
-        CrowdsourceBuilderAppStore.emitChange(Events.appState.SETTINGS_VIEW);
+        // TODO Change to 'layoutScratch' when second layout is available
+        setTimeout(() => {
+          _activeModal = 'itemNameScratch';
+          _authourized = true;
+          CrowdsourceBuilderAppStore.emitChange(Events.appState.SETTINGS_VIEW);
+        },0);
       }
       break;
     case BuilderConstants.ActionTypes.app.UPDATE_APP_DATA:

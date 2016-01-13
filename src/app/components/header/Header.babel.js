@@ -96,7 +96,7 @@ Header.propTypes = {
     twitter: React.PropTypes.bool,
     bitly: React.PropTypes.bool
   }),
-  socialButtonTitles: React.PropTypes.shape()
+  socialButtonTitles: React.PropTypes.shape({})
 };
 
 Header.defaultProps = {

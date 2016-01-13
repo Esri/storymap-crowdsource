@@ -26,7 +26,7 @@ const forms = keyMirror({
 
 const map = keyMirror({
   RECEIVE_FEATURES: null,
-  RECEIVE_FIELD_DEFINITIONS: null
+  STORE_MAP_OBJECTS: null
 },'lower-dashed');
 
 export const ActionTypes = {

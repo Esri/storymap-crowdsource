@@ -56,8 +56,8 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
 
-        if (layer.fields) {
-          MapActions.receiveFieldDefinitions(layer.fields);
+        if (layer) {
+          MapActions.storeMapObjects(map,layer);
         }
 
         // on.once(layer,'update-end',() => {

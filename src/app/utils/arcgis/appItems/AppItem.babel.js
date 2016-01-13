@@ -21,11 +21,16 @@ export const getDataById = function getDataById(item) {
         itemData: res.itemData
       });
     } else {
+      AppActions.showLoadingError('appLoadingFail');
       _onError(res);
     }
   },(err) => {
     if (err.toString().search('You do not have access') > -1) {
       AppActions.showLoadingError('notAuthorizedApp');
+    } else if (err.toString().search('Item does not exist or is inaccessible') > -1) {
+      AppActions.showLoadingError('inaccessibleApp');
+    } else {
+      AppActions.showLoadingError('appLoadingFail');
     }
     _onError(err);
   });

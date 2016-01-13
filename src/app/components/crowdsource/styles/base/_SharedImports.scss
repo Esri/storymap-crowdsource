@@ -1,6 +1,9 @@
 // Bourbon Mixins
 @import "bourbon";
 
+// Add Calcite Colors
+@import "calcite/colors-default";
+
 // Crowdsource Base
 @import "crowdsource/styles/base/Mixins";
 @import "crowdsource/styles/base/Variables";

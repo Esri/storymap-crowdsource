@@ -37,7 +37,7 @@ define({
     },
     fromScratchMessage: {
       saving: 'Creating Application Items',
-      layerNameInWebmap: 'Crowdsource Layer (DO NOTE DELETE)'
+      layerNameInWebmap: 'Crowdsource Layer (DO NOTE REMOVE)'
     },
     settingsModals: {
       common: {
