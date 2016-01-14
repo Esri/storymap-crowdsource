@@ -31,4 +31,30 @@
     }
   }
 
+  .calcite-locate {
+    height: 38px;
+    width: 44px;
+
+    .icon-location {
+      height: 23px;
+      width: 23px;
+    }
+
+    .loading-gif {
+      display: none;
+      height: 26px;
+      margin-left: -4px;
+    }
+
+    .loading {
+      .icon-location {
+        display: none;
+      }
+
+      .loading-gif {
+        display: block;
+      }
+    }
+  }
+
 }

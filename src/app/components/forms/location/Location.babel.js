@@ -2,6 +2,9 @@ import $ from 'jquery';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'reactDom';
 import Geocoder from 'esri/dijit/Geocoder';
+import LocateButton from 'esri/dijit/LocateButton';
+import Locator from 'esri/tasks/locator';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import Validator from 'babel/utils/validations/Validator';
 import FormActions from 'babel/actions/FormActions';
@@ -14,26 +17,44 @@ export default class Location extends FormGroup {
     super(props);
 
     this.value = false;
+    this.locator = new Locator('http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer');
 
     this.onSelect = this.onSelect.bind(this);
     this.onAutocomplete = this.onAutocomplete.bind(this);
     this.onClear = this.onClear.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
+
+    this.reverseGeocode = this.reverseGeocode.bind(this);
   }
 
   componentDidMount() {
-    const node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this.inputContainer);
+
+    $(node).append($('<div class="geocoder-container"></div>'));
+    $(node).append($('<div class="locator-container"></div>'));
+
+    this.geocoderContainer = $(node).find('.geocoder-container');
+    this.locateButtonContainer = $(node).find('.locator-container');
 
     this.geocoder = new Geocoder({
       autoComplete: true,
       highlightLocation: true,
       minCharacters: 1,
       map: this.props.map,
-      theme: 'calcite'
-    },this.geocoderContainer);
+      theme: 'calcite-geocoder'
+    },this.geocoderContainer[0]);
 
-    console.log(this.geocoder);
+    this.locateButton = new LocateButton({
+      map: this.props.map,
+      theme: 'calcite-locate'
+    },this.locateButtonContainer[0]);
+
+    this.geocoderInner = $(node).find('.esriGeocoder');
+    this.geocoderInner.addClass('input-group').append('<span class="input-group-btn"></span>');
+    this.locateButtonContainer = $(node).find('.calcite-locate');
+    this.locateButtonContainer.addClass('btn btn-default').attr('tabindex',0);
+    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="Getting Location">');
+    this.geocoderInner.find('.input-group-btn').append(this.locateButtonContainer);
 
     this.geocoderSeachButton = $(node).find('.esriGeocoderSearch');
     this.geocoderSeachButton.attr('tabindex',-1);
@@ -47,6 +68,13 @@ export default class Location extends FormGroup {
     this.geocoderAutocomplete = $(node).find('.esriGeocoderResults');
     this.geocoderAutocomplete.addClass('form-control');
 
+    this.locateButton.on('locate',this.reverseGeocode);
+    this.locateButtonContainer.on('keypress',(e) => {
+      if (e.which === 13) {
+        this.locateButton.locate();
+      }
+    });
+
     this.addInputAttributes();
 
     this.validator = new Validator({
@@ -58,7 +86,6 @@ export default class Location extends FormGroup {
     this.geocoder.on('clear',this.onClear);
     this.geocoder.on('select',this.onSelect);
     this.geocoderInput.on('blur',this.onBlur);
-    // this.geocoderInput.on('change',this.onChange);
   }
 
   componentDidUpdate() {
@@ -79,8 +106,8 @@ export default class Location extends FormGroup {
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
-        <div className="foo"
-          ref={(ref) => this.geocoderContainer = ref}>
+        <div
+          ref={(ref) => this.inputContainer = ref}>
         </div>
         {this.getErrorMessage ? this.getErrorMessage() : null}
       </div>
@@ -94,6 +121,9 @@ export default class Location extends FormGroup {
   }
 
   validateForm() {
+    this.input = {
+      value: this.geocoderInput.val()
+    };
     const nodeId = this.props.formId + '_' + this.props.id;
 
     const finished = function finished(res) {
@@ -102,7 +132,7 @@ export default class Location extends FormGroup {
         FormActions.validationFinished(this.props.formId,nodeId,res.isValid);
       }
 
-      if (this.geocoder.results && this.geocoder.results.length === 0 && this.input.value.length > 0) {
+      if (!this.value && this.geocoder.results && this.geocoder.results.length === 0 && this.input.value.length > 0) {
         res.errors = res.errors.concat([{message: ViewerText.contribute.location.notFound}]);
         res.isValid = false;
       }
@@ -123,7 +153,7 @@ export default class Location extends FormGroup {
   }
 
   onSelect(selection) {
-    console.log(selection);
+    this.locateButton.clear();
     if (selection.result) {
       this.value = {
         name: selection.result.name,
@@ -135,9 +165,6 @@ export default class Location extends FormGroup {
   onClear() {
     this.value = false;
     if (this.state.changed) {
-      this.input = {
-        value: this.geocoderInput.val()
-      };
       this.validateForm();
     }
   }
@@ -149,31 +176,37 @@ export default class Location extends FormGroup {
         changed: true
       });
     }
-    this.input = {
-      value: this.geocoderInput.val()
-    };
-    this.validateForm();
-  }
-
-  onChange() {
-    if (!this.state.changed) {
-      this.setState({
-        changed: true
-      });
-    }
-    this.input = {
-      value: this.geocoderInput.val()
-    };
     this.validateForm();
   }
 
   onBlur() {
-    this.input = {
-      value: this.geocoderInput.val()
-    };
     this.validateForm();
     if (!this.value && !this.geocoderAutocomplete.is(':visible') && this.geocoder.results && this.geocoder.results.length > 0) {
       this.geocoder._findThenSelect(this.geocoder.results[0]);
+    }
+  }
+
+  reverseGeocode(response) {
+    this.geocoder.clear();
+    if (response && response.graphic) {
+      this.locator.locationToAddress(response.graphic.geometry,100, (res) => {
+        if (res.address && res.address.Match_addr) {
+          this.geocoderInput.val(res.address.Match_addr);
+          this.value = {
+            name: res.address.Match_addr,
+            geometry: response.graphic.geometry
+          };
+        } else {
+          const name = response.position.coords.latitude + ', ' + response.position.coords.longitude;
+
+          this.geocoderInput.val(res.address.Match_addr);
+          this.value = {
+            name: name,
+            geometry: response.graphic.geometry
+          };
+        }
+        this.validateForm();
+      });
     }
   }
 }
