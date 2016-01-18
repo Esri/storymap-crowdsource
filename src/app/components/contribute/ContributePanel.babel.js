@@ -5,6 +5,7 @@ import Helper from 'babel/utils/helper/Helper';
 import Input from 'babel/components/forms/input/Input';
 import Textarea from 'babel/components/forms/textarea/Textarea';
 import Location from 'babel/components/forms/location/Location';
+import Photo from 'babel/components/forms/photo/Photo';
 import FormActions from 'babel/actions/FormActions';
 import 'bootstrap/modal';
 import 'bootstrap/transition';
@@ -37,7 +38,7 @@ export default class ContributePanel extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <h3>
-                {this.props.title}
+            {this.props.title}
             </h3>
             <form>
               {this.props.fields.map((field,index) => {
@@ -48,23 +49,41 @@ export default class ContributePanel extends React.Component {
                     id: field.fieldID,
                     key: index,
                     label: field.label,
+                    attribute: field.attributeName,
                     inputAttr: {
                       type: field.type,
                       placeholder: field.placeholder,
                       maxLength
-                    },
-                    validations: field.validations
-                  };
+                  },
+                  validations: field.validations
+                };
 
-                  switch (field.type) {
-                    case 'textarea':
-                      return <Textarea {...options}></Textarea>;
-                    case 'location':
-                      return <Location map={this.props.map} {...options}></Location>;
-                    default:
-                      return <Input {...options}></Input>;
-                  }
+                switch (field.type) {
+                  case 'textarea':
+                    return <Textarea {...options}></Textarea>;
+                  case 'location':
+                    return <Location map={this.props.map} {...options}></Location>;
+                  default:
+                    return <Input {...options}></Input>;
                 }
+              } else if (field.type === 'photo') {
+                const options = {
+                  formId: this._formId,
+                  id: field.fieldID,
+                  attribute: field.attributeName,
+                  key: index,
+                  label: field.label,
+                  placeholder: field.placeholder,
+                  inputAttr: {
+                    type: 'file',
+                    accept: 'image/*',
+                    capture: 'camera'
+                  },
+                  validations: field.validations
+                };
+
+                return <Photo {...options}></Photo>;
+              }
               })}
             </form>
           </div>

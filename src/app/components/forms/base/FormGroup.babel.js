@@ -25,7 +25,7 @@ export default class FormGroup extends React.Component {
   componentDidMount() {
     this.validator = new Validator({
       validations: this.getValidations(),
-      attribute: this.props.label
+      attribute: this.props.attribute || this.props.label
     });
 
     if (this.input.value) {

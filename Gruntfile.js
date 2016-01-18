@@ -331,7 +331,8 @@ module.exports = function (grunt) {
         includePaths: ['src/app/components/',
         'src/lib/bourbon/app/assets/stylesheets/',
         'src/lib/calcite-bootstrap/sass/',
-        'src/lib/bootstrap-sass/assets/stylesheets/']
+        'src/lib/bootstrap-sass/assets/stylesheets/',
+        'src/lib/']
       },
       dev: {
         files: {

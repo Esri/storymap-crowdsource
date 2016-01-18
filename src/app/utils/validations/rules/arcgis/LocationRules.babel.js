@@ -4,9 +4,32 @@ import Locator from 'esri/tasks/locator';
 import ValidationUtils from 'babel/utils/validations/ValidationUtils';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
-const ValitdateText = ViewerText.contribute.location;
+const ValitdateText = ViewerText.validations.arcgis.location;
 
 const ItemRules = {
+	location: function location(options) {
+		let res = {
+			isValid: true,
+			error: false
+		};
+    const defaults = {};
+    const settings = $.extend(true,{},defaults,options);
+		const msgOptions = {
+			attribute: settings.attribute
+		};
+
+		if (settings.value && settings.value.inputVal && settings.value.dataVal) {
+			if (settings.value.dataVal === 'no results') {
+				res.isValid = false,
+				res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.noResults,msgOptions);
+			} else if (!settings.value.dataVal.name || !settings.value.dataVal.geometry) {
+				res.isValid = false,
+				res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.notValid,msgOptions);
+			}
+		}
+
+		return res;
+	},
 	addressToLocation: function addressToLocation(options) {
 		let res = {
 			isValid: true,
@@ -42,7 +65,7 @@ const ItemRules = {
 					dfd.resolve(res);
 				} else {
 					res.isValid = false,
-					res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.notFound,msgOptions);
+					res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.noResults,msgOptions);
 					dfd.resolve(res);
 				}
 			});

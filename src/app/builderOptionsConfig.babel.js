@@ -8,21 +8,36 @@ export const builderDefaults = {
 				settings: {
 					contribute: {
 						fields: [{
+							type: 'photo',
+							fieldID: 'photo_url',
+							label: builderText.contribute.defaultForm.photo.label,
+							placeholder: builderText.contribute.defaultForm.photo.placeholder,
+							attributeName: builderText.contribute.defaultForm.photo.attribute,
+							validations: ['required'],
+              extra: {
+                thumbnail: {
+                  fieldID: 'thumbnail_url'
+                }
+              }
+						},{
 							type: 'text',
 							fieldID: 'name',
 							label: builderText.contribute.defaultForm.name.label,
+							attributeName: builderText.contribute.defaultForm.name.attribute,
 							placeholder: builderText.contribute.defaultForm.name.placeholder,
 							validations: ['required']
 						},{
 							type: 'location',
 							fieldID: 'location_name',
 							label: builderText.contribute.defaultForm.location.label,
+							attributeName: builderText.contribute.defaultForm.location.attribute,
 							placeholder: builderText.contribute.defaultForm.location.placeholder,
 							validations: ['required']
 						},{
 							type: 'textarea',
 							fieldID: 'description',
 							label: builderText.contribute.defaultForm.description.label,
+							attributeName: builderText.contribute.defaultForm.description.attribute,
 							placeholder: builderText.contribute.defaultForm.description.placeholder,
 							validations: ['required']
 						}]

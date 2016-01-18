@@ -28,9 +28,12 @@ define({
       }
     },
     contribute: {
+      photo: {
+        pickFile: 'pick a file',
+        selectNew: 'Use a different photo'
+      },
       location: {
-        search: 'Search',
-        notFound: 'The location you searched for cannot be found. Please try again and be as specifc as you can.'
+        search: 'Search'
       }
     },
     validations: {
@@ -42,6 +45,12 @@ define({
         max: {
           string: 'The <% attribute %> cannot contain more than <% max %> characters.',
           number: 'The <% attribute %> must be less than or equal to <% max %>.'
+        }
+      },
+      arcgis: {
+        location: {
+          notValid: 'The location you entered is not valid, please try again.',
+          noResults: 'The location you searched for cannot be found. Please try again and be as specifc as you can.'
         }
       }
     },

@@ -22,16 +22,24 @@ define({
     contribute: {
       defaultForm: {
         name: {
-          label: 'Name',
-          placeholder: 'Enter name'
+          label: 'Add a title',
+          attribute: 'title',
+          placeholder: 'Name your share'
         },
         description: {
-          label: 'Description',
-          placeholder: 'Enter a description'
+          label: 'Add a description',
+          attribute: 'description',
+          placeholder: 'Enter a description (200 words or fewer please)'
         },
         location: {
-          label: 'Location',
+          label: 'Add a location',
+          attribute: 'location',
           placeholder: 'Enter a location'
+        },
+        photo: {
+          label: 'Add a photo',
+          placeholder: 'Drag and drop or...',
+          attribute: 'photo'
         }
       }
     },

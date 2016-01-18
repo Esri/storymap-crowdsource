@@ -1,0 +1,88 @@
+@import "cropperjs/src/scss/variables";
+@import "cropperjs/src/scss/mixins";
+@import "cropperjs/src/scss/main";
+@import "cropperjs/src/scss/utilities";
+
+.form-group.photo-input {
+
+  .alert {
+    margin-bottom: 0;
+  }
+
+  .alert-default {
+    background-color: $Calcite_Gray_200;
+    border: $Calcite_Gray_450 1px solid;
+  }
+
+  .uploader {
+    text-align: center;
+
+    h6 {
+      line-height: 2;
+      margin: 0;
+    }
+  }
+
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+    vertical-align: initial;
+
+    input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      cursor: inherit;
+      display: block;
+    }
+  }
+
+  .cropper-pane {
+    display: none;
+    position: relative;
+
+    .photo-controls {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 1;
+
+      button {
+        height: 38px;
+        width: 40px;
+      }
+
+      .zoom-group svg {
+        margin: 2px 0 0 -3px;
+        height: 20px;
+        width: 20px;
+      }
+
+      .rotate-group svg {
+        height: 23px;
+        width: 23px;
+        margin: 1px 0 0 -4px;
+      }
+    }
+  }
+
+  &.cropping {
+    .uploader {
+      display: none;
+    }
+    .cropper-pane {
+      display: block;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}

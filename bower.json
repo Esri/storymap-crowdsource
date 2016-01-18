@@ -20,7 +20,6 @@
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.2.6/calcite-bootstrap.zip",
-    "chroma-js": "~1.1.1",
     "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/0510ee5268af27dacca08c789dc8f61d2152d77a.zip",
     "eventEmitter": "~4.3.0",
     "flux": "~2.1.1",
@@ -29,6 +28,10 @@
     "jquery": "~2.1.4",
     "react": "https://facebook.github.io/react/downloads/react-0.14.5.zip",
     "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
-    "bourbon": "~4.2.6"
+    "bourbon": "~4.2.6",
+    "cropperjs": "~0.5.5",
+    "loader": "https://github.com/fengyuanchen/loader/archive/eb81471c8ac608fef799e3b90b8c2ead6ff62a82.zip",
+    "resample-hermite": "https://github.com/viliusle/Hermite-resize/archive/ede593b94d8fc9a33141229dc72fd334c7563baf.zip",
+    "smartcrop": "*"
   }
 }

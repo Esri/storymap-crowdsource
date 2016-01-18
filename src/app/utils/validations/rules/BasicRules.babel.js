@@ -30,6 +30,14 @@ const BasicRules = {
             };
           }
           break;
+				case 'object':
+					if (typeof settings.value.inputVal === 'string' && settings.value.inputVal.length === 0) {
+						res = {
+							isValid: false,
+              error: errorMessage
+            };
+					}
+					break;
       }
     } else {
 			res = {
