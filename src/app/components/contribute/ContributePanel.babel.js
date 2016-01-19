@@ -6,7 +6,9 @@ import Input from 'babel/components/forms/input/Input';
 import Textarea from 'babel/components/forms/textarea/Textarea';
 import Location from 'babel/components/forms/location/Location';
 import Photo from 'babel/components/forms/photo/Photo';
+import TermsAndConditions from 'babel/components/forms/termsAndConditions/TermsAndConditions';
 import FormActions from 'babel/actions/FormActions';
+import ViewerText from 'i18n!translations/viewer/nls/template';
 import 'bootstrap/modal';
 import 'bootstrap/transition';
 
@@ -33,6 +35,15 @@ export default class ContributePanel extends React.Component {
       'container-fluid'
     ]);
 
+    const termsOptions = {
+      formId: this._formId,
+      id: 'termsAndCondtions',
+      label: ViewerText.contribute.termsAndConditions.label,
+      inputAttr: {
+        type: 'checkbox'
+      }
+    };
+
     return (
       <div className={contributeClasses}>
         <div className="row">
@@ -42,50 +53,52 @@ export default class ContributePanel extends React.Component {
             </h3>
             <form>
               {this.props.fields.map((field,index) => {
-                if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
-                  const maxLength = this.getFieldDefinitionValue(field.fieldID,'length');
-                  const options = {
-                    formId: this._formId,
-                    id: field.fieldID,
-                    key: index,
-                    label: field.label,
-                    attribute: field.attributeName,
-                    inputAttr: {
-                      type: field.type,
-                      placeholder: field.placeholder,
-                      maxLength
-                  },
-                  validations: field.validations
-                };
+              if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
+              const maxLength = this.getFieldDefinitionValue(field.fieldID,'length');
+              const options = {
+              formId: this._formId,
+              id: field.fieldID,
+              key: index,
+              label: field.label,
+              attribute: field.attributeName,
+              inputAttr: {
+              type: field.type,
+              placeholder: field.placeholder,
+              maxLength
+              },
+              validations: field.validations
+              };
 
-                switch (field.type) {
-                  case 'textarea':
-                    return <Textarea {...options}></Textarea>;
-                  case 'location':
-                    return <Location map={this.props.map} {...options}></Location>;
-                  default:
-                    return <Input {...options}></Input>;
-                }
+              switch (field.type) {
+              case 'textarea':
+              return <Textarea {...options}></Textarea>;
+              case 'location':
+              return <Location map={this.props.map} {...options}></Location>;
+              default:
+              return <Input {...options}></Input>;
+              }
               } else if (field.type === 'photo') {
-                const options = {
-                  formId: this._formId,
-                  id: field.fieldID,
-                  attribute: field.attributeName,
-                  key: index,
-                  label: field.label,
-                  placeholder: field.placeholder,
-                  inputAttr: {
-                    type: 'file',
-                    accept: 'image/*',
-                    capture: 'camera'
-                  },
-                  validations: field.validations
-                };
+              const options = {
+              formId: this._formId,
+              id: field.fieldID,
+              attribute: field.attributeName,
+              key: index,
+              label: field.label,
+              placeholder: field.placeholder,
+              inputAttr: {
+              type: 'file',
+              accept: 'image/*',
+              capture: 'camera'
+              },
+              validations: field.validations
+              };
 
-                return <Photo {...options}></Photo>;
+              return <Photo {...options}></Photo>;
               }
               })}
+              <TermsAndConditions {...termsOptions}></TermsAndConditions>
             </form>
+            <button className="btn btn-primary btn-block save">{ViewerText.contribute.save}</button>
           </div>
         </div>
       </div>

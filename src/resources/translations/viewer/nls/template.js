@@ -34,7 +34,13 @@ define({
       },
       location: {
         search: 'Search'
-      }
+      },
+      termsAndConditions: {
+        buttonShow: 'Show terms and conditions',
+        buttonHide: 'Hide terms and conditions',
+        legal: 'You warrant and represent that (1) you possess all rights, title, and ownership in the photos to be shared up to this site, and grant Esri, and its contractors the nonexclusive, royalty free right to use, copy, store, cache, host, prepare derivative works, reproduce, publicly display and perform, redistribute, rebroadcast, and retransmit the shared photo as part of this service, and (2) your sharing of photos and any associated geolocational information will not infringe or misappropriate any third party’s proprietary rights or rights of privacy or publicity. Sharing photos that could be deemed defamatory, obscene, pornographic, excessively violent, or to encourage unlawful activities are strictly prohibited.'
+      },
+      save: 'Accept Terms and Save'
     },
     validations: {
       fix: 'Fix it!',
@@ -45,7 +51,8 @@ define({
         max: {
           string: 'The <% attribute %> cannot contain more than <% max %> characters.',
           number: 'The <% attribute %> must be less than or equal to <% max %>.'
-        }
+        },
+        acceptedTerms: 'You must accept the terms and conditions before sharing.'
       },
       arcgis: {
         location: {

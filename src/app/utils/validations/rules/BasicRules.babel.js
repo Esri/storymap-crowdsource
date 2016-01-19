@@ -48,6 +48,29 @@ const BasicRules = {
 
     return res;
   },
+	acceptedTerms: function acceptedTerms(options) {
+		let res = {
+			isValid: true,
+			error: false
+		};
+    const defaults = {
+      errorMessage: ValitdateText.acceptedTerms
+    };
+    const settings = $.extend(true,{},defaults,options);
+		const msgOptions = {
+			attribute: settings.attribute
+		};
+    const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
+
+		if (!settings.value || settings.value !== 'true') {
+			res = {
+				isValid: false,
+				error: errorMessage
+			};
+		}
+
+		return res;
+	},
 	regex: function regex(options) {
 		let res = {
 			isValid: true,

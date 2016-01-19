@@ -127,7 +127,7 @@ export default class FormGroup extends React.Component {
   }
 
   getValidations() {
-    const validations = this.props.validations;
+    const validations = this.props.validations.slice(0);
     const type = this.props.inputAttr.type || 'text';
 
     const addToValidations = function addToValidations(validation) {
@@ -191,7 +191,6 @@ export default class FormGroup extends React.Component {
 
       addToValidations(validation);
     });
-
     return validations;
   }
 
