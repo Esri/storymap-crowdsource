@@ -27,6 +27,7 @@ export default class Select extends FormGroup {
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'select','form-group',{
+      'required': this.props.required,
       'has-error': !this.state.isValid
     }]);
 

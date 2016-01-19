@@ -11,6 +11,7 @@ export default class Textarea extends FormGroup {
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'textarea','form-group',{
+      'required': this.props.required,
       'has-error': !this.state.isValid
     }]);
 

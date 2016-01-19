@@ -38,7 +38,7 @@ define({
         },
         photo: {
           label: 'Add a photo',
-          placeholder: 'Drag and drop or...',
+          placeholder: 'Drag and Drop',
           attribute: 'photo'
         }
       }

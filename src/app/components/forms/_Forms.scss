@@ -4,6 +4,14 @@
 
 form {
 
+  .required label::after {
+    color: $Calcite_Red_a150;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 3px;
+    content: "*";
+  }
+
   ul.form-error-message {
     margin-top: 5px;
     line-height: 1;

@@ -18,6 +18,8 @@ export default class ContributePanel extends React.Component {
     super(props);
 
     this._formId = 'VIEWER_CONTRIBUTE_MAIN';
+
+    this.getFormField = this.getFormField.bind(this);
   }
 
   componentDidMount() {
@@ -48,57 +50,13 @@ export default class ContributePanel extends React.Component {
       <div className={contributeClasses}>
         <div className="row">
           <div className="col-xs-12">
-            <h3>
-            {this.props.title}
-            </h3>
+            <h3>{this.props.title}</h3>
             <form>
-              {this.props.fields.map((field,index) => {
-              if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
-              const maxLength = this.getFieldDefinitionValue(field.fieldID,'length');
-              const options = {
-              formId: this._formId,
-              id: field.fieldID,
-              key: index,
-              label: field.label,
-              attribute: field.attributeName,
-              inputAttr: {
-              type: field.type,
-              placeholder: field.placeholder,
-              maxLength
-              },
-              validations: field.validations
-              };
-
-              switch (field.type) {
-              case 'textarea':
-              return <Textarea {...options}></Textarea>;
-              case 'location':
-              return <Location map={this.props.map} {...options}></Location>;
-              default:
-              return <Input {...options}></Input>;
-              }
-              } else if (field.type === 'photo') {
-              const options = {
-              formId: this._formId,
-              id: field.fieldID,
-              attribute: field.attributeName,
-              key: index,
-              label: field.label,
-              placeholder: field.placeholder,
-              inputAttr: {
-              type: 'file',
-              accept: 'image/*',
-              capture: 'camera'
-              },
-              validations: field.validations
-              };
-
-              return <Photo {...options}></Photo>;
-              }
-              })}
+              {this.props.fields.map(this.getFormField)}
               <TermsAndConditions {...termsOptions}></TermsAndConditions>
             </form>
-            <button className="btn btn-primary btn-block save">{ViewerText.contribute.save}</button>
+            <button type="button" className="btn btn-primary btn-block save">{ViewerText.contribute.save}</button>
+            <p className="required-warning"><small>{ViewerText.contribute.requiredWarning}</small></p>
           </div>
         </div>
       </div>
@@ -115,6 +73,53 @@ export default class ContributePanel extends React.Component {
     });
 
     return value;
+  }
+
+  getFormField(field,index) {
+    if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
+      const maxLength = this.getFieldDefinitionValue(field.fieldID,'length');
+      const options = {
+        required: field.required,
+        formId: this._formId,
+        id: field.fieldID,
+        key: index,
+        label: field.label,
+        attribute: field.attributeName,
+        inputAttr: {
+          type: field.type,
+          placeholder: field.placeholder,
+          maxLength
+        },
+        validations: field.validations
+      };
+
+      switch (field.type) {
+        case 'textarea':
+          return <Textarea {...options}></Textarea>;
+        case 'location':
+          return <Location map={this.props.map} {...options}></Location>;
+        default:
+          return <Input {...options}></Input>;
+        }
+    } else if (field.type === 'photo') {
+      const options = {
+        required: field.required,
+        formId: this._formId,
+        id: field.fieldID,
+        attribute: field.attributeName,
+        key: index,
+        label: field.label,
+        placeholder: field.placeholder,
+        inputAttr: {
+          type: 'file',
+          accept: 'image/*',
+          capture: 'camera'
+        },
+        validations: field.validations
+      };
+
+      return <Photo {...options}></Photo>;
+    }
   }
 
 }

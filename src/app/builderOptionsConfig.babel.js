@@ -8,6 +8,7 @@ export const builderDefaults = {
 				settings: {
 					contribute: {
 						fields: [{
+							required: true,
 							type: 'photo',
 							fieldID: 'photo_url',
 							label: builderText.contribute.defaultForm.photo.label,
@@ -20,6 +21,7 @@ export const builderDefaults = {
                 }
               }
 						},{
+							required: true,
 							type: 'text',
 							fieldID: 'name',
 							label: builderText.contribute.defaultForm.name.label,
@@ -27,6 +29,7 @@ export const builderDefaults = {
 							placeholder: builderText.contribute.defaultForm.name.placeholder,
 							validations: ['required']
 						},{
+							required: true,
 							type: 'location',
 							fieldID: 'location_name',
 							label: builderText.contribute.defaultForm.location.label,
@@ -34,6 +37,7 @@ export const builderDefaults = {
 							placeholder: builderText.contribute.defaultForm.location.placeholder,
 							validations: ['required']
 						},{
+							required: true,
 							type: 'textarea',
 							fieldID: 'description',
 							label: builderText.contribute.defaultForm.description.label,
@@ -85,6 +89,7 @@ export const builderDefaults = {
 			}
 		},
 		item: {
+			extent: '-125,-40,70,70',
 			title: '',
 			tags: ['Story Map,Story Maps,Crowdsource'],
 			type: 'Web Mapping Application',
@@ -93,6 +98,7 @@ export const builderDefaults = {
 	},
 	webmap: {
 		item: {
+			extent: '-125,-40,70,70',
 			title: '',
 			tags: ['Story Map,Story Maps,Crowdsource'],
 			type: 'Web Map',
@@ -101,6 +107,7 @@ export const builderDefaults = {
 	},
 	layer: {
 		item: {
+			extent: '-125,-40,70,70',
 			title: '',
 			tags: ['Story Map,Story Maps,Crowdsource'],
 			type: 'Web Map',

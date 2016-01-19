@@ -105,6 +105,7 @@ export default class Location extends FormGroup {
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'location','form-geocoder','form-group',{
+      'required': this.props.required,
       'has-error': !this.state.isValid
     }]);
 

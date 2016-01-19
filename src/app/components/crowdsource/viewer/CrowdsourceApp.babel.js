@@ -16,7 +16,7 @@ const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 // TRANSLATED TEXT STRINGS START
 // Intro
-const OR_TEXT = viewerText.intro.or;
+const OR_TEXT = viewerText.common.or;
 const LOADING_ERROR_HEADING = viewerText.errors.loading.heading;
 // TRANSLATED TEXT STRINGS END
 

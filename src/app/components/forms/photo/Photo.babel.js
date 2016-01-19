@@ -50,6 +50,7 @@ export default class Photo extends FormGroup {
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'photo-input','form-group',{
+      'required': this.props.required,
       'has-error': !this.state.isValid,
       'cropping': this.state.imageUrl ? true : false
     }]);
@@ -64,12 +65,14 @@ export default class Photo extends FormGroup {
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
         <div className={uploaderClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
           <h6>
-          {this.props.placeholder + ' '}
-            <button type="button" className="btn btn-default btn-file" onBlur={this.onBlur}>
-            {ViewerText.contribute.photo.pickFile}
-              <input id={this.props.id} {...this.props.inputAttr} tabIndex="-1" onChange={this.fileChange}></input>
-            </button>
+            {this.props.placeholder}
+            <br></br>
+            {ViewerText.common.or}
           </h6>
+          <button type="button" className="btn btn-default btn-file" onBlur={this.onBlur}>
+            {ViewerText.contribute.photo.pickFile}
+            <input id={this.props.id} {...this.props.inputAttr} tabIndex="-1" onChange={this.fileChange}></input>
+          </button>
         </div>
         <div className="cropper-pane">
           <div className="btn-toolbar photo-controls" role="toolbar">

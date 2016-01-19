@@ -11,6 +11,7 @@ export default class Input extends FormGroup {
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'input','form-group',{
+      'required': this.props.required,
       'has-error': !this.state.isValid
     }]);
 

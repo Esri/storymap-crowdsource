@@ -16,9 +16,10 @@
 
   .uploader {
     text-align: center;
+    padding: 80px 0;
 
     h6 {
-      line-height: 2;
+      line-height: 1.5em;
       margin: 0;
     }
   }
@@ -27,6 +28,7 @@
     position: relative;
     overflow: hidden;
     vertical-align: initial;
+    margin-top: 0.5em;
 
     input[type=file] {
       position: absolute;
