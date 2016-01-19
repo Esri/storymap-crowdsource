@@ -79,6 +79,7 @@ export default class ContributePanel extends React.Component {
     if (field.type === 'text' || field.type === 'textarea' || field.type === 'location') {
       const maxLength = this.getFieldDefinitionValue(field.fieldID,'length');
       const options = {
+        contributing: true,
         required: field.required,
         formId: this._formId,
         id: field.fieldID,
@@ -103,6 +104,7 @@ export default class ContributePanel extends React.Component {
         }
     } else if (field.type === 'photo') {
       const options = {
+        contributing: true,
         required: field.required,
         formId: this._formId,
         id: field.fieldID,

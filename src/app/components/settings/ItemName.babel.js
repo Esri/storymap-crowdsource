@@ -3,6 +3,7 @@ import React from 'react';
 import Input from 'babel/components/forms/input/Input';
 import Select from 'babel/components/forms/select/Select';
 import FormActions from 'babel/actions/FormActions';
+import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
@@ -27,25 +28,30 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
   render() {
 
+    const self = this;
+
     const appName = {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_appName',
       label: formText.appName.label,
-      dataStoragePath: this.props.dataStoragePath + '.appName',
       inputAttr: {
         type: 'text',
         placeholder: formText.appName.placeholder,
         maxLength: 120,
         required: true
       },
-      validations: ['arcgisItemName']
+      validations: ['arcgisItemName'],
+      saveMethod: function(value) {
+        if (value){
+          BuilderAction.updateAppData(self.props.dataStoragePath + '.appName',value);
+        }
+      }
     };
 
     const mapName = {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_mapName',
       label: formText.mapName.label,
-      dataStoragePath: this.props.dataStoragePath + '.webmapName',
       autoUpdate: {
         when: 'notChanged',
         value: this.props.webmapName
@@ -56,14 +62,18 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
         maxLength: 120,
         required: true
       },
-      validations: ['arcgisItemName']
+      validations: ['arcgisItemName'],
+      saveMethod: function(value) {
+        if (value){
+          BuilderAction.updateAppData(self.props.dataStoragePath + '.webmapName',value);
+        }
+      }
     };
 
     const layerName = {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_layerName',
       label: formText.featureServiceName.label,
-      dataStoragePath: this.props.dataStoragePath + '.layerName',
       autoUpdate: {
         when: 'notChanged',
         value: this.props.layerName
@@ -74,20 +84,29 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
         maxLength: 120,
         required: true
       },
-      validations: ['arcgisIsServiceName']
+      validations: ['arcgisIsServiceName'],
+      saveMethod: function(value) {
+        if (value){
+          BuilderAction.updateAppData(self.props.dataStoragePath + '.layerName',value);
+        }
+      }
     };
 
     const folder = {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_folder',
       label: formText.featureServiceName.label,
-      dataStoragePath: this.props.dataStoragePath + '.ownerFolder',
       inputAttr: {
         type: 'select',
         placeholder: formText.folderSelection.label,
         required: true
       },
-      options: this.getUserFolders()
+      options: this.getUserFolders(),
+      saveMethod: function(value) {
+        if (value){
+          BuilderAction.updateAppData(self.props.dataStoragePath + '.ownerFolder',value);
+        }
+      }
     };
 
     return (

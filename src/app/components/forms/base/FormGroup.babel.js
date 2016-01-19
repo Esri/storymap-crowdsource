@@ -2,7 +2,6 @@ import $ from 'jquery';
 import React from 'react';
 import Validator from 'babel/utils/validations/Validator';
 import FormActions from 'babel/actions/FormActions';
-import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
 export default class FormGroup extends React.Component {
@@ -20,6 +19,7 @@ export default class FormGroup extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.saveData = this.saveData.bind(this);
   }
 
   componentDidMount() {
@@ -118,7 +118,7 @@ export default class FormGroup extends React.Component {
       });
 
       if (res.isValid) {
-        this.saveData(this.input.value);
+        this.saveData();
       }
     };
 
@@ -194,11 +194,9 @@ export default class FormGroup extends React.Component {
     return validations;
   }
 
-  saveData(value) {
-    if (this.props.dataStoragePath !== 'WEBMAP_ITEM.title' && BuilderAction){
-      const DATA_STORAGE_PATH = this.props.dataStoragePath;
-
-      BuilderAction.updateAppData(DATA_STORAGE_PATH,value);
+  saveData() {
+    if (this.props.saveMethod) {
+      this.props.saveMethod(this.input.value);
     }
   }
 
@@ -215,6 +213,7 @@ export default class FormGroup extends React.Component {
 }
 
 FormGroup.propTypes = {
+  required: React.PropTypes.bool,
   formId: React.PropTypes.string,
   autoUpdate: React.PropTypes.shape({
     when: React.PropTypes.oneOfType([
@@ -226,26 +225,30 @@ FormGroup.propTypes = {
       React.PropTypes.string
     ])
   }),
-  dataStoragePath: React.PropTypes.string,
   id: React.PropTypes.string,
   inputAttr: React.PropTypes.shape({
     type: React.PropTypes.string
   }),
   label: React.PropTypes.string,
-  validations: React.PropTypes.array
+  validations: React.PropTypes.array,
+  saveMethod: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.func
+  ])
 };
 
 FormGroup.defaultProps = {
+  required: false,
   formId: '',
   autoUpdate: {
     when: false,
     value: false
   },
-  dataStoragePath: 'values',
   id: '',
   inputAttr: {
     type: 'text'
   },
   label: '',
-  validations: []
+  validations: [],
+  saveMethod: false
 };
