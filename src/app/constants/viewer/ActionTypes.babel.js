@@ -14,7 +14,9 @@ const arcgis = keyMirror({
 },'lower-dashed');
 
 const contribute = keyMirror({
-  START: null
+  SAVE: null,
+  START: null,
+  UPDATE_CONTRIBUTION: null
 },'lower-dashed');
 
 const forms = keyMirror({

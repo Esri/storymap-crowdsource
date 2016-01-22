@@ -46,6 +46,10 @@ const _updateAppData = function updateAppData(newData) {
     appData = previous.mergeDeep(newData);
   }
   _appDataVersions.push(appData);
+
+  if (newData && newData.app && newData.app.data && newData.app.data.values && newData.app.data.values.settings && newData.app.data.values.settings.header) {
+    $('title').text(newData.app.data.values.settings.header.title);
+  }
 };
 
 const _AppDataStoreClass = class AppDataStoreClass extends Store {

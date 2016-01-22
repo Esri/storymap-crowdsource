@@ -60,6 +60,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
   }
 
   get appState(){
+    const appData = AppDataStore.appData;
     const loadState = CrowdsourceAppStore.loadState;
     const builderBannerVisible = CrowdsourceBuilderAppStore ? CrowdsourceBuilderAppStore.bannerVisible : false;
 
@@ -68,7 +69,7 @@ export const CrowdsourceAppController = class CrowdsourceAppController extends E
     }
 
     return {
-      appData: AppDataStore.appData,
+      appData,
       builderBannerVisible,
       features: CrowdsourceAppStore.features,
       contributing: CrowdsourceAppStore.contributing,

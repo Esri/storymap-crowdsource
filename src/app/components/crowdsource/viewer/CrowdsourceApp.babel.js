@@ -242,7 +242,10 @@ export default class CrowdsourceApp extends React.Component {
         title: appData.settings.globals.participateLong,
         fields: appData.settings.contribute.fields,
         fieldDefinitions: this.state.contributing.fieldDefinitions,
-        map: this.state.contributing.map
+        formComplete: this.state.contributing.formComplete,
+        map: this.state.contributing.map,
+        graphic: this.state.contributing.graphic,
+        saving: this.state.contributing.saving
       };
 
       return <ContributePanel {...options}></ContributePanel>;

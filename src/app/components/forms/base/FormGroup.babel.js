@@ -213,8 +213,9 @@ export default class FormGroup extends React.Component {
 }
 
 FormGroup.propTypes = {
-  required: React.PropTypes.bool,
   formId: React.PropTypes.string,
+  required: React.PropTypes.bool,
+  extras: React.PropTypes.shape({}),
   autoUpdate: React.PropTypes.shape({
     when: React.PropTypes.oneOfType([
       React.PropTypes.bool,
@@ -238,8 +239,9 @@ FormGroup.propTypes = {
 };
 
 FormGroup.defaultProps = {
-  required: false,
   formId: '',
+  required: false,
+  extras: {},
   autoUpdate: {
     when: false,
     value: false

@@ -4,6 +4,7 @@ import Layout from 'babel/utils/helper/layout/Layout';
 import ObjectUtils from 'babel/utils/helper/objects/ObjectUtils';
 import MathUtils from 'babel/utils/helper/math/MathUtils';
 import ArrayUtils from 'babel/utils/helper/array/ArrayUtils';
+import AttachmentUtils from 'babel/utils/helper/attachments/AttachmentUtils';
 import 'babel/utils/helper/strings/StringUtils';
 
 const _classnames = function classnames() {
@@ -45,5 +46,6 @@ export default {
   layout: Layout,
   objectUtils: ObjectUtils,
   mathUtils: MathUtils,
-  arrayUtils: ArrayUtils
+  arrayUtils: ArrayUtils,
+  attachmentUtils: AttachmentUtils
 };

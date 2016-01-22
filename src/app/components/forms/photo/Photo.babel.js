@@ -253,7 +253,7 @@ export default class Photo extends FormGroup {
     optimizedContext.drawImage(canvas, 0, 0);
     window.resample_hermite(optimizedCanvas,originalWidth,originalHeight,optimizedWidth,optimizedHeight);
 
-    if (thumbnailSize) {
+    if (thumbnailSize && this.props.extras && this.props.extras.storeAsThumbnail) {
       const dfd = new Deferred();
       const thumbnailResizeCanvas = document.createElement('canvas');
       const thumbnailResizeContext = thumbnailResizeCanvas.getContext('2d');

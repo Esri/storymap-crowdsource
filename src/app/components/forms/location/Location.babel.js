@@ -9,7 +9,7 @@ import Helper from 'babel/utils/helper/Helper';
 import Validator from 'babel/utils/validations/Validator';
 // import FormActions from 'babel/actions/FormActions';
 import FormGroup from 'babel/components/forms/base/FormGroup';
-// import ViewerText from 'i18n!translations/viewer/nls/template';
+import ViewerText from 'i18n!translations/viewer/nls/template';
 
 export default class Location extends FormGroup {
 
@@ -57,7 +57,7 @@ export default class Location extends FormGroup {
     this.geocoderInner.addClass('input-group').append('<span class="input-group-btn"></span>');
     this.locateButtonContainer = $(node).find('.calcite-locate');
     this.locateButtonContainer.addClass('btn btn-default').attr('tabindex',0);
-    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="Getting Location">');
+    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="' + ViewerText.contribute.location.gettingLocatingAlt + '">');
     this.geocoderInner.find('.input-group-btn').append(this.locateButtonContainer);
 
     this.geocoderSeachButton = $(node).find('.esriGeocoderSearch');

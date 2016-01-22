@@ -3,7 +3,7 @@ import React from 'react';
 import Input from 'babel/components/forms/input/Input';
 import Select from 'babel/components/forms/select/Select';
 import FormActions from 'babel/actions/FormActions';
-import BuilderAction from 'mode!isBuilder?babel/actions/BuilderActions';
+import BuilderAction from 'babel/actions/BuilderActions';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
