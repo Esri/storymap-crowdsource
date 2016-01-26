@@ -57,6 +57,7 @@ const _saveGraphic = function saveGraphic () {
             g.attributes[key] = 'ATTACHMENT_' + key;
             attachments.push({
               field: key,
+              filename: key + value.ext,
               attachment: Helper.attachmentUtils.dataURItoBlob(value.source)
             });
             break;
@@ -78,7 +79,7 @@ const _saveGraphic = function saveGraphic () {
     attachments.map((current) => {
       const formdata = new FormData();
 
-      formdata.append('attachment', current.attachment, current.field);
+      formdata.append('attachment', current.attachment, current.filename);
       formdata.append('f', 'json');
 
       esriRequest({

@@ -17,7 +17,14 @@ export const builderDefaults = {
 							validations: ['required'],
               extras: {
 								dataType: 'photo',
-								storeAsThumbnail: 'ThumbnailUrl'
+								photoSettings: [{
+									name: 'PhotoUrl',
+									smallestSide: 1000
+								},{
+									name: 'ThumbnailUrl',
+									height: 200,
+									width: 200
+								}]
               }
 						},{
 							required: true,

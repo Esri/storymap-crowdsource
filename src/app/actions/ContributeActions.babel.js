@@ -33,23 +33,17 @@ export const ContributeActions = {
       if (settings.extras && settings.extras.dataType) {
         switch (settings.extras.dataType) {
           case 'photo':
-            if (settings.value.optimized) {
-              const value = {
-                attachment: true,
-                type: 'photo',
-                source: settings.value.optimized
-              };
+            if (typeof settings.value === 'object') {
+              Object.keys(settings.value).forEach((currentVal) => {
+                const value = {
+                  attachment: true,
+                  type: 'photo',
+                  ext: settings.value[currentVal].ext,
+                  source: settings.value[currentVal].source
+                };
 
-              lang.setObject(fieldPath,value,graphic);
-            }
-            if (settings.value.thumbnail && settings.extras.storeAsThumbnail) {
-              const value = {
-                attachment: true,
-                type: 'photo',
-                source: settings.value.thumbnail
-              };
-
-              lang.setObject(attributesPath + settings.extras.storeAsThumbnail,value,graphic);
+                lang.setObject(attributesPath + currentVal, value, graphic);
+              });
             }
             break;
           case 'location':

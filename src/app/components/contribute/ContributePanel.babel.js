@@ -131,12 +131,7 @@ export default class ContributePanel extends React.Component {
         }
     } else if (field.type === 'photo') {
       const options = {
-        placeholder: field.placeholder,
-        inputAttr: {
-          type: 'file',
-          accept: 'image/*',
-          capture: 'camera'
-        }
+        placeholder: field.placeholder
       };
 
       const settings = $.extend(true,{},defaults,options);
