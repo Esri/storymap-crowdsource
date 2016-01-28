@@ -7,8 +7,8 @@
     "jsx": true,
     "modules": true,
     "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true
-
+    "objectLiteralShorthandProperties": true,
+    defaultParams: true
   },
   "rules": {
     "accessor-pairs": 2,

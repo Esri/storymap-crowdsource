@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
+    "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.6/redux.js",
     "bootstrap-sass": "~3.3.5",
     "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.2.6/calcite-bootstrap.zip",
     "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/0510ee5268af27dacca08c789dc8f61d2152d77a.zip",

@@ -11,6 +11,10 @@ import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import AppActions from 'babel/actions/AppActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import AppStore from 'babel/store/AppStore';
+
+console.log(AppStore);
+console.log(AppStore.getState());
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 

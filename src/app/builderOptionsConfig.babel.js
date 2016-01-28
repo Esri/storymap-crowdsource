@@ -207,8 +207,8 @@ export const crowdsourceLayerDefinition = {
 		capabilities: 'Create,Query,Editing,Sync',
 		hasStaticData: false,
 		hasAttachments: true,
-		objectIdField: 'FID',
 		geometryType: 'esriGeometryPoint',
+		objectIdField: 'FID',
 		fields: [{
       name: 'FID',
       type: 'esriFieldTypeInteger',
