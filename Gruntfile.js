@@ -211,7 +211,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultFonts: {
-        src: ['build/app/builderOptionsConfig.js'],
+        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
         actions: [
           {
             name: 'Add Font CSS to default config',
@@ -224,11 +224,11 @@ module.exports = function (grunt) {
         ]
       },
       defaultLayout: {
-        src: ['build/app/builderOptionsConfig.js'],
+        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
         actions: [
           {
             name: 'Add Stacked CSS Layout String',
-						search: 'STACKED_LAYOUT_CSS_APPENDED_HERE',
+						search: 'DEFAULT_LAYOUT_CSS_APPENDED_HERE',
 						replace: function() {
               return grunt.file.read('build/app/layouts/stacked.css').trim();
             },
@@ -237,7 +237,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultTheme: {
-        src: ['build/app/builderOptionsConfig.js'],
+        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
         actions: [
           {
             name: 'Add Default CSS Theme String',
@@ -275,7 +275,7 @@ module.exports = function (grunt) {
         src: ['build/**/*.css'],
         actions: [
           {
-            name: 'Replace single quotes with double quotes',
+            name: 'Replace double quotes with single quotes',
 						search: '\"',
 						replace: '\'',
 						flags: 'g'
@@ -298,8 +298,10 @@ module.exports = function (grunt) {
           lib: 'lib',
           jquery: 'lib/jquery/dist/jquery',
           velocity: 'lib/velocity/velocity',
-          react: 'lib/react/build/react-with-addons',
-          reactDom: 'lib/react/build/react-dom',
+          react: 'lib/react/react-with-addons',
+          reactDom: 'lib/react/react-dom',
+          reactRedux: 'lib/react-redux/index',
+          redux: 'lib/redux/index',
           bootstrap: 'lib/bootstrap-sass/assets/javascripts/bootstrap',
           // AMD Plugins
           mode: '../build/app/utils/amd/plugins/AppMode',

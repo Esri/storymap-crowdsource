@@ -1,5 +1,5 @@
-import { combineReducers } from 'lib/redux/index';
-import lang from 'dojo/_base/lang';
+import $ from 'jquery';
+import { combineReducers } from 'redux';
 
 const defaultCrowdsourceLayer = {
   id: 'crowdsource-layer-1453838538759'
@@ -13,7 +13,7 @@ const defaultWebmapOptions = {
 export const crowdsourceLayer = function (state = defaultCrowdsourceLayer, action) {
   switch (action.type) {
     case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER':
-      return lang.extend({},state,action.options);
+      return $.extend(true,{},state,action.options);
     default:
       return state;
   }
@@ -31,7 +31,7 @@ export const webmap = function (state = '', action) {
 export const webmapOptions = function (state = defaultWebmapOptions, action) {
   switch (action.type) {
     case 'UPDATE_SETTINGS_MAP_WEBMAP_OPTIONS':
-      return lang.extend({},state,action.options);
+      return $.extend(true,{},state,action.options);
     default:
       return state;
   }

@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import React from 'react';
 import Validator from 'babel/utils/validations/Validator';
-import FormActions from 'babel/actions/FormActions';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
 export default class FormGroup extends React.Component {
@@ -15,11 +14,14 @@ export default class FormGroup extends React.Component {
       changed: false
     };
 
+    this.value = false;
+    this.valid = false;
+
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.validateForm = this.validateForm.bind(this);
-    this.saveData = this.saveData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -103,26 +105,27 @@ export default class FormGroup extends React.Component {
   }
 
   validateForm() {
-    const nodeId = this.props.formId + '_' + this.props.id;
-
     const finished = function finished(res) {
 
       if (!res.newValidation) {
-        FormActions.validationFinished(this.props.formId,nodeId,res.isValid);
-      }
+        this.value = this.input.value;
+        this.valid = res.isValid;
 
-      this.setState({
-        extras: res.extras && res.extras.length > 0 ? res.extras : false,
-        errors: res.errors && res.errors.length > 0 ? res.errors : false,
-        isValid: res.isValid
-      });
+        this.setState({
+          extras: res.extras && res.extras.length > 0 ? res.extras : false,
+          errors: res.errors && res.errors.length > 0 ? res.errors : false,
+          isValid: res.isValid
+        });
 
-      if (res.isValid) {
-        this.saveData();
+        if (this.valid) {
+          this.handleChange();
+        }
       }
     };
 
-    FormActions.validationStarted(this.props.formId,nodeId);
+    this.value = undefined;
+    this.valid = false;
+    this.handleChange();
     this.validator.validate(this.input.value).then(finished.bind(this));
   }
 
@@ -194,9 +197,12 @@ export default class FormGroup extends React.Component {
     return validations;
   }
 
-  saveData() {
-    if (this.props.saveMethod) {
-      this.props.saveMethod(this.input.value);
+  handleChange() {
+    if (this.props.handleChange) {
+      this.props.handleChange({
+        valid: this.valid,
+        value: this.value
+      });
     }
   }
 
@@ -205,8 +211,10 @@ export default class FormGroup extends React.Component {
 
     if (commonChecks && this.props.autoUpdate.when === 'always') {
       this.input.value = this.props.autoUpdate.value;
+      this.validateForm();
     } else if (commonChecks && this.props.autoUpdate.when === 'notChanged' && !this.state.changed) {
       this.input.value = this.props.autoUpdate.value;
+      this.validateForm();
     }
   }
 
@@ -232,7 +240,7 @@ FormGroup.propTypes = {
   }),
   label: React.PropTypes.string,
   validations: React.PropTypes.array,
-  saveMethod: React.PropTypes.oneOfType([
+  handleChange: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.func
   ])
@@ -252,5 +260,5 @@ FormGroup.defaultProps = {
   },
   label: '',
   validations: [],
-  saveMethod: false
+  handleChange: false
 };

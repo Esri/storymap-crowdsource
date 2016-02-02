@@ -11,6 +11,7 @@ import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import AppActions from 'babel/actions/AppActions';
 import {Components} from 'babel/constants/CrowdsourceAppConstants';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import { Provider } from 'reactRedux';
 import AppStore from 'babel/store/AppStore';
 
 console.log(AppStore);
@@ -52,22 +53,24 @@ export default class CrowdsourceApp extends React.Component {
     });
 
     return (
-      <div className={appClasses}>
-        {/* THEME AND LAYOUT STYLES */}
-        <style>{this.AppStyles}</style>
-        {/* ADD BUILDER COMPONENTS */}
-        {this.Builder}
-        <div className="viewer">
-          {/* COMMON VIEWER COMPONENTS */}
-          {this.Header}
-          {this.Intro}
-          <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
-            {this.Error}
-          </ReactCSSTransitionGroup>
-          {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
-          {this.Layout}
+      <Provider store={AppStore}>
+        <div className={appClasses}>
+          {/* THEME AND LAYOUT STYLES */}
+          <style>{this.AppStyles}</style>
+          {/* ADD BUILDER COMPONENTS */}
+          {this.Builder}
+          <div className="viewer">
+            {/* COMMON VIEWER COMPONENTS */}
+            {this.Header}
+            {this.Intro}
+            <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
+              {this.Error}
+            </ReactCSSTransitionGroup>
+            {/* INSET LAYOUT SPECIFIC COMPONENT ARRANGMENT */}
+            {this.Layout}
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 

@@ -1,8 +1,8 @@
-import { combineReducers } from 'lib/redux/index';
+import { combineReducers } from 'redux';
 
-const defaultFont = 'DEFAULT_FONT_CSS_APPENDED_HERE';
-const defaultStyle = 'DEFAULT_LAYOUT_CSS_APPENDED_HERE';
-const defaultTheme = 'DEFAULT_THEME_CSS_APPENDED_HERE';
+const defaultFont = "DEFAULT_FONT_CSS_APPENDED_HERE";
+const defaultStyle = "DEFAULT_LAYOUT_CSS_APPENDED_HERE";
+const defaultTheme = "DEFAULT_THEME_CSS_APPENDED_HERE";
 
 export const id = function (state = 'stacked', action) {
   switch (action.type) {

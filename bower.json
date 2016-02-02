@@ -18,6 +18,8 @@
     "tests"
   ],
   "dependencies": {
+    "react": "~0.14.7",
+    "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.1.1/react-redux.js",
     "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.6/redux.js",
     "bootstrap-sass": "~3.3.5",
     "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.2.6/calcite-bootstrap.zip",
@@ -27,7 +29,6 @@
     "i18n": "https://github.com/requirejs/i18n/archive/2.0.6.zip",
     "immutable": "~3.7.5",
     "jquery": "~2.1.4",
-    "react": "https://facebook.github.io/react/downloads/react-0.14.5.zip",
     "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
     "bourbon": "~4.2.6",
     "cropperjs": "~0.5.5",

@@ -1,5 +1,5 @@
-import { combineReducers } from 'lib/redux/index';
-import lang from 'dojo/_base/lang';
+import $ from 'jquery';
+import { combineReducers } from 'redux';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 // TODO global to common in path
@@ -44,7 +44,7 @@ export const social = function (state = defaultSocial, action) {
   switch (action.type) {
     case 'UPDATE_SETTINGS_COMMON_SOCIAL':
       // TODO check available services and that they are boolean
-      return lang.extend({},state,action.services);
+      return $.extend(true,{},state,action.services);
     default:
       return state;
   }

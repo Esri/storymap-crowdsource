@@ -1,7 +1,11 @@
-import { combineReducers } from 'lib/redux/index';
-import lang from 'dojo/_base/lang';
+import $ from 'jquery';
+import { combineReducers } from 'redux';
 import Helper from 'babel/utils/helper/Helper';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
+import {
+  UPDATE_SETTINGS_INTRO_TITLE,
+  UPDATE_SETTINGS_INTRO_SUBTITLE
+} from 'babel/constants/actionsTypes/Settings';
 
 const defaultSubtitle = builderText ? builderText.appDataPlaceholderText.intro.subtitle : '';
 
@@ -12,7 +16,7 @@ const defaultBackground = {
 
 export const title = function (state = '', action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_INTRO_TITLE':
+    case UPDATE_SETTINGS_INTRO_TITLE:
       return action.title;
     default:
       return state;
@@ -21,8 +25,8 @@ export const title = function (state = '', action) {
 
 export const subtitle = function (state = defaultSubtitle, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_INTRO_SUBTITLE':
-      return action.title;
+    case UPDATE_SETTINGS_INTRO_SUBTITLE:
+      return action.subtitle;
     default:
       return state;
   }
@@ -31,7 +35,7 @@ export const subtitle = function (state = defaultSubtitle, action) {
 export const background = function (state = defaultBackground, action) {
   switch (action.type) {
     case 'UPDATE_SETTINGS_HEADER_BACKGROUND':
-      return lang.extend({},state,action.background);
+      return $.extend(true,{},state,action.background);
     default:
       return state;
   }

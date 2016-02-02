@@ -1,4 +1,4 @@
-import { combineReducers } from 'lib/redux/index';
+import { combineReducers } from 'redux';
 import common from './common/Common';
 import header from './header/Header';
 import intro from './intro/Intro';

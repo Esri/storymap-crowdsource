@@ -1,4 +1,4 @@
-import { combineReducers } from 'lib/redux/index';
+import { combineReducers } from 'redux';
 import components from './components/Components';
 import fields from './fields/Fields';
 import layout from './layout/Layout';

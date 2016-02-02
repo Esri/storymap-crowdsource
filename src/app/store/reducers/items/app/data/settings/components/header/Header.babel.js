@@ -1,5 +1,8 @@
-import { combineReducers } from 'lib/redux/index';
-import lang from 'dojo/_base/lang';
+import $ from 'jquery';
+import { combineReducers } from 'redux';
+import {
+  UPDATE_SETTINGS_HEADER_TITLE
+} from 'babel/constants/actionsTypes/Settings';
 
 const defaultLogo = {
   source: 'resources/images/logo/esri-logo-reversed.svg',
@@ -8,7 +11,7 @@ const defaultLogo = {
 
 export const title = function (state = '', action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_HEADER_TITLE':
+    case UPDATE_SETTINGS_HEADER_TITLE:
       return action.title;
     default:
       return state;
@@ -18,7 +21,7 @@ export const title = function (state = '', action) {
 export const logo = function (state = defaultLogo, action) {
   switch (action.type) {
     case 'UPDATE_SETTINGS_HEADER_LOGO':
-      return lang.extend({},state,action.logo);
+      return $.extend(true,{},state,action.logo);
     default:
       return state;
   }

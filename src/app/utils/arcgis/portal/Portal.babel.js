@@ -3,7 +3,8 @@ import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
 import ArcgisPortal from 'esri/arcgis/Portal';
-import AppDataStore from 'babel/stores/AppDataStore';
+// import AppDataStore from 'babel/stores/AppDataStore';
+import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
 import builderDefaults from 'babel/builderOptionsConfig';
 import builderText from 'i18n!translations/builder/nls/template';
@@ -55,7 +56,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
   }
 
   userIsAppEditor() {
-    const appItem = AppDataStore.originalItem ? AppDataStore.originalItem.item : null;
+    const appItem = lang.getObject('items.app.item',false,AppStore.getState());
 
     return (appItem && appItem.itemControl && appItem.itemControl === 'update' || appItem.itemControl === 'admin');
   }
@@ -272,11 +273,11 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     const username = this.getPortalUser().username;
     const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
-    const appItem = settings.item;
-    const appData = settings.data;
+    const appItem = lang.getObject('items.app.item',false,AppStore.getState());
+    const appData = lang.getObject('items.app.data',false,AppStore.getState());
 
-    lang.setObject('values.settings.map.webmap',settings.webmapId,appData);
-    lang.setObject('values.settings.map.crowdsourceLayer.id',settings.csLayerId,appData);
+    // lang.setObject('values.settings.map.webmap',settings.webmapId,appData);
+    // lang.setObject('values.settings.map.crowdsourceLayer.id',settings.csLayerId,appData);
 
     // Remove properties that don't have to be committed
     delete appItem.avgRating;
@@ -320,7 +321,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     let url = baseRequestPath;
 
-    if (AppDataStore.originalItem && appItem.id) {
+    if (appItem.id) {
       url += "/items/" + appItem.id + "/update";
     } else {
       url += '/addItem';

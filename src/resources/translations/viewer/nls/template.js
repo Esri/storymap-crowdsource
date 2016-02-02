@@ -72,7 +72,7 @@ define({
         heading: 'An Error Has Occured',
         invalidConfig: 'Invalid configuration',
         inaccessibleApp: 'Web Mapping Application does not exist or is inaccessible.',
-				invalidConfigNoApp: 'Web Mapping Application identifier not specified in index.html.',
+				invalidConfigNoApp: 'Web Mapping Application identifier not specified in index.html or url. If you have have already specified the application id, make sure you are using a valid id. If you have not created a Crowdsource story yet, click the button below.',
 				unspecifiedConfigOwner: 'Authorized owner hasn\'t been configured.',
 				invalidConfigOwner: 'Story owner is not authorized.',
 				createMap: 'Unable to create map',

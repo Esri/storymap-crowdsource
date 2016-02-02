@@ -2,9 +2,10 @@ import $ from 'jquery';
 import React from 'react';
 import Input from 'babel/components/forms/input/Input';
 import Select from 'babel/components/forms/select/Select';
-import FormActions from 'babel/actions/FormActions';
-import BuilderAction from 'babel/actions/BuilderActions';
 import builderText from 'i18n!translations/builder/nls/template';
+import ItemActions from 'babel/actions/ItemActions';
+import SettingsActions from 'babel/actions/SettingsActions';
+import Validator from 'babel/utils/validations/Validator';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
 
@@ -15,15 +16,32 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
   constructor(props) {
     super(props);
 
+    this.setAutoUpdateValues = this.setAutoUpdateValues.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
+
     this._formId = 'BUILDER_SETTINGS_ITEM_NAMES';
+    this.layerNameValidator = new Validator({
+      validations: ['arcgisIsServiceName']
+    });
+    this.formItems = {
+      appName: false,
+      mapName: false,
+      layerName: false
+    };
+
+    this.state = {
+      folderOptions: [],
+      mapNameAutoUpdate: '',
+      layerNameAutoUpdate: ''
+    };
   }
 
   componentDidMount() {
-    FormActions.formCreated(this._formId);
+    this.getUserFolders();
   }
 
-  componentWillUnmount() {
-    FormActions.formCompleted(this._formId);
+  componentDidUpdate() {
+    this.getUserFolders();
   }
 
   render() {
@@ -41,10 +59,14 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
         required: true
       },
       validations: ['arcgisItemName'],
-      saveMethod: function(value) {
-        if (value){
-          BuilderAction.updateAppData(self.props.dataStoragePath + '.appName',value);
+      handleChange: function(res) {
+        if (res.valid){
+          self.setAutoUpdateValues(res.value);
+          ItemActions.updateAppItemTitle(res.value);
+          SettingsActions.updateIntroTitle(res.value);
+          SettingsActions.updateHeaderTitle(res.value);
         }
+        self.handleFieldChange('appName',res.valid);
       }
     };
 
@@ -54,7 +76,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       label: formText.mapName.label,
       autoUpdate: {
         when: 'notChanged',
-        value: this.props.webmapName
+        value: this.state.mapNameAutoUpdate
       },
       inputAttr: {
         type: 'text',
@@ -63,10 +85,11 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
         required: true
       },
       validations: ['arcgisItemName'],
-      saveMethod: function(value) {
-        if (value){
-          BuilderAction.updateAppData(self.props.dataStoragePath + '.webmapName',value);
+      handleChange: function(res) {
+        if (res.valid){
+          ItemActions.updateWebmapItemTitle(res.value);
         }
+        self.handleFieldChange('mapName',res.valid);
       }
     };
 
@@ -76,7 +99,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       label: formText.featureServiceName.label,
       autoUpdate: {
         when: 'notChanged',
-        value: this.props.layerName
+        value: this.state.layerNameAutoUpdate
       },
       inputAttr: {
         type: 'text',
@@ -85,10 +108,11 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
         required: true
       },
       validations: ['arcgisIsServiceName'],
-      saveMethod: function(value) {
-        if (value){
-          BuilderAction.updateAppData(self.props.dataStoragePath + '.layerName',value);
+      handleChange: function(res) {
+        if (res.valid){
+          ItemActions.updateFeatureServiceItemTitle(res.value);
         }
+        self.handleFieldChange('layerName',res.valid);
       }
     };
 
@@ -96,15 +120,25 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_folder',
       label: formText.featureServiceName.label,
+      autoUpdate: {
+        when: 'notChanged',
+        value: this.props.ownerFolder
+      },
       inputAttr: {
         type: 'select',
         placeholder: formText.folderSelection.label,
         required: true
       },
-      options: this.getUserFolders(),
-      saveMethod: function(value) {
-        if (value){
-          BuilderAction.updateAppData(self.props.dataStoragePath + '.ownerFolder',value);
+      options: this.state.folderOptions,
+      handleChange: function(res) {
+        if (res.valid){
+          const params = {
+            ownerFolder: res.value
+          };
+
+          ItemActions.updateAppItem(params);
+          ItemActions.updateWebmapItem(params);
+          ItemActions.updateFeatureServiceItem(params);
         }
       }
     };
@@ -146,42 +180,108 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
   }
 
   getUserFolders() {
-    const homeFolder = [{
-      value: false,
-      label: this.props.portal.getPortalUser().username + ' (' + formText.folderSelection.rootFolder + ')'
-    }];
+    if (this.props.portal) {
+      const homeFolder = [{
+        value: false,
+        label: this.props.portal.getPortalUser().username + ' (' + formText.folderSelection.rootFolder + ')'
+      }];
 
-    const userFolders = [];
+      const userFolders = [];
 
-    this.props.userFolders.map((folder) => {
-      userFolders.push({
-        value: folder.id,
-        label: folder.title
+      this.props.portal.getUserFolders().then((folders) => {
+
+        folders.map((folder) => {
+          userFolders.push({
+            value: folder.id,
+            label: folder.title
+          });
+        });
+
+        const newFolders = homeFolder.concat(userFolders);
+
+        if (JSON.stringify(newFolders) !== JSON.stringify(this.state.folderOptions)){
+          this.setState({
+            folderOptions: newFolders
+          });
+        }
       });
+
+    }
+  }
+
+  handleFormChange(valid) {
+    if (this.props.handleChange) {
+      this.props.handleChange(valid);
+    }
+  }
+
+  handleFieldChange(item,valid) {
+    let formValid = true;
+
+    this.formItems[item] = valid;
+
+    Object.keys(this.formItems).forEach((current) => {
+      if (!this.formItems[current]) {
+        formValid = false;
+      }
     });
 
-    return homeFolder.concat(userFolders);
+    this.handleFormChange(formValid);
+  }
+
+  setAutoUpdateValues(value) {
+
+    const self = this;
+
+    this.layerNameValidator.validate(value).then((res) => {
+
+      let layerName = value;
+
+      const getFormatedLayerName = function getFormatedLayerName() {
+        self.layerNameValidator.validate(layerName).then((newRes) => {
+          if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
+            layerName = newRes.errors[0].fixValue;
+          }
+          self.setState({
+            layerNameAutoUpdate: layerName,
+            mapNameAutoUpdate: value
+          });
+        });
+      };
+
+      if (res.isValid) {
+        this.setState({
+          layerNameAutoUpdate: layerName,
+          mapNameAutoUpdate: value
+        });
+      } else {
+        getFormatedLayerName();
+      }
+    });
+
   }
 
 };
 
 SettingsItemName.propTypes = {
-  webmapName: React.PropTypes.string,
-  layerName: React.PropTypes.string,
-  dataStoragePath: React.PropTypes.string,
+  ownerFolder: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.string
+  ]),
   portal: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.shape({})
   ]),
-  userFolders: React.PropTypes.array
+  handleChange: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.func
+  ])
 };
 
 SettingsItemName.defaultProps = {
-  webmapName: '',
-  layerName: '',
-  dataStoragePath: 'values',
+  ownerFolder: false,
   portal: false,
-  userFolders: []
+  handleChange: false
 };
 
 export default SettingsItemName;

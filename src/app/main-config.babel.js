@@ -74,8 +74,10 @@
         lib: path1 + 'lib',
         jquery: path1 + 'lib/jquery/dist/jquery',
         velocity: path1 + 'lib/velocity/velocity',
-        react: path1 + 'lib/react/build/react-with-addons',
-        reactDom: path1 + 'lib/react/build/react-dom',
+        react: path1 + 'lib/react/react-with-addons',
+        reactDom: path1 + 'lib/react/react-dom',
+        reactRedux: path1 + 'lib/react-redux/index',
+        redux: path1 + 'lib/redux/index',
         bootstrap: path1 + 'lib/bootstrap-sass/assets/javascripts/bootstrap',
         // AMD Plugins
         mode: path1 + 'build/app/utils/amd/plugins/AppMode'
@@ -89,7 +91,6 @@
   window.app.mode = {
     isProduction: _isProduction,
     isBuilder: _getUrlVar('edit') || _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false,
-    isDebug: _getUrlVar('debug') || false,
     fromScratch: _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false
   };
 
