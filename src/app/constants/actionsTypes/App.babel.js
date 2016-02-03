@@ -1,0 +1,1 @@
+export const DISPLAY_MAIN_ERROR = 'DISPLAY_MAIN_ERROR';

@@ -4,8 +4,12 @@ import {
   UPDATE_ITEM_APP_ITEM_TITLE,
   UPDATE_ITEM_WEBMAP_ITEM,
   UPDATE_ITEM_WEBMAP_ITEM_TITLE,
+  UPDATE_ITEM_WEBMAP_DATA,
+  UPDATE_ITEM_WEBMAP_CROWDSOURCE_LAYER,
   UPDATE_ITEM_FEATURE_SERVICE_ITEM,
-  UPDATE_ITEM_FEATURE_SERVICE_ITEM_TITLE
+  UPDATE_ITEM_FEATURE_SERVICE_ITEM_TITLE,
+  UPDATE_ITEM_FEATURE_SERVICE_DEFINITION,
+  UPDATE_ITEM_FEATURE_SERVICE_LAYER_DEFINITION
 } from 'babel/constants/actionsTypes/Items';
 
 const dispatch = AppStore.dispatch;
@@ -40,6 +44,20 @@ export const updateWebmapItemTitle = function (title) {
   };
 };
 
+export const updateWebmapData = function (data) {
+  return {
+    type: UPDATE_ITEM_WEBMAP_DATA,
+    data
+  };
+};
+
+export const updateWebmapCrowdsourceLayer = function (layer) {
+  return {
+    type: UPDATE_ITEM_WEBMAP_CROWDSOURCE_LAYER,
+    layer
+  };
+};
+
 // Feature Service Items
 export const updateFeatureServiceItem = function (parameters) {
   return {
@@ -55,13 +73,31 @@ export const updateFeatureServiceItemTitle = function (title) {
   };
 };
 
+export const updateFeatureServiceDefinition = function (parameters) {
+  return {
+    type: UPDATE_ITEM_FEATURE_SERVICE_DEFINITION,
+    parameters
+  };
+};
+
+export const updateFeatureServiceLayerDefinition = function (parameters) {
+  return {
+    type: UPDATE_ITEM_FEATURE_SERVICE_LAYER_DEFINITION,
+    parameters
+  };
+};
+
 export const boundActions = {
   updateAppItem: (parameters) => dispatch(updateAppItem(parameters)),
   updateAppItemTitle: (title) => dispatch(updateAppItemTitle(title)),
   updateWebmapItem: (parameters) => dispatch(updateWebmapItem(parameters)),
   updateWebmapItemTitle: (title) => dispatch(updateWebmapItemTitle(title)),
+  updateWebmapData: (data) => dispatch(updateWebmapData(data)),
+  updateWebmapCrowdsourceLayer: (layer) => dispatch(updateWebmapCrowdsourceLayer(layer)),
   updateFeatureServiceItem: (parameters) => dispatch(updateFeatureServiceItem(parameters)),
-  updateFeatureServiceItemTitle: (title) => dispatch(updateFeatureServiceItemTitle(title))
+  updateFeatureServiceItemTitle: (title) => dispatch(updateFeatureServiceItemTitle(title)),
+  updateFeatureServiceDefinition: (parameters) => dispatch(updateFeatureServiceDefinition(parameters)),
+  updateFeatureServiceLayerDefinition: (parameters) => dispatch(updateFeatureServiceLayerDefinition(parameters))
 };
 
 export default boundActions;

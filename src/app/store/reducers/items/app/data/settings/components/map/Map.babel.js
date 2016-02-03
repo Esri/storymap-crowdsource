@@ -1,8 +1,12 @@
 import $ from 'jquery';
 import { combineReducers } from 'redux';
+import {
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER,
+  UPDATE_SETTINGS_MAP_WEBMAP_ID
+} from 'babel/constants/actionsTypes/Settings';
 
 const defaultCrowdsourceLayer = {
-  id: 'crowdsource-layer-1453838538759'
+  id: ''
 };
 
 const defaultWebmapOptions = {
@@ -12,7 +16,7 @@ const defaultWebmapOptions = {
 
 export const crowdsourceLayer = function (state = defaultCrowdsourceLayer, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER':
+    case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER:
       return $.extend(true,{},state,action.options);
     default:
       return state;
@@ -21,7 +25,7 @@ export const crowdsourceLayer = function (state = defaultCrowdsourceLayer, actio
 
 export const webmap = function (state = '', action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_MAP_WEBMAP':
+    case UPDATE_SETTINGS_MAP_WEBMAP_ID:
       return action.webmap;
     default:
       return state;

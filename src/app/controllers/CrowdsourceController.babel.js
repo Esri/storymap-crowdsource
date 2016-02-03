@@ -5,6 +5,7 @@ import AppStore from 'babel/store/AppStore';
 import AppMode from './mode/AppMode';
 import AppConfig from './config/AppConfig';
 import EnvironmentConfig from 'babel/utils/arcgis/config/EnvironmentConfig';
+import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
 
 export default class CrowdsourceController {
 
@@ -24,6 +25,10 @@ export default class CrowdsourceController {
 
     // Remove Loader
     $('#loadingIndicator').remove();
+
+    if (lang.exists('appState.config.appid',this)) {
+      ArcgisAppItem.getDataById(this.appState.config.appid);
+    }
 
     if (lang.exists('appState.mode.isBuilder',this)) {
       this.builderController = new CrowdsourceBuilderController({

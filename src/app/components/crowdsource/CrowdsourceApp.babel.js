@@ -30,7 +30,11 @@ class CrowdsourceApp extends React.Component {
   get Error() {
     let error = false;
 
-    if (this.props.mode.fromScratch && this.props.user.authenticated && !this.props.user.publisher) {
+    if (this.props.error) {
+      error = {
+        message: {__html: this.props.error}
+      };
+    } else if (this.props.mode.fromScratch && this.props.user.authenticated && !this.props.user.publisher) {
       error = {
         message: {__html: builderText.errors.loading.notAuthorizedCreateNew}
       };
@@ -73,6 +77,10 @@ CrowdsourceApp.propTypes = {
       appid: React.PropTypes.string.isRequired
     })
   ]).isRequired,
+  error: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.string
+  ]).isRequired,
   mode: React.PropTypes.shape({
     isBuilder: React.PropTypes.bool,
     fromScratch: React.PropTypes.bool
@@ -90,6 +98,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     config: state.config,
+    error: state.app.mainError,
     mode: state.mode,
     layoutId: state.items.app.data.settings.layout.id,
     user: state.user

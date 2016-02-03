@@ -1,0 +1,1 @@
+export const RECEIVE_APP_ITEM = 'RECEIVE_APP_ITEM';

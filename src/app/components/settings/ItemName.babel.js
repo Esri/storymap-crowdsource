@@ -111,6 +111,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       handleChange: function(res) {
         if (res.valid){
           ItemActions.updateFeatureServiceItemTitle(res.value);
+          ItemActions.updateFeatureServiceDefinition({name: res.value});
         }
         self.handleFieldChange('layerName',res.valid);
       }

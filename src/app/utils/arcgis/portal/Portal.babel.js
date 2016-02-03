@@ -7,7 +7,7 @@ import ArcgisPortal from 'esri/arcgis/Portal';
 import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
 import builderDefaults from 'babel/builderOptionsConfig';
-import builderText from 'i18n!translations/builder/nls/template';
+// import builderText from 'i18n!translations/builder/nls/template';
 
 const _logger = new Logger({source: 'ArcGIS - Portal'});
 
@@ -113,25 +113,24 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   createService(options) {
     const deferred = new Deferred();
-    const defaults = {};
+    const fsState = lang.getObject('items.featureService',false,AppStore.getState());
+    const defaults = fsState;
     const settings = $.extend(true, {}, defaults, options);
     const username = this.getPortalUser().username;
     const token = this.getPortalUser().credential.token;
-    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
+    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
     let response = {};
+
+    // Transform arrays
+    settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
+    settings.item.typeKeywords = settings.item.typeKeywords.join(',');
 
     const createFeatureService = function createFeatureService() {
       const dfd = new Deferred();
       const url = baseRequestPath + '/createService';
-      const featureServiceItem = settings.item;
-      const createParameters = builderDefaults.featureServiceDefaults;
 
-      if (!createParameters.name) {
-        createParameters.name = featureServiceItem.title;
-      }
-
-      const content = $.extend(true, featureServiceItem, {
-        createParameters: JSON.stringify(createParameters),
+      const content = $.extend(true, settings.item, {
+        createParameters: JSON.stringify(settings.serviceDefinition),
         outputType: 'featureService',
         f: 'json'
       });
@@ -159,10 +158,9 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     const addCrowdsourceLayerToFeatureService = function addCrowdsourceLayerToFeatureService(createResponse) {
       const dfd = new Deferred();
-      const crowdsourceLayerDef = builderDefaults.crowdsourceLayerDefinition;
       let url = createResponse.serviceurl + (createResponse.serviceurl.slice(-1) !== '/' ? '/' : '') + 'addToDefinition';
 
-      response.crowdsourceLayerUrl = createResponse.serviceurl;
+      response.crowdsourceLayerUrl = createResponse.serviceurl + '/0';
       response.crowdsourceLayerItemId = createResponse.itemId;
 
       url = url.replace('rest/services','rest/admin/services');
@@ -170,7 +168,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
       // Add item data and upload properties
       const content = $.extend(true, {}, {
-        addToDefinition: JSON.stringify(crowdsourceLayerDef),
+        addToDefinition: JSON.stringify(settings.layerDefinition),
         token,
         f: 'json'
       });
@@ -212,46 +210,32 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   saveWebmap(options) {
     const dfd = new Deferred();
-    const defaults = {};
+    const mapState = lang.getObject('items.webmap',false,AppStore.getState());
+    const defaults = mapState;
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
-    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '') + '/addItem';
-    const webmapItem = settings.item;
-    const webmapJSON = {};
-    const csLayerId = 'crowdsource-layer-' + new Date().getTime();
-    const csLayer = $.extend(true, {}, builderDefaults.crowdsourceLayerWebmapDefinition, {
-      // TODO add popup fields
-      id: csLayerId,
-      title: builderText.fromScratchMessage.layerNameInWebmap,
-      url: settings.crowdsourceLayerUrl + '/0',
-      itemId: settings.crowdsourceLayerItemId
-    });
+    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/addItem';
 
     // Transform arrays
-    webmapItem.tags = webmapItem.tags ? webmapItem.tags.join(',') : '';
-    webmapItem.typeKeywords = webmapItem.typeKeywords.join(',');
+    settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
+    settings.item.typeKeywords = settings.item.typeKeywords.join(',');
 
-    webmapJSON.operationalLayers = [csLayer];
-    webmapJSON.baseMap = builderDefaults.basemapsWebmapDefinitions.lightGray;
-    webmapJSON.version = '2.3';
-
-    $.extend(true, webmapItem, {
+    $.extend(true, settings.item, {
       // Add Webmap JSON
-      text: JSON.stringify(webmapJSON),
+      text: JSON.stringify(settings.data),
       f: 'json'
     });
 
     esriRequest({
       url,
       handleAs: 'json',
-      content: webmapItem
+      content: settings.item
     },{
       usePost: true
     }).then((res) => {
       if (res.success) {
         dfd.resolve({
-          csLayerId,
           createResponse: res
         });
       } else {
@@ -268,52 +252,44 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
   saveApp(options) {
     const dfd = new Deferred();
-    const defaults = {};
+    const appState = lang.getObject('items.app',false,AppStore.getState());
+    const defaults = appState;
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
-    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.contentFolder ? ('/' + settings.contentFolder) : '');
-    const appItem = lang.getObject('items.app.item',false,AppStore.getState());
-    const appData = lang.getObject('items.app.data',false,AppStore.getState());
-
-    // lang.setObject('values.settings.map.webmap',settings.webmapId,appData);
-    // lang.setObject('values.settings.map.crowdsourceLayer.id',settings.csLayerId,appData);
+    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
 
     // Remove properties that don't have to be committed
-    delete appItem.avgRating;
-		delete appItem.modified;
-		delete appItem.numComments;
-		delete appItem.numRatings;
-		delete appItem.numViews;
-		delete appItem.size;
+    delete settings.item.avgRating;
+		delete settings.item.modified;
+		delete settings.item.numComments;
+		delete settings.item.numRatings;
+		delete settings.item.numViews;
+		delete settings.item.size;
 
     // TODO add serviceproxyparams
 
     // Layout
-		let layouts = $.map(builderDefaults.builderOptions.layouts, (layout) => {
-      return "layout-" + layout.id;
-    });
+		// let layouts = $.map(builderDefaults.builderOptions.layouts, (layout) => {
+    //   return "layout-" + layout.id;
+    // });
 
 		// Filter previous layout keyword
-		appItem.typeKeywords = $.grep(appItem.typeKeywords, (keyword) => {
-			return $.inArray(keyword, layouts) === -1;
-		});
+		// settings.item.typeKeywords = $.grep(settings.item.typeKeywords, (keyword) => {
+		// 	return $.inArray(keyword, layouts) === -1;
+		// });
 
 		// Add actual layout keyword
-		appItem.typeKeywords.push("layout-" + appData.values.layout.id);
+		// appItem.typeKeywords.push("layout-" + appData.values.layout.id);
 
     // Transform arrays
-    appItem.tags = appItem.tags ? appItem.tags.join(',') : '';
-    appItem.typeKeywords = appItem.typeKeywords.join(',');
-
-    if (!appItem.snippet) {
-      appItem.snippet = appData.values.settings.intro.subtitle;
-    }
+    settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
+    settings.item.typeKeywords = settings.item.typeKeywords.join(',');
 
     // Add item data and upload properties
-    $.extend(true, appItem, {
+    $.extend(true, settings.item, {
       // Add Data
-      text: JSON.stringify(appData),
+      text: JSON.stringify(settings.data),
       // Required Properties
       overwrite: true,
       f: 'json'
@@ -321,8 +297,8 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     let url = baseRequestPath;
 
-    if (appItem.id) {
-      url += "/items/" + appItem.id + "/update";
+    if (settings.item.id) {
+      url += "/items/" + settings.item.id + "/update";
     } else {
       url += '/addItem';
     }
@@ -330,7 +306,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     esriRequest({
       url,
       handleAs: 'json',
-			content: appItem
+			content: settings.item
     },{
       usePost: true
     }).then((res) => {

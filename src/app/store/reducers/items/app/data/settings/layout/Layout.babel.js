@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+import {
+  UPDATE_LAYOUT_ID
+} from 'babel/constants/actionsTypes/Settings';
 
 const defaultFont = "DEFAULT_FONT_CSS_APPENDED_HERE";
 const defaultStyle = "DEFAULT_LAYOUT_CSS_APPENDED_HERE";
@@ -6,7 +9,7 @@ const defaultTheme = "DEFAULT_THEME_CSS_APPENDED_HERE";
 
 export const id = function (state = 'stacked', action) {
   switch (action.type) {
-    case 'UPDATE_LAYOUT_ID':
+    case UPDATE_LAYOUT_ID:
       return action.id;
     default:
       return state;

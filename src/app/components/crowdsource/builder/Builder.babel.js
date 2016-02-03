@@ -6,6 +6,7 @@ import Loader from 'babel/components/helper/loading/Loader';
 import Modal from 'babel/components/helper/modal/Modal';
 import SettingsLayout from 'babel/components/settings/Layout';
 import SettingsItemName from 'babel/components/settings/ItemName';
+import BuilderActions from 'babel/actions/BuilderActions';
 import builderText from 'i18n!translations/builder/nls/template';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -16,6 +17,7 @@ class Builder extends React.Component {
     super();
 
     this.onItemNamesChange = this.onItemNamesChange.bind(this);
+    this.onSettingsNext = this.onSettingsNext.bind(this);
 
     this.state = {
       continueDisabled: true
@@ -99,6 +101,16 @@ class Builder extends React.Component {
     this.setState({
       continueDisabled: !valid
     });
+  }
+
+  onSettingsNext() {
+    if (!this.state.continueDisabled) {
+      switch (this.props.activeDialog) {
+        case 'itemNameScratch':
+          BuilderActions.changeDialog('savingFromScratch');
+          break;
+      }
+    }
   }
 
 }

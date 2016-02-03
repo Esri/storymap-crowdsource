@@ -2,7 +2,9 @@ import $ from 'jquery';
 import { combineReducers } from 'redux';
 import {
   UPDATE_ITEM_WEBMAP_ITEM,
-  UPDATE_ITEM_WEBMAP_ITEM_TITLE
+  UPDATE_ITEM_WEBMAP_ITEM_TITLE,
+  UPDATE_ITEM_WEBMAP_DATA,
+  UPDATE_ITEM_WEBMAP_CROWDSOURCE_LAYER
 } from 'babel/constants/actionsTypes/Items';
 
 const defaultItem = {
@@ -16,7 +18,7 @@ const defaultItem = {
 // Webmap JSON
 const defaultData = {
   operationalLayers: [],
-  basemap: {
+  baseMap: {
 		baseMapLayers: [{
 			id: 'World_Light_Gray_Base_7270',
 			opacity: 1,
@@ -36,8 +38,24 @@ const defaultData = {
 
 export const data = function (state = defaultData, action) {
   switch (action.type) {
-    case 'UPDATE_ITEM_WEBMAP_DATA':
+    case UPDATE_ITEM_WEBMAP_DATA:
       return $.extend(true,{},state,action.data);
+    case UPDATE_ITEM_WEBMAP_CROWDSOURCE_LAYER:
+      let index = state.operationalLayers.length;
+
+      state.operationalLayers.forEach((current,i) => {
+        if (current.id.match('crowdsource-layer')) {
+          index = i;
+        }
+      });
+
+      const operationalLayers = [
+        ...state.operationalLayers.slice(0, index),
+        $.extend(true,{},state.operationalLayers[index],action.layer),
+        ...state.operationalLayers.slice(index + 1)
+      ];
+
+      return $.extend(true,{},state,{operationalLayers});
     default:
       return state;
   }
