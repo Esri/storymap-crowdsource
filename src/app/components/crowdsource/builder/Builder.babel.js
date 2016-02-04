@@ -124,9 +124,9 @@ Builder.propTypes = {
   layout: React.PropTypes.string,
   scratchNaming: React.PropTypes.shape({
     ownerFolder: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
+      React.PropTypes.shape(null),
       React.PropTypes.string
-    ]).isRequired
+    ])
   }).isRequired
 };
 

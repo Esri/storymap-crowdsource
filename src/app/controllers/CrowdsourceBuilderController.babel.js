@@ -26,19 +26,23 @@ export default class CrowdsourceBuilderController {
 
   updateAppState() {
     this.appState = AppStore.getState();
+
+    if (lang.getObject('appState.mode.isBuilder',false,this) && !lang.getObject('appState.user.editor',false,this) && !lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.app.loading.data',false,this)) {
+      this.verifyUserCredentials();
+    }
   }
 
   createPortal() {
-    if (this.settings.indexCfg) {
-      const portal = new Portal(this.settings.indexCfg.sharingurl.split('/sharing/')[0],{
+    if (this.appState.config) {
+      const portal = new Portal(this.appState.config.sharingurl.split('/sharing/')[0],{
         signInOnLoad: true
       });
 
       portal.on('sign-in',() => {
         this.portal = portal;
         PortalActions.setPortalInstance(portal);
-        this.verifyUserCredentials();
         if (lang.getObject('appState.mode.fromScratch',false,this)) {
+          this.verifyUserCredentials();
           this.storyCreator = new StoryCreator();
         }
       });
@@ -48,25 +52,22 @@ export default class CrowdsourceBuilderController {
 
   verifyUserCredentials() {
     if (this.portal) {
-      // Check publisher permissions
-      if (lang.getObject('appState.mode.isBuilder',false,this) && this.portal.userIsAppPublisher()) {
-        UserActions.authenticateUser({
-          publisher: true
-        });
-      } else {
-        UserActions.authenticateUser({
-          publisher: false
-        });
+      const userPermissions = {
+        publisher: false,
+        editor: false
+      };
+
+      if (!lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.mode.isBuilder',false,this) && this.portal.userIsAppEditor() && this.portal.userIsAppPublisher()) {
+        userPermissions.publisher = true;
+        userPermissions.editor = true;
+      } else if (!lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.mode.isBuilder',false,this) && this.portal.userIsAppEditor()) {
+        userPermissions.editor = true;
+      } else if (lang.getObject('appState.mode.isBuilder',false,this) && this.portal.userIsAppPublisher()) {
+        userPermissions.publisher = true;
       }
-      // Check editor permissions
-      if (!lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.mode.isBuilder',false,this) && this.portal.userIsAppEditor()) {
-        UserActions.authenticateUser({
-          editor: true
-        });
-      } else {
-        UserActions.authenticateUser({
-          editor: false
-        });
+
+      if (lang.getObject('appState.user.editor',false,this) !== userPermissions.editor || lang.getObject('appState.user.publisher',false,this) !== userPermissions.publisher) {
+        UserActions.authenticateUser(userPermissions);
       }
     }
   }

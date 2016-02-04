@@ -3,11 +3,8 @@ import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
 import ArcgisPortal from 'esri/arcgis/Portal';
-// import AppDataStore from 'babel/stores/AppDataStore';
 import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
-import builderDefaults from 'babel/builderOptionsConfig';
-// import builderText from 'i18n!translations/builder/nls/template';
 
 const _logger = new Logger({source: 'ArcGIS - Portal'});
 
@@ -58,7 +55,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
   userIsAppEditor() {
     const appItem = lang.getObject('items.app.item',false,AppStore.getState());
 
-    return (appItem && appItem.itemControl && appItem.itemControl === 'update' || appItem.itemControl === 'admin');
+    return (appItem && appItem.itemControl && (appItem.itemControl === 'update' || appItem.itemControl === 'admin'));
   }
 
   hasUserPrivileges(privileges) {

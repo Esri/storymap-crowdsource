@@ -24,6 +24,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
       validations: ['arcgisIsServiceName']
     });
     this.formItems = {
+      autoUpdate: false,
       appName: false,
       mapName: false,
       layerName: false
@@ -234,6 +235,8 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
     const self = this;
 
+    this.updateValue = value;
+    this.handleFieldChange('autoUpdate',false);
     this.layerNameValidator.validate(value).then((res) => {
 
       let layerName = value;
@@ -243,14 +246,18 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
           if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
             layerName = newRes.errors[0].fixValue;
           }
-          self.setState({
-            layerNameAutoUpdate: layerName,
-            mapNameAutoUpdate: value
-          });
+          if (self.updateValue === value) {
+            self.handleFieldChange('autoUpdate',true);
+            self.setState({
+              layerNameAutoUpdate: layerName,
+              mapNameAutoUpdate: value
+            });
+          }
         });
       };
 
-      if (res.isValid) {
+      if (res.isValid && this.updateValue === value) {
+        this.handleFieldChange('autoUpdate',true);
         this.setState({
           layerNameAutoUpdate: layerName,
           mapNameAutoUpdate: value

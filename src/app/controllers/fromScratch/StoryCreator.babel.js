@@ -3,10 +3,12 @@ import lang from 'dojo/_base/lang';
 import UrlUtils from 'esri/urlUtils';
 import Logger from 'babel/utils/logging/Logger';
 import AppStore from 'babel/store/AppStore';
+import ConfigActions from 'babel/actions/ConfigActions';
 import ModeActions from 'babel/actions/ModeActions';
 import ItemActions from 'babel/actions/ItemActions';
 import SettingsActions from 'babel/actions/SettingsActions';
 import BuilderActions from 'babel/actions/BuilderActions';
+import UserActions from 'babel/actions/UserActions';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
 import builderText from 'i18n!translations/builder/nls/template';
 
@@ -119,10 +121,15 @@ export default class StoryCreator {
 
         const urlParams = $.param(urlQuery);
 
+        window.history.replaceState({},lang.getObject('appState.items.app.item.title',false,this),'?' + urlParams);
+        BuilderActions.changeDialog('');
+        ConfigActions.updateConfig({
+          appid: res.id
+        });
         ModeActions.updateMode({
           fromScratch: false
         });
-        window.history.replaceState({},lang.getObject('appState.items.app.item.title',false,this),'?' + urlParams);
+        UserActions.signOutUser();
         ArcgisAppItem.getDataById(res.id);
       }
       // TODO add visibile error dialog to user

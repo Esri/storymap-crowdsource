@@ -32,7 +32,7 @@
 
   <script type="text/javascript">
 		//-------------------------------------------------------------------------------------------
-		//     Application configuration (ignored on ArcGIS Online, Portal and during development)
+		//     Application configuration (ignored on ArcGIS Online and Portal)
 		//-------------------------------------------------------------------------------------------
 		var configOptions = {
 			// Enter an application ID created through the Crowdsource builder

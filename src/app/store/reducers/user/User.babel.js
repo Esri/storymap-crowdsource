@@ -1,5 +1,8 @@
 import $ from 'jquery';
-import { AUTHENTICATE_USER } from 'babel/constants/actionsTypes/User';
+import {
+  AUTHENTICATE_USER,
+  USER_SIGN_OUT
+} from 'babel/constants/actionsTypes/User';
 
 const defaultUser = {
   authenticated: false,
@@ -13,6 +16,8 @@ export const user = function(state = defaultUser, action) {
       return $.extend(true,{},state,{
         authenticated: true
       }, action.user);
+    case USER_SIGN_OUT:
+      return defaultUser;
     default:
       return state;
   }

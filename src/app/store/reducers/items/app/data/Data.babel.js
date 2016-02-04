@@ -15,7 +15,17 @@ export const properties = function (state = defaultProperties, action) {
   }
 };
 
+export const _ssl = function (state = false, action) {
+  switch (action.type) {
+    case 'UPDATE_ITEM_APP_DATA_SSL':
+      return action.ssl;
+    default:
+      return state;
+  }
+};
+
 export const data = combineReducers({
+  _ssl,
   settings,
   properties
 });

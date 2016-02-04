@@ -4,9 +4,9 @@ import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
-import AppActions from 'babel/actions/AppActions';
-import ContributeActions from 'babel/actions/ContributeActions';
-import {Components} from 'babel/constants/CrowdsourceAppConstants';
+// import AppActions from 'babel/actions/AppActions';
+// import ContributeActions from 'babel/actions/ContributeActions';
+// import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -47,7 +47,7 @@ export const Header = class Header extends React.Component {
             <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
           </a>
           <div className="cell fill-cell">
-            <h4 className="title" onClick={AppActions.setView.bind(null,Components.names.INTRO)}>{this.props.title}</h4>
+            <h4 className="title" onClick={alert.bind(this,'test')}>{this.props.title}</h4>
           </div>
           <ReactCSSTransitionGroup
             className="cell"
@@ -79,7 +79,7 @@ export const Header = class Header extends React.Component {
   }
 
   onParticipateClick() {
-    ContributeActions.startContributing();
+    // ContributeActions.startContributing();
   }
 };
 
@@ -90,13 +90,12 @@ Header.propTypes = {
     source: React.PropTypes.string
   }),
   title: React.PropTypes.string,
-  participateText: React.PropTypes.string,
+  participateShort: React.PropTypes.string,
   social: React.PropTypes.shape({
     facebook: React.PropTypes.bool,
     twitter: React.PropTypes.bool,
     bitly: React.PropTypes.bool
-  }),
-  socialButtonTitles: React.PropTypes.shape({})
+  })
 };
 
 Header.defaultProps = {
@@ -106,13 +105,12 @@ Header.defaultProps = {
     source: ''
   },
   title: '',
-  participateText: '',
+  participateShort: '',
   social: {
     facebook: false,
     twitter: false,
     bitly: false
-  },
-  socialButtonTitles: {}
+  }
 };
 
 export default Header;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'reactRedux';
+import Header from 'babel/components/header/Header';
+// import IntroSplash from 'babel/components/intro/IntroSplash';
 
 class Viewer extends React.Component {
 
@@ -7,6 +9,8 @@ class Viewer extends React.Component {
     return (
       <div>
         <style>{this.props.layout.font + this.props.layout.styles + this.props.layout.theme}</style>
+        <Header {...this.props.components.header} {...this.props.components.common}></Header>
+        {/*<IntroSplash {...this.props.components.intro} {...this.props.components.common}></IntroSplash>*/}
       </div>
     );
   }

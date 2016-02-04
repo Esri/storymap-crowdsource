@@ -16,12 +16,16 @@ class CrowdsourceApp extends React.Component {
       'no-banner': this.props.mode.isBuilder && (!this.props.config || (this.props.config && this.props.config.appid.length !== 32))
     });
 
+    const error = this.Error;
+    const showBuilder = this.props.mode.isBuilder && (this.props.mode.fromScratch || (!this.props.mode.fromScratch && this.props.loading.data)) && !error;
+    const showViewer = !this.props.mode.fromScratch && this.props.loading.data && !error;
+
     return (
       <div className={appClasses}>
-        {Builder ? <Builder></Builder> : null}
-        <Viewer></Viewer>
-        <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
-          {this.Error}
+        { showBuilder ? <Builder></Builder> : null }
+        { showViewer ? <Viewer></Viewer> : null }
+        <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1} >
+          {error}
         </ReactCSSTransitionGroup>
       </div>
     );
@@ -38,7 +42,7 @@ class CrowdsourceApp extends React.Component {
       error = {
         message: {__html: builderText.errors.loading.notAuthorizedCreateNew}
       };
-    } else if (!this.props.mode.fromScratch && this.props.mode.isBuilder && this.props.user.authenticated && !this.props.user.editor) {
+    } else if (this.props.loading.data && !this.props.mode.fromScratch && this.props.mode.isBuilder && this.props.user.authenticated && !this.props.user.editor) {
       error = {
         message: {__html: builderText.errors.loading.notAuthorizedEdit}
       };
@@ -81,6 +85,9 @@ CrowdsourceApp.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.string
   ]).isRequired,
+  loading: React.PropTypes.shape({
+    data: React.PropTypes.bool
+  }).isRequired,
   mode: React.PropTypes.shape({
     isBuilder: React.PropTypes.bool,
     fromScratch: React.PropTypes.bool
@@ -95,11 +102,12 @@ CrowdsourceApp.propTypes = {
 
 const mapStateToProps = (state) => {
   // TODO remove
-  console.log(state);
+  // console.log(state);
   return {
     config: state.config,
     error: state.app.mainError,
     mode: state.mode,
+    loading: state.app.loading,
     layoutId: state.items.app.data.settings.layout.id,
     user: state.user
   };

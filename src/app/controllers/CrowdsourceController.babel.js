@@ -18,22 +18,21 @@ export default class CrowdsourceController {
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
-    this.appMode = new AppMode();
-    this.appConfig = new AppConfig();
     // TODO configure from app state
     EnvironmentConfig.configSharingUrl();
+
+    this.appMode = new AppMode();
+    this.appConfig = new AppConfig();
 
     // Remove Loader
     $('#loadingIndicator').remove();
 
-    if (lang.exists('appState.config.appid',this)) {
+    if (!lang.exists('appState.mode.fromScratch',this) && lang.exists('appState.config.appid',this) && this.appState.config.appid.length === 32) {
       ArcgisAppItem.getDataById(this.appState.config.appid);
     }
 
     if (lang.exists('appState.mode.isBuilder',this)) {
-      this.builderController = new CrowdsourceBuilderController({
-        indexCfg: window.app.indexCfg
-      });
+      this.builderController = new CrowdsourceBuilderController();
     }
   }
 

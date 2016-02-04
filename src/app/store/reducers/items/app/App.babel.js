@@ -14,7 +14,6 @@ import {
 
 const defaultItem = {
   extent: '-125,-40,70,70',
-  ownerFolder: false,
   title: '',
   tags: ['Story Map,Story Maps,Crowdsource'],
   type: 'Web Mapping Application',
