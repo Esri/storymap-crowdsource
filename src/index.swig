@@ -100,7 +100,6 @@
 		#loadingOverlay {
       position: absolute;
       top: 0;
-			z-index: 899;
 			width: 100vw;
 			height: 100vh;
 			background-color: #E5E5E5;

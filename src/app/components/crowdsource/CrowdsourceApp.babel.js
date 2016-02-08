@@ -3,6 +3,7 @@ import { connect } from 'reactRedux';
 import Helper from 'babel/utils/helper/Helper';
 import Builder from 'mode!isBuilder?./builder/Builder';
 import Viewer from './viewer/Viewer';
+import Loader from 'babel/components/helper/loading/Loader';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -24,6 +25,7 @@ class CrowdsourceApp extends React.Component {
       <div className={appClasses}>
         { showBuilder ? <Builder></Builder> : null }
         { showViewer ? <Viewer></Viewer> : null }
+        { showViewer || this.props.activeDialog ? null : <Loader></Loader> }
         <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1} >
           {error}
         </ReactCSSTransitionGroup>
@@ -75,6 +77,7 @@ class CrowdsourceApp extends React.Component {
 }
 
 CrowdsourceApp.propTypes = {
+  activeDialog: React.PropTypes.string,
   config: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.shape({
@@ -102,8 +105,9 @@ CrowdsourceApp.propTypes = {
 
 const mapStateToProps = (state) => {
   // TODO remove
-  // console.log(state);
+  console.log(state);
   return {
+    activeDialog: state.builder ? state.builder.activeDialog : '',
     config: state.config,
     error: state.app.mainError,
     mode: state.mode,

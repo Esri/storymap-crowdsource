@@ -17,7 +17,7 @@ const defaultWebmapOptions = {
 export const crowdsourceLayer = function (state = defaultCrowdsourceLayer, action) {
   switch (action.type) {
     case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER:
-      return $.extend(true,{},state,action.options);
+      return $.extend(true,{},state,action.layer);
     default:
       return state;
   }

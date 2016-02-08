@@ -6,10 +6,7 @@ import Textarea from 'babel/components/forms/textarea/Textarea';
 import Location from 'babel/components/forms/location/Location';
 import Photo from 'babel/components/forms/photo/Photo';
 import TermsAndConditions from 'babel/components/forms/termsAndConditions/TermsAndConditions';
-import FormActions from 'babel/actions/FormActions';
 import ViewerText from 'i18n!translations/viewer/nls/template';
-import ContributeActions from 'babel/actions/ContributeActions';
-import CrowdsourceAppStore from 'babel/stores/CrowdsourceAppStore';
 import 'bootstrap/modal';
 import 'bootstrap/transition';
 
@@ -20,16 +17,20 @@ export default class ContributePanel extends React.Component {
 
     this._formId = 'VIEWER_CONTRIBUTE_MAIN';
 
+    this.state = {
+      isValid: false
+    };
+
+    this.formItemStatus = {};
+    this.graphic = {
+      attributes: {}
+    };
+
+    this.onSave = this.onSave.bind(this);
+    this.onClose = this.onClose.bind(this);
     this.getFormField = this.getFormField.bind(this);
-    this.saveGraphic = this.saveGraphic.bind(this);
-  }
-
-  componentDidMount() {
-    FormActions.formCreated(this._formId);
-  }
-
-  componentWillUnmount() {
-    FormActions.formCompleted(this._formId);
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   render() {
@@ -48,9 +49,11 @@ export default class ContributePanel extends React.Component {
       }
     };
 
-    const saveBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-primary','btn-block','save'], {
-      disabled: !this.props.formComplete || CrowdsourceAppStore.getFormErrors(this._formId) > 0 || this.props.saving
+    const saveBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-primary','btn-block','save-btn'], {
+      disabled: !this.state.isValid
     });
+
+    const closeBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-default','btn-block','close-btn']);
 
     return (
       <div className={contributeClasses}>
@@ -61,8 +64,11 @@ export default class ContributePanel extends React.Component {
             {this.props.fields.map(this.getFormField)}
               <TermsAndConditions {...termsOptions}></TermsAndConditions>
             </form>
-            <button type="button" className={saveBtnClasses} onClick={this.saveGraphic}>
-              {this.props.saving ? ViewerText.contribute.saving : ViewerText.contribute.save}
+            <button type="button" className={saveBtnClasses} onClick={this.props.saveAction}>
+              {this.props.saving ? ViewerText.common.buttons.saving : ViewerText.contribute.save}
+            </button>
+            <button type="button" className={closeBtnClasses} onClick={this.onClose}>
+              { ViewerText.common.buttons.close }
             </button>
             <p className="required-warning"><small>{ViewerText.contribute.requiredWarning}</small></p>
           </div>
@@ -71,8 +77,14 @@ export default class ContributePanel extends React.Component {
     );
   }
 
-  saveGraphic() {
-    ContributeActions.save();
+  onSave() {
+    if (this.state.isValid) {
+      this.props.saveAction();
+    }
+  }
+
+  onClose() {
+    this.props.closeAction();
   }
 
   getFieldDefinitionValue(name,key) {
@@ -88,6 +100,11 @@ export default class ContributePanel extends React.Component {
   }
 
   getFormField(field,index) {
+
+    const self = this;
+
+    this.formItemStatus[field.fieldID] = false;
+
     const defaults = {
       contributing: true,
       required: field.required,
@@ -98,14 +115,12 @@ export default class ContributePanel extends React.Component {
       attribute: field.attributeName,
       validations: field.validations,
       extras: field.extras,
-      saveMethod: function(value) {
-        if (value){
-          ContributeActions.updateContribution({
-            fieldId: field.fieldID,
-            extras: field.extras,
-            value
-          });
+      handleChange: function(res) {
+        if (res.valid){
+          self.graphic.attributes[field.fieldID] = res.value;
+          console.log(self.graphic);
         }
+        self.handleFieldChange(field.fieldID,res.valid);
       }
     };
 
@@ -140,22 +155,47 @@ export default class ContributePanel extends React.Component {
     }
   }
 
+  handleFormChange(valid) {
+    if (this.props.handleChange) {
+      this.props.handleChange(valid);
+    }
+    if (this.state.isValid !== valid) {
+      this.setState({
+        isValid: valid
+      });
+    }
+  }
+
+  handleFieldChange(item,valid) {
+    let formValid = true;
+
+    this.formItemStatus[item] = valid;
+
+    Object.keys(this.formItemStatus).forEach((current) => {
+      if (!this.formItemStatus[current]) {
+        formValid = false;
+      }
+    });
+
+    this.handleFormChange(formValid);
+  }
+
 }
 
 ContributePanel.propTypes = {
   title: React.PropTypes.string,
   fields: React.PropTypes.array,
   fieldDefinitions: React.PropTypes.array,
-  formComplete: React.PropTypes.bool,
-  graphic: React.PropTypes.shape({}),
-  map: React.PropTypes.shape({})
+  map: React.PropTypes.shape({}),
+  closeAction: React.PropTypes.func,
+  saveAction: React.PropTypes.func
 };
 
 ContributePanel.defaultProps = {
   title: '',
   fields: [],
   fieldDefinitions: [],
-  formComplete: false,
-  graphic: {},
-  map: {}
+  map: {},
+  closeAction: () => {},
+  saveAction: () => {}
 };

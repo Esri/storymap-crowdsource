@@ -1,10 +1,7 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
-import AppActions from 'babel/actions/AppActions';
 import Loader from 'babel/components/helper/loading/Loader';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
-import ContributeActions from 'babel/actions/ContributeActions';
-import {Components} from 'babel/constants/CrowdsourceAppConstants';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -20,32 +17,21 @@ export const IntroSplash = class IntroSplash extends React.Component {
       splash: true
     }]);
 
-    const loader = this.props.appLoaded || this.props.appError.length > 0 ? null : (
-      <Loader message={this.props.loadingMessage}></Loader>
-    );
+    const loader = this.props.showLoader ? null : <Loader></Loader>;
 
-    const appError = {__html: this.props.appError};
+    const participateActionButton = this.props.showParticipateActionButton ?
+      <button className="participate text-btn" onClick={this.props.participateAction}>
+        <div className="background-fill"></div>
+        <span>{this.props.participateLong}</span>
+      </button> : null;
 
-    const error = this.props.appError.length > 0 ? (
-      <div className="loading-error-message alert alert-danger">
-        <h5 className="error-heading"><strong>{this.props.appErrorHeading}</strong></h5>
-        <p className="message" dangerouslySetInnerHTML={appError}></p>
-      </div>
-    ) : null;
-
-    const actionBtns = this.props.appLoaded && this.props.appError.length <= 0 ? (
-      <div className="action-buttons">
-        <button className="participate text-btn" onClick={this.onParticipateClick}>
-          <div className="background-fill"></div>
-          <span>{this.props.participateText}</span>
-        </button>
-        <span className="action-seperator">{this.props.seperatorText}</span>
-        <button className="explore text-btn" onClick={this.onExploreClick}>
-          <div className="background-fill"></div>
-          <span>{this.props.exploreText}</span>
-        </button>
-      </div>
-    ) : null;
+    const seperatorText = this.props.showExploreActionButton && this.props.showParticipateActionButton ?
+      <span className="action-seperator">{this.props.seperatorText}</span> : null;
+    const showExploreActionButton = this.props.showExploreActionButton ?
+      <button className="explore text-btn" onClick={this.props.exploreAction}>
+        <div className="background-fill"></div>
+        <span>{this.props.exploreText}</span>
+      </button> : null;
 
     let background;
 
@@ -63,49 +49,45 @@ export const IntroSplash = class IntroSplash extends React.Component {
           <h1 className="title">{this.props.title}</h1>
           <h2 className="subtitle serif-face">{this.props.subtitle}</h2>
         </div>
-        <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
+        <ReactCSSTransitionGroup component="div" className="action-buttons" transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
           {loader}
-          {error}
-          {actionBtns}
+          {participateActionButton}
+          {seperatorText}
+          {showExploreActionButton}
         </ReactCSSTransitionGroup>
       </div>
     );
 
   }
 
-  onParticipateClick() {
-    ContributeActions.startContributing();
-  }
-
-  onExploreClick() {
-    AppActions.setView(Components.names.MAP);
-  }
 };
 
 IntroSplash.propTypes = {
-  appError: React.PropTypes.string,
-  appErrorHeading: React.PropTypes.string,
-  appLoaded: React.PropTypes.bool,
   background: React.PropTypes.shape({}),
   exploreText: React.PropTypes.string,
-  loadingMessage: React.PropTypes.string,
-  participateText: React.PropTypes.string,
+  participateLong: React.PropTypes.string,
   seperatorText: React.PropTypes.string,
   subtitle: React.PropTypes.string,
-  title: React.PropTypes.string
+  title: React.PropTypes.string,
+  exploreAction: React.PropTypes.func,
+  participateAction: React.PropTypes.func,
+  showLoader: React.PropTypes.bool,
+  showExploreActionButton: React.PropTypes.bool,
+  showParticipateActionButton: React.PropTypes.bool
 };
 
 IntroSplash.defaultProps = {
-  appError: '',
-  appErrorHeading: 'An error has occured',
-  appLoaded: false,
   background: {},
   exploreText: '',
-  loadingMessage: '',
-  participateText: '',
+  participateLong: '',
   seperatorText: '',
   subtitle: '',
-  title: ''
+  title: '',
+  exploreAction: () => {},
+  participateAction: () => {},
+  showLoader: true,
+  showExploreActionButton: true,
+  showParticipateActionButton: true
 };
 
 export default IntroSplash;

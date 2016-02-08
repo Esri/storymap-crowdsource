@@ -33,10 +33,10 @@ export const Header = class Header extends React.Component {
     const participateIconHtml = {
       __html: getIcon('participate')
     };
-    const participateBtn = this.props.appLoaded ? (
-      <button className="participate text-btn" onClick={this.onParticipateClick}>
+    const participateBtn = this.props.showParticipateActionButton ? (
+      <button className="participate text-btn" onClick={this.props.participateAction}>
         <span className="icon" dangerouslySetInnerHTML={participateIconHtml}></span>
-        <span className="text">{this.props.participateText}</span>
+        <span className="text">{this.props.participateShort}</span>
       </button>
     ) : null;
 
@@ -47,14 +47,14 @@ export const Header = class Header extends React.Component {
             <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
           </a>
           <div className="cell fill-cell">
-            <h4 className="title" onClick={alert.bind(this,'test')}>{this.props.title}</h4>
+            <h4 className="title" tabIndex="0" onClick={this.props.homeAction}>{this.props.title}</h4>
           </div>
           <ReactCSSTransitionGroup
             className="cell"
             component="div"
             transitionName="participate-btn"
             transitionEnterTimeout={1000}
-            transitionLeaveTimeout={1} >
+            transitionLeaveTimeout={1000} >
             {participateBtn}
           </ReactCSSTransitionGroup>
           <ShareButtonPane className="cell" social={this.props.social} />
@@ -78,13 +78,11 @@ export const Header = class Header extends React.Component {
     node.find('.title').width(fullWidth - siblingWidth);
   }
 
-  onParticipateClick() {
-    // ContributeActions.startContributing();
-  }
 };
 
 Header.propTypes = {
-  appLoaded: React.PropTypes.bool,
+  homeAction: React.PropTypes.func,
+  participateAction: React.PropTypes.func,
   logo: React.PropTypes.shape({
     link: React.PropTypes.string,
     source: React.PropTypes.string
@@ -95,11 +93,15 @@ Header.propTypes = {
     facebook: React.PropTypes.bool,
     twitter: React.PropTypes.bool,
     bitly: React.PropTypes.bool
+  }),
+  loading: React.PropTypes.shape({
+    map: React.PropTypes.bool
   })
 };
 
 Header.defaultProps = {
-  appLoaded: false,
+  homeAction: () => {},
+  participateAction: () => {},
   logo: {
     link: '',
     source: ''
@@ -110,6 +112,9 @@ Header.defaultProps = {
     facebook: false,
     twitter: false,
     bitly: false
+  },
+  loading: {
+    map: false
   }
 };
 

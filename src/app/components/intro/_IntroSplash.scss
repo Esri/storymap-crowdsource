@@ -51,12 +51,17 @@
     width: 80%;
     left: 10%;
 
-    &.wait-for-action-enter {
+    .wait-for-action-enter {
       opacity: 0;
     }
 
-    &.wait-for-action-enter-active {
+    .wait-for-action-enter-active {
       opacity: 1;
+      @include transition(opacity 1s);
+    }
+
+    .wait-for-action-leave {
+      opacity: 0;
       @include transition(opacity 1s);
     }
 

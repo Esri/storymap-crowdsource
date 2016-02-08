@@ -53,8 +53,8 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
                 <li className="gallery-item" key={attr[this.props.idKey]} style={itemStyle} data-object-id={attr[this.props.idKey]} data-thumbnail={photoUrl}>
                   <LazyImage className="background-image" src={photoUrl}></LazyImage>
                   <div className="info-card">
-                    <h6>{attr[this.props.titleKey]}</h6>
-                    <p>{attr[this.props.locationKey]}</p>
+                    <h6>{attr[this.props.primaryKey]}</h6>
+                    <p>{attr[this.props.secondaryKey]}</p>
                     <div className="background-fill"></div>
                   </div>
                 </li>
@@ -68,25 +68,20 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 };
 
 ThumbnailGallery.propTypes = {
-  idKey: React.PropTypes.string,
-  itemAttributePath: React.PropTypes.string,
   items: React.PropTypes.array,
-  locationKey: React.PropTypes.string,
-  size: React.PropTypes.number,
-  titleKey: React.PropTypes.string,
+  itemAttributePath: React.PropTypes.string.isRequired,
+  idKey: React.PropTypes.string.isRequired,
+  primaryKey: React.PropTypes.string.isRequired,
+  secondaryKey: React.PropTypes.string.isRequired,
+  size: React.PropTypes.number.isRequired,
   thumbnailKey: React.PropTypes.string,
   thumbnailUrlPrepend: React.PropTypes.string,
   thumbnailUrlAppend: React.PropTypes.string
 };
 
 ThumbnailGallery.defaultProps = {
-  idKey: 'FID',
-  itemAttributePath: '',
   items: [],
-  locationKey: 'location',
   size: 200,
-  titleKey: 'title',
-  thumbnailKey: 'thumbnail',
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: ''
 };

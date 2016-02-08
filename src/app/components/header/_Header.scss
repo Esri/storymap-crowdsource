@@ -54,6 +54,11 @@
       @include transition(opacity 1s);
     }
 
+    &.participate-btn-leave {
+      opacity: 0;
+      @include transition(opacity 1s);
+    }
+
     .text {
       font-size: 1.5em;
       vertical-align: middle;

@@ -29,14 +29,12 @@ class Builder extends React.Component {
 
     return (
       <div className={builderClasses}>
-        { this.props.bannerVisible ? <BuilderBanner brandOnly={this.props.bannerContentsVisible} /> : null }
-        { this.props.activeDialog.length > 0 ? null : <Loader message=""></Loader> }
+        { this.props.loading.data ? <BuilderBanner brandOnly={ this.props.activeDialog.length > 0 } /> : null }
         <ReactCSSTransitionGroup
           component="div"
           transitionName="modal"
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={300} >
-          { this.props.activeDialog.length > 0 ? null : <Loader></Loader> }
           { this.props.activeDialog === 'layoutScratch' ? this.getSettingsModal('layout') : null }
           { this.props.activeDialog === 'itemNameScratch' ? this.getSettingsModal('itemNames') : null }
           { this.props.activeDialog === 'savingFromScratch' ? <Loader message={builderText.fromScratchMessage.saving}></Loader> : null }
@@ -117,6 +115,9 @@ class Builder extends React.Component {
 
 Builder.propTypes = {
   activeDialog: React.PropTypes.string.isRequired,
+  loading: React.PropTypes.shape({
+    data: React.PropTypes.bool
+  }).isRequired,
   portal: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.shape({})
@@ -133,6 +134,7 @@ Builder.propTypes = {
 const mapStateToProps = (state) => {
   return {
     activeDialog: state.builder.activeDialog,
+    loading: state.app.loading,
     portal: state.builder.portal,
     layout: state.items.app.data.settings.layout.id,
     scratchNaming: {

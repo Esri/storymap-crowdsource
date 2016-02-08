@@ -3,6 +3,7 @@ import arcgisUtils from 'esri/arcgis/utils';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
 import Logger from 'babel/utils/logging/Logger';
 import AppActions from 'babel/actions/AppActions';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({
   source: 'WebmapController'
@@ -67,7 +68,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
       },(error) => {
         this._errorWebmapId = this._settings.webmap;
         if (error.toString().search('You do not have access') > -1) {
-          AppActions.showLoadingError('notAuthorizedMap');
+          AppActions.displayMainError(viewerText.errors.loading.notAuthorizedMap);
         }
         _onError(error);
       });
@@ -78,7 +79,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
     if ($.isArray(errors)) {
       $.each(errors, function() {
         if (this.toString().search('You do not have access') > -1) {
-          AppActions.showLoadingError('notAuthorizedLayers');
+          AppActions.displayMainError(viewerText.errors.loading.notAuthorizedLayers);
         }
         _onError(this);
       });

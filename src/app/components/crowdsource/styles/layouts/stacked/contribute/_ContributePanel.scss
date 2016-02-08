@@ -9,5 +9,19 @@
     // TODO Move colors elsewhere
     background-color: #fff;
     color: #333;
+
+    &.contribute-toggle-enter {
+      opacity: 0;
+    }
+
+    &.contribute-toggle-enter-active {
+      opacity: 1;
+      @include transition(opacity 1s);
+    }
+
+    &.contribute-toggle-leave {
+      opacity: 0;
+      @include transition(opacity 1s);
+    }
   }
 }

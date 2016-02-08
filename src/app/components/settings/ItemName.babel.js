@@ -184,7 +184,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
   getUserFolders() {
     if (this.props.portal) {
       const homeFolder = [{
-        value: false,
+        value: '',
         label: this.props.portal.getPortalUser().username + ' (' + formText.folderSelection.rootFolder + ')'
       }];
 

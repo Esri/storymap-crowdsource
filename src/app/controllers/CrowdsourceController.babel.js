@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import CrowdsourceBuilderController from 'mode!isBuilder?./CrowdsourceBuilderController';
 import AppStore from 'babel/store/AppStore';
 import AppMode from './mode/AppMode';
+import Layout from './layouts/Layout';
 import AppConfig from './config/AppConfig';
 import EnvironmentConfig from 'babel/utils/arcgis/config/EnvironmentConfig';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
@@ -23,6 +24,7 @@ export default class CrowdsourceController {
 
     this.appMode = new AppMode();
     this.appConfig = new AppConfig();
+    this.layout = new Layout();
 
     // Remove Loader
     $('#loadingIndicator').remove();

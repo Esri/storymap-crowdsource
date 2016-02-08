@@ -5,7 +5,12 @@ define({
       map: 'Loading map'
     },
     common: {
-      or: 'Or'
+      or: 'Or',
+      buttons: {
+        save: 'Save',
+        saving: 'Saving',
+        close: 'Close'
+      }
     },
     social: {
       buttonTitleAttr: {

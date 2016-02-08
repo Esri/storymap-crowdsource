@@ -5,7 +5,8 @@ import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
 import MapActions from 'babel/actions/MapActions';
 import AppActions from 'babel/actions/AppActions';
-import {Components} from 'babel/constants/CrowdsourceAppConstants';
+import componentNames from 'babel/constants/componentNames/ComponentNames';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({
   source: 'CrowdsourceWebmapController'
@@ -57,7 +58,10 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
 
         if (layer) {
-          MapActions.storeMapObjects(map,layer);
+          MapActions.updateMapReferences({
+            map,
+            layer
+          });
         }
 
         // on.once(layer,'update-end',() => {
@@ -71,9 +75,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           // Get original features in current extent
           const features = clusterLayer._inExtent();
 
-          MapActions.receiveFeatures({
-            features
-          });
+          MapActions.featuresInExtent(features);
         });
 
         // Hide original layer
@@ -89,7 +91,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
       this.onLoad();
     } else {
       _onError('Crowdsource layer not found. Check layer ID and make sure you have permission to access the feature layer.');
-      AppActions.showLoadingError('crowdsourceLayerNotFound');
+      AppActions.displayMainError(viewerText.errors.loading.crowdsourceLayerNotFound);
     }
   }
 
@@ -97,7 +99,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
     if (!this.loaded) {
       this.loaded = true;
       this.emit('load');
-      AppActions.componentLoaded(Components.names.MAP);
+      AppActions.componentLoaded(componentNames.MAP);
     }
   }
 

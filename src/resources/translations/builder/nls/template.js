@@ -20,6 +20,7 @@ define({
       }
     },
     contribute: {
+      defaultTitle: 'Add your share',
       defaultForm: {
         name: {
           label: 'Add a title',
@@ -45,7 +46,7 @@ define({
     },
     fromScratchMessage: {
       saving: 'Creating Application Items',
-      layerNameInWebmap: 'Crowdsource Layer (DO NOTE REMOVE)'
+      layerNameInWebmap: 'Crowdsource Layer (DO NOT REMOVE)'
     },
     settingsModals: {
       common: {
