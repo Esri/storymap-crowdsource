@@ -318,13 +318,13 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     url.protocol('https');
 
-    // const appUrl = window.location.origin + window.location.pathname;
-    // const redirectUri = appUrl + (appUrl.slice(-1) !== '/' ? '/' : '') + '/oauth_callback';
+    const appUrl = window.location.origin + window.location.pathname;
+    const redirectUri = appUrl + (appUrl.slice(-1) !== '/' ? '/' : '') + 'oauthCallback';
 
     const content = {
       itemId: settings.item.id,
       appType: 'browser',
-      redirect_uris: JSON.stringify(['/oauth_callback']), // eslint-disable-line camelcase
+      redirect_uris: JSON.stringify([redirectUri]), // eslint-disable-line camelcase
       f: 'json'
     };
 

@@ -192,7 +192,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginUser: (service) => {
-      dispatch(UserActions.loginOAuth(service));
+      dispatch(UserActions.loginOAuthStart(service));
     },
     updateLayout: (options) => {
       dispatch(AppActions.updateLayout(options));

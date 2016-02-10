@@ -19,7 +19,7 @@ export default class ContributePanel extends React.Component {
     return (
       <div className={contributeClasses}>
         { !this.props.user.authenticated || this.props.view === 'login' ? <Login {...this.props}/> : null }
-        { this.props.user.authenticated && this.props.user.contributer && this.props.view === 'form' ? <CrowdsourceForm {...this.props}/> : null }
+        { this.props.user.authenticated && this.props.user.contributor && this.props.view === 'form' ? <CrowdsourceForm {...this.props}/> : null }
       </div>
     );
   }

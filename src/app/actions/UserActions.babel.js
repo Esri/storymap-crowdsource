@@ -2,6 +2,7 @@ import AppStore from 'babel/store/AppStore';
 import {
   AUTHENTICATE_USER,
   USER_START_LOGIN,
+  USER_FINISH_LOGIN,
   USER_SIGN_OUT
 } from 'babel/constants/actionsTypes/User';
 
@@ -14,11 +15,17 @@ export const authenticateUser = function (user) {
   };
 };
 
-export const loginOAuth = function (service) {
+export const loginOAuthStart = function (service) {
   return {
     type: USER_START_LOGIN,
     method: 'oauth',
     service: service
+  };
+};
+
+export const loginOAuthFinish = function () {
+  return {
+    type: USER_FINISH_LOGIN
   };
 };
 
@@ -30,7 +37,8 @@ export const signOutUser = function () {
 
 export const boundActions = {
   authenticateUser: (user) => dispatch(authenticateUser(user)),
-  loginOAuth: (service) => dispatch(loginOAuth(service)),
+  loginOAuthStart: (service) => dispatch(loginOAuthStart(service)),
+  loginOAuthFinish: (service) => dispatch(loginOAuthFinish(service)),
   signOutUser: () => dispatch(signOutUser())
 };
 

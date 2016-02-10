@@ -7,6 +7,7 @@ import AppMode from './mode/AppMode';
 import AppConfig from './config/AppConfig';
 import Layout from './layouts/Layout';
 import User from './user/User';
+import ContrbuteController from './contribute/ContrbuteController';
 import EnvironmentConfig from 'babel/utils/arcgis/config/EnvironmentConfig';
 import PortalActions from 'babel/actions/PortalActions';
 
@@ -31,6 +32,7 @@ export default class CrowdsourceController {
     this.createPortal();
     this.layout = new Layout();
     this.user = new User();
+    this.contrbuteController = new ContrbuteController();
 
     // Remove Loader
     $('#loadingIndicator').remove();

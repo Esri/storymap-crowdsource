@@ -1,7 +1,7 @@
+import $ from 'jquery';
 import AppStore from 'babel/store/AppStore';
 import lang from 'dojo/_base/lang';
 import IdentityManager from 'esri/IdentityManager';
-import OAuthInfo from 'esri/arcgis/OAuthInfo';
 import UserActions from 'babel/actions/UserActions';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
 import Logger from 'babel/utils/logging/Logger';
@@ -38,6 +38,8 @@ export default class UserController {
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
     this.initialLoginAndLoad();
+
+    window.oauthCallback = this.oauthCallback = this.oauthCallback.bind(this);
 
   }
 
@@ -92,29 +94,20 @@ export default class UserController {
   }
 
   loginWithOAuth(service) {
-    const info = new OAuthInfo({
-      appId: lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this),
-      // Uncomment the next line and update if using your own portal
-      portalUrl: lang.getObject('appState.app.portal.url',false,this),
-      // Uncomment the next line to prevent the user's signed in state from being shared
-      // with other apps on the same domain with the same authNamespace value.
-      //authNamespace: "portal_oauth_inline",
-      popup: false
-    });
-
-    IdentityManager.registerOAuthInfos([info]);
+    const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
+    const redirectUri = lang.getObject('appState.items.app.data.settings.oauth.redirectUris',false,this)[0];
 
     switch (service) {
       case 'facebook':
-        console.log('facebook oauth');
+        window.open('https://devext.arcgis.com/sharing/rest/oauth2/social/authorize?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName=facebook&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
         break;
       case 'google':
-        console.log('facebook oauth');
+        window.open('https://devext.arcgis.com/sharing/rest/oauth2/social/authorize?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName=google&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
         break;
       default:
-        console.log('arcgis oauth');
-        IdentityManager.signIn(lang.getObject('appState.app.portal.portalUrl',false,this));
+        window.open('https://devext.arcgis.com/sharing/rest/oauth2/authorize?client_id='+clientId+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
     }
+
   }
 
   verifyCredentials() {
@@ -142,6 +135,21 @@ export default class UserController {
     if (lang.getObject('appState.user.contributor',false,this) !== userPermissions.contributor || lang.getObject('appState.user.editor',false,this) !== userPermissions.editor || lang.getObject('appState.user.publisher',false,this) !== userPermissions.publisher) {
       UserActions.authenticateUser(userPermissions);
     }
+  }
+
+  oauthCallback(credential) {
+    const portal = lang.getObject('appState.app.portal',false,this);
+    const options = $.extend(true,{
+      server: portal.portalUrl,
+      ssl: true
+    },credential);
+
+    IdentityManager.registerToken(options);
+
+    portal.signIn().then(() => {
+      this.verifyCredentials();
+      UserActions.loginOAuthFinish();
+    });
   }
 
 }

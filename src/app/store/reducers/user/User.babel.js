@@ -2,6 +2,7 @@ import $ from 'jquery';
 import {
   AUTHENTICATE_USER,
   USER_START_LOGIN,
+  USER_FINISH_LOGIN,
   USER_SIGN_OUT
 } from 'babel/constants/actionsTypes/User';
 
@@ -31,6 +32,10 @@ export const user = function(state = defaultUser, action) {
         return state;
       }
       break;
+    case USER_FINISH_LOGIN:
+      return $.extend(true,{},state,{
+        pendingLogin: false
+      });
     case USER_SIGN_OUT:
       return defaultUser;
     default:
