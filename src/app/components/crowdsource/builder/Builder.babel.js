@@ -135,7 +135,7 @@ const mapStateToProps = (state) => {
   return {
     activeDialog: state.builder.activeDialog,
     loading: state.app.loading,
-    portal: state.builder.portal,
+    portal: state.app.portal,
     layout: state.items.app.data.settings.layout.id,
     scratchNaming: {
       ownerFolder: state.items.app.item.ownerFolder

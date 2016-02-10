@@ -21,7 +21,7 @@ const PortalRules = {
 		};
     const errorMessage = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.portal.nameNotAvailableFS,msgOptions);
 
-    const portal = lang.getObject('builder.portal',false,AppStore.getState());
+    const portal = lang.getObject('app.portal',false,AppStore.getState());
 
     const getValidLayerName = function getValidLayerName(value) {
       const dfd = new Deferred();

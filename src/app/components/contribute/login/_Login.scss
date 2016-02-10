@@ -1,0 +1,35 @@
+@import "bootstrap/mixins/buttons";
+
+$login-btn-color: #fff;
+
+$btn-arcgis-color: $login-btn-color;
+$btn-arcgis-bg: lighten($Brand_Green_250,10%);
+$btn-arcgis-border: lighten($Brand_Green_250,10%);
+
+$btn-facebook-color: $login-btn-color;
+$btn-facebook-bg: lighten(#39559f,10%);
+$btn-facebook-border: lighten(#39559f,10%);
+
+$btn-google-color: $login-btn-color;
+$btn-google-bg: lighten(#ed412d,10%);
+$btn-google-border: lighten(#ed412d,10%);;
+
+.contribute-panel {
+
+  .btn-arcgis {
+    @include button-variant($btn-arcgis-color, $btn-arcgis-bg, $btn-arcgis-border);
+  }
+
+  .btn-facebook {
+    @include button-variant($btn-facebook-color, $btn-facebook-bg, $btn-facebook-border);
+  }
+
+  .btn-google {
+    @include button-variant($btn-google-color, $btn-google-bg, $btn-google-border);
+  }
+
+  .login-btn {
+    margin-bottom: 10px;
+  }
+
+}

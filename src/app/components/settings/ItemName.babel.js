@@ -121,15 +121,14 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     const folder = {
       formId: this._formId,
       id: 'smCrowdsource_settings_itemName_folder',
-      label: formText.featureServiceName.label,
+      label: formText.folderSelection.label,
       autoUpdate: {
         when: 'notChanged',
         value: this.props.ownerFolder
       },
       inputAttr: {
         type: 'select',
-        placeholder: formText.folderSelection.label,
-        required: true
+        placeholder: formText.folderSelection.label
       },
       options: this.state.folderOptions,
       handleChange: function(res) {

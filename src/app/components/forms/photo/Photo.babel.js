@@ -73,7 +73,7 @@ export default class Photo extends FormGroup {
             {ViewerText.common.or}
           </h6>
           <button type="button" className="btn btn-default btn-file" onBlur={this.onBlur}>
-            {ViewerText.contribute.photo.pickFile}
+            {ViewerText.contribute.form.photo.pickFile}
             <input id={this.props.id} type="file" accept="image/*" capture="camera" tabIndex="-1" onChange={this.fileChange}></input>
           </button>
         </div>
@@ -91,7 +91,7 @@ export default class Photo extends FormGroup {
           <img ref={(ref) => this.imagePreview = ref} src={this.state.imageUrl} alt=""></img>
           <div className="alert alert-default">
             <button type="button" className="btn btn-default btn-block" onClick={this.resetPicker}>
-              {ViewerText.contribute.photo.selectNew}
+              {ViewerText.contribute.form.photo.selectNew}
             </button>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import portal from './portal/Portal';
 import { CHANGE_BUIDER_DIALOG } from 'babel/constants/actionsTypes/Builder';
 
 const activeDialog = function(state = '', action) {
@@ -12,8 +11,7 @@ const activeDialog = function(state = '', action) {
 };
 
 export const builder = combineReducers({
-  activeDialog,
-  portal
+  activeDialog
 });
 
 export default builder;

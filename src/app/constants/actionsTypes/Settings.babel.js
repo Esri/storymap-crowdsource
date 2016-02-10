@@ -1,3 +1,6 @@
+// OAuth Settings
+export const UPDATE_SETTINGS_OAUTH = 'UPDATE_SETTINGS_OAUTH';
+
 // Component Settings
 
 // Intro Component

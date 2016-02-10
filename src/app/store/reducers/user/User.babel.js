@@ -1,13 +1,16 @@
 import $ from 'jquery';
 import {
   AUTHENTICATE_USER,
+  USER_START_LOGIN,
   USER_SIGN_OUT
 } from 'babel/constants/actionsTypes/User';
 
 const defaultUser = {
   authenticated: false,
+  pendingLogin: false,
   editor: false,
-  publisher: false
+  publisher: false,
+  contributor: false
 };
 
 export const user = function(state = defaultUser, action) {
@@ -16,6 +19,18 @@ export const user = function(state = defaultUser, action) {
       return $.extend(true,{},state,{
         authenticated: true
       }, action.user);
+    case USER_START_LOGIN:
+      if (action.method === 'oauth') {
+        return $.extend(true,{},state,{
+          pendingLogin: {
+            method: action.method,
+            service: action.service
+          }
+        });
+      } else {
+        return state;
+      }
+      break;
     case USER_SIGN_OUT:
       return defaultUser;
     default:

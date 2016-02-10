@@ -8,6 +8,7 @@ import ContributePanel from 'babel/components/contribute/ContributePanel';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
 import AppActions from 'babel/actions/AppActions';
+import UserActions from 'babel/actions/UserActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -70,10 +71,12 @@ class Viewer extends React.Component {
             <div className="content-pane map-view">
               <ReactCSSTransitionGroup transitionName="contribute-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
                 { this.props.contributing.active ? <ContributePanel
-                  {...this.props.contributing}
+                  loginAction={this.props.loginUser}
                   closeAction={this.props.updateContributeState.bind(this,{active: false})}
-                  map={this.props.map.originalObject}
                   fieldDefinitions={this.props.map.layer.fields}
+                  map={this.props.map.originalObject}
+                  user={this.props.user}
+                  {...this.props.contributing}
                   {...this.props.components.contribute}>
                 </ContributePanel> : null}
               </ReactCSSTransitionGroup>
@@ -126,7 +129,12 @@ Viewer.propTypes = {
     featuresInExtent: React.PropTypes.array.isRequired
   }).isRequired,
   contributing: React.PropTypes.shape({
-    active: React.PropTypes.bool.isRequired
+    active: React.PropTypes.bool.isRequired,
+    view: React.PropTypes.string.isRequired
+  }).isRequired,
+  user: React.PropTypes.shape({
+    authenticated: React.PropTypes.bool.isRequired,
+    contributor: React.PropTypes.bool.isRequired
   }).isRequired,
   components: React.PropTypes.shape({
     common: React.PropTypes.shape({
@@ -172,16 +180,20 @@ Viewer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    components: state.items.app.data.settings.components,
     contributing: state.app.contributing,
     loading: state.app.loading,
     layout: state.items.app.data.settings.layout,
     map: state.map,
-    components: state.items.app.data.settings.components
+    user: state.user
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loginUser: (service) => {
+      dispatch(UserActions.loginOAuth(service));
+    },
     updateLayout: (options) => {
       dispatch(AppActions.updateLayout(options));
     },

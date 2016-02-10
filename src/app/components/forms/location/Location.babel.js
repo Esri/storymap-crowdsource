@@ -57,7 +57,7 @@ export default class Location extends FormGroup {
     this.geocoderInner.addClass('input-group').append('<span class="input-group-btn"></span>');
     this.locateButtonContainer = $(node).find('.calcite-locate');
     this.locateButtonContainer.addClass('btn btn-default').attr('tabindex',0);
-    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="' + ViewerText.contribute.location.gettingLocatingAlt + '">');
+    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="' + ViewerText.contribute.form.location.gettingLocatingAlt + '">');
     this.geocoderInner.find('.input-group-btn').append(this.locateButtonContainer);
 
     this.geocoderSeachButton = $(node).find('.esriGeocoderSearch');

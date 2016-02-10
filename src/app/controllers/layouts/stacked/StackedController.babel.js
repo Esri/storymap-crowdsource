@@ -10,7 +10,7 @@ const _animationDefaults = {
   easing: 'easeInOutQuart'
 };
 
-export default class CrowdsourceController {
+export default class StackedController {
 
   constructor() {
 
@@ -48,7 +48,7 @@ export default class CrowdsourceController {
       } else {
         this.view = currentView;
       }
-      
+
       switch (this.view) {
         case componentNames.INTRO:
           this.showIntro(options);

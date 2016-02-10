@@ -40,6 +40,9 @@ export default class StoryCreator {
     this.createFeatureService = this.createFeatureService.bind(this);
     this.createWebmap = this.createWebmap.bind(this);
     this.createApp = this.createApp.bind(this);
+    this.saveApp = this.saveApp.bind(this);
+    this.registerApp = this.registerApp.bind(this);
+    this.redirectToEditor = this.redirectToEditor.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
@@ -62,7 +65,7 @@ export default class StoryCreator {
   }
 
   createFeatureService() {
-    const portal = lang.getObject('appState.builder.portal',false,this);
+    const portal = lang.getObject('appState.app.portal',false,this);
 
     this.itemCreationPending = true;
     portal.createService().then((res) => {
@@ -92,7 +95,7 @@ export default class StoryCreator {
   }
 
   createWebmap() {
-    const portal = lang.getObject('appState.builder.portal',false,this);
+    const portal = lang.getObject('appState.app.portal',false,this);
 
     portal.saveWebmap().then((res) => {
       if (res.createResponse && res.createResponse.success) {
@@ -105,35 +108,72 @@ export default class StoryCreator {
   }
 
   createApp() {
-    const portal = lang.getObject('appState.builder.portal',false,this);
+    const portal = lang.getObject('appState.app.portal',false,this);
 
     portal.saveApp().then((res) => {
       if (res.success) {
         _onStatus('App Created: ' + JSON.stringify(res),true);
+        const url = window.location.origin + window.location.pathname + '?appid=' + res.id;
 
-        const currentQuery = UrlUtils.urlToObject(window.location.href).query;
-        const urlQuery = $.extend(currentQuery,{
-          appid: res.id,
-          edit: true
+        ItemActions.updateAppItem({
+          id: res.id,
+          url
         });
 
-        delete urlQuery.fromScratch;
-
-        const urlParams = $.param(urlQuery);
-
-        window.history.replaceState({},lang.getObject('appState.items.app.item.title',false,this),'?' + urlParams);
-        BuilderActions.changeDialog('');
-        ConfigActions.updateConfig({
-          appid: res.id
-        });
-        ModeActions.updateMode({
-          fromScratch: false
-        });
-        UserActions.signOutUser();
-        ArcgisAppItem.getDataById(res.id);
+        this.saveApp(this.registerApp);
       }
       // TODO add visibile error dialog to user
     },_onError);
+  }
+
+  saveApp(callback) {
+    const portal = lang.getObject('appState.app.portal',false,this);
+
+    portal.saveApp().then((res) => {
+      if (res.success) {
+        callback();
+      }
+      // TODO add visibile error dialog to user
+    },_onError);
+  }
+
+  registerApp() {
+    const portal = lang.getObject('appState.app.portal',false,this);
+
+    portal.registerApp().then((res) => {
+      if (res.client_id && res.redirect_uris) {
+        SettingsActions.updateOAuthSettings({
+          clientId: res.client_id,
+          redirectUris: res.redirect_uris
+        });
+        this.saveApp(this.redirectToEditor);
+      }
+      // TODO add visibile error dialog to user
+    },_onError);
+  }
+
+  redirectToEditor() {
+    const appid = lang.getObject('appState.items.app.item.id',false,this);
+    const currentQuery = UrlUtils.urlToObject(window.location.href).query;
+    const urlQuery = $.extend(currentQuery,{
+      appid,
+      edit: true
+    });
+
+    delete urlQuery.fromScratch;
+
+    const urlParams = $.param(urlQuery);
+
+    window.history.replaceState({},lang.getObject('appState.items.app.item.title',false,this),'?' + urlParams);
+    BuilderActions.changeDialog('');
+    ConfigActions.updateConfig({
+      appid
+    });
+    ModeActions.updateMode({
+      fromScratch: false
+    });
+    UserActions.signOutUser();
+    ArcgisAppItem.getDataById(appid);
   }
 
 }

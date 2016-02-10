@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
 import esriRequest from 'esri/request';
 import ArcgisPortal from 'esri/arcgis/Portal';
 import AppStore from 'babel/store/AppStore';
@@ -266,19 +267,6 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     // TODO add serviceproxyparams
 
-    // Layout
-		// let layouts = $.map(builderDefaults.builderOptions.layouts, (layout) => {
-    //   return "layout-" + layout.id;
-    // });
-
-		// Filter previous layout keyword
-		// settings.item.typeKeywords = $.grep(settings.item.typeKeywords, (keyword) => {
-		// 	return $.inArray(keyword, layouts) === -1;
-		// });
-
-		// Add actual layout keyword
-		// appItem.typeKeywords.push("layout-" + appData.values.layout.id);
-
     // Transform arrays
     settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
     settings.item.typeKeywords = settings.item.typeKeywords.join(',');
@@ -308,6 +296,46 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
       usePost: true
     }).then((res) => {
       if (res.success) {
+        dfd.resolve(res);
+      } else {
+        _onError(res);
+        dfd.reject(res);
+      }
+    },(err) => {
+      _onError(err);
+      dfd.reject(err);
+    });
+
+    return dfd;
+  }
+
+  registerApp(options) {
+    const dfd = new Deferred();
+    const appState = lang.getObject('items.app',false,AppStore.getState());
+    const defaults = appState;
+    const settings = $.extend(true, {}, defaults, options);
+    let url = new URI(this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'oauth2/registerApp');
+
+    url.protocol('https');
+
+    // const appUrl = window.location.origin + window.location.pathname;
+    // const redirectUri = appUrl + (appUrl.slice(-1) !== '/' ? '/' : '') + '/oauth_callback';
+
+    const content = {
+      itemId: settings.item.id,
+      appType: 'browser',
+      redirect_uris: JSON.stringify(['/oauth_callback']), // eslint-disable-line camelcase
+      f: 'json'
+    };
+
+    esriRequest({
+      url: url.href(),
+      handleAs: 'json',
+      content
+    },{
+      usePost: true
+    }).then((res) => {
+      if (res.client_id) {
         dfd.resolve(res);
       } else {
         _onError(res);

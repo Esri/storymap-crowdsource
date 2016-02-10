@@ -9,7 +9,8 @@
     "objectLiteralShorthandMethods": true,
     "objectLiteralShorthandProperties": true,
     "spread": true,
-    defaultParams: true
+    "defaultParams": true,
+    "destructuring": true
   },
   "rules": {
     "accessor-pairs": 2,

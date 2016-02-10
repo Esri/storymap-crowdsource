@@ -1,24 +1,2 @@
-.contribute-panel {
-  position: absolute;
-  overflow: auto;
-  height: 100%;
-  width: 100%;
-  z-index: 100;
-
-  .required-warning {
-    margin-top: 15px;
-    font-style: italic;
-  }
-
-  .required-warning::before{
-    color: $Calcite_Red_a150;
-    font-weight: bold;
-    font-size: 18px;
-    margin-right: 3px;
-    content: "*";
-  }
-
-  .save-btn {
-    margin: 15px 0;
-  }
-}
+@import "./login/Login";
+@import "./form/CrowdsourceForm";

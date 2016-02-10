@@ -13,13 +13,13 @@ class CrowdsourceApp extends React.Component {
 
   render() {
 
-    const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
-      'no-banner': this.props.mode.isBuilder && (!this.props.config || (this.props.config && this.props.config.appid.length !== 32))
-    });
-
     const error = this.Error;
-    const showBuilder = this.props.mode.isBuilder && (this.props.mode.fromScratch || (!this.props.mode.fromScratch && this.props.loading.data)) && !error;
-    const showViewer = !this.props.mode.fromScratch && this.props.loading.data && !error;
+    const showBuilder = this.props.mode.isBuilder && ((this.props.mode.fromScratch && this.props.user.publisher) || (!this.props.mode.fromScratch && this.props.loading.data && this.props.user.editor)) && !error;
+    const showViewer = !this.props.mode.fromScratch && (!this.props.mode.isBuilder || this.props.mode.isBuilder && this.props.user.editor) && this.props.loading.data && !error;
+
+    const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
+      'no-banner': !showBuilder
+    });
 
     return (
       <div className={appClasses}>
@@ -104,8 +104,6 @@ CrowdsourceApp.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // TODO remove
-  console.log(state);
   return {
     activeDialog: state.builder ? state.builder.activeDialog : '',
     config: state.config,

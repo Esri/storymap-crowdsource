@@ -1,5 +1,6 @@
 import AppStore from 'babel/store/AppStore';
 import {
+  UPDATE_SETTINGS_OAUTH,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_HEADER_TITLE,
@@ -9,6 +10,14 @@ import {
 } from 'babel/constants/actionsTypes/Settings';
 
 const dispatch = AppStore.dispatch;
+
+// OAuth
+export const updateOAuthSettings = function (options) {
+  return {
+    type: UPDATE_SETTINGS_OAUTH,
+    options
+  };
+};
 
 // Components
 
@@ -59,6 +68,7 @@ export const updateLayoutId = function (id) {
 };
 
 export const boundActions = {
+  updateOAuthSettings: (options) => dispatch(updateOAuthSettings(options)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),

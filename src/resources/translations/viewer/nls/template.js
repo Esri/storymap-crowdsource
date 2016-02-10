@@ -33,22 +33,34 @@ define({
       }
     },
     contribute: {
-      photo: {
-        pickFile: 'Pick a File',
-        selectNew: 'Use a different photo'
+      login: {
+        title: 'Sign In',
+        signInWith: 'Sign in with',
+        services: {
+          arcgis: 'ArcGIS',
+          facebook: 'Facebook',
+          google: 'Google'
+        },
+        loginDescription: 'Before participating, you must first sign in with one of the services above. Signing in will enable you to edit or delete your share after you\'ve submitted it.'
       },
-      location: {
-        gettingLocatingAlt: 'Finding your location',
-        search: 'Search'
-      },
-      termsAndConditions: {
-        buttonShow: 'Show terms and conditions',
-        buttonHide: 'Hide terms and conditions',
-        legal: 'You warrant and represent that (1) you possess all rights, title, and ownership in the photos to be shared up to this site, and grant Esri, and its contractors the nonexclusive, royalty free right to use, copy, store, cache, host, prepare derivative works, reproduce, publicly display and perform, redistribute, rebroadcast, and retransmit the shared photo as part of this service, and (2) your sharing of photos and any associated geolocational information will not infringe or misappropriate any third party’s proprietary rights or rights of privacy or publicity. Sharing photos that could be deemed defamatory, obscene, pornographic, excessively violent, or to encourage unlawful activities are strictly prohibited.'
-      },
-      save: 'Accept Terms and Save',
-      saving: 'Saving',
-      requiredWarning: 'Required Fields'
+      form: {
+        photo: {
+          pickFile: 'Pick a File',
+          selectNew: 'Use a different photo'
+        },
+        location: {
+          gettingLocatingAlt: 'Finding your location',
+          search: 'Search'
+        },
+        termsAndConditions: {
+          buttonShow: 'Show terms and conditions',
+          buttonHide: 'Hide terms and conditions',
+          legal: 'You warrant and represent that (1) you possess all rights, title, and ownership in the photos to be shared up to this site, and grant Esri, and its contractors the nonexclusive, royalty free right to use, copy, store, cache, host, prepare derivative works, reproduce, publicly display and perform, redistribute, rebroadcast, and retransmit the shared photo as part of this service, and (2) your sharing of photos and any associated geolocational information will not infringe or misappropriate any third party’s proprietary rights or rights of privacy or publicity. Sharing photos that could be deemed defamatory, obscene, pornographic, excessively violent, or to encourage unlawful activities are strictly prohibited.'
+        },
+        save: 'Accept Terms and Save',
+        saving: 'Saving',
+        requiredWarning: 'Required Fields'
+      }
     },
     validations: {
       fix: 'Fix it!',

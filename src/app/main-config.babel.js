@@ -90,6 +90,7 @@
 
   window.app.mode = {
     isProduction: _isProduction,
+    isDebug: _getUrlVar('debug') || false,
     isBuilder: _getUrlVar('edit') || _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false,
     fromScratch: _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false
   };

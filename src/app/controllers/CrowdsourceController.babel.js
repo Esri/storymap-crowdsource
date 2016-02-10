@@ -1,12 +1,14 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
+import Portal from 'babel/utils/arcgis/portal/Portal';
 import CrowdsourceBuilderController from 'mode!isBuilder?./CrowdsourceBuilderController';
 import AppStore from 'babel/store/AppStore';
 import AppMode from './mode/AppMode';
-import Layout from './layouts/Layout';
 import AppConfig from './config/AppConfig';
+import Layout from './layouts/Layout';
+import User from './user/User';
 import EnvironmentConfig from 'babel/utils/arcgis/config/EnvironmentConfig';
-import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
+import PortalActions from 'babel/actions/PortalActions';
 
 export default class CrowdsourceController {
 
@@ -14,6 +16,8 @@ export default class CrowdsourceController {
 
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
+    this.updatePageTitle = this.updatePageTitle.bind(this);
+    this.createPortal = this.createPortal.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
@@ -24,14 +28,12 @@ export default class CrowdsourceController {
 
     this.appMode = new AppMode();
     this.appConfig = new AppConfig();
+    this.createPortal();
     this.layout = new Layout();
+    this.user = new User();
 
     // Remove Loader
     $('#loadingIndicator').remove();
-
-    if (!lang.exists('appState.mode.fromScratch',this) && lang.exists('appState.config.appid',this) && this.appState.config.appid.length === 32) {
-      ArcgisAppItem.getDataById(this.appState.config.appid);
-    }
 
     if (lang.exists('appState.mode.isBuilder',this)) {
       this.builderController = new CrowdsourceBuilderController();
@@ -40,6 +42,24 @@ export default class CrowdsourceController {
 
   updateAppState() {
     this.appState = AppStore.getState();
+    this.updatePageTitle();
+  }
+
+  updatePageTitle() {
+    const title = lang.getObject('appState.items.app.data.settings.components.header.title',false,this);
+
+    if (title !== this.htmlTitle) {
+      this.htmlTitle = title;
+      $('title').html(title);
+    }
+  }
+
+  createPortal() {
+    if (lang.exists('appState.config.sharingurl',this)) {
+      const portal = new Portal(this.appState.config.sharingurl.split('/sharing/')[0]);
+
+      PortalActions.setPortalInstance(portal);
+    }
   }
 
 }

@@ -2,7 +2,7 @@ import lang from 'dojo/_base/lang';
 import AppStore from 'babel/store/AppStore';
 import StackedController from './stacked/StackedController';
 
-export default class CrowdsourceController {
+export default class LayoutController {
 
   constructor() {
 

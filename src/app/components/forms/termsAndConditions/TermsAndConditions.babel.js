@@ -11,7 +11,7 @@ export default class TermsAndCondtions extends React.Component {
     super(props);
 
     this.state = {
-      termsToggleText: ViewerText.contribute.termsAndConditions.buttonShow
+      termsToggleText: ViewerText.contribute.form.termsAndConditions.buttonShow
     };
 
     this.toggleTerms = this.toggleTerms.bind(this);
@@ -39,7 +39,7 @@ export default class TermsAndCondtions extends React.Component {
     $(this.legalToggle).attr('aria-expanded',expanded);
     $(this.legal).collapse('toggle');
     this.setState({
-      termsToggleText: expanded ? ViewerText.contribute.termsAndConditions.buttonHide : ViewerText.contribute.termsAndConditions.buttonShow
+      termsToggleText: expanded ? ViewerText.contribute.form.termsAndConditions.buttonHide : ViewerText.contribute.form.termsAndConditions.buttonShow
     });
   }
 }
@@ -51,5 +51,5 @@ TermsAndCondtions.propTypes = {
 
 TermsAndCondtions.defaultProps = {
   formId: '',
-  terms: ViewerText.contribute.termsAndConditions.legal
+  terms: ViewerText.contribute.form.termsAndConditions.legal
 };

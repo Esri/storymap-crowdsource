@@ -6,7 +6,7 @@ import AppActions from 'babel/actions/AppActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({
-  source: 'WebmapController'
+  source: 'Webmap Controller'
 });
 
 const _onError = function onError(err) {
@@ -51,6 +51,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
       arcgisUtils.createMap(this._settings.webmap, mapDiv, this._settings.webmapOptions).then((response) => {
         this._map = response.map;
+        this._map.webmapId = this._settings.webmap;
 
         if (response.errors) {
           this.handleMapResponseErrors(response.errors);

@@ -9,7 +9,7 @@ import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({
-  source: 'CrowdsourceWebmapController'
+  source: 'Crowdsource Webmap Controller'
 });
 
 const _onError = function onError(err) {
