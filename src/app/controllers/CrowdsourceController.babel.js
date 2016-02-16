@@ -10,11 +10,11 @@ import User from './user/User';
 import ContrbuteController from './contribute/ContrbuteController';
 import EnvironmentConfig from 'babel/utils/arcgis/config/EnvironmentConfig';
 import PortalActions from 'babel/actions/PortalActions';
+import ConfigActions from 'babel/actions/ConfigActions';
 
 export default class CrowdsourceController {
 
   constructor() {
-
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
@@ -29,10 +29,13 @@ export default class CrowdsourceController {
 
     this.appMode = new AppMode();
     this.appConfig = new AppConfig();
-    this.createPortal();
-    this.layout = new Layout();
-    this.user = new User();
-    this.contrbuteController = new ContrbuteController();
+
+    if (window.location.protocol === 'https:') {
+      this.createPortal();
+      this.layout = new Layout();
+      this.user = new User();
+      this.contrbuteController = new ContrbuteController();
+    }
 
     // Remove Loader
     $('#loadingIndicator').remove();
@@ -61,6 +64,16 @@ export default class CrowdsourceController {
       const portal = new Portal(this.appState.config.sharingurl.split('/sharing/')[0]);
 
       PortalActions.setPortalInstance(portal);
+      portal.on('load',() => {
+
+        const portalHost = portal.portalHostname;
+        const socialAvailable = portalHost === 'devext.arcgis.com' || portalHost === 'www.arcgis.com' ? true : false;
+
+        ConfigActions.updateConfig({
+          allowSocialLogin: socialAvailable
+        });
+      });
+
     }
   }
 

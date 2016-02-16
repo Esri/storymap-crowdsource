@@ -41,7 +41,7 @@ const ItemRules = {
 			attribute: settings.attribute
 		};
 
-		const locator = new Locator('http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer');
+		const locator = new Locator('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer');
 
 		if (settings.value && typeof settings.value === 'string' && settings.value.length > 0) {
 			const dfd = new Deferred();

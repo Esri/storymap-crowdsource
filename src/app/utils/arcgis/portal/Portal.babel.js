@@ -82,7 +82,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const defaults = {};
     const settings = $.extend(true, {}, defaults, options);
     const portalId = this.id;
-    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'portals/' + portalId + '/isServiceNameAvailable';
+    const url = this.portalUrl.stripTrailingSlash() + '/portals/' + portalId + '/isServiceNameAvailable';
 
     const content = {
       name: settings.name,
@@ -116,7 +116,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const settings = $.extend(true, {}, defaults, options);
     const username = this.getPortalUser().username;
     const token = this.getPortalUser().credential.token;
-    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
+    const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
     let response = {};
 
     // Transform arrays
@@ -156,7 +156,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     const addCrowdsourceLayerToFeatureService = function addCrowdsourceLayerToFeatureService(createResponse) {
       const dfd = new Deferred();
-      let url = createResponse.serviceurl + (createResponse.serviceurl.slice(-1) !== '/' ? '/' : '') + 'addToDefinition';
+      let url = createResponse.serviceurl.stripTrailingSlash() + '/addToDefinition';
 
       response.crowdsourceLayerUrl = createResponse.serviceurl + '/0';
       response.crowdsourceLayerItemId = createResponse.itemId;
@@ -213,7 +213,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
-    const url = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/addItem';
+    const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/addItem';
 
     // Transform arrays
     settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
@@ -255,7 +255,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const settings = $.extend(true, {}, defaults, options);
 
     const username = this.getPortalUser().username;
-    const baseRequestPath = this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
+    const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
 
     // Remove properties that don't have to be committed
     delete settings.item.avgRating;
@@ -314,12 +314,12 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     const appState = lang.getObject('items.app',false,AppStore.getState());
     const defaults = appState;
     const settings = $.extend(true, {}, defaults, options);
-    let url = new URI(this.portalUrl + (this.portalUrl.slice(-1) !== '/' ? '/' : '') + 'oauth2/registerApp');
+    let url = new URI(this.portalUrl.stripTrailingSlash() + '/oauth2/registerApp');
 
     url.protocol('https');
 
     const appUrl = window.location.origin + window.location.pathname;
-    const redirectUri = appUrl + (appUrl.slice(-1) !== '/' ? '/' : '') + 'oauthCallback';
+    const redirectUri = appUrl.stripTrailingSlash() + '/oauth-callback.html';
 
     const content = {
       itemId: settings.item.id,

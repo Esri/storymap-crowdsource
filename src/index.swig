@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-  <link type="image/ico" rel="shortcut icon" href="//resources.esri.com/favicon.ico">
-  <link type="image/ico" rel="icon"  href="//resources.esri.com/favicon.ico">
+  <link type="image/ico" rel="shortcut icon" href="/resources/images/favicon.ico">
+  <link type="image/ico" rel="icon"  href="/resources/images/favicon.ico">
 
   <!-- htmlmin:ignore -->
   <!--
@@ -128,7 +128,7 @@
   <script type="text/javascript">
     var app = {
       version: '{{ versionStr }}',
-      pathJSAPI: '//js.arcgis.com/3.15/'
+      pathJSAPI: '//jsdev.arcgis.com/3.16/'
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>

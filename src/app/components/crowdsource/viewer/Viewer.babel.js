@@ -73,6 +73,7 @@ class Viewer extends React.Component {
                 { this.props.contributing.active ? <ContributePanel
                   loginAction={this.props.loginUser}
                   closeAction={this.props.updateContributeState.bind(this,{active: false})}
+                  socialLogin={this.props.config.allowSocialLogin}
                   fieldDefinitions={this.props.map.layer.fields}
                   map={this.props.map.originalObject}
                   user={this.props.user}
@@ -128,6 +129,9 @@ Viewer.propTypes = {
     ]),
     featuresInExtent: React.PropTypes.array.isRequired
   }).isRequired,
+  config: React.PropTypes.shape({
+    allowSocialLogin: React.PropTypes.bool
+  }).isRequired,
   contributing: React.PropTypes.shape({
     active: React.PropTypes.bool.isRequired,
     view: React.PropTypes.string.isRequired
@@ -180,6 +184,7 @@ Viewer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    config: state.config,
     components: state.items.app.data.settings.components,
     contributing: state.app.contributing,
     loading: state.app.loading,

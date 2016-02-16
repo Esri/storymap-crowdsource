@@ -21,7 +21,7 @@ export default class Location extends FormGroup {
     this.input = {
       value: false
     };
-    this.locator = new Locator('http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer');
+    this.locator = new Locator('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer');
 
     this.onSelect = this.onSelect.bind(this);
     this.onAutocomplete = this.onAutocomplete.bind(this);

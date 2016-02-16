@@ -23,7 +23,7 @@ export const getDataById = function getDataById(options) {
     portal: lang.getObject('app.portal',false,appState)
   };
   const settings = $.extend(true,{},defaults,options);
-  const itemUrl = settings.portal.portalUrl + (settings.portal.portalUrl.slice(-1) !== '/' ? '/' : '') + 'content/items/' + settings.id;
+  const itemUrl = settings.portal.portalUrl.stripTrailingSlash() + '/content/items/' + settings.id;
 
   const response = {
     item: false,

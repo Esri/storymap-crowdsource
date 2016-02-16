@@ -63,11 +63,15 @@ module.exports = function (grunt) {
           server: {
             baseDir: './dist'
           },
-          port: 4000,
+          https: {
+            key: './config/server/dev_ssl/crowdsource_dev.key',
+            cert: './config/server/dev_ssl/crowdsource_dev.crt'
+          },
+          port: 8000,
           ui: {
-            port: 5000,
+            port: 9000,
             weinre: {
-              port: 5050
+              port: 9090
             }
           }
         }
@@ -176,13 +180,7 @@ module.exports = function (grunt) {
 
           }
         },
-        script: 'server.js'
-      },
-      dist: {
-        options: {
-          MODE: 'dist'
-        },
-        script: 'server.js'
+        script: 'config/server/server.js'
       }
     },
 
@@ -191,10 +189,7 @@ module.exports = function (grunt) {
         delay: 3000
       },
       dev: {
-        path: 'http://localhost:' + configDev.server.manifest.connections[ 0 ].port
-      },
-      dist: {
-        path: 'http://localhost:4000'
+        path: 'https://localhost:4000'
       }
     },
 
@@ -434,7 +429,10 @@ module.exports = function (grunt) {
 
     watch: {
       options: {
-        livereload: true
+        livereload: {
+          key: grunt.file.read('config/server/dev_ssl/key.pem'),
+          cert: grunt.file.read('config/server/dev_ssl/cert.pem')
+        }
       },
       babel: {
         files: [ 'src/app/**/*.babel.js' ],

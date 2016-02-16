@@ -14,6 +14,8 @@
         };
         var parentWindow = (window.opener && window.opener.parent) ? window.opener.parent : window
         parentWindow.oauthCallback(credential);
+      } else {
+
       }
       window.close();
     </script>

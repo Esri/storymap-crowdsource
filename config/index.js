@@ -1,6 +1,6 @@
 /*eslint-env node*/
 var Hoek = require('hoek');
-var Server = require('./server');
+// var Server = require('./server');
 var Fonts = require('./fonts');
 var Pkg = require('../package.json');
 var moment = require('moment');
@@ -24,7 +24,7 @@ module.exports = internals.Config = function(options) {
 
   this.environment = settings.mode;
   this.fonts = new Fonts();
-  this.server = Server.get('/',{mode: settings.mode});
+  // this.server = Server.get('/',{mode: settings.mode});
   this.pkg = Pkg;
   this.pathMods = {
     resourcePath: settings.mode === 'dev' ? 'build/' : '',

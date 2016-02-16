@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import AppStore from 'babel/store/AppStore';
 import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
+import OAuthInfo from 'esri/arcgis/OAuthInfo';
 import IdentityManager from 'esri/IdentityManager';
 import UserActions from 'babel/actions/UserActions';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
@@ -32,14 +34,13 @@ export default class UserController {
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
     this.loginWithOAuth = this.loginWithOAuth.bind(this);
     this.verifyCredentials = this.verifyCredentials.bind(this);
+    window.signInAfterOauth = this.signInAfterOauth = this.signInAfterOauth.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
     this.initialLoginAndLoad();
-
-    window.oauthCallback = this.oauthCallback = this.oauthCallback.bind(this);
 
   }
 
@@ -67,7 +68,7 @@ export default class UserController {
           this.verifyCredentials();
         }
       },_onError);
-    } else {
+    } else if (lang.exists('appState.config.appid',this) && this.appState.config.appid.length === 32) {
       IdentityManager.checkSignInStatus(portal.portalUrl).then((credential) => {
         const token = lang.getObject('token',false,credential);
 
@@ -94,18 +95,35 @@ export default class UserController {
   }
 
   loginWithOAuth(service) {
+    const portal = lang.getObject('appState.app.portal',false,this);
     const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
     const redirectUri = lang.getObject('appState.items.app.data.settings.oauth.redirectUris',false,this)[0];
+    const url = new URI(portal.url);
+    const portalHost = portal.portalHostname;
+    let socialOAuthUrl = false;
 
-    switch (service) {
-      case 'facebook':
-        window.open('https://devext.arcgis.com/sharing/rest/oauth2/social/authorize?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName=facebook&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
-        break;
-      case 'google':
-        window.open('https://devext.arcgis.com/sharing/rest/oauth2/social/authorize?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName=google&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
-        break;
-      default:
-        window.open('https://devext.arcgis.com/sharing/rest/oauth2/authorize?client_id='+clientId+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+    if (portalHost === 'devext.arcgis.com') {
+      socialOAuthUrl = 'https://devext.arcgis.com/sharing/rest/oauth2/social/authorize';
+    } else if (portalHost === 'www.arcgis.com') {
+      socialOAuthUrl = 'https://arcgis.com/sharing/rest/oauth2/social/authorize';
+    }
+
+    url.protocol('https');
+    const info = new OAuthInfo({
+      appId: clientId,
+      portalUrl: url.href().stripTrailingSlash(),
+      popup: true,
+      showSocialLogins: true
+    });
+
+    IdentityManager.registerOAuthInfos([info]);
+
+    if (socialOAuthUrl && service !== 'arcgis') {
+      window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+    } else {
+      IdentityManager.getCredential(portal.url,{
+        oAuthPopupConfirmation: false
+      });
     }
 
   }
@@ -137,15 +155,16 @@ export default class UserController {
     }
   }
 
-  oauthCallback(credential) {
+  signInAfterOauth(credential) {
     const portal = lang.getObject('appState.app.portal',false,this);
-    const options = $.extend(true,{
-      server: portal.portalUrl,
-      ssl: true
-    },credential);
 
-    IdentityManager.registerToken(options);
+    if (credential) {
+      var properties = $.extend({
+        server: portal.url
+      },credential);
 
+      IdentityManager.registerToken(properties);
+    }
     portal.signIn().then(() => {
       this.verifyCredentials();
       UserActions.loginOAuthFinish();

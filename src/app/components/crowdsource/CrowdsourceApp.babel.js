@@ -40,6 +40,15 @@ class CrowdsourceApp extends React.Component {
       error = {
         message: {__html: this.props.error}
       };
+    } else if (window.location.protocol !== 'https:' && this.props.mode.isBuilder ) {
+      const redirectToSecureConnection = function () {
+        location.href = location.href.replace("http://", "https://");
+      };
+
+      error = {
+        message: {__html: builderText.errors.loading.builderNotSSL},
+        actionBtn: <button className="btn btn-primary error-action-button" onClick={redirectToSecureConnection}>{builderText.errors.actionsBtns.redirectToSecureConnection}</button>
+      };
     } else if (this.props.mode.fromScratch && this.props.user.authenticated && !this.props.user.publisher) {
       error = {
         message: {__html: builderText.errors.loading.notAuthorizedCreateNew}

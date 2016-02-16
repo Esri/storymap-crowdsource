@@ -95,6 +95,10 @@
     fromScratch: _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false
   };
 
+  if (!window.app.mode.isBuilder && window.location.protocol !== 'https:') {
+    location.href = location.href.replace("http://", "https://");
+  }
+
   // Load ArcGIS API for JavaScript
   _defineDojoConfig();
   _loadCSS(window.app.pathJSAPI + 'esri/css/esri.css', true);

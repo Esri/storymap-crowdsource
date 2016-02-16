@@ -5,3 +5,10 @@ String.prototype.toCamelCase = function() {
     return $1.toLowerCase();
   });
 };
+
+String.prototype.stripTrailingSlash = function() {
+	if (this.substr(-1) === '/') {
+		return this.substr(0, this.length - 1);
+	}
+	return this;
+};
