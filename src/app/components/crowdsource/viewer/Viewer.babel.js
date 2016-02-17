@@ -18,6 +18,13 @@ const OR_TEXT = viewerText.common.or;
 
 class Viewer extends React.Component {
 
+  constructor() {
+    super();
+
+    // Bind class methods
+    this.saveContribution = this.saveContribution.bind(this);
+  }
+
   render() {
 
     const viewerClasses = Helper.classnames(['viewer']);
@@ -73,6 +80,7 @@ class Viewer extends React.Component {
                 { this.props.contributing.active ? <ContributePanel
                   loginAction={this.props.loginUser}
                   closeAction={this.props.updateContributeState.bind(this,{active: false})}
+                  saveAction={this.saveContribution}
                   socialLogin={this.props.config.allowSocialLogin}
                   fieldDefinitions={this.props.map.layer.fields}
                   map={this.props.map.originalObject}
@@ -94,6 +102,7 @@ class Viewer extends React.Component {
               </div>
               <ThumbnailGallery
                 items={this.props.map.featuresInExtent}
+                layer={this.props.map.layer}
                 {...this.props.components.gallery}>
               </ThumbnailGallery>;
             </div>
@@ -102,6 +111,13 @@ class Viewer extends React.Component {
 
         return stacked;
     }
+  }
+
+  saveContribution(graphic) {
+    this.props.updateContributeState({
+      saving: true,
+      graphic
+    });
   }
 
 }
@@ -123,7 +139,11 @@ Viewer.propTypes = {
     ]),
     layer: React.PropTypes.oneOfType([
       React.PropTypes.shape({
-        fields: React.PropTypes.array
+        fields: React.PropTypes.array,
+        url: React.PropTypes.string,
+        credential: React.PropTypes.shape({
+          token: React.PropTypes.string
+        })
       }),
       React.PropTypes.bool
     ]),
@@ -189,7 +209,7 @@ const mapStateToProps = (state) => {
     contributing: state.app.contributing,
     loading: state.app.loading,
     layout: state.items.app.data.settings.layout,
-    map: state.map,
+    map: state.app.map,
     user: state.user
   };
 };

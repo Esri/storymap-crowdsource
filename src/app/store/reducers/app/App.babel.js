@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { combineReducers } from 'redux';
+import map from './map/Map';
 import portal from './portal/Portal';
 import {
   DISPLAY_MAIN_ERROR,
@@ -18,6 +19,8 @@ const defaultLoading = {
 
 const defaultContributing = {
   active: false,
+  saving: false,
+  graphic: false,
   view: 'login'
 };
 
@@ -64,6 +67,7 @@ export const contributing = function (state = defaultContributing, action) {
 
 export const app = combineReducers({
   contributing,
+  map,
   mainError,
   loading,
   layoutState,

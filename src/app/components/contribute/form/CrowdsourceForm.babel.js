@@ -43,7 +43,7 @@ export default class CrowdsourceForm extends React.Component {
     };
 
     const saveBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-primary','btn-block','save-btn'], {
-      disabled: !this.state.isValid
+      disabled: !this.state.isValid || this.props.saving
     });
 
     const closeBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-default','btn-block','close-btn']);
@@ -56,7 +56,7 @@ export default class CrowdsourceForm extends React.Component {
           {this.props.fields.map(this.getFormField)}
             <TermsAndConditions {...termsOptions}></TermsAndConditions>
           </form>
-          <button type="button" className={saveBtnClasses} onClick={this.props.saveAction}>
+          <button type="button" className={saveBtnClasses} onClick={this.onSave}>
             {this.props.saving ? ViewerText.common.buttons.saving : ViewerText.contribute.form.save}
           </button>
           <button type="button" className={closeBtnClasses} onClick={this.onClose}>
@@ -69,8 +69,8 @@ export default class CrowdsourceForm extends React.Component {
   }
 
   onSave() {
-    if (this.state.isValid) {
-      this.props.saveAction();
+    if (!this.props.saving && this.state.isValid) {
+      this.props.saveAction(this.graphic);
     }
   }
 
@@ -94,7 +94,9 @@ export default class CrowdsourceForm extends React.Component {
 
     const self = this;
 
-    this.formItemStatus[field.fieldID] = false;
+    if (this.formItemStatus[field.fieldID] === undefined) {
+      this.formItemStatus[field.fieldID] = false;
+    }
 
     const defaults = {
       contributing: true,
@@ -108,8 +110,34 @@ export default class CrowdsourceForm extends React.Component {
       extras: field.extras,
       handleChange: function(res) {
         if (res.valid){
-          self.graphic.attributes[field.fieldID] = res.value;
-          console.log(self.graphic);
+          if (field.extras && field.extras.dataType) {
+            switch (field.extras.dataType) {
+              case 'photo':
+                if (typeof res.value === 'object') {
+                  Object.keys(res.value).forEach((currentVal) => {
+                    const value = {
+                      attachment: true,
+                      type: 'photo',
+                      ext: res.value[currentVal].ext,
+                      source: res.value[currentVal].source
+                    };
+
+                    self.graphic.attributes[currentVal] = value;
+                  });
+                }
+                break;
+              case 'location':
+                if (res.value.dataVal && res.value.dataVal.name) {
+                  self.graphic.attributes[field.fieldID] = res.value.dataVal.name;
+                }
+                if (field.extras.storeGeometry && res.value.dataVal && res.value.dataVal.geometry) {
+                  self.graphic.geometry = res.value.dataVal.geometry;
+                }
+                break;
+            }
+          } else if (res.value && !res.value.inputVal) {
+            self.graphic.attributes[field.fieldID] = res.value;
+          }
         }
         self.handleFieldChange(field.fieldID,res.valid);
       }
@@ -150,11 +178,9 @@ export default class CrowdsourceForm extends React.Component {
     if (this.props.handleChange) {
       this.props.handleChange(valid);
     }
-    if (this.state.isValid !== valid) {
-      this.setState({
-        isValid: valid
-      });
-    }
+    this.setState({
+      isValid: valid
+    });
   }
 
   handleFieldChange(item,valid) {
@@ -177,6 +203,7 @@ CrowdsourceForm.propTypes = {
   fields: React.PropTypes.array,
   fieldDefinitions: React.PropTypes.array,
   map: React.PropTypes.shape({}),
+  saving: React.PropTypes.bool,
   closeAction: React.PropTypes.func,
   saveAction: React.PropTypes.func
 };
@@ -186,6 +213,7 @@ CrowdsourceForm.defaultProps = {
   fields: [],
   fieldDefinitions: [],
   map: {},
+  saving: false,
   closeAction: () => {},
   saveAction: () => {}
 };

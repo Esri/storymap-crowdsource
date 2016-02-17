@@ -33,6 +33,7 @@ export default class UserController {
     this.initialLoginAndLoad = this.initialLoginAndLoad.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
     this.loginWithOAuth = this.loginWithOAuth.bind(this);
+    this.finishOAuthLogin = this.finishOAuthLogin.bind(this);
     this.verifyCredentials = this.verifyCredentials.bind(this);
     window.signInAfterOauth = this.signInAfterOauth = this.signInAfterOauth.bind(this);
 
@@ -84,7 +85,18 @@ export default class UserController {
 
   checkLoginStatus() {
 
+    const portal = lang.getObject('appState.app.portal',false,this);
     const pendingLogin = lang.getObject('appState.user.pendingLogin',false,this);
+
+    if (!this.checkLoginOnFirstContribute && lang.getObject('appState.app.contributing.active',false,this) && lang.getObject('appState.app.contributing.view',false,this) === 'login') {
+      this.checkLoginOnFirstContribute = true;
+
+      IdentityManager.checkSignInStatus(portal.portalUrl).then(() => {
+        portal.signIn().then(() => {
+          this.verifyCredentials();
+        });
+      });
+    }
 
     if (!this.pendingLogin && pendingLogin && pendingLogin.method) {
       if (pendingLogin.method === 'oauth') {
@@ -96,33 +108,40 @@ export default class UserController {
 
   loginWithOAuth(service) {
     const portal = lang.getObject('appState.app.portal',false,this);
-    const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
-    const redirectUri = lang.getObject('appState.items.app.data.settings.oauth.redirectUris',false,this)[0];
-    const url = new URI(portal.url);
-    const portalHost = portal.portalHostname;
-    let socialOAuthUrl = false;
 
-    if (portalHost === 'devext.arcgis.com') {
-      socialOAuthUrl = 'https://devext.arcgis.com/sharing/rest/oauth2/social/authorize';
-    } else if (portalHost === 'www.arcgis.com') {
-      socialOAuthUrl = 'https://arcgis.com/sharing/rest/oauth2/social/authorize';
-    }
+    if (!IdentityManager.findCredential(portal.portalUrl)) {
+      const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
+      const redirectUri = lang.getObject('appState.items.app.data.settings.oauth.redirectUris',false,this)[0];
+      const url = new URI(portal.url);
+      const portalHost = portal.portalHostname;
+      let socialOAuthUrl = false;
 
-    url.protocol('https');
-    const info = new OAuthInfo({
-      appId: clientId,
-      portalUrl: url.href().stripTrailingSlash(),
-      popup: true,
-      showSocialLogins: true
-    });
+      if (portalHost === 'devext.arcgis.com') {
+        socialOAuthUrl = 'https://devext.arcgis.com/sharing/rest/oauth2/social/authorize';
+      } else if (portalHost === 'www.arcgis.com') {
+        socialOAuthUrl = 'https://arcgis.com/sharing/rest/oauth2/social/authorize';
+      }
 
-    IdentityManager.registerOAuthInfos([info]);
+      url.protocol('https');
+      const info = new OAuthInfo({
+        appId: clientId,
+        portalUrl: url.href().stripTrailingSlash(),
+        popup: true,
+        showSocialLogins: true
+      });
 
-    if (socialOAuthUrl && service !== 'arcgis') {
-      window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+      IdentityManager.registerOAuthInfos([info]);
+
+      if (socialOAuthUrl && service !== 'arcgis') {
+        window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+      } else {
+        IdentityManager.getCredential(portal.url,{
+          oAuthPopupConfirmation: false
+        });
+      }
     } else {
-      IdentityManager.getCredential(portal.url,{
-        oAuthPopupConfirmation: false
+      portal.signIn().then(() => {
+        this.finishOAuthLogin();
       });
     }
 
@@ -166,9 +185,14 @@ export default class UserController {
       IdentityManager.registerToken(properties);
     }
     portal.signIn().then(() => {
-      this.verifyCredentials();
-      UserActions.loginOAuthFinish();
+      this.finishOAuthLogin();
     });
+  }
+
+  finishOAuthLogin() {
+    this.verifyCredentials();
+    this.pendingLogin = false;
+    UserActions.loginOAuthFinish();
   }
 
 }
