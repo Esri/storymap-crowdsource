@@ -99,7 +99,10 @@ export default class Location extends FormGroup {
   }
 
   componentWillUnmount() {
+    this.geocoder.clear();
+    this.locateButton.clear();
     this.geocoder.destroy();
+    this.locateButton.destroy();
   }
 
   render() {

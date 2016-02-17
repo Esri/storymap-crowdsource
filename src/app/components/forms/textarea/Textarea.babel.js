@@ -1,11 +1,16 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
+import autosize from 'lib/autosize/dist/autosize';
 
 export default class Textarea extends FormGroup {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMountExtention() {
+    autosize(this.input);
   }
 
   render() {

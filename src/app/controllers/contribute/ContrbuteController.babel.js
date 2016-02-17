@@ -36,6 +36,7 @@ export default class ContributeController {
     this.updateAppState = this.updateAppState.bind(this);
     this.checkContributeView = this.checkContributeView.bind(this);
     this.saveGraphic = this.saveGraphic.bind(this);
+    this.finishSave = this.finishSave.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
@@ -60,6 +61,7 @@ export default class ContributeController {
   saveGraphic() {
     if (!this.savingGraphic && lang.getObject('appState.app.contributing.saving',false,this) && typeof lang.getObject('appState.app.contributing.graphic',false,this) === 'object') {
       this.savingGraphic = true;
+      const self = this;
       const layer = lang.getObject('appState.app.map.layer',false,this);
       const graphic = $.extend(true,{},lang.getObject('appState.app.contributing.graphic',false,this));
       const attachments = [];
@@ -122,11 +124,7 @@ export default class ContributeController {
 
         layer.applyEdits(null,[esriGraphic],null,(adds,updates,deletes) => { // eslint-disable-line no-unused-vars
           if ($.isArray(updates) && updates[0] && updates[0].success) {
-            AppActions.updateContributeState({
-              active: false,
-              saving: false,
-              graphic: false
-            });
+            self.finishSave();
           }
         },(err) => {
           // TODO Handle errors in crowdsource form
@@ -176,6 +174,18 @@ export default class ContributeController {
         });
         _onError(err);
       });
+    }
+  }
+
+  finishSave() {
+    AppActions.updateContributeState({
+      active: false,
+      saving: false,
+      graphic: false
+    });
+
+    if (lang.getObject('appState.app.map.originalObject.refreshCrowdsourceLayer',false,this)) {
+        this.appState.app.map.originalObject.refreshCrowdsourceLayer();
     }
   }
 

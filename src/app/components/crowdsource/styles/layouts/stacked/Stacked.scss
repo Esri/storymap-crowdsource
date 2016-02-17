@@ -27,8 +27,19 @@ $paneNavigationHeight: 40px;
       text-align: center;
       cursor: pointer;
 
-      .text, .icon {
+      .text {
         margin: 0 5px;
+        vertical-align: middle;
+      }
+
+      .icon {
+        margin: 0 5px;
+        height: 25px;
+        width: 25px;
+
+        svg {
+          vertical-align: middle;
+        }
       }
     }
   }

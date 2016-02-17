@@ -17,6 +17,7 @@ export default class FormGroup extends React.Component {
     this.value = false;
     this.valid = false;
 
+    this.componentDidMountExtention = this.componentDidMountExtention.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -34,6 +35,8 @@ export default class FormGroup extends React.Component {
       this.validateForm();
     }
     this.updateValue();
+
+    this.componentDidMountExtention();
   }
 
   componentDidUpdate() {
@@ -46,6 +49,8 @@ export default class FormGroup extends React.Component {
     return null;
 
   }
+
+  componentDidMountExtention() {}
 
   getErrorMessage() {
     if (!this.state.isValid && this.state.errors && this.state.errors.length > 0) {

@@ -82,7 +82,14 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         layer.hide();
 
         // Add cluster layer
-        this._map.addLayer(clusterLayer);
+        map.addLayer(clusterLayer);
+
+        // Create cluster layer refresh method in Map
+        map.refreshCrowdsourceLayer = function () {
+          clusterLayer._visitedExtent = null;
+          clusterLayer.updateClusters();
+          console.log('test');
+        };
 
       } else if (layer)  {
         _onError('Layer ' + this._settings.crowdsourceLayer.id + ' does not exist in map.');
