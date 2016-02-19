@@ -10,6 +10,10 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // Autobind methods
+    this.onSelect = this.onSelect.bind(this);
+
     this.state = {
       tileSettings: {}
     };
@@ -36,11 +40,12 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
   render() {
 
     const galleryClass = Helper.classnames([this.props.className, {
-      'thumbnail-gallery': true
+      'thumbnail-gallery': true,
+      'selection': this.props.selected.length > 0
     }]);
 
     return (
-      <div className={galleryClass}>
+      <div className={galleryClass} onClick={this.onSelect.bind(null,false)}>
         <ul className="gallery-list">
           {this.props.items.map((item,index) => {
               const attr = this.props.itemAttributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.itemAttributePath) : item;
@@ -50,6 +55,10 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
                 height: this.state.tileSettings.tileSize,
                 width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
               };
+
+              const itemClasses = Helper.classnames(['gallery-item', {
+                selected: this.props.selected.indexOf(attr[this.props.idKey]) >= 0
+              }]);
 
               // Append token to URL for private photo attachments
               if (lang.getObject('credential.token',false,this.props.layer)) {
@@ -63,7 +72,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
               }
 
               return (
-                <li className="gallery-item" key={attr[this.props.idKey]} style={itemStyle} data-object-id={attr[this.props.idKey]} data-thumbnail={photoUrl}>
+                <li className={itemClasses} key={attr[this.props.idKey]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idKey])} data-thumbnail={photoUrl}>
                   <LazyImage className="background-image" src={photoUrl.href()}></LazyImage>
                   <div className="info-card">
                     <h6>{attr[this.props.primaryKey]}</h6>
@@ -77,6 +86,14 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
       </div>
     );
 
+  }
+
+  onSelect(selection,e) {
+    e.stopPropagation();
+    this.props.selectAction(selection);
+    if (selection) {
+      this.props.selectAction(selection);
+    }
   }
 };
 
@@ -99,11 +116,15 @@ ThumbnailGallery.propTypes = {
       })
     }),
     React.PropTypes.bool
-  ])
+  ]),
+  selected: React.PropTypes.array,
+  selectAction: React.PropTypes.func
 };
 
 ThumbnailGallery.defaultProps = {
   items: [],
+  selected: [],
+  selectAction: () => {},
   size: 200,
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: ''

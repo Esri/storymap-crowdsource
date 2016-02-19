@@ -42,11 +42,11 @@ export default class CrowdsourceForm extends React.Component {
       }
     };
 
-    const saveBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-primary','btn-block','save-btn'], {
+    const saveBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','save-btn'], {
       disabled: !this.state.isValid || this.props.saving
     });
 
-    const closeBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-default','btn-block','close-btn']);
+    const closeBtnClasses = Helper.classnames(['btn','btn-default','btn-block','close-btn']);
 
     return (
       <div className="row">

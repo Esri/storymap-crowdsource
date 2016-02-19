@@ -7,41 +7,70 @@ $paneNavigationHeight: 40px;
 @import "intro/IntroSplash";
 @import "contribute/ContributePanel";
 
-.main-content {
-  position: absolute;
-  top: $headerHeight;
-  height: calc(100% - #{$headerHeight});
-  width: 100%;
-  overflow: hidden;
+.stacked {
 
-  .content-pane {
-    .map, .thumbnail-gallery {
-      height: calc(100% - #{$paneNavigationHeight});
-    }
+  .main-content {
+    position: absolute;
+    top: $headerHeight;
+    height: calc(100% - #{$headerHeight});
+    width: 100%;
+    overflow: hidden;
 
-    .pane-navigation {
-      display: table-cell;
-      vertical-align: middle;
-      height: $paneNavigationHeight;
-      width: 100vw;
-      text-align: center;
-      cursor: pointer;
-
-      .text {
-        margin: 0 5px;
-        vertical-align: middle;
+    .content-pane {
+      .map, .thumbnail-gallery {
+        height: calc(100% - #{$paneNavigationHeight});
       }
 
-      .icon {
-        margin: 0 5px;
-        height: 25px;
-        width: 25px;
+      .pane-navigation {
+        display: table-cell;
+        vertical-align: middle;
+        height: $paneNavigationHeight;
+        width: 100vw;
+        text-align: center;
+        cursor: pointer;
 
-        svg {
+        .text {
+          margin: 0 5px;
           vertical-align: middle;
+        }
+
+        .icon {
+          margin: 0 5px;
+          height: 25px;
+          width: 25px;
+
+          svg {
+            vertical-align: middle;
+          }
         }
       }
     }
+
+    .overlay-panel {
+      position: fixed;
+      top: 50px;
+      height: calc(100% - 90px);
+      right: 75px;
+      width: 30%;
+      min-width: 300px;
+      max-width: 500px;
+      z-index: 100;
+
+      &.overlay-toggle-enter {
+        opacity: 0;
+      }
+
+      &.overlay-toggle-enter-active {
+        opacity: 1;
+        @include transition(opacity 1s);
+      }
+
+      &.overlay-toggle-leave {
+        opacity: 0;
+        @include transition(opacity 1s);
+      }
+    }
+
   }
 
 }

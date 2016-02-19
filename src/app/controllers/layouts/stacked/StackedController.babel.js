@@ -15,65 +15,123 @@ export default class StackedController {
   constructor() {
 
     // Autobind methods
+    this.checkOverlayComponentVisibility = this.checkOverlayComponentVisibility.bind(this);
     this.updateAppState = this.updateAppState.bind(this);
     this.updateAppView = this.updateAppView.bind(this);
+    this.refreshDisplay = this.refreshDisplay.bind(this);
     this.showIntro = this.showIntro.bind(this);
     this.hideIntro = this.hideIntro.bind(this);
     this.showMap = this.showMap.bind(this);
     this.showGallery = this.showGallery.bind(this);
 
     // Subscribe to state changes
+    this.visibleComponents = [];
+
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
-    AppActions.updateLayout({view: componentNames.INTRO});
-    $(window).on('resize',this.updateAppView.bind(this,{duration: 0},true));
+    // Initial State
+    AppActions.showComponent(componentNames.INTRO);
+
+    $(window).on('resize',this.refreshDisplay.bind(this,{duration: 0}));
   }
 
   updateAppState() {
     this.appState = AppStore.getState();
 
     this.updateAppView();
+    this.checkOverlayComponentVisibility();
   }
 
-  updateAppView(options,forceUpdate) {
-    const currentView = lang.getObject('appState.app.layoutState.view',false,this);
-    const activeContribute = lang.getObject('appState.app.contributing.active',false,this);
+  checkOverlayComponentVisibility() {
+    const selectedIds = lang.getObject('appState.app.map.selectedIds',false,this);
+    const contributing = lang.getObject('appState.app.contributing.active',false,this);
 
-    if (forceUpdate || this.view !== currentView || (activeContribute && currentView !== componentNames.MAP)) {
-      this.prevView = this.view;
-      // Set new current view
-      if (activeContribute && currentView !== componentNames.MAP) {
-        this.view = componentNames.MAP;
-      } else {
-        this.view = currentView;
-      }
+    if (!contributing && selectedIds.length > 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) < 0) {
+      AppActions.changeComponentsVisibility({show: componentNames.SELECTED_SHARES, hide: componentNames.INTRO});
+    } else if (selectedIds.length === 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0) {
+      AppActions.hideComponent(componentNames.SELECTED_SHARES);
+    }
 
-      switch (this.view) {
+    if (contributing && this.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0) {
+      AppActions.changeComponentsVisibility({show: componentNames.CONTRIBUTE, hide: componentNames.INTRO});
+    } else if (!contributing && this.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0) {
+      AppActions.hideComponent(componentNames.CONTRIBUTE);
+    }
+  }
+
+  refreshDisplay(options) {
+    this.visibleComponents.forEach((component) => {
+
+      switch (component) {
         case componentNames.INTRO:
           this.showIntro(options);
           break;
         case componentNames.MAP:
-          if (this.prevView === componentNames.INTRO) {
-            this.showMap({duration: 0});
-            this.hideIntro(options);
-          } else {
-            this.showMap(options);
-          }
+          this.showMap(options);
           break;
         case componentNames.GALLERY:
-          if (this.prevView === componentNames.INTRO) {
-            this.showGallery({duration: 0});
-            this.hideIntro(options);
-          } else {
-            this.showGallery(options);
-          }
+          this.showGallery(options);
           break;
       }
-      if (currentView !== this.view) {
-        AppActions.updateLayout({view: this.view});
-      }
+
+    });
+  }
+
+  updateAppView(options) {
+    const visibleComponents = lang.getObject('appState.app.layout.visibleComponents',false,this);
+
+    if (JSON.stringify(visibleComponents) !== JSON.stringify(this.visibleComponents)) {
+      this.prevVisibleComponents = [].concat(this.visibleComponents);
+      this.visibleComponents = [].concat(visibleComponents);
+
+      const adds = this.visibleComponents.reduce((prev,current) => {
+        if (this.prevVisibleComponents.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
+
+      const removes = this.prevVisibleComponents.reduce((prev,current) => {
+        if (this.visibleComponents.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
+
+      adds.forEach((component) => {
+
+        switch (component) {
+          case componentNames.INTRO:
+            this.showIntro(options);
+            AppActions.hideComponent([componentNames.MAP,componentNames.GALLERY]);
+            break;
+          case componentNames.MAP:
+            this.showMap(options);
+            AppActions.hideComponent([componentNames.INTRO,componentNames.GALLERY]);
+            break;
+          case componentNames.GALLERY:
+            this.showGallery(options);
+            AppActions.hideComponent([componentNames.INTRO,componentNames.MAP]);
+            break;
+        }
+
+      });
+
+      removes.forEach((component) => {
+
+        switch (component) {
+          case componentNames.INTRO:
+            this.hideIntro(options);
+            if (this.visibleComponents.indexOf(componentNames.MAP) < 0 && this.visibleComponents.indexOf(componentNames.GALLERY) < 0 ) {
+              AppActions.showComponent(componentNames.MAP);
+            }
+            break;
+        }
+
+      });
     }
+
   }
 
   showIntro(options) {

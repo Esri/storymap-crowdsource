@@ -75,7 +75,15 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           // Get original features in current extent
           const features = clusterLayer._inExtent();
 
-          MapActions.featuresInExtent(features);
+          MapActions.updateFeaturesInExtent(features);
+        });
+
+        clusterLayer.on('singles-click', (e) => {
+          const selectedIds = e.singles.reduce((prev,current) => {
+            return prev.concat(current.attributes[objectIdField]);
+          },[]);
+
+          MapActions.selectFeaturesById(selectedIds);
         });
 
         // Hide original layer
@@ -88,7 +96,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         map.refreshCrowdsourceLayer = function () {
           clusterLayer._visitedExtent = null;
           clusterLayer.updateClusters();
-          console.log('test');
         };
 
       } else if (layer)  {

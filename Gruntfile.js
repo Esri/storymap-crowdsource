@@ -206,7 +206,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultFonts: {
-        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
+        src: ['build/app/store/reducers/app/layout/Layout.js'],
         actions: [
           {
             name: 'Add Font CSS to default config',
@@ -219,7 +219,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultLayout: {
-        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
+        src: ['build/app/store/reducers/app/layout/Layout.js'],
         actions: [
           {
             name: 'Add Stacked CSS Layout String',
@@ -232,7 +232,7 @@ module.exports = function (grunt) {
         ]
       },
       defaultTheme: {
-        src: ['build/app/store/reducers/items/app/data/settings/layout/Layout.js'],
+        src: ['build/app/store/reducers/app/layout/Layout.js'],
         actions: [
           {
             name: 'Add Default CSS Theme String',

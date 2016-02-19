@@ -2,55 +2,60 @@ $paneNavigation: #6e6e6e;
 $actionText: #4d8fbb;
 $shadowColor: #fff;
 
-html, body{
+.stacked {
   color: #fff;
-}
 
-.splash {
-  color: #000;
+  .splash {
+    color: #000;
 
-  .background-fill {
-    background-color: #E5E5E5;
-  }
+    .background-fill {
+      background-color: #E5E5E5;
+    }
 
-  .action-seperator {
-    text-shadow:
-      -1px -1px 50px $shadowColor,
-      1px -1px 50px $shadowColor,
-      -1px 1px 50px $shadowColor,
-      1px 1px 50px $shadowColor,
-      -1px -1px 10px $shadowColor,
-      1px -1px 10px $shadowColor,
-      -1px 1px 10px $shadowColor,
-      1px 1px 10px $shadowColor;
-  }
-}
-
-.header {
-  background-color: #3e3d3e;
-
-  .share{
-    color: #aaa;
-
-    &:hover{
-      color: #fff;
+    .action-seperator {
+      text-shadow:
+        -1px -1px 50px $shadowColor,
+        1px -1px 50px $shadowColor,
+        -1px 1px 50px $shadowColor,
+        1px 1px 50px $shadowColor,
+        -1px -1px 10px $shadowColor,
+        1px -1px 10px $shadowColor,
+        -1px 1px 10px $shadowColor,
+        1px 1px 10px $shadowColor;
     }
   }
 
-  .participate{
-    color: $actionText;
+  .header {
+    background-color: #3e3d3e;
 
-    &:hover{
-      color: lighten($actionText, 10%);
+    .share{
+      color: #aaa;
+
+      &:hover{
+        color: #fff;
+      }
+    }
+
+    .participate{
+      color: $actionText;
+
+      &:hover{
+        color: lighten($actionText, 10%);
+      }
+    }
+
+  }
+
+  .pane-navigation{
+    background-color: $paneNavigation;
+
+    &:hover {
+      background-color: lighten($paneNavigation, 5%);
     }
   }
 
-}
-
-.pane-navigation{
-  background-color: $paneNavigation;
-
-  &:hover {
-    background-color: lighten($paneNavigation, 5%);
+  .overlay-panel {
+    background-color: #fff;
+    color: #333;
   }
 }

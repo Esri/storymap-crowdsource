@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import { combineReducers } from 'redux';
 import map from './map/Map';
+import layout from './layout/Layout';
 import portal from './portal/Portal';
 import {
   DISPLAY_MAIN_ERROR,
   APP_COMPONTENT_LOADED,
-  UPDATE_APP_LAYOUT_STATE,
   UPDATE_APP_CONTRIBUTE_STATE
 } from 'babel/constants/actionsTypes/App';
 import {
@@ -47,15 +47,6 @@ export const loading = function (state = defaultLoading, action) {
   }
 };
 
-export const layoutState = function (state = {}, action) {
-  switch (action.type) {
-    case UPDATE_APP_LAYOUT_STATE:
-      return $.extend(true,{},state,action.options);
-    default:
-      return state;
-  }
-};
-
 export const contributing = function (state = defaultContributing, action) {
   switch (action.type) {
     case UPDATE_APP_CONTRIBUTE_STATE:
@@ -70,7 +61,7 @@ export const app = combineReducers({
   map,
   mainError,
   loading,
-  layoutState,
+  layout,
   portal
 });
 

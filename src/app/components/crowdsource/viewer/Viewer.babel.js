@@ -5,9 +5,11 @@ import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Header from 'babel/components/header/Header';
 import IntroSplash from 'babel/components/intro/IntroSplash';
 import ContributePanel from 'babel/components/contribute/ContributePanel';
+import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
 import AppActions from 'babel/actions/AppActions';
+import MapActions from 'babel/actions/MapActions';
 import UserActions from 'babel/actions/UserActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -33,7 +35,7 @@ class Viewer extends React.Component {
       <div className={viewerClasses}>
         <style>{this.props.layout.font + this.props.layout.style + this.props.layout.theme}</style>
         <Header
-          homeAction={this.props.updateLayout.bind(this,{view: componentNames.INTRO})}
+          homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.header}
@@ -45,7 +47,7 @@ class Viewer extends React.Component {
           showLoader={this.props.loading.map}
           showExploreActionButton={this.props.loading.map}
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
-          exploreAction={this.props.updateLayout.bind(this,{view: componentNames.MAP})}
+          exploreAction={this.props.showComponent.bind(this,componentNames.MAP)}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.intro}
           {...this.props.components.common}>
@@ -56,7 +58,7 @@ class Viewer extends React.Component {
   }
 
   get Layout() {
-    switch (this.props.layout.id) {
+    switch (this.props.layoutId) {
       case 'sidePanel':
         // TODO add sidePanel layout
         return null;
@@ -76,36 +78,42 @@ class Viewer extends React.Component {
         const stacked = (
           <div className="main-content">
             <div className="content-pane map-view">
-              <ReactCSSTransitionGroup transitionName="contribute-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
-                { this.props.contributing.active ? <ContributePanel
-                  loginAction={this.props.loginUser}
-                  closeAction={this.props.updateContributeState.bind(this,{active: false})}
-                  saveAction={this.saveContribution}
-                  socialLogin={this.props.config.allowSocialLogin}
-                  fieldDefinitions={this.props.map.layer.fields}
-                  map={this.props.map.originalObject}
-                  user={this.props.user}
-                  {...this.props.contributing}
-                  {...this.props.components.contribute}>
-                </ContributePanel> : null}
-              </ReactCSSTransitionGroup>
               <CrowdsourceWebmap controllerOptions={this.props.components.map}/>
-              <div className="pane-navigation" onClick={this.props.updateLayout.bind(this,{view: componentNames.GALLERY})}>
+              <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
                 <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
                 <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
               </div>
             </div>
             <div className="content-pane gallery-view">
-              <div className="pane-navigation" onClick={this.props.updateLayout.bind(this,{view: componentNames.MAP})}>
+              <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.MAP)}>
                 <span className="text">{CHANGE_VIEW_TO_MAP}</span>
                 <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
               </div>
               <ThumbnailGallery
                 items={this.props.map.featuresInExtent}
                 layer={this.props.map.layer}
+                selected={this.props.map.selectedIds}
+                selectAction={this.props.selectFeaturesById}
                 {...this.props.components.gallery}>
               </ThumbnailGallery>;
             </div>
+            <ReactCSSTransitionGroup transitionName="overlay-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
+              { this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0 ? <ContributePanel
+                className="overlay-panel"
+                loginAction={this.props.loginUser}
+                closeAction={this.props.updateContributeState.bind(this,{active: false})}
+                saveAction={this.saveContribution}
+                socialLogin={this.props.config.allowSocialLogin}
+                fieldDefinitions={this.props.map.layer.fields}
+                map={this.props.map.originalObject}
+                user={this.props.user}
+                {...this.props.contributing}
+                {...this.props.components.contribute}>
+              </ContributePanel> : null }
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0  ? <SelectedShares
+                className="overlay-panel">
+              </SelectedShares> : null }
+            </ReactCSSTransitionGroup>
           </div>
         );
 
@@ -123,11 +131,12 @@ class Viewer extends React.Component {
 }
 
 Viewer.propTypes = {
+  layoutId: React.PropTypes.string.isRequired,
   layout: React.PropTypes.shape({
-    id: React.PropTypes.string.isRequired,
     font: React.PropTypes.string.isRequired,
     style: React.PropTypes.string.isRequired,
-    theme: React.PropTypes.string.isRequired
+    theme: React.PropTypes.string.isRequired,
+    visibleComponents: React.PropTypes.array
   }).isRequired,
   loading: React.PropTypes.shape({
     map: React.PropTypes.bool
@@ -208,7 +217,8 @@ const mapStateToProps = (state) => {
     components: state.items.app.data.settings.components,
     contributing: state.app.contributing,
     loading: state.app.loading,
-    layout: state.items.app.data.settings.layout,
+    layoutId: state.items.app.data.settings.layout.id,
+    layout: state.app.layout,
     map: state.app.map,
     user: state.user
   };
@@ -219,11 +229,17 @@ const mapDispatchToProps = (dispatch) => {
     loginUser: (service) => {
       dispatch(UserActions.loginOAuthStart(service));
     },
-    updateLayout: (options) => {
-      dispatch(AppActions.updateLayout(options));
+    changeComponentsVisibility: (changes) => {
+      dispatch(AppActions.changeComponentsVisibility(changes));
+    },
+    showComponent: (component) => {
+      dispatch(AppActions.showComponent(component));
     },
     updateContributeState: (options) => {
       dispatch(AppActions.updateContributeState(options));
+    },
+    selectFeaturesById: (features) => {
+      dispatch(MapActions.selectFeaturesById(features));
     }
   };
 };
