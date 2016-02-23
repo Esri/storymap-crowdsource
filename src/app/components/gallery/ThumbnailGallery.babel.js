@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'reactDom';
-import URI from 'lib/urijs/src/URI';
-import lang from 'dojo/_base/lang';
 import Helper from 'babel/utils/helper/Helper';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import ThumbnailGalleryController from 'babel/components/gallery/ThumbnailGalleryController';
@@ -48,35 +46,27 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
       <div className={galleryClass} onClick={this.onSelect.bind(null,false)}>
         <ul className="gallery-list">
           {this.props.items.map((item,index) => {
-              const attr = this.props.itemAttributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.itemAttributePath) : item;
+              const attr = this.props.attributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.attributePath) : item;
               const endTile = index % this.state.tileSettings.tilesPerRow === 0;
-              const photoUrl = new URI(this.props.thumbnailUrlPrepend + attr[this.props.thumbnailKey] + this.props.thumbnailUrlAppend);
+              const photoUrl = Helper.attachmentUtils.checkForCredential({
+                url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
+                layer: this.props.layer
+              });
               const itemStyle = {
                 height: this.state.tileSettings.tileSize,
                 width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
               };
 
               const itemClasses = Helper.classnames(['gallery-item', {
-                selected: this.props.selected.indexOf(attr[this.props.idKey]) >= 0
+                selected: this.props.selected.indexOf(attr[this.props.idField]) >= 0
               }]);
 
-              // Append token to URL for private photo attachments
-              if (lang.getObject('credential.token',false,this.props.layer)) {
-                const serverURI = new URI(lang.getObject('credential.server',false,this.props.layer));
-                const matchString = serverURI.host() + serverURI.path();
-                const testPhotoString = photoUrl.host() + photoUrl.path();
-
-                if (testPhotoString.match(matchString)) {
-                  photoUrl.setSearch('token', lang.getObject('credential.token',false,this.props.layer));
-                }
-              }
-
               return (
-                <li className={itemClasses} key={attr[this.props.idKey]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idKey])} data-thumbnail={photoUrl}>
-                  <LazyImage className="background-image" src={photoUrl.href()}></LazyImage>
+                <li className={itemClasses} key={attr[this.props.idField]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idField])} data-thumbnail={photoUrl}>
+                  <LazyImage className="background-image" src={photoUrl}></LazyImage>
                   <div className="info-card">
-                    <h6>{attr[this.props.primaryKey]}</h6>
-                    <p>{attr[this.props.secondaryKey]}</p>
+                    <h6>{attr[this.props.primaryField]}</h6>
+                    <p>{attr[this.props.secondaryField]}</p>
                     <div className="background-fill"></div>
                   </div>
                 </li>
@@ -99,12 +89,12 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
 ThumbnailGallery.propTypes = {
   items: React.PropTypes.array,
-  itemAttributePath: React.PropTypes.string.isRequired,
-  idKey: React.PropTypes.string.isRequired,
-  primaryKey: React.PropTypes.string.isRequired,
-  secondaryKey: React.PropTypes.string.isRequired,
+  attributePath: React.PropTypes.string.isRequired,
+  idField: React.PropTypes.string.isRequired,
+  primaryField: React.PropTypes.string.isRequired,
+  secondaryField: React.PropTypes.string.isRequired,
   size: React.PropTypes.number.isRequired,
-  thumbnailKey: React.PropTypes.string,
+  thumbnailField: React.PropTypes.string,
   thumbnailUrlPrepend: React.PropTypes.string,
   thumbnailUrlAppend: React.PropTypes.string,
   layer: React.PropTypes.oneOfType([

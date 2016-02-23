@@ -56,9 +56,9 @@ export default class FormGroup extends React.Component {
     if (!this.state.isValid && this.state.errors && this.state.errors.length > 0) {
       return (
         <ul className="text-danger form-error-message">
-          {this.state.errors.map((error,index) => {
+          {this.state.errors.map((error) => {
             return (
-              <li key={index}>
+              <li key={error.rule}>
                 <strong><small>
                   {error.message}
                   {error.fixValue ? <button className="text-btn text-primary" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}

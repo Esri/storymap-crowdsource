@@ -2,7 +2,7 @@ import AppStore from 'babel/store/AppStore';
 import {
   UPDATE_MAP_REFERENCES,
   UPDATE_MAP_FEATURES_IN_EXTENT,
-  UPDATE_MAP_SELECTED_FEATURES_IDS
+  UPDATE_MAP_SELECTED_FEATURES
 } from 'babel/constants/actionsTypes/Map';
 
 const dispatch = AppStore.dispatch;
@@ -21,9 +21,9 @@ export const updateFeaturesInExtent = function (features) {
   };
 };
 
-export const selectFeaturesById = function (features) {
+export const selectFeatures = function (features) {
   return {
-    type: UPDATE_MAP_SELECTED_FEATURES_IDS,
+    type: UPDATE_MAP_SELECTED_FEATURES,
     features
   };
 };
@@ -31,7 +31,7 @@ export const selectFeaturesById = function (features) {
 export const boundActions = {
   updateMapReferences: (references) => dispatch(updateMapReferences(references)),
   updateFeaturesInExtent: (features) => dispatch(updateFeaturesInExtent(features)),
-  selectFeaturesById: (features) => dispatch(selectFeaturesById(features))
+  selectFeatures: (features) => dispatch(selectFeatures(features))
 };
 
 export default boundActions;

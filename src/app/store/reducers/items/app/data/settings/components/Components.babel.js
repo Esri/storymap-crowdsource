@@ -5,6 +5,7 @@ import gallery from './gallery/Gallery';
 import header from './header/Header';
 import intro from './intro/Intro';
 import map from './map/Map';
+import shareDisplay from './shareDisplay/ShareDisplay';
 
 export const components = combineReducers({
   common,
@@ -12,7 +13,8 @@ export const components = combineReducers({
   gallery,
   header,
   intro,
-  map
+  map,
+  shareDisplay
 });
 
 export default components;

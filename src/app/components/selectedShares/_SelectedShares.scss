@@ -1,0 +1,62 @@
+.selected-shares {
+
+  .share-title {
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .media-photo.lazy-image.loaded {
+    @include animation(fadeIn 1.5s);
+  }
+
+  // Calcite Cards Override
+  .cards-list {
+    width: 100%;
+
+    li {
+      width: 100%;
+      padding: 0 0 15px;
+    }
+
+    .card {
+      padding: 0;
+      width: 100%;
+      height: auto;
+      text-align: left;
+      margin-bottom: 15px;
+
+      .media-section {
+        position: relative;
+
+        .card-options {
+          background: linear-gradient(rgba(0, 0, 0, 0.6) 0, rgba(0, 0, 0, 0.6) 100%, transparent 100%, rgba(255, 255, 255, 0) 0);
+          box-shadow: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          button {
+            margin-top: calc(-30px - 2.4rem);
+          }
+        }
+
+        img {
+          height: auto;
+          width: 100%;
+          max-width: none;
+        }
+      }
+
+      .info-section {
+        margin: 20px;
+
+        .card-info {
+          text-align: center;
+        }
+      }
+
+    }
+  }
+
+}

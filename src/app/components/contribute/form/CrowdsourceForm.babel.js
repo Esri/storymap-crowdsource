@@ -51,7 +51,7 @@ export default class CrowdsourceForm extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-12">
-          <h3>{this.props.title}</h3>
+          <h3 className="form-title">{this.props.title}</h3>
           <form>
           {this.props.fields.map(this.getFormField)}
             <TermsAndConditions {...termsOptions}></TermsAndConditions>

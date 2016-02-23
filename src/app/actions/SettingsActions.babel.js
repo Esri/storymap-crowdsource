@@ -4,7 +4,7 @@ import {
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_HEADER_TITLE,
-  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER,
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_ID,
   UPDATE_SETTINGS_MAP_WEBMAP_ID,
   UPDATE_LAYOUT_ID
 } from 'babel/constants/actionsTypes/Settings';
@@ -45,10 +45,10 @@ export const updateHeaderTitle = function (title) {
 };
 
 // Map Components
-export const updateMapCrowdsourceLayer = function (layer) {
+export const updateMapCrowdsourceLayerId = function (id) {
   return {
-    type: UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER,
-    layer
+    type: UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_ID,
+    id
   };
 };
 
@@ -72,7 +72,7 @@ export const boundActions = {
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),
-  updateMapCrowdsourceLayer: (updateMapWebmapId) => dispatch(updateMapCrowdsourceLayer(updateMapWebmapId)),
+  updateMapCrowdsourceLayerId: (id) => dispatch(updateMapCrowdsourceLayerId(id)),
   updateMapWebmapId: (webmap) => dispatch(updateMapWebmapId(webmap)),
   updateLayoutId: (id) => dispatch(updateLayoutId(id))
 };

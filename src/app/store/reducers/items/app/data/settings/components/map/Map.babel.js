@@ -1,26 +1,14 @@
 import $ from 'jquery';
+import crowdsourceLayer from './crowdsourceLayer/CrowdsourceLayer';
 import { combineReducers } from 'redux';
 import {
-  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER,
+  // UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER,
   UPDATE_SETTINGS_MAP_WEBMAP_ID
 } from 'babel/constants/actionsTypes/Settings';
-
-const defaultCrowdsourceLayer = {
-  id: ''
-};
 
 const defaultWebmapOptions = {
   ignorePopups: true,
   mapOptions: {}
-};
-
-export const crowdsourceLayer = function (state = defaultCrowdsourceLayer, action) {
-  switch (action.type) {
-    case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER:
-      return $.extend(true,{},state,action.layer);
-    default:
-      return state;
-  }
 };
 
 export const webmap = function (state = '', action) {

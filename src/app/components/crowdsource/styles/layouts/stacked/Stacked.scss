@@ -16,6 +16,13 @@ $paneNavigationHeight: 40px;
     width: 100%;
     overflow: hidden;
 
+    .scroll-container {
+      position: absolute;;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
     .content-pane {
       .map, .thumbnail-gallery {
         height: calc(100% - #{$paneNavigationHeight});
@@ -47,14 +54,16 @@ $paneNavigationHeight: 40px;
     }
 
     .overlay-panel {
-      position: fixed;
-      top: 50px;
-      height: calc(100% - 90px);
+      position: absolute;
+      top: 0;
+      height: 100%;
       right: 75px;
       width: 30%;
+      padding: 15px;
       min-width: 300px;
       max-width: 500px;
       z-index: 100;
+      overflow: auto;
 
       &.overlay-toggle-enter {
         opacity: 0;

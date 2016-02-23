@@ -109,6 +109,7 @@ export class Validator {
       }
       if (current.error) {
         res.errors.push({
+          rule,
           message: current.error,
           fixValue: current.fixValue
         });

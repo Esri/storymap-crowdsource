@@ -22,7 +22,7 @@
     "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.1.1/react-redux.js",
     "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.6/redux.js",
     "bootstrap-sass": "~3.3.5",
-    "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.2.6/calcite-bootstrap.zip",
+    "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.2.9/calcite-bootstrap.zip",
     "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/73b738f558b982827c15fe4486a56212e1453300.zip",
     "eventEmitter": "~4.3.0",
     "flux": "~2.1.1",

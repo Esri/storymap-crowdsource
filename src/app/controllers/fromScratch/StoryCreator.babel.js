@@ -87,7 +87,7 @@ export default class StoryCreator {
           opacity: 1,
           mode: 0
         });
-        SettingsActions.updateMapCrowdsourceLayer({id: layerId});
+        SettingsActions.updateMapCrowdsourceLayerId(layerId);
         this.createWebmap();
       }
       // TODO add visibile error dialog to user

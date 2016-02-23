@@ -32,6 +32,9 @@ define({
         noDefaultSelection: 'Please choose an option...'
       }
     },
+    selectedShares: {
+      enlargePhotoButton: 'View Larger'
+    },
     contribute: {
       login: {
         title: 'Sign In',

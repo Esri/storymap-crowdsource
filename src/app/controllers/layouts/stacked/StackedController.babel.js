@@ -44,17 +44,18 @@ export default class StackedController {
   }
 
   checkOverlayComponentVisibility() {
-    const selectedIds = lang.getObject('appState.app.map.selectedIds',false,this);
+    const featuresInExtent = lang.getObject('appState.app.map.featuresInExtent',false,this);
+    const selectedFeatures = lang.getObject('appState.app.map.selectedFeatures',false,this);
     const contributing = lang.getObject('appState.app.contributing.active',false,this);
 
-    if (!contributing && selectedIds.length > 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) < 0) {
+    if (!contributing && selectedFeatures.length > 0 && featuresInExtent.length > 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) < 0) {
       AppActions.changeComponentsVisibility({show: componentNames.SELECTED_SHARES, hide: componentNames.INTRO});
-    } else if (selectedIds.length === 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0) {
+    } else if (selectedFeatures.length === 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0) {
       AppActions.hideComponent(componentNames.SELECTED_SHARES);
     }
 
     if (contributing && this.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0) {
-      AppActions.changeComponentsVisibility({show: componentNames.CONTRIBUTE, hide: componentNames.INTRO});
+      AppActions.changeComponentsVisibility({show: [componentNames.CONTRIBUTE,componentNames.MAP], hide: [componentNames.INTRO, componentNames.SELECTED_SHARES]});
     } else if (!contributing && this.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0) {
       AppActions.hideComponent(componentNames.CONTRIBUTE);
     }
@@ -111,8 +112,12 @@ export default class StackedController {
             AppActions.hideComponent([componentNames.INTRO,componentNames.GALLERY]);
             break;
           case componentNames.GALLERY:
-            this.showGallery(options);
-            AppActions.hideComponent([componentNames.INTRO,componentNames.MAP]);
+            if (this.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0) {
+              this.showGallery(options);
+              AppActions.hideComponent([componentNames.INTRO,componentNames.MAP]);
+            } else {
+              AppActions.hideComponent(componentNames.GALLERY);
+            }
             break;
         }
 
@@ -152,7 +157,7 @@ export default class StackedController {
 
   showMap(options) {
     const defaults = {
-      container: $('.main-content')
+      container: $('.scroll-container')
     };
     const settings = $.extend(true,{},defaults,_animationDefaults,options);
 
@@ -161,7 +166,7 @@ export default class StackedController {
 
   showGallery(options) {
     const defaults = {
-      container: $('.main-content')
+      container: $('.scroll-container')
     };
     const settings = $.extend(true,{},defaults,_animationDefaults,options);
 

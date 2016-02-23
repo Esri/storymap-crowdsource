@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'reactRedux';
+import lang from 'dojo/_base/lang';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Header from 'babel/components/header/Header';
@@ -24,6 +25,8 @@ class Viewer extends React.Component {
     super();
 
     // Bind class methods
+    this.getSelectedIds = this.getSelectedIds.bind(this);
+    this.selectFeaturesById = this.selectFeaturesById.bind(this);
     this.saveContribution = this.saveContribution.bind(this);
   }
 
@@ -77,25 +80,28 @@ class Viewer extends React.Component {
 
         const stacked = (
           <div className="main-content">
-            <div className="content-pane map-view">
-              <CrowdsourceWebmap controllerOptions={this.props.components.map}/>
-              <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
-                <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
-                <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+            <div className="scroll-container">
+              <div className="content-pane map-view">
+                <CrowdsourceWebmap controllerOptions={this.props.components.map}/>
+                <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
+                  <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
+                  <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
+                </div>
               </div>
-            </div>
-            <div className="content-pane gallery-view">
-              <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.MAP)}>
-                <span className="text">{CHANGE_VIEW_TO_MAP}</span>
-                <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
+              <div className="content-pane gallery-view">
+                <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.MAP)}>
+                  <span className="text">{CHANGE_VIEW_TO_MAP}</span>
+                  <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
+                </div>
+                <ThumbnailGallery
+                  items={this.props.map.featuresInExtent}
+                  layer={this.props.map.layer}
+                  selected={this.getSelectedIds()}
+                  selectAction={this.selectFeaturesById}
+                  {...this.props.components.gallery}
+                  {...this.props.components.map.crowdsourceLayer}>
+                </ThumbnailGallery>;
               </div>
-              <ThumbnailGallery
-                items={this.props.map.featuresInExtent}
-                layer={this.props.map.layer}
-                selected={this.props.map.selectedIds}
-                selectAction={this.props.selectFeaturesById}
-                {...this.props.components.gallery}>
-              </ThumbnailGallery>;
             </div>
             <ReactCSSTransitionGroup transitionName="overlay-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
               { this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0 ? <ContributePanel
@@ -108,10 +114,16 @@ class Viewer extends React.Component {
                 map={this.props.map.originalObject}
                 user={this.props.user}
                 {...this.props.contributing}
-                {...this.props.components.contribute}>
+                {...this.props.components.contribute}
+                {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0  ? <SelectedShares
-                className="overlay-panel">
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 ? <SelectedShares
+                className="overlay-panel"
+                items={this.props.map.selectedFeatures}
+                layer={this.props.map.layer}
+                closeAction={this.props.selectFeatures.bind(null,false)}
+                {...this.props.components.shareDisplay}
+                {...this.props.components.map.crowdsourceLayer}>
               </SelectedShares> : null }
             </ReactCSSTransitionGroup>
           </div>
@@ -119,6 +131,32 @@ class Viewer extends React.Component {
 
         return stacked;
     }
+  }
+
+  getSelectedIds () {
+
+    const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
+    const features = lang.getObject('props.map.selectedFeatures',false,this);
+
+    if (oidField && features) {
+      return features.reduce((prev,current) => {
+        return prev.concat(current.attributes[oidField]);
+      },[]);
+    } else {
+      return [];
+    }
+  }
+
+  selectFeaturesById(ids) {
+    const oidField = this.props.map.layer.objectIdField;
+    const features = this.props.map.featuresInExtent;
+
+    this.props.selectFeatures(features.reduce((prev,current) => {
+      if ([].concat(ids).indexOf(current.attributes[oidField]) < 0) {
+        return prev;
+      }
+      return prev.concat(current);
+    },[]));
   }
 
   saveContribution(graphic) {
@@ -156,7 +194,8 @@ Viewer.propTypes = {
       }),
       React.PropTypes.bool
     ]),
-    featuresInExtent: React.PropTypes.array.isRequired
+    featuresInExtent: React.PropTypes.array.isRequired,
+    selectedFeatures: React.PropTypes.array.isRequired
   }).isRequired,
   config: React.PropTypes.shape({
     allowSocialLogin: React.PropTypes.bool
@@ -197,16 +236,24 @@ Viewer.propTypes = {
     }),
     map: React.PropTypes.shape({
       crowdsourceLayer: React.PropTypes.shape({
-        id: React.PropTypes.string
+        id: React.PropTypes.string,
+        itemAttributePath: React.PropTypes.string,
+        primaryKey: React.PropTypes.string,
+        secondaryKey: React.PropTypes.string
       }),
       webmap: React.PropTypes.string,
       webmapOptions: React.PropTypes.shape({})
     }),
     gallery: React.PropTypes.shape({
-      itemAttributePath: React.PropTypes.string,
-      primaryKey: React.PropTypes.string,
-      secondaryKey: React.PropTypes.string,
       thumbnailKey: React.PropTypes.string
+    }),
+    contribute: React.PropTypes.shape({
+      title: React.PropTypes.string
+    }),
+    shareDisplay: React.PropTypes.shape({
+      media: React.PropTypes.shape({
+        type: React.PropTypes.string
+      })
     })
   }).isRequired
 };
@@ -238,8 +285,8 @@ const mapDispatchToProps = (dispatch) => {
     updateContributeState: (options) => {
       dispatch(AppActions.updateContributeState(options));
     },
-    selectFeaturesById: (features) => {
-      dispatch(MapActions.selectFeaturesById(features));
+    selectFeatures: (features) => {
+      dispatch(MapActions.selectFeatures(features));
     }
   };
 };

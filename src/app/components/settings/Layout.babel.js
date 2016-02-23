@@ -29,7 +29,7 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
             {this.props.alwaysChangeHint ? <IconTooltip className="always-change-hint" content={builderText.settingsModals.layout.headerHint} placement="right" /> : null}
           </h5>
         </div>
-        {Object.keys(layouts).map((layout,index) => {
+        {Object.keys(layouts).map((layout) => {
           const layoutClasses = Helper.classnames(['layout-option','row'],{
             selected: layout === this.props.selected
           });
@@ -37,7 +37,7 @@ export const SettingsLayout = class SettingsLayout extends React.Component {
           const altText = layouts[layout].name + ' ' + builderText.settingsModals.layout.commonAltText;
 
           return (
-            <div className={layoutClasses} key={index} onClick={this.saveData.bind(this,layout,'.id')}>
+            <div className={layoutClasses} key={layouts[layout].name} onClick={this.saveData.bind(this,layout,'.id')}>
               <div className="col-xs-12 col-md-5">
                 <div className="selected-icon" dangerouslySetInnerHTML={selectedIconHtml}></div>
                 <img className="layout-thumbnail" alt={altText} src={layoutImg} />

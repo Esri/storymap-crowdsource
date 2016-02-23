@@ -5,7 +5,7 @@ const defaultFields = builderOptions ? builderOptions.featureServiceDefaults.bas
 
 export const fields = function (state = defaultFields, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_FIELDS':
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_FIELDS':
       return action.fields;
     default:
       return state;

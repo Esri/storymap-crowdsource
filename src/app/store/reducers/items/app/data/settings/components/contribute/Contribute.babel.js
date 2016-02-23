@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import fields from './fields/Fields';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 const defaultTitle = builderText ? builderText.contribute.defaultTitle : '';
@@ -14,8 +13,7 @@ export const title = function (state = defaultTitle, action) {
 };
 
 export const contribute = combineReducers({
-  title,
-  fields
+  title
 });
 
 export default contribute;

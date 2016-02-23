@@ -33,6 +33,7 @@ $bootstrap: '' !default;
   @import "calcite/footer-custom";
   @import "calcite/sticky-footer";
   @import "calcite/loader";
+  @import "calcite/card-custom";
 }
 
 @if $bootstrap == 'calcite' or $bootstrap == 'default' {

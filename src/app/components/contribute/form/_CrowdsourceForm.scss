@@ -1,9 +1,7 @@
 .contribute-panel {
-  position: absolute;
-  overflow: auto;
-  height: 100%;
-  width: 100%;
-  z-index: 100;
+  .form-title {
+    margin-top: 0;
+  }
 
   .required-warning {
     margin-top: 15px;

@@ -1,3 +1,7 @@
+import $ from 'jquery';
+import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
+
 export const dataURItoBlob = function dataURItoBlob(dataURI) {
   let byteString;
 
@@ -17,6 +21,28 @@ export const dataURItoBlob = function dataURItoBlob(dataURI) {
   return new Blob([ia], {type: mimeString});
 };
 
+export const checkForCredential = function(options) {
+
+  const defaults = {};
+  const settings = $.extend(true,{},defaults,options);
+
+  const attachmentUrl = new URI(settings.url);
+
+  // Append token to URL for private photo attachments
+  if (lang.getObject('credential.token',false,settings) && lang.getObject('credential.server',false,settings)) {
+    const serverURI = new URI(lang.getObject('credential.ServerResponse()',false,settings));
+    const matchString = serverURI.host() + serverURI.path();
+    const testPhotoString = attachmentUrl.host() + attachmentUrl.path();
+
+    if (testPhotoString.match(matchString)) {
+      attachmentUrl.setSearch('token', lang.getObject('credential.token',false,settings));
+    }
+  }
+
+  return attachmentUrl.href();
+};
+
 export default {
+  checkForCredential,
   dataURItoBlob
 };

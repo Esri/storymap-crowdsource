@@ -44,11 +44,11 @@ export default class Select extends FormGroup {
           {...this.props.inputAttr}>
           {this.props.noDefaultSelection ? <option disabled value="">{formText.noDefaultSelection}</option> : null}
           {
-            this.props.options.map((option,index) => {
+            this.props.options.map((option) => {
               if (typeof option === 'string') {
-                return <option key={index} value={option}>{option}</option>;
+                return <option key={option} value={option}>{option}</option>;
               } else if (typeof option === 'object' && option.value !== undefined && option.label !== undefined) {
-                return <option key={index} value={option.value}>{option.label}</option>;
+                return <option key={option.value} value={option.value}>{option.label}</option>;
               } else {
                 _onError('Each option must be either a string or a object containing the keys "value" and "label."');
               }

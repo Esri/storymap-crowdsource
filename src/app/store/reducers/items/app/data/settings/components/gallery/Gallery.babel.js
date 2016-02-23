@@ -1,11 +1,7 @@
 import $ from 'jquery';
 
 const defaultGallery = {
-  itemAttributePath: 'attributes',
-  idKey: 'FID',
-  primaryKey: 'Name',
-  secondaryKey: 'LocationName',
-  thumbnailKey: 'ThumbnailUrl'
+  thumbnailField: 'ThumbnailUrl'
 };
 
 export const gallery = function (state = defaultGallery, action) {

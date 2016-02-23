@@ -9,30 +9,36 @@ export const LazyImage = class LazyImage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onWindowScroll = this.onWindowScroll.bind(this);
+    this.checkVisible = this.checkVisible.bind(this);
 
     this.state = {
       visible: false,
-      loaded: false
+      loaded: false,
+      height: false,
+      width: false
     };
   }
 
   componentDidMount() {
-    this.markAsLoaded = () => {
-      this.setState({ loaded: true });
+    this.markAsLoaded = (width,height) => {
+      this.setState({
+        loaded: true,
+        height,
+        width
+      });
     };
 
     this._scrollableParents = $(ReactDOM.findDOMNode(this)).parents().filter(function(){
       return $(this).isScrollable();
     });
 
-    this._scrollableParents.on('scroll', this.onWindowScroll);
-    this.onWindowScroll();
+    this._scrollableParents.on('scroll', this.checkVisible);
+    this.checkVisible();
   }
 
   componentDidUpdate() {
     if (!this.state.visible) {
-      this.onWindowScroll();
+      this.checkVisible();
     }
   }
 
@@ -43,10 +49,10 @@ export const LazyImage = class LazyImage extends React.Component {
   }
 
   onVisible() {
-    this._scrollableParents.off('scroll', this.onWindowScroll);
+    this._scrollableParents.off('scroll', this.checkVisible);
   }
 
-  onWindowScroll() {
+  checkVisible() {
     const threshold = this.props.threshold;
     const bounds = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const scrollTop = window.pageYOffset;
@@ -59,7 +65,7 @@ export const LazyImage = class LazyImage extends React.Component {
       const preload = new Image();
 
       preload.onload = () => {
-        this.markAsLoaded();
+        this.markAsLoaded(preload.width,preload.height);
       };
       preload.src = this.props.src;
 
@@ -75,7 +81,22 @@ export const LazyImage = class LazyImage extends React.Component {
       'loaded': this.state.loaded
     }]);
     const backgroundImage = this.state.visible && this.state.loaded ? {backgroundImage: 'url(' + this.props.src + ')'} : {};
-    const style = $.extend(true, {}, backgroundImage, this.props.style);
+
+    let autoSizeStyle = {};
+
+    if (this.props.autoSizeDiv && this.state.width && this.state.height) {
+      autoSizeStyle = {
+        height: 0,
+        width: '100%',
+        paddingTop: (this.state.height / this.state.width * 100) + '%'
+      };
+    }
+
+    const style = $.extend(true, {}, backgroundImage, {
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+    }, autoSizeStyle, this.props.style);
 
     return (
       <div className={imageClass} style={style}></div>
@@ -85,6 +106,7 @@ export const LazyImage = class LazyImage extends React.Component {
 };
 
 LazyImage.propTypes = {
+  autoSizeDiv: React.PropTypes.bool,
   scrollContainers: React.PropTypes.array,
   src: React.PropTypes.string,
   style: React.PropTypes.shape({
@@ -96,13 +118,10 @@ LazyImage.propTypes = {
 };
 
 LazyImage.defaultProps = {
+  autoSizeDiv: false,
   scrollContainers: [],
   src: '',
-  style: {
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
-  },
+  style: {},
   threshold: 200
 };
 
