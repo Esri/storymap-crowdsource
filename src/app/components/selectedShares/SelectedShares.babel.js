@@ -33,10 +33,16 @@ export default class SelectedShares extends React.Component {
                   { this.getMedia(current) }
                   <div className="info-section">
                     <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
-                    <small className="share-location">{attributes[this.props.secondaryField]}</small>
-                    <br/>
-                    <br/>
-                    <p>{attributes.Description}</p>
+                    <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
+                    { this.props.displayOrder.map((current) => {
+
+                      if (typeof current === 'string') {
+                        const fieldClasses = Helper.classnames(['field-display', 'field-' + current]);
+
+                        return (<p key={current} className={fieldClasses}>{attributes[current]}</p>);
+                      }
+
+                    })}
                   </div>
                 </article>
               </li>
@@ -66,10 +72,13 @@ export default class SelectedShares extends React.Component {
 
         return (
           <div className="media-section">
-            <LazyImage className="media-photo" autoSizeDiv={true} src={photoUrl}></LazyImage>
-            <div className="card-options">
+            <LazyImage className="media-photo"
+              autoSizeDiv={true}
+              src={photoUrl}>
+            </LazyImage>
+            {/*<div className="card-options">
               <button type="button" className="open-btn" data-ember-action="501">{viewerText.selectedShares.enlargePhotoButton}</button>
-            </div>
+            </div>*/}
           </div>
         );
     }
@@ -80,6 +89,7 @@ export default class SelectedShares extends React.Component {
 SelectedShares.propTypes = {
   closeAction: React.PropTypes.func,
   items: React.PropTypes.array,
+  displayOrder: React.PropTypes.array,
   attributePath: React.PropTypes.string.isRequired,
   idField: React.PropTypes.string.isRequired,
   primaryField: React.PropTypes.string.isRequired,
@@ -104,6 +114,7 @@ SelectedShares.propTypes = {
 
 SelectedShares.defaultProps = {
   items: [],
+  displayOrder: [],
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: '',
   closeAction: () => {}

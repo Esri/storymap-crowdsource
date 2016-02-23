@@ -4,7 +4,8 @@ const defaultDisplay = {
   media: {
     type: 'photo',
     field: 'PhotoUrl'
-  }
+  },
+  displayOrder: ['Description']
 };
 
 export const shareDisplay = function (state = defaultDisplay, action) {

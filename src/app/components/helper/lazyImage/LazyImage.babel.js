@@ -85,10 +85,19 @@ export const LazyImage = class LazyImage extends React.Component {
     let autoSizeStyle = {};
 
     if (this.props.autoSizeDiv && this.state.width && this.state.height) {
+      let aspectRatio = this.state.height / this.state.width;
+
+      // TODO remove temporary zoom of panoramic images
+      if (aspectRatio < 0.75) {
+        aspectRatio = 0.75;
+      } else if (aspectRatio > 1.33) {
+        aspectRatio = 1.33;
+      }
+
       autoSizeStyle = {
         height: 0,
         width: '100%',
-        paddingTop: (this.state.height / this.state.width * 100) + '%'
+        paddingTop: (aspectRatio * 100) + '%'
       };
     }
 
@@ -96,7 +105,7 @@ export const LazyImage = class LazyImage extends React.Component {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
-    }, autoSizeStyle, this.props.style);
+    }, this.props.style, autoSizeStyle);
 
     return (
       <div className={imageClass} style={style}></div>

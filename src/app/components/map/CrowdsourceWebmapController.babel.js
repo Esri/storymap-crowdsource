@@ -82,6 +82,10 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           MapActions.selectFeatures(e.singles);
         });
 
+        map.on('click', () => {
+          MapActions.selectFeatures([]);
+        });
+
         // Hide original layer
         layer.hide();
 
