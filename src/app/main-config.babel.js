@@ -116,7 +116,7 @@
 
   if (window.app.indexCfg.bootstrapTheme.toLowerCase() === 'default') {
     pathMods.bootstrapPath = '-bootstrap';
-  } else if (window.app.indexCfg.bootstrapTheme && window.app.indexCfg.bootstrapTheme.search('http')) {
+  } else if (window.app.indexCfg.bootstrapTheme && window.app.indexCfg.bootstrapTheme.match('http')) {
     _loadCSS(window.app.indexCfg.bootstrapTheme, true);
   } else if (pathMods.bootstrapPath === '') {
     _loadCSS(window.app.indexCfg.bootstrapTheme);

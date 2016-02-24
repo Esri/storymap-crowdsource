@@ -12,7 +12,7 @@ export default class Login extends React.Component {
 
   render() {
 
-    const closeBtnClasses = Helper.classnames([this.props.className,this.props.classNames,'btn','btn-default','btn-block','close-btn']);
+    const closeBtnClasses = Helper.classnames(['btn','btn-default','btn-block','close-btn']);
 
     return (
       <div className="row">

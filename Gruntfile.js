@@ -130,6 +130,11 @@ module.exports = function (grunt) {
           src: [ 'resources/**' ],
           dest: 'dist/'
         } ]
+      },
+      oauthCallback: {
+        files: {
+          'dist/oauth-callback.html': 'src/oauth-callback.html'
+        }
       }
     },
 
@@ -507,6 +512,7 @@ module.exports = function (grunt) {
     'googlefonts',
     'concatFontStyle',
     'copy:resources',
+    'copy:oauthCallback',
     'swig:dist',
     'htmlmin:dist',
     'regex-replace:distHtml',
