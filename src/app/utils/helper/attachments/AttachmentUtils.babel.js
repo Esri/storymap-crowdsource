@@ -29,13 +29,13 @@ export const checkForCredential = function(options) {
   const attachmentUrl = new URI(settings.url);
 
   // Append token to URL for private photo attachments
-  if (lang.getObject('credential.token',false,settings) && lang.getObject('credential.server',false,settings)) {
-    const serverURI = new URI(lang.getObject('credential.ServerResponse()',false,settings));
+  if (lang.getObject('layer.credential.token',false,settings) && lang.getObject('layer.credential.server',false,settings)) {
+    const serverURI = new URI(lang.getObject('layer.credential.server',false,settings));
     const matchString = serverURI.host() + serverURI.path();
     const testPhotoString = attachmentUrl.host() + attachmentUrl.path();
 
     if (testPhotoString.match(matchString)) {
-      attachmentUrl.setSearch('token', lang.getObject('credential.token',false,settings));
+      attachmentUrl.setSearch('token', lang.getObject('layer.credential.token',false,settings));
     }
   }
 

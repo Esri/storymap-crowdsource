@@ -64,8 +64,8 @@ module.exports = function (grunt) {
             baseDir: './dist'
           },
           https: {
-            key: './config/server/dev_ssl/crowdsource_dev.key',
-            cert: './config/server/dev_ssl/crowdsource_dev.crt'
+            key: './config/server/dev_ssl/key.pem',
+            cert: './config/server/dev_ssl/cert.pem'
           },
           port: 8000,
           ui: {
