@@ -11,7 +11,7 @@ const defaultSubtitle = builderText ? builderText.appDataPlaceholderText.intro.s
 
 const defaultBackground = {
   type: 'photo',
-  source: 'resources/images/splash/splash' + Helper.mathUtils.getRandomIntInclusive(1,12) + '.jpg'
+  source: 'resources/images/splash/splash' + Helper.mathUtils.getRandomIntInclusive(1,17) + '.jpg'
 };
 
 export const title = function (state = '', action) {
