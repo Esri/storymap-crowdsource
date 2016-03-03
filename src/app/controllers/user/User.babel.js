@@ -95,6 +95,8 @@ export default class UserController {
         portal.signIn().then(() => {
           this.verifyCredentials();
         });
+      },(err) => {
+        _onStatus(err.message,true);
       });
     }
 
@@ -109,7 +111,7 @@ export default class UserController {
   loginWithOAuth(service) {
     const portal = lang.getObject('appState.app.portal',false,this);
 
-    if (!IdentityManager.findCredential(portal.portalUrl)) {
+    if (!IdentityManager.findCredential(portal.url)) {
       const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
       const redirectUri = lang.getObject('appState.items.app.data.settings.oauth.redirectUris',false,this)[0];
       const url = new URI(portal.url);
@@ -137,6 +139,10 @@ export default class UserController {
       } else {
         IdentityManager.getCredential(portal.url,{
           oAuthPopupConfirmation: false
+        }).then(() => {
+          portal.signIn().then(() => {
+            this.finishOAuthLogin();
+          });
         });
       }
     } else {
@@ -183,10 +189,11 @@ export default class UserController {
       },credential);
 
       IdentityManager.registerToken(properties);
+
+      portal.signIn().then(() => {
+        this.finishOAuthLogin();
+      });
     }
-    portal.signIn().then(() => {
-      this.finishOAuthLogin();
-    });
   }
 
   finishOAuthLogin() {
