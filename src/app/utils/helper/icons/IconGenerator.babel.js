@@ -42,6 +42,12 @@ const _icons = {
     viewBox: '0 0 1024 1024',
     path: 'M642 480q40-40 40-96 0-70-50-120t-120-50-120 50-50 120h84q0-34 26-60t60-26 60 26 26 60-26 60l-52 54q-50 54-50 120v22h84q0-66 50-120zM554 810v-84h-84v84h84zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z'
   },
+  'home': {
+    id: 'icon-home',
+    html: '<svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>',
+    viewBox: '0 0 1024 1024',
+    path: 'M426 854h-212v-342h-128l426-384 426 384h-128v342h-212v-256h-172v256z'
+  },
   'link': {
     id: 'icon-link',
     html: '<svg class="icon icon-link"><use xlink:href="#icon-link"></use></svg>',

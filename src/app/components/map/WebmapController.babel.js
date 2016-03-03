@@ -1,6 +1,9 @@
 import $ from 'jquery';
+import domContruct from 'dojo/dom-construct';
 import arcgisUtils from 'esri/arcgis/utils';
+import HomeButton from 'esri/dijit/HomeButton';
 import EventsEmitter from 'lib/eventEmitter/EventEmitter';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Logger from 'babel/utils/logging/Logger';
 import AppActions from 'babel/actions/AppActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -30,7 +33,8 @@ export const WebmapController = class WebmapController extends EventsEmitter {
     super(options);
 
     let defaults = {
-      mapDiv: 'map'
+      mapDiv: 'map',
+      homeButton: true
     };
 
     this._settings = $.extend(true, {}, defaults, options);
@@ -55,6 +59,18 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
         if (response.errors) {
           this.handleMapResponseErrors(response.errors);
+        }
+
+        if (this._settings.homeButton) {
+          this._homeButton = new HomeButton({
+            map: this._map,
+            extent: this._map.extent,
+            theme: 'esriSimpleSliderIncrementButton home-button'
+          },domContruct.create('div',null,document.querySelector('.esriSimpleSlider .esriSimpleSliderIncrementButton'),"after"));
+          $('.esriSimpleSliderIncrementButton.home-button .home').html(getIcon('home'));
+          this._homeButton.on('load', () => {
+            $('.esriSimpleSliderIncrementButton.home-button .home').html(getIcon('home'));
+          });
         }
 
         if (this._map.loaded) {

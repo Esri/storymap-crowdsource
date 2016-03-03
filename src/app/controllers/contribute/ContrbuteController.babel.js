@@ -183,6 +183,7 @@ export default class ContributeController {
       saving: false,
       graphic: false
     });
+    this.savingGraphic = false;
 
     if (lang.getObject('appState.app.map.originalObject.refreshCrowdsourceLayer',false,this)) {
         this.appState.app.map.originalObject.refreshCrowdsourceLayer();

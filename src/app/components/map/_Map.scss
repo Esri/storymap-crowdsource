@@ -3,3 +3,13 @@
   height: 100%;
   width: 100%;
 }
+
+.home-button svg {
+  margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+  .home-button {
+    display: none;
+  }
+}
