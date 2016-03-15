@@ -9,6 +9,7 @@ import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
+import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/BottomNavigation';
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
 import UserActions from 'babel/actions/UserActions';
@@ -56,6 +57,31 @@ class Viewer extends React.Component {
           {...this.props.components.common}>
         </IntroSplash>
         { this.Layout }
+        <MobileBottomNavigation
+          buttons={[
+            {
+              name: 'Home',
+              icon: 'home',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.INTRO) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.INTRO)
+            },{
+              name: 'Map',
+              icon: 'map',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.MAP) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.MAP)
+            },{
+              name: 'Gallery',
+              icon: 'gallery',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.GALLERY) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.GALLERY)
+            },{
+              name: this.props.components.common.participateShort,
+              icon: 'participate',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0,
+              action: this.props.updateContributeState.bind(this,{active: true})
+            }
+          ]}>
+        </MobileBottomNavigation>
       </div>
     );
   }

@@ -22,6 +22,9 @@
 @import "contribute/ContributePanel";
 @import "selectedShares/SelectedShares";
 
+// Mobile
+@import "mobile/bottomNavigation/BottomNavigation";
+
 html,body,#app,.crowdsource-app,.viewer {
   overflow: hidden;
 }

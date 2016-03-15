@@ -22,6 +22,7 @@
 
     &:last-child {
       padding: 0 $headerMargin 0;
+      text-align: right;
     }
 
     &.fill-cell {
@@ -71,6 +72,7 @@
     }
 
   }
+
   .share {
     padding: 0 5px;
 
@@ -80,5 +82,13 @@
       vertical-align: middle;
     }
   }
+
+  // RESPONSIVE STYLES START
+  @media (max-width: 767px) {
+    .participate-cell, .title-cell {
+      display: none;
+    }
+  }
+  // RESPONSIVE STYLES END
 
 }

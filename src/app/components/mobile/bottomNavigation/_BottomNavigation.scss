@@ -1,0 +1,28 @@
+.bottom-navigation {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: $MobilebottomNavigationHeight;
+  width: 100%;
+  z-index: 50;
+
+  button {
+    opacity: 0.4;
+    cursor: pointer;
+
+    &.active {
+      opacity: 1;
+    }
+
+    .icon {
+      font-size: 1.25em;
+    }
+
+    .name {
+      margin: 0;
+      margin-top: -0.7em;
+    }
+  }
+}

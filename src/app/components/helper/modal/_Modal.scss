@@ -1,24 +1,4 @@
 .modal {
-
-  @media (min-width: 768px) {
-    .vertical-alignment-helper.is-centered {
-        display:table;
-        height: 100%;
-        width: 100%;
-        pointer-events:none;
-
-        .vertical-alignment-middle {
-            display: table-cell;
-            vertical-align: middle;
-            pointer-events:none;
-        }
-        .modal-content {
-            width:inherit;
-            height:inherit;
-            margin: 0 auto;
-            pointer-events: all;
-        }
-    }
-  }
-
+  display: flex;
+  align-items: center;
 }

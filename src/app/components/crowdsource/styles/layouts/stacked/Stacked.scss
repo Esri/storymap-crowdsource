@@ -15,71 +15,90 @@ $paneNavigationHeight: 40px;
     height: calc(100% - #{$headerHeight});
     width: 100%;
     overflow: hidden;
+  }
 
-    .scroll-container {
-      position: absolute;;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
+  .scroll-container {
+    position: absolute;;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .content-pane {
+    .map, .thumbnail-gallery {
+      height: calc(100% - #{$paneNavigationHeight});
     }
 
+    .pane-navigation {
+      display: table-cell;
+      vertical-align: middle;
+      height: $paneNavigationHeight;
+      width: 100vw;
+      text-align: center;
+      cursor: pointer;
+
+      .text {
+        margin: 0 5px;
+        vertical-align: middle;
+      }
+
+      .icon {
+        margin: 0 5px;
+        height: 25px;
+        width: 25px;
+
+        svg {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .overlay-panel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 75px;
+    width: 30%;
+    padding: 15px;
+    min-width: 300px;
+    max-width: 500px;
+    z-index: 100;
+    overflow: auto;
+
+    &.overlay-toggle-enter {
+      opacity: 0;
+    }
+
+    &.overlay-toggle-enter-active {
+      opacity: 1;
+      @include transition(opacity 1s);
+    }
+
+    &.overlay-toggle-leave {
+      opacity: 0;
+      @include transition(opacity 1s);
+    }
+  }
+
+  // RESPONSIVE STYLES START
+  @media (max-width: 767px) {
     .content-pane {
       .map, .thumbnail-gallery {
-        height: calc(100% - #{$paneNavigationHeight});
+        height: 100%;
       }
 
       .pane-navigation {
-        display: table-cell;
-        vertical-align: middle;
-        height: $paneNavigationHeight;
-        width: 100vw;
-        text-align: center;
-        cursor: pointer;
-
-        .text {
-          margin: 0 5px;
-          vertical-align: middle;
-        }
-
-        .icon {
-          margin: 0 5px;
-          height: 25px;
-          width: 25px;
-
-          svg {
-            vertical-align: middle;
-          }
-        }
+        display: none;
       }
     }
-
-    .overlay-panel {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      right: 75px;
-      width: 30%;
-      padding: 15px;
-      min-width: 300px;
-      max-width: 500px;
-      z-index: 100;
-      overflow: auto;
-
-      &.overlay-toggle-enter {
-        opacity: 0;
-      }
-
-      &.overlay-toggle-enter-active {
-        opacity: 1;
-        @include transition(opacity 1s);
-      }
-
-      &.overlay-toggle-leave {
-        opacity: 0;
-        @include transition(opacity 1s);
-      }
-    }
-
   }
+
+  .overlay-panel {
+    max-width: none;
+    width: 100%;
+    right: 0;
+  }
+  // RESPONSIVE STYLES END
 
 }

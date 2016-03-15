@@ -46,11 +46,11 @@ export const Header = class Header extends React.Component {
           <a href={this.props.logo.link} className="logo-link cell" target="_blank">
             <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
           </a>
-          <div className="cell fill-cell">
+          <div className="title-cell cell fill-cell">
             <h4 className="title" tabIndex="0" onClick={this.props.homeAction}>{this.props.title}</h4>
           </div>
           <ReactCSSTransitionGroup
-            className="cell"
+            className="cell participate-cell"
             component="div"
             transitionName="participate-btn"
             transitionEnterTimeout={1000}

@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #E5E5E5;
   @include box-shadow(inset 0px 0px 82px 19px rgba(0,0,0,0.3));
-  z-index: 900;
+  z-index: 49;
 
   .background-fill {
     border-radius: 10px;
@@ -91,4 +91,34 @@
       }
     }
   }
+
+  // RESPONSIVE STYLES START
+  @media (max-width: 1000px) {
+    .title-pane {
+      h1 {
+        font-size: 2.5em;
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .title-pane {
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.3em;
+      }
+    }
+
+    .action-buttons button, .action-buttons span {
+      display: none;
+    }
+  }
+  // RESPONSIVE STYLES END
 }

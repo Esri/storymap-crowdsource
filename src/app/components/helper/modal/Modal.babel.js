@@ -27,9 +27,6 @@ export default class Modal extends React.Component {
   render() {
 
     const modalClasses = Helper.classnames([this.props.className,this.props.classNames,'modal']);
-    const verticalHelperClass = Helper.classnames('vertical-alignment-helper',{
-      'is-centered': this.props.verticallyCentered
-    });
 
     const createMarkup = function createMarkup(content) {
       return {__html: content};
@@ -47,8 +44,7 @@ export default class Modal extends React.Component {
 
     return (
       <div className={modalClasses} tabIndex="-1" role="dialog">
-        <div className={verticalHelperClass}>
-          <div className="modal-dialog vertical-alignment-middle">
+          <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header" style={this.props.headerStyle}>
                 { this.props.closeButton ? <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -67,7 +63,6 @@ export default class Modal extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 
@@ -93,8 +88,7 @@ Modal.propTypes = {
     React.PropTypes.bool
   ]),
   headerStyle: React.PropTypes.shape({}),
-  classNames: React.PropTypes.array,
-  verticallyCentered: React.PropTypes.bool
+  classNames: React.PropTypes.array
 };
 
 Modal.defaultProps = {
@@ -105,6 +99,5 @@ Modal.defaultProps = {
   keyboardClose: false,
   backdrop: false,
   headerStyle: {},
-  classNames: [],
-  verticallyCentered: true
+  classNames: []
 };
