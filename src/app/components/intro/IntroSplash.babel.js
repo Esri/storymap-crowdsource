@@ -20,16 +20,14 @@ export const IntroSplash = class IntroSplash extends React.Component {
     const loader = this.props.showLoader ? null : <Loader></Loader>;
 
     const participateActionButton = this.props.showParticipateActionButton ?
-      <button className="participate text-btn" onClick={this.props.participateAction}>
-        <div className="background-fill"></div>
+      <button className="participate text-btn background-fill" onClick={this.props.participateAction}>
         <span>{this.props.participateLong}</span>
       </button> : null;
 
     const seperatorText = this.props.showExploreActionButton && this.props.showParticipateActionButton ?
       <span className="action-seperator">{this.props.seperatorText}</span> : null;
     const showExploreActionButton = this.props.showExploreActionButton ?
-      <button className="explore text-btn" onClick={this.props.exploreAction}>
-        <div className="background-fill"></div>
+      <button className="explore text-btn background-fill" onClick={this.props.exploreAction}>
         <span>{this.props.exploreText}</span>
       </button> : null;
 
@@ -44,8 +42,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
     return (
       <div className={introClass}>
         {background}
-        <div className="title-pane">
-          <div className="background-fill"></div>
+        <div className="title-pane background-fill">
           <h1 className="title">{this.props.title}</h1>
           <h2 className="subtitle serif-face">{this.props.subtitle}</h2>
         </div>

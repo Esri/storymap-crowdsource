@@ -43,6 +43,10 @@
       width: 100%;
       bottom: 0;
 
+      &.background-fill {
+        background-color: rgba(0,0,0,0.7);
+      }
+
       h6, p {
         position: relative;
         overflow: hidden;
@@ -68,11 +72,6 @@
         white-space: nowrap;
       }
 
-      .background-fill {
-        background-color: #000;
-        bottom: 0;
-        z-index: 1;
-      }
     }
 
     .background-image.lazy-image.loaded {

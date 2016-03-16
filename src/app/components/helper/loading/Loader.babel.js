@@ -29,14 +29,13 @@ export default class Loader extends React.Component {
 
   render() {
 
-    const loaderClasses = Helper.classnames([this.props.className,this.props.classNames,'loadingIndicator']);
+    const loaderClasses = Helper.classnames([this.props.className,this.props.classNames,'loadingIndicator','background-fill']);
     const loaderStyle = {
       marginLeft: -(this.state.width/2)
     };
 
     return (
       <div ref={(ref) => this.loader = ref} style={loaderStyle} className={loaderClasses}>
-        <div className="background-fill"></div>
         <img src="resources/images/loader-light.gif" />
         <p className="loading-message">{this.props.message}</p>
       </div>

@@ -64,10 +64,9 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
               return (
                 <li className={itemClasses} key={attr[this.props.idField]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idField])} data-thumbnail={photoUrl}>
                   <LazyImage className="background-image" src={photoUrl}></LazyImage>
-                  <div className="info-card">
+                  <div className="info-card background-fill">
                     <h6>{attr[this.props.primaryField]}</h6>
                     <p>{attr[this.props.secondaryField]}</p>
-                    <div className="background-fill"></div>
                   </div>
                 </li>
               );

@@ -9,7 +9,11 @@ $shadowColor: #fff;
     color: #000;
 
     .background-fill {
-      background-color: #E5E5E5;
+      background-color: rgba(229,229,229,0.7);
+    }
+
+    button.background-fill:hover {
+      background-color: rgba(229,229,229,0.9);
     }
 
     .action-seperator {
