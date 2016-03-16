@@ -107,6 +107,13 @@
 
   @media (max-width: 767px) {
     .title-pane {
+      height: calc(100% - #{$headerHeight});
+      width: 100%;
+      left: 0;
+      top: $headerHeight;
+      border-radius: 0;
+      overflow: auto;
+
       h1 {
         font-size: 2em;
       }
@@ -121,4 +128,10 @@
     }
   }
   // RESPONSIVE STYLES END
+}
+
+@media (max-width: 767px) {
+  .splash {
+    height: calc(100% - #{$mobileBottomNavigationHeight});
+  }
 }

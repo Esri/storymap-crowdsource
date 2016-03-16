@@ -83,6 +83,10 @@ $paneNavigationHeight: 40px;
 
   // RESPONSIVE STYLES START
   @media (max-width: 767px) {
+    .main-content {
+      height: calc(100% - #{$headerHeight}  - #{$mobileBottomNavigationHeight});
+    }
+
     .content-pane {
       .map, .thumbnail-gallery {
         height: 100%;
