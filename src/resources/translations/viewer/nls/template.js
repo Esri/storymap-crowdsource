@@ -27,6 +27,13 @@ define({
         }
       }
     },
+    mobile: {
+      bottomNav: {
+        home: 'Home',
+        map: 'Map',
+        gallery: 'Gallery'
+      }
+    },
     forms: {
       select: {
         noDefaultSelection: 'Please choose an option...'
@@ -49,6 +56,7 @@ define({
       form: {
         photo: {
           pickFile: 'Pick a File',
+          choosePhoto: 'Upload a Photo',
           selectNew: 'Use a different photo'
         },
         location: {

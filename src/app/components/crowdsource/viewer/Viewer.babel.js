@@ -60,17 +60,17 @@ class Viewer extends React.Component {
         <MobileBottomNavigation
           buttons={[
             {
-              name: 'Home',
+              name: viewerText.mobile.bottomNav.home,
               icon: 'home',
               active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.INTRO) >= 0,
               action: this.props.showComponent.bind(this,componentNames.INTRO)
             },{
-              name: 'Map',
+              name: viewerText.mobile.bottomNav.map,
               icon: 'map',
               active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.MAP) >= 0,
               action: this.props.showComponent.bind(this,componentNames.MAP)
             },{
-              name: 'Gallery',
+              name: viewerText.mobile.bottomNav.gallery,
               icon: 'gallery',
               active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.GALLERY) >= 0,
               action: this.props.showComponent.bind(this,componentNames.GALLERY)

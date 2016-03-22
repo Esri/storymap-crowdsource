@@ -27,13 +27,13 @@
     text-align: center;
     opacity: 0;
 
-    h1 {
+    .title {
       margin: 30px;
       position: relative;
       font-size: 4em;
     }
 
-    h2 {
+    .subtitle {
       margin: 15px 30px 30px;
       position: relative;
       font-size: 2em;
@@ -91,11 +91,11 @@
   // RESPONSIVE STYLES START
   @media (max-width: 1000px) {
     .title-pane {
-      h1 {
+      .title {
         font-size: 2.5em;
       }
 
-      h2 {
+      .subtitle {
         font-size: 1.8em;
       }
     }
@@ -110,11 +110,11 @@
       border-radius: 0;
       overflow: auto;
 
-      h1 {
+      .title {
         font-size: 2em;
       }
 
-      h2 {
+      .subtitle {
         font-size: 1.3em;
       }
     }
@@ -128,6 +128,10 @@
 
 @media (max-width: 767px) {
   .splash {
-    height: calc(100% - #{$mobileBottomNavigationHeight});
+    height: 100%;
+
+    .title-pane .subtitle {
+      margin-bottom: calc(30px + #{$mobileBottomNavigationHeight});
+    }
   }
 }

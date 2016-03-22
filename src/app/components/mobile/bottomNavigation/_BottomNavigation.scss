@@ -7,10 +7,12 @@
   height: $mobileBottomNavigationHeight;
   width: 100%;
   z-index: 50;
+  @include animation(slideInBottomNavigation 2s);
 
   button {
     opacity: 0.4;
     cursor: pointer;
+    outline: none;
 
     &.active {
       opacity: 1;
@@ -23,6 +25,7 @@
     .name {
       margin: 0;
       margin-top: -0.7em;
+      line-height: 1;
     }
   }
 }
@@ -32,3 +35,12 @@
     display: flex;
   }
 }
+
+@include keyframes(slideInBottomNavigation) {
+  0% {
+    bottom: -$mobileBottomNavigationHeight;
+  }
+  100% {
+    bottom: 0;
+  }
+};

@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link type="image/ico" rel="shortcut icon" href="/resources/images/favicon.ico">
-  <link type="image/ico" rel="icon"  href="/resources/images/favicon.ico">
+  <link type="image/ico" rel="shortcut icon" href="resources/images/favicon.ico">
+  <link type="image/ico" rel="icon"  href="resources/images/favicon.ico">
 
   <!-- htmlmin:ignore -->
   <!--
@@ -36,7 +36,7 @@
 		//-------------------------------------------------------------------------------------------
 		var configOptions = {
 			// Enter an application ID created through the Crowdsource builder
-			appid: "c36500eb9f4c408ba5918042065e5fb4",
+			appid: "",
 			// Optionally to secure Series's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
 			// User will need to sign-in to access the viewer even if your application is public
 			oAuthAppId: "",
@@ -132,7 +132,7 @@
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>
-  {% if environment === 'dev' %}<script src="//localhost:35729/livereload.js"></script>{% endif %}
+  {% if environment === 'dev' %}<script src="//localhost:8888/livereload.js"></script>{% endif %}
 
 </body>
 </html>

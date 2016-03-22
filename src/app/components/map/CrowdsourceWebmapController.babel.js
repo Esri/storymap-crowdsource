@@ -1,5 +1,5 @@
 import $ from 'jquery';
-// import on from 'dojo/on';
+import on from 'dojo/on';
 import Logger from 'babel/utils/logging/Logger';
 import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
@@ -19,21 +19,11 @@ const _onError = function onError(err) {
   });
 };
 
-const _logStatus = function logStatus(message,debugOnly) {
-  _logger.logMessage({
-    type: 'status',
-    debugOnly,
-    message
-  });
-};
-
 export const CrowdsourceWebmapController = class CrowdsourceWebmapController extends WebmapController {
 
   onMapLoad() {
-    _logStatus('Webmap ' + this._map.webmapId + ' is loaded',true);
+    super.onMapLoad();
     this.createClusterLayer();
-    // TODO Move after layer load
-    this.onLoad();
   }
 
   createClusterLayer() {
@@ -64,11 +54,15 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           });
         }
 
-        // on.once(layer,'update-end',() => {
-        //   if (layer.graphics && layer.graphics.length === 0) {
-        //     this.onLoad();
-        //   }
-        // });
+        on.once(clusterLayer,'ids-returned',(e) => {
+          if (e.results.length === 0){
+            this.onLoad();
+          }
+        });
+
+        on.once(clusterLayer,'clusters-shown', () => {
+          this.onLoad();
+        });
 
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {

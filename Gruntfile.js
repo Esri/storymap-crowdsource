@@ -435,6 +435,7 @@ module.exports = function (grunt) {
     watch: {
       options: {
         livereload: {
+          port: 8888,
           key: grunt.file.read('config/server/dev_ssl/key.pem'),
           cert: grunt.file.read('config/server/dev_ssl/cert.pem')
         }

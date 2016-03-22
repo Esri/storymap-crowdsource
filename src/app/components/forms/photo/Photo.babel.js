@@ -58,25 +58,34 @@ export default class Photo extends FormGroup {
       'cropping': this.state.imageUrl ? true : false
     }]);
 
-    const uploaderClasses = Helper.classnames([this.props.className,'uploader','alert',{
+    const uploaderClasses = Helper.classnames([this.props.className,'drag-area','uploader','alert',{
       'alert-default': !this.state.dragging,
       'alert-info': this.state.dragging
     }]);
 
+    const fileUploader = !navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
+      <div className={uploaderClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
+        <h6>
+          {this.props.placeholder}
+          <br></br>
+          {ViewerText.common.or}
+        </h6>
+        <button type="button" className="btn btn-default btn-file" onBlur={this.onBlur}>
+          {ViewerText.contribute.form.photo.pickFile}
+          <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
+        </button>
+      </div>
+    ) : (
+      <button type="button" className="uploader btn btn-default btn-file btn-block" onBlur={this.onBlur}>
+        {ViewerText.contribute.form.photo.choosePhoto}
+        <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
+      </button>
+    );
+
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
-        <div className={uploaderClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
-          <h6>
-            {this.props.placeholder}
-            <br></br>
-            {ViewerText.common.or}
-          </h6>
-          <button type="button" className="btn btn-default btn-file" onBlur={this.onBlur}>
-            {ViewerText.contribute.form.photo.pickFile}
-            <input id={this.props.id} type="file" accept="image/*" capture="camera" tabIndex="-1" onChange={this.fileChange}></input>
-          </button>
-        </div>
+        {fileUploader}
         <div className="cropper-pane">
           <div className="btn-toolbar photo-controls" role="toolbar">
             <div className="btn-group zoom-group" role="group">
