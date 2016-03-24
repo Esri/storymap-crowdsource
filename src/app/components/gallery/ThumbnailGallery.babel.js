@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
+import InfiniteScroller from 'babel/components/helper/infiniteScroller/InfiniteScroller';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import ThumbnailGalleryController from 'babel/components/gallery/ThumbnailGalleryController';
 
@@ -11,6 +12,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
     // Autobind methods
     this.onSelect = this.onSelect.bind(this);
+    this.galleryItemRender = this.galleryItemRender.bind(this);
 
     this.state = {
       tileSettings: {}
@@ -44,37 +46,47 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
     return (
       <div className={galleryClass} onClick={this.onSelect.bind(null,false)}>
-        <ul className="gallery-list">
-          {this.props.items.map((item,index) => {
-              const attr = this.props.attributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.attributePath) : item;
-              const endTile = index % this.state.tileSettings.tilesPerRow === 0;
-              const photoUrl = Helper.attachmentUtils.checkForCredential({
-                url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
-                layer: this.props.layer
-              });
-              const itemStyle = {
-                height: this.state.tileSettings.tileSize,
-                width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
-              };
 
-              const itemClasses = Helper.classnames(['gallery-item', {
-                selected: this.props.selected.indexOf(attr[this.props.idField]) >= 0
-              }]);
-
-              return (
-                <li className={itemClasses} key={attr[this.props.idField]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idField])} data-thumbnail={photoUrl}>
-                  <LazyImage className="background-image" src={photoUrl}></LazyImage>
-                  <div className="info-card background-fill">
-                    <h6>{attr[this.props.primaryField]}</h6>
-                    <p>{attr[this.props.secondaryField]}</p>
-                  </div>
-                </li>
-              );
-          })}
-        </ul>
+        <InfiniteScroller
+          className="gallery-list"
+          transitionProps={{component: 'ul'}}
+          type="grid"
+          itemRenderMethod={this.galleryItemRender}
+          elementHeight={this.state.tileSettings.tileSize}
+          elementsPerRow={this.state.tileSettings.tilesPerRow}>
+          {/*{this.GalleryItems}*/}
+          {this.props.items}
+        </InfiniteScroller>
       </div>
     );
 
+  }
+
+  galleryItemRender(item,index) {
+    const attr = this.props.attributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.attributePath) : item;
+    const endTile = index % this.state.tileSettings.tilesPerRow === 0;
+    const photoUrl = Helper.attachmentUtils.checkForCredential({
+      url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
+      layer: this.props.layer
+    });
+    const itemStyle = {
+      height: this.state.tileSettings.tileSize,
+      width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
+    };
+
+    const itemClasses = Helper.classnames(['gallery-item', {
+      selected: this.props.selected.indexOf(attr[this.props.idField]) >= 0
+    }]);
+
+    return (
+      <li className={itemClasses} key={attr[this.props.idField]} style={itemStyle} onClick={this.onSelect.bind(null,attr[this.props.idField])} data-thumbnail={photoUrl}>
+        <LazyImage className="background-image" src={photoUrl}></LazyImage>
+        <div className="info-card background-fill">
+          <h6>{attr[this.props.primaryField]}</h6>
+          <p>{attr[this.props.secondaryField]}</p>
+        </div>
+      </li>
+    );
   }
 
   onSelect(selection,e) {
