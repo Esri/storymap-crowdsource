@@ -26,8 +26,13 @@ export const ThumbnailGalleryController = class ThumbnailGalleryController exten
   get tileSettings() {
     const scrollbarWidth = Helper.layout.getScrollbarWidth();
     const nodeWidth = $(this._settings.node).width() - scrollbarWidth;
-    const rowLength = Math.floor(nodeWidth / this._settings.size);
-    const tileSize = (nodeWidth / rowLength) || this._settings.size;
+    let rowLength = Math.floor(nodeWidth / this._settings.size);
+    let tileSize = (nodeWidth / rowLength) || this._settings.size;
+
+    if (rowLength === 1 && nodeWidth > (this._settings.size * 1.5)) {
+      rowLength = 2;
+      tileSize = (nodeWidth / rowLength);
+    }
 
     return ({
       tilesPerRow: rowLength,

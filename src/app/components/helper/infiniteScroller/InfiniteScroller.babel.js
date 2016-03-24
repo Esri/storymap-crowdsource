@@ -107,7 +107,7 @@ InfiniteScroller.propTypes = {
 
 InfiniteScroller.defaultProps = {
   type: 'grid',
-  threshold: 200,
+  threshold: 500,
   elementHeight: 200,
   elementsPerRow: 1,
   transitionProps: {
