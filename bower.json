@@ -35,6 +35,7 @@
     "loader": "https://github.com/fengyuanchen/loader/archive/eb81471c8ac608fef799e3b90b8c2ead6ff62a82.zip",
     "resample-hermite": "https://github.com/viliusle/Hermite-resize/archive/ede593b94d8fc9a33141229dc72fd334c7563baf.zip",
     "smartcrop": "*",
-    "autosize": "^3.0.15"
+    "autosize": "^3.0.15",
+    "clipboard": "^1.5.9"
   }
 }

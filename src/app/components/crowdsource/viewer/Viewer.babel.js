@@ -44,6 +44,7 @@ class Viewer extends React.Component {
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.header}
           {...this.props.components.common}
+          sharing={this.props.sharing}
           loading={this.props.loading}>
         </Header>
         <IntroSplash
@@ -281,6 +282,21 @@ Viewer.propTypes = {
         type: React.PropTypes.string
       })
     })
+  }).isRequired,
+  sharing: React.PropTypes.shape({
+    services: React.PropTypes.shape({
+      facebook: React.PropTypes.bool,
+      twitter: React.PropTypes.bool,
+      link: React.PropTypes.bool
+    }).isRequired,
+    appIds: React.PropTypes.shape({
+      facebook: React.PropTypes.string.isRequired
+    }).isRequired,
+    twitter: React.PropTypes.shape({
+      hashtags: React.PropTypes.string,
+      text: React.PropTypes.string,
+      twitterHandle: React.PropTypes.string
+    }).isRequired
   }).isRequired
 };
 
@@ -293,7 +309,14 @@ const mapStateToProps = (state) => {
     layoutId: state.items.app.data.settings.layout.id,
     layout: state.app.layout,
     map: state.app.map,
-    user: state.user
+    user: state.user,
+    sharing: {
+      services: state.items.app.data.settings.components.common.sharing.services,
+      appIds: {
+        facebook: state.config.FACEBOOK_APP_ID
+      },
+      twitter: state.items.app.data.settings.components.common.sharing.twitter
+    }
   };
 };
 

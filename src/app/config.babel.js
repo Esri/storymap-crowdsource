@@ -1,4 +1,9 @@
 window.app.cfg = {
+	// The Facebook ID is only valid on arcgis.com domain
+	// If used on another domain, user will have an error in the Facebook popup after login
+	// To use Facebook import on Portal for ArcGIS, create your own ID at https://developers.facebook.com/
+	// or set AUTHORIZED_IMPORT_SOURCE.facebook to false
+	FACEBOOK_APP_ID: '548250915353775',
   // Edit those to set a custom sharing or proxy URL
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL

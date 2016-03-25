@@ -111,6 +111,9 @@ define({
 				mapLoadingFail: 'Something went wrong, the map did not load correctly.',
         appLoadingFail: 'Something went wrong, the app did not load correctly.',
         crowdsourceLayerNotFound: 'Something went wrong, the story could not find or load the crowdsource map layer correctly.'
+      },
+      sharing: {
+        localhost: 'URL\'s with "localhost" cannot be shared.'
       }
     }
   }

@@ -57,7 +57,7 @@ export const Header = class Header extends React.Component {
             transitionLeaveTimeout={1000} >
             {participateBtn}
           </ReactCSSTransitionGroup>
-          <ShareButtonPane className="cell" social={this.props.social} />
+          <ShareButtonPane className="cell" config={this.props.sharing} />
         </div>
       </header>
     );
@@ -89,11 +89,7 @@ Header.propTypes = {
   }),
   title: React.PropTypes.string,
   participateShort: React.PropTypes.string,
-  social: React.PropTypes.shape({
-    facebook: React.PropTypes.bool,
-    twitter: React.PropTypes.bool,
-    bitly: React.PropTypes.bool
-  }),
+  sharing: React.PropTypes.shape({}),
   loading: React.PropTypes.shape({
     map: React.PropTypes.bool
   })
@@ -108,11 +104,6 @@ Header.defaultProps = {
   },
   title: '',
   participateShort: '',
-  social: {
-    facebook: false,
-    twitter: false,
-    bitly: false
-  },
   loading: {
     map: false
   }

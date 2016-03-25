@@ -5,6 +5,7 @@ import Select from 'babel/components/forms/select/Select';
 import builderText from 'i18n!translations/builder/nls/template';
 import ItemActions from 'babel/actions/ItemActions';
 import SettingsActions from 'babel/actions/SettingsActions';
+import ComponentActions from 'babel/actions/ComponentActions';
 import Validator from 'babel/utils/validations/Validator';
 import 'bootstrap/collapse';
 import 'bootstrap/transition';
@@ -66,6 +67,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
           ItemActions.updateAppItemTitle(res.value);
           SettingsActions.updateIntroTitle(res.value);
           SettingsActions.updateHeaderTitle(res.value);
+          ComponentActions.updateCommonSharingTwitter({text: res.value});
         }
         self.handleFieldChange('appName',res.valid);
       }

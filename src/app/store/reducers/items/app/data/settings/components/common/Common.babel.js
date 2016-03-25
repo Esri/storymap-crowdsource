@@ -1,17 +1,11 @@
-import $ from 'jquery';
 import { combineReducers } from 'redux';
+import sharing from './sharing/Sharing';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 // TODO global to common in path
 const defaultParticipateShort = builderText ? builderText.appDataPlaceholderText.globals.participateShort : '';
 const defaultParticipateLong = builderText ? builderText.appDataPlaceholderText.globals.participateLong : '';
 const defaultExploreText = builderText ? builderText.appDataPlaceholderText.globals.exploreText : '';
-
-const defaultSocial = {
-  facebook: true,
-  twitter: true,
-  link: true
-};
 
 export const participateShort = function (state = defaultParticipateShort, action) {
   switch (action.type) {
@@ -40,21 +34,11 @@ export const exploreText = function (state = defaultExploreText, action) {
   }
 };
 
-export const social = function (state = defaultSocial, action) {
-  switch (action.type) {
-    case 'UPDATE_SETTINGS_COMMON_SOCIAL':
-      // TODO check available services and that they are boolean
-      return $.extend(true,{},state,action.services);
-    default:
-      return state;
-  }
-};
-
 export const common = combineReducers({
   participateShort,
   participateLong,
   exploreText,
-  social
+  sharing
 });
 
 export default common;
