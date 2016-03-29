@@ -1,4 +1,13 @@
 .modal {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .modal {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
 }
