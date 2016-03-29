@@ -6,6 +6,7 @@
     "classes": true,
     "jsx": true,
     "modules": true,
+    "templates": true,
     "objectLiteralShorthandMethods": true,
     "objectLiteralShorthandProperties": true,
     "spread": true,

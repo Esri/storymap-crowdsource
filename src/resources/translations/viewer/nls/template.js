@@ -12,11 +12,25 @@ define({
         close: 'Close'
       }
     },
-    social: {
+    sharing: {
       buttonTitleAttr: {
         facebook: 'Share on Facebook',
         twitter: 'Share on Twitter',
         link: 'Get embed code or copy a short link'
+      },
+      link: {
+        title: 'Share',
+        copied: 'Copied',
+        linkHeader: 'Link to story',
+        linkHelper: 'Share this story through email or another services with the link below.',
+        copyShortLink: 'Copy short link',
+        showShortLink: 'Show short link',
+        copyFullLink: 'Copy full URL',
+        showFullLink: 'Show full link',
+        embedSizeHelper: 'Size (width/height)',
+        embedCodeHeader: 'Embed in website',
+        embedCodeHelper: 'Use the following HTML code to embed the story in a web page.',
+        copyEmbedCode: 'Copy embed code'
       }
     },
     layouts: {

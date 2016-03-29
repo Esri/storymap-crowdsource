@@ -1,0 +1,34 @@
+@import "sharing/ShareLink";
+
+.viewer-dialogs {
+  color: #4c4c4c;
+
+  .modal-header, .modal-footer {
+    border: none;
+  }
+
+  .modal-title {
+    font-weight: bold;
+  }
+
+}
+
+// DIALOG FADE IN/OUT START
+.viewer-dialog-enter {
+  opacity: 0;
+}
+
+.viewer-dialog-enter.viewer-dialog-enter-active {
+  opacity: 1;
+  @include transition(opacity 300ms ease-in 0s);
+}
+
+.viewer-dialog-leave {
+  opacity: 1;
+}
+
+.viewer-dialog-leave.viewer-dialog-leave-active {
+  opacity: 0;
+  @include transition(opacity 300ms ease-in 0s);
+}
+// DIALOG FADE IN/OUT START

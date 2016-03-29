@@ -1,11 +1,10 @@
 import $ from 'jquery';
 import React from 'react';
-import URI from 'lib/urijs/src/URI';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
-const titleAttrText = viewerText.social.buttonTitleAttr;
+const titleAttrText = viewerText.sharing.buttonTitleAttr;
 
 export const ShareButton = class ShareButton extends React.Component {
 
@@ -41,6 +40,10 @@ export const ShareButton = class ShareButton extends React.Component {
       case 'twitter':
         this.shareTwitter();
         break;
+      case 'link':
+      console.log('link');
+        this.props.shareLinkAction();
+        break;
     }
   }
 
@@ -48,7 +51,7 @@ export const ShareButton = class ShareButton extends React.Component {
     const urlParams = {
       app_id: this.props.appId, // eslint-disable-line camelcase
       display: 'popup',
-      href: this.sharingUrl
+      href: Helper.getSharingUrl()
     };
 
     window.open('https://www.facebook.com/dialog/share?' + $.param(urlParams),'_blank','toolbar=0,status=0,width=626,height=436');
@@ -57,8 +60,8 @@ export const ShareButton = class ShareButton extends React.Component {
   shareTwitter() {
     const urlParams = {
       text: this.props.twitter.text,
-      related: 'EsriStoryMaps',
-      url: this.sharingUrl
+      related: this.props.twitter.related,
+      url: Helper.getSharingUrl()
     };
 
     if (this.props.twitter.hashtags.length > 0) {
@@ -72,17 +75,7 @@ export const ShareButton = class ShareButton extends React.Component {
   }
 
   get sharingUrl() {
-    if (window.location.href.match('localhost')) {
-      alert(viewerText.errors.sharing.localhost); // eslint-disable-line no-alert
-      return 'http://www.example.com';
-    } else {
-      const url = new URI(window.location.href);
 
-      url.filename('index.html');
-      url.removeSearch('edit','debug','fromscratch','fromScratch');
-
-      return url.href;
-    }
   }
 
 };
@@ -92,14 +85,17 @@ ShareButton.propTypes = {
   appId: React.PropTypes.string,
   twitter: React.PropTypes.shape({
     hashtags: React.PropTypes.string,
+    related: React.PropTypes.string,
     text: React.PropTypes.string,
     twitterHandle: React.PropTypes.string
-  })
+  }),
+  shareLinkAction: React.PropTypes.func
 };
 
 ShareButton.defaultProps = {
   type: 'link',
-  appId: 'false'
+  appId: 'false',
+  shareLinkAction: () => {}
 };
 
 export default ShareButton;

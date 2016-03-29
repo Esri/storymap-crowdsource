@@ -13,7 +13,8 @@ const defaultServices = {
 const defaultTwitter = {
   text: '',
   hashtags: 'storymaps',
-  twitterHandle: ''
+  twitterHandle: '',
+  relative: 'EsriStoryMaps'
 };
 
 export const services = function (state = defaultServices, action) {

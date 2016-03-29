@@ -1,13 +1,25 @@
 import $ from 'jquery';
+import URI from 'lib/urijs/src/URI';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Layout from 'babel/utils/helper/layout/Layout';
 import ObjectUtils from 'babel/utils/helper/objects/ObjectUtils';
 import MathUtils from 'babel/utils/helper/math/MathUtils';
 import ArrayUtils from 'babel/utils/helper/array/ArrayUtils';
 import AttachmentUtils from 'babel/utils/helper/attachments/AttachmentUtils';
+import Logger from 'babel/utils/logging/Logger';
+import viewerText from 'i18n!translations/viewer/nls/template';
 import 'babel/utils/helper/strings/StringUtils';
 
-const _classnames = function classnames() {
+const _logger = new Logger({source: 'Helper'});
+
+const _onError = function onError(error) {
+  _logger.logMessage({
+    type: 'error',
+    error
+  });
+};
+
+const classnames = function classnames() {
   let classes = '';
   const hasOwn = {}.hasOwnProperty;
 
@@ -23,7 +35,7 @@ const _classnames = function classnames() {
 		if (argType === 'string' || argType === 'number') {
 			classes += ' ' + arg;
 		} else if ($.isArray(arg)) {
-			classes += ' ' + _classnames.apply(null, arg);
+			classes += ' ' + classnames.apply(null, arg);
 		} else if (argType === 'object') {
 			for (const key in arg) {
 				if (hasOwn.call(arg, key) && arg[key]) {
@@ -36,13 +48,28 @@ const _classnames = function classnames() {
 	return classes.substr(1);
 };
 
+const getSharingUrl = function getSharingUrl() {
+  if (window.location.href.match('localhost')) {
+    _onError(viewerText.errors.sharing.localhost);
+    return 'http://www.example.com';
+  } else {
+    const url = new URI(window.location.href);
+
+    url.filename('index.html');
+    url.removeSearch('edit','debug','fromscratch','fromScratch');
+
+    return url.href;
+  }
+};
+
 export const Icons = {
-  getIcon: getIcon
+  getIcon
 };
 
 export default {
+  classnames,
+  getSharingUrl,
   icons: Icons,
-  classnames: _classnames,
   layout: Layout,
   objectUtils: ObjectUtils,
   mathUtils: MathUtils,

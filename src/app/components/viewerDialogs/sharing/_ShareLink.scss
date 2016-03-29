@@ -1,0 +1,28 @@
+.share-link-dialog {
+
+  .link-button {
+    margin: 5px 5px 0 0;
+  }
+
+  .embed-size-wrapper {
+    .dropdown {
+      display: inline-block;
+      margin: 0 5px;
+
+      li {
+        padding: 3px 10px;
+        font-size: 0.8em;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #d4d4d4;
+        }
+      }
+    }
+  }
+
+  .btn .caret {
+    margin-left: 5px;
+  }
+
+}

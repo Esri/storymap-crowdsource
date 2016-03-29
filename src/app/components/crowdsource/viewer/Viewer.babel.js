@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react';
 import { connect } from 'reactRedux';
 import lang from 'dojo/_base/lang';
@@ -5,6 +6,7 @@ import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Header from 'babel/components/header/Header';
 import IntroSplash from 'babel/components/intro/IntroSplash';
+import ShareLink from 'babel/components/viewerDialogs/sharing/ShareLink';
 import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
@@ -34,6 +36,9 @@ class Viewer extends React.Component {
   render() {
 
     const viewerClasses = Helper.classnames(['viewer']);
+    const shareConfigWithAction = $.extend(true,{},this.props.sharing,{
+      shareLinkAction: this.props.showComponent.bind(this,componentNames.SHARE_LINK)
+    });
 
     return (
       <div className={viewerClasses}>
@@ -44,7 +49,7 @@ class Viewer extends React.Component {
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.header}
           {...this.props.components.common}
-          sharing={this.props.sharing}
+          sharing={shareConfigWithAction}
           loading={this.props.loading}>
         </Header>
         <IntroSplash
@@ -83,6 +88,16 @@ class Viewer extends React.Component {
             }
           ]}>
         </MobileBottomNavigation>
+        <ReactCSSTransitionGroup
+          className="viewer-dialogs"
+          component="div"
+          transitionName="viewer-dialog"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300} >
+          { this.props.layout.visibleComponents.indexOf(componentNames.SHARE_LINK) >= 0 ? (
+            <ShareLink closeAction={this.props.hideComponent.bind(this,componentNames.SHARE_LINK)} sharing={this.props.sharing}></ShareLink>
+            ) : null }
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
@@ -290,6 +305,10 @@ Viewer.propTypes = {
       link: React.PropTypes.bool
     }).isRequired,
     appIds: React.PropTypes.shape({
+      bitly: React.PropTypes.shape({
+        login: React.PropTypes.string,
+        key: React.PropTypes.string
+      }),
       facebook: React.PropTypes.string.isRequired
     }).isRequired,
     twitter: React.PropTypes.shape({
@@ -313,6 +332,7 @@ const mapStateToProps = (state) => {
     sharing: {
       services: state.items.app.data.settings.components.common.sharing.services,
       appIds: {
+        bitly: state.config.BITLY_API_KEY,
         facebook: state.config.FACEBOOK_APP_ID
       },
       twitter: state.items.app.data.settings.components.common.sharing.twitter
@@ -330,6 +350,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     showComponent: (component) => {
       dispatch(AppActions.showComponent(component));
+    },
+    hideComponent: (component) => {
+      dispatch(AppActions.hideComponent(component));
     },
     updateContributeState: (options) => {
       dispatch(AppActions.updateContributeState(options));

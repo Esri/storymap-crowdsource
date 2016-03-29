@@ -15,7 +15,7 @@ export const ShareButtonPane = class ShareButtonPane extends React.Component {
     }]);
     const facebookBtn = this.props.config.services.facebook ? <ShareButton type="facebook" appId={this.props.config.appIds.facebook} /> : null;
     const twitterBtn = this.props.config.services.twitter ? <ShareButton type="twitter" twitter={this.props.config.twitter} /> : null;
-    const linkBtn = this.props.config.services.link ? <ShareButton type="link" /> : null;
+    const linkBtn = this.props.config.services.link ? <ShareButton type="link" shareLinkAction={this.props.config.shareLinkAction} /> : null;
 
     return (
       <span className={shareClass}>
