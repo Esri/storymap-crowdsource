@@ -60,6 +60,14 @@ export default class ShareLink extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps,prevState) { //eslint-disable-line no-unused-vars
+    if (prevState.shareUrl !== this.state.shareUrl) {
+      this.selectAllFromNode(this.linkInput);
+    } else if (prevState.embed.code !== this.state.embed.code) {
+      this.selectAllFromNode(this.embedCodeInput);
+    }
+  }
+
   getShortLink() {
     const self = this;
     const bitlyRequestUrl = 'https://api-ssl.bitly.com/v3/shorten?callback=?';
@@ -76,9 +84,6 @@ export default class ShareLink extends React.Component {
           shareUrl: self.shortLink
         });
       }
-      setTimeout(()=>{
-        this.selectAllFromNode(this.linkInput);
-      },0);
     });
 
     return this.link;
@@ -101,18 +106,12 @@ export default class ShareLink extends React.Component {
     this.setState({
       embed: this.getEmbed(options.id,this.link)
     });
-    setTimeout(()=>{
-      this.selectAllFromNode(this.embedCodeInput);
-    },0);
   }
 
   changeShareLink(e) {
     this.setState({
       shareUrl: $(e.target).attr('data-clipboard-text')
     });
-    setTimeout(()=>{
-      this.selectAllFromNode(this.linkInput);
-    },0);
   }
 
   selectAllFromEvent(e) {

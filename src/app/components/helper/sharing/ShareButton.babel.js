@@ -41,7 +41,6 @@ export const ShareButton = class ShareButton extends React.Component {
         this.shareTwitter();
         break;
       case 'link':
-      console.log('link');
         this.props.shareLinkAction();
         break;
     }
