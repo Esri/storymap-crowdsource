@@ -9,9 +9,15 @@ export default class Textarea extends FormGroup {
     super(props);
   }
 
-  componentDidMountExtention() {
+  componentDidMount() {
+    super.componentDidMount();
     autosize(this.input);
   }
+
+  // componentWillUnmount() {
+  //   super.componentWillUnmount();
+  //   autosize.destroy(this.input);
+  // }
 
   render() {
 

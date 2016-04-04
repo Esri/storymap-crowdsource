@@ -19,6 +19,26 @@ define({
         saved: 'Story saved'
       }
     },
+    introSplash: {
+      form: {
+        title: {
+          label: 'Title',
+          placeholder: 'Enter title'
+        },
+        subtitle: {
+          label: 'Subtitle',
+          placeholder: 'Enter subtitle'
+        },
+        exploreButton: {
+          label: 'Explore Map Button Label',
+          placeholder: 'Enter explore text'
+        },
+        participateButton: {
+          label: 'Explore Map Button Label',
+          placeholder: 'Enter participate text'
+        }
+      }
+    },
     contribute: {
       defaultTitle: 'Add your share',
       defaultForm: {

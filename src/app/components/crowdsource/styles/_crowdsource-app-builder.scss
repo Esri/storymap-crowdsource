@@ -8,6 +8,9 @@ $nameHighlight: $Calcite_Blue_200;
 @import "crowdsource/styles/settingsModals/Layout";
 @import "builder/banner/Banner";
 
+// Editor UI
+@import "forms/inlineEditor/InlineEditor";
+
 .viewer {
   height: calc(100% - #{$buiderBannerHeight});
   width: 100%;

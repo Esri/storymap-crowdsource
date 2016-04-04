@@ -1,0 +1,9 @@
+.inline-textarea {
+
+  &.form-group {
+    textarea {
+      resize: none;
+    }
+  }
+
+}

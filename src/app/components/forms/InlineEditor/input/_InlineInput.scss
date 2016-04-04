@@ -1,0 +1,14 @@
+.inline-input {
+  .sizer {
+    position: absolute;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: scroll;
+    white-space: pre;
+  }
+
+  input {
+    min-width: 2em;
+  }
+}

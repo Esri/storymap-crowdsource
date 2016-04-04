@@ -1,0 +1,35 @@
+@import "./input/InlineInput";
+@import "./textarea/InlineTextarea";
+
+.inline-editor {
+  .form-group {
+    margin: 0;
+    padding: 0;
+  }
+
+  .form-control {
+    background: none;
+    color: inherit;
+    border-width: 0;
+    margin: 0;
+    padding: 1px;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    height: inherit;
+  }
+
+  .form-control:not(:focus) {
+    box-shadow: none;
+  }
+
+  .form-control:focus {
+    border-width: 1px;
+    padding: 0;
+  }
+
+  .has-error .form-control {
+    border-width: 1px;
+    padding: 0;
+  }
+}

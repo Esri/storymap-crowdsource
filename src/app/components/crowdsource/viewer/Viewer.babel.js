@@ -53,6 +53,7 @@ class Viewer extends React.Component {
           loading={this.props.loading}>
         </Header>
         <IntroSplash
+          editingAllowed={this.props.mode.isBuilder}
           seperatorText={OR_TEXT}
           showLoader={this.props.loading.map}
           showExploreActionButton={this.props.loading.map}
@@ -239,6 +240,9 @@ Viewer.propTypes = {
     featuresInExtent: React.PropTypes.array.isRequired,
     selectedFeatures: React.PropTypes.array.isRequired
   }).isRequired,
+  mode: React.PropTypes.shape({
+    isBuilder: React.PropTypes.bool
+  }).isRequired,
   config: React.PropTypes.shape({
     allowSocialLogin: React.PropTypes.bool
   }).isRequired,
@@ -328,6 +332,7 @@ const mapStateToProps = (state) => {
     layoutId: state.items.app.data.settings.layout.id,
     layout: state.app.layout,
     map: state.app.map,
+    mode: state.mode,
     user: state.user,
     sharing: {
       services: state.items.app.data.settings.components.common.sharing.services,
