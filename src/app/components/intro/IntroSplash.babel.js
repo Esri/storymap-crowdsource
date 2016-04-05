@@ -42,7 +42,12 @@ export const IntroSplash = class IntroSplash extends React.Component {
     }
 
     return (
-      <InlineEditorWrapper editingAllowed={this.props.editingAllowed} component="div" className={introClass}>
+      <InlineEditorWrapper
+        editingAllowed={this.props.editingAllowed}
+        component="div"
+        addNotifications={this.props.addNotifications}
+        removeNotifications={this.props.removeNotifications}
+        className={introClass}>
         {background}
         <div className="title-pane background-fill">
           <h1 className="title" inlineEditConfig={this.getEditConfig('title')}>{this.props.title}</h1>
@@ -132,7 +137,9 @@ IntroSplash.propTypes = {
   participateAction: React.PropTypes.func,
   showLoader: React.PropTypes.bool,
   showExploreActionButton: React.PropTypes.bool,
-  showParticipateActionButton: React.PropTypes.bool
+  showParticipateActionButton: React.PropTypes.bool,
+  addNotifications: React.PropTypes.func,
+  removeNotifications: React.PropTypes.func
 };
 
 IntroSplash.defaultProps = {
@@ -147,7 +154,9 @@ IntroSplash.defaultProps = {
   participateAction: () => {},
   showLoader: true,
   showExploreActionButton: true,
-  showParticipateActionButton: true
+  showParticipateActionButton: true,
+  addNotifications: () => {},
+  removeNotifications: () => {}
 };
 
 export default IntroSplash;

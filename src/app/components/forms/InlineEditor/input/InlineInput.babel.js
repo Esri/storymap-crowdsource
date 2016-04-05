@@ -1,9 +1,12 @@
+import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
+import ViewerText from 'i18n!translations/viewer/nls/template';
+import BuilderText from 'i18n!translations/builder/nls/template';
 
-export default class Input extends FormGroup {
+export default class InlineInput extends FormGroup {
 
   constructor(props) {
     super(props);
@@ -11,6 +14,8 @@ export default class Input extends FormGroup {
     // Autobind methods
     this.updateInputWidth = this.updateInputWidth.bind(this);
     this.updateSizerValue = this.updateSizerValue.bind(this);
+    this.compareErrorMessages = this.compareErrorMessages.bind(this);
+    this.getErrorMessage = this.getErrorMessage.bind(this);
 
     this.state = {
       sizerValue: '',
@@ -22,12 +27,14 @@ export default class Input extends FormGroup {
     super.componentDidMount();
     this.updateSizerValue();
     this.updateInputWidth();
+    this.compareErrorMessages();
 	}
 
 	componentDidUpdate () {
     this.updateSizerValue();
     super.componentDidUpdate();
 		this.updateInputWidth();
+    this.compareErrorMessages();
 	}
 
   updateSizerValue() {
@@ -62,6 +69,46 @@ export default class Input extends FormGroup {
     }
   }
 
+  compareErrorMessages() {
+    if (!this.errors || JSON.stringify(this.state.errors) !== this.errors) {
+      this.errors = JSON.stringify(this.state.errors);
+
+      this.props.removeNotifications({
+        id: this.props.id
+      });
+
+      if (!this.state.isValid) {
+        this.props.addNotifications({
+          id: this.props.id,
+          type: 'error',
+          content: this.getErrorMessage()
+        });
+      }
+    }
+  }
+
+  getErrorMessage() {
+    if (!this.state.isValid && this.state.errors && this.state.errors.length > 0) {
+      return (
+        <div className="inline-error-message text-danger">
+          <h6>{BuilderText.errors.inlineEditing.heading}</h6>
+          <ul className="form-error-message">
+            {this.state.errors.map((error) => {
+              return (
+                <li key={error.rule}>
+                    <span className="error-message">{error.message}</span>
+                  {error.fixValue ? <button className="btn btn-primary btn-sm fix-btn" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'inline-input','form-group',{
@@ -88,3 +135,13 @@ export default class Input extends FormGroup {
     );
   }
 }
+
+$.extend(true,InlineInput.propTypes,{
+  addNotifications: React.PropTypes.func,
+  removeNotifications: React.PropTypes.func
+});
+
+$.extend(true,InlineInput.defaultProps,{
+  addNotifications: () => {},
+  removeNotifications: () => {}
+});

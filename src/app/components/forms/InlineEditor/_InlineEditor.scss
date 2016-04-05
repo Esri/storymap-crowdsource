@@ -33,3 +33,25 @@
     padding: 0;
   }
 }
+
+.inline-error-message {
+  h6 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .error-message {
+    margin-right: 5px;
+  }
+
+  .fix-btn {
+    display: block;
+    margin-top: 5px;
+  }
+}

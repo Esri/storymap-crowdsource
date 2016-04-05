@@ -11,6 +11,7 @@ import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
+import AppNotifications from 'babel/components/helper/notifications/AppNotifications';
 import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/BottomNavigation';
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
@@ -60,6 +61,7 @@ class Viewer extends React.Component {
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
           exploreAction={this.props.showComponent.bind(this,componentNames.MAP)}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
+          {...this.props.noticationsActions}
           {...this.props.components.intro}
           {...this.props.components.common}>
         </IntroSplash>
@@ -89,6 +91,7 @@ class Viewer extends React.Component {
             }
           ]}>
         </MobileBottomNavigation>
+        <AppNotifications notifications={this.props.notifications}></AppNotifications>
         <ReactCSSTransitionGroup
           className="viewer-dialogs"
           component="div"
@@ -243,6 +246,7 @@ Viewer.propTypes = {
   mode: React.PropTypes.shape({
     isBuilder: React.PropTypes.bool
   }).isRequired,
+  notifications: React.PropTypes.array.isRequired,
   config: React.PropTypes.shape({
     allowSocialLogin: React.PropTypes.bool
   }).isRequired,
@@ -333,6 +337,7 @@ const mapStateToProps = (state) => {
     layout: state.app.layout,
     map: state.app.map,
     mode: state.mode,
+    notifications: state.app.notifications,
     user: state.user,
     sharing: {
       services: state.items.app.data.settings.components.common.sharing.services,
@@ -364,6 +369,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectFeatures: (features) => {
       dispatch(MapActions.selectFeatures(features));
+    },
+    noticationsActions: {
+      addNotifications: (notifications) => {
+        dispatch(AppActions.addNotifications(notifications));
+      },
+      removeNotifications: (notifications) => {
+        dispatch(AppActions.removeNotifications(notifications));
+      }
     }
   };
 };

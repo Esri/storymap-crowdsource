@@ -1,0 +1,27 @@
+.app-notifications {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 350px;
+  max-height: 100vh;
+  z-index: 9999;
+  overflow: auto;
+
+  .notification {
+    margin: 15px 0 15px 15px;
+
+    &.notify-enter {
+      transform: translateX(-350px);
+    }
+
+    &.notify-enter-active {
+      transform: translateX(0);
+      @include transition(transform 500ms);
+    }
+
+    &.notify-leave {
+      transform: translateX(-350px);
+      @include transition(transform 500ms);
+    }
+  }
+}

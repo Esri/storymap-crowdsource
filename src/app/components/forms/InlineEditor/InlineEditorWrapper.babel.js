@@ -11,6 +11,7 @@ export default class InlineEditorWrapper extends React.Component {
 
     this.disableActionsProps = {
       onClick: null,
+      tabIndex: -1,
       inlineEditDisableActions: false
     };
 
@@ -44,10 +45,18 @@ export default class InlineEditorWrapper extends React.Component {
 
     switch (element.props.inlineEditConfig.type) {
       case 'textarea':
-        return React.cloneElement(element,newProps,<InlineTextarea {...element.props.inlineEditConfig}></InlineTextarea>);
+        return React.cloneElement(element,newProps,<InlineTextarea
+          addNotifications={this.props.addNotifications}
+          removeNotifications={this.props.removeNotifications}
+          {...element.props.inlineEditConfig}>
+        </InlineTextarea>);
       default:
         // Input
-        return React.cloneElement(element,newProps,<InlineInput {...element.props.inlineEditConfig}></InlineInput>);
+        return React.cloneElement(element,newProps,<InlineInput
+          addNotifications={this.props.addNotifications}
+          removeNotifications={this.props.removeNotifications}
+          {...element.props.inlineEditConfig}>
+        </InlineInput>);
     }
     return element;
   }
@@ -66,9 +75,13 @@ export default class InlineEditorWrapper extends React.Component {
 }
 
 InlineEditorWrapper.propTypes = {
-  component: React.PropTypes.string
+  component: React.PropTypes.string,
+  addNotifications: React.PropTypes.func,
+  removeNotifications: React.PropTypes.func
 };
 
 InlineEditorWrapper.defaultProps = {
-  component: 'span'
+  component: 'span',
+  addNotifications: () => {},
+  removeNotifications: () => {}
 };

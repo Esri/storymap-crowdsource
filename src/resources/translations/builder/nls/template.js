@@ -30,12 +30,12 @@ define({
           placeholder: 'Enter subtitle'
         },
         exploreButton: {
-          label: 'Explore Map Button Label',
-          placeholder: 'Enter explore text'
+          label: 'Explore Map Button',
+          placeholder: 'Enter explore button label'
         },
         participateButton: {
-          label: 'Explore Map Button Label',
-          placeholder: 'Enter participate text'
+          label: 'Participate Button',
+          placeholder: 'Enter participate button label'
         }
       }
     },
@@ -133,6 +133,9 @@ define({
     errors: {
       actionsBtns: {
         redirectToSecureConnection: 'Reload with a secure connection'
+      },
+      inlineEditing: {
+        heading: 'Form Error'
       },
       loading: {
         notAuthorizedCreateNew: 'You are not authorized to create a Crowdsource story. An organizational account with privileges to create new items and publish features is required. Please contact your ArcGIS administrator for assistance.',

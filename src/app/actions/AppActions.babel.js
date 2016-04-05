@@ -5,7 +5,9 @@ import {
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY,
   APP_LAYOUT_SHOW_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT,
-  UPDATE_APP_CONTRIBUTE_STATE
+  UPDATE_APP_CONTRIBUTE_STATE,
+  APP_NOTIFICATIONS_ADD,
+  APP_NOTIFICATIONS_REMOVE
 } from 'babel/constants/actionsTypes/App';
 
 const dispatch = AppStore.dispatch;
@@ -53,13 +55,29 @@ export const updateContributeState = function (options) {
   };
 };
 
+export const addNotifications = function (notifications) {
+  return {
+    type: APP_NOTIFICATIONS_ADD,
+    notifications
+  };
+};
+
+export const removeNotifications = function (notifications) {
+  return {
+    type: APP_NOTIFICATIONS_REMOVE,
+    notifications
+  };
+};
+
 export const boundActions = {
   displayMainError: (message) => dispatch(displayMainError(message)),
   componentLoaded: (component) => dispatch(componentLoaded(component)),
   changeComponentsVisibility: (changes) => dispatch(changeComponentsVisibility(changes)),
   showComponent: (component) => dispatch(showComponent(component)),
   hideComponent: (component) => dispatch(hideComponent(component)),
-  updateContributeState: (options) => dispatch(updateContributeState(options))
+  updateContributeState: (options) => dispatch(updateContributeState(options)),
+  addNotifications: (notifications) => dispatch(addNotifications(notifications)),
+  removeNotifications: (notifications) => dispatch(removeNotifications(notifications))
 };
 
 export default boundActions;
