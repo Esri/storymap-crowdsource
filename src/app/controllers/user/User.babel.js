@@ -5,8 +5,10 @@ import URI from 'lib/urijs/src/URI';
 import OAuthInfo from 'esri/arcgis/OAuthInfo';
 import IdentityManager from 'esri/IdentityManager';
 import UserActions from 'babel/actions/UserActions';
+import AppActions from 'babel/actions/AppActions';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
 import Logger from 'babel/utils/logging/Logger';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({source: 'User Controller'});
 
@@ -160,6 +162,9 @@ export default class UserController {
       editor: false,
       contributor: false
     };
+    const portalUser = portal.getPortalUser() ? portal.getPortalUser().username : false;
+    const appOwner = lang.getObject('appState.items.app.item.owner',false,this);
+    const authorizedOwners = lang.getObject('appState.config.authorizedOwners',false,this);
 
     if (!lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.mode.isBuilder',false,this) && portal.userIsAppEditor() && portal.userIsAppPublisher()) {
       userPermissions.publisher = true;
@@ -177,6 +182,17 @@ export default class UserController {
 
     if (lang.getObject('appState.user.contributor',false,this) !== userPermissions.contributor || lang.getObject('appState.user.editor',false,this) !== userPermissions.editor || lang.getObject('appState.user.publisher',false,this) !== userPermissions.publisher) {
       UserActions.authenticateUser(userPermissions);
+    }
+
+    if (!this.authorizedOwnersChecked && !$.isArray(authorizedOwners) || authorizedOwners.length === 0) {
+      this.authorizedOwnersChecked = true;
+      AppActions.displayMainError(viewerText.errors.loading.unspecifiedConfigOwner);
+    } else if (!this.authorizedOwnersChecked && lang.getObject('appState.mode.isBuilder',false,this) && portalUser && authorizedOwners.indexOf(portalUser) === -1 && authorizedOwners.indexOf('*')) {
+      this.authorizedOwnersChecked = true;
+      AppActions.displayMainError(viewerText.errors.loading.invalidConfigOwner);
+    } else if (!this.authorizedOwnersChecked && appOwner && authorizedOwners.indexOf(appOwner) === -1 && authorizedOwners.indexOf('*')) {
+      this.authorizedOwnersChecked = true;
+      AppActions.displayMainError(viewerText.errors.loading.invalidConfigOwner);
     }
   }
 

@@ -43,7 +43,7 @@
 			// Optionally to be able to use the appid URL parameter, configure here the list of application author
 			//  whose application are allowed to be viewed by this Crowdsource deployment
 			// This is the Portal username of the Series owner (e.g. ["user1"], ["user1", "user2"])
-			authorizedOwners: [""],
+			authorizedOwners: ["*"],
       // By default the crowdsource app will container styling from Esri's Calcite (http://esri.github.io/calcite-bootstrap/)
       // library which is a customized version of the Bootstrap library (http://getbootstrap.com/). You can choose to override
       // this by with either the default bootstrap theme or your own customized themes

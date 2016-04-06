@@ -19,6 +19,18 @@ define({
         saved: 'Story saved'
       }
     },
+    header: {
+      form: {
+        title: {
+          label: 'Title',
+          placeholder: 'Enter title'
+        },
+        participateButton: {
+          label: 'Participate Button',
+          placeholder: 'Enter participate button label'
+        }
+      }
+    },
     introSplash: {
       form: {
         title: {

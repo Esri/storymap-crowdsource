@@ -45,9 +45,11 @@ class Viewer extends React.Component {
       <div className={viewerClasses}>
         <style>{this.props.layout.font + this.props.layout.style + this.props.layout.theme}</style>
         <Header
+          editingAllowed={this.props.mode.isBuilder}
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
+          {...this.props.noticationsActions}
           {...this.props.components.header}
           {...this.props.components.common}
           sharing={shareConfigWithAction}

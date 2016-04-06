@@ -40,10 +40,15 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
   componentDidMount() {
     this.getUserFolders();
+    this.mounted = true;
   }
 
   componentDidUpdate() {
     this.getUserFolders();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {
@@ -202,7 +207,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
 
         const newFolders = homeFolder.concat(userFolders);
 
-        if (JSON.stringify(newFolders) !== JSON.stringify(this.state.folderOptions)){
+        if (this.mounted && JSON.stringify(newFolders) !== JSON.stringify(this.state.folderOptions)){
           this.setState({
             folderOptions: newFolders
           });

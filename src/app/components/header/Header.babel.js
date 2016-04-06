@@ -4,9 +4,8 @@ import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
-// import AppActions from 'babel/actions/AppActions';
-// import ContributeActions from 'babel/actions/ContributeActions';
-// import {Components} from 'babel/constants/CrowdsourceAppConstants';
+import InlineEditorWrapper from 'babel/components/forms/inlineEditor/InlineEditorWrapper';
+import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -41,13 +40,18 @@ export const Header = class Header extends React.Component {
     ) : null;
 
     return (
-      <header className={headerClass}>
+      <InlineEditorWrapper
+        editingAllowed={this.props.editingAllowed}
+        component="header"
+        addNotifications={this.props.addNotifications}
+        removeNotifications={this.props.removeNotifications}
+        className={headerClass}>
         <div className="cell-wrapper">
           <a href={this.props.logo.link} className="logo-link cell" target="_blank">
             <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
           </a>
           <div className="title-cell cell fill-cell">
-            <h4 className="title" tabIndex="0" onClick={this.props.homeAction}>{this.props.title}</h4>
+            <h4 className="title" tabIndex="0" inlineEditConfig={this.getEditConfig('title')} onClick={this.props.homeAction}>{this.props.title}</h4>
           </div>
           <ReactCSSTransitionGroup
             className="cell participate-cell"
@@ -59,7 +63,7 @@ export const Header = class Header extends React.Component {
           </ReactCSSTransitionGroup>
           <ShareButtonPane className="cell" config={this.props.sharing} />
         </div>
-      </header>
+      </InlineEditorWrapper>
     );
 
   }
@@ -78,9 +82,45 @@ export const Header = class Header extends React.Component {
     node.find('.title').width(fullWidth - siblingWidth);
   }
 
+  getEditConfig(component) {
+    if (builderText) {
+      const formId = 'header';
+      let value;
+
+      switch (component) {
+        default:
+          value = this.props[component];
+      }
+
+      switch (component) {
+        default:
+          return {
+            type: 'input',
+            formId,
+            id: component,
+            label: builderText.header.form[component].label,
+            inputAttr: {
+              type: 'text',
+              placeholder: builderText.header.form[component].placeholder,
+              maxLength: 120,
+              required: true
+            },
+            validations: ['arcgisItemName'],
+            autoUpdate: {
+              when: 'notChanged',
+              value: value
+            }
+          };
+      }
+    } else {
+      return false;
+    }
+  }
+
 };
 
 Header.propTypes = {
+  editingAllowed: React.PropTypes.bool,
   homeAction: React.PropTypes.func,
   participateAction: React.PropTypes.func,
   logo: React.PropTypes.shape({
@@ -92,10 +132,13 @@ Header.propTypes = {
   sharing: React.PropTypes.shape({}),
   loading: React.PropTypes.shape({
     map: React.PropTypes.bool
-  })
+  }),
+  addNotifications: React.PropTypes.func,
+  removeNotifications: React.PropTypes.func
 };
 
 Header.defaultProps = {
+  editingAllowed: false,
   homeAction: () => {},
   participateAction: () => {},
   logo: {
@@ -106,7 +149,9 @@ Header.defaultProps = {
   participateShort: '',
   loading: {
     map: false
-  }
+  },
+  addNotifications: () => {},
+  removeNotifications: () => {}
 };
 
 export default Header;
