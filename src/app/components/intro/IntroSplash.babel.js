@@ -97,7 +97,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
             inputAttr: {
               type: 'text',
               placeholder: builderText.introSplash.form[component].placeholder,
-              maxLength: 120,
+              maxLength: component === 'title' ? 120 : 250,
               required: true
             },
             validations: ['arcgisItemName'],

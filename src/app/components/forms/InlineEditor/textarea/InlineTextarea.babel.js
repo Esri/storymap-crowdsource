@@ -12,6 +12,8 @@ export default class InlineTextarea extends Textarea {
 
     this.compareErrorMessages = this.compareErrorMessages.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
+
+    this.errors = false;
   }
 
   componentDidMount() {

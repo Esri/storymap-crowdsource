@@ -17,6 +17,8 @@ export default class InlineInput extends FormGroup {
     this.compareErrorMessages = this.compareErrorMessages.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
 
+    this.errors = false;
+
     this.state = {
       sizerValue: '',
       inputWidth: 0
