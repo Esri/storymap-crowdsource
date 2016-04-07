@@ -79,14 +79,18 @@
     }
 
     .text {
+      position: relative;
       margin: 0;
       font-size: 1.5em;
       max-width: 120px;
       line-height: 1.1em;
+      z-index: 1;
     }
 
     .icon-arrow-down {
+      position: relative;
       height: 54px;
+      z-index: 0;
 
       svg {
         height: 100px;

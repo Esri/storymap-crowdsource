@@ -73,14 +73,14 @@ export const IntroSplash = class IntroSplash extends React.Component {
       switch (component) {
         case 'exploreButton':
           return {
-            type: 'input',
+            type: 'textarea',
             formId,
             id: component,
             label: builderText.introSplash.form[component].label,
             inputAttr: {
               type: 'text',
               placeholder: builderText.introSplash.form[component].placeholder,
-              maxLength: 50,
+              maxLength: 25,
               required: true
             },
             autoUpdate: {
