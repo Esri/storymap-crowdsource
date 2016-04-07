@@ -5,7 +5,6 @@ define({
       map: 'Loading map'
     },
     common: {
-      or: 'Or',
       buttons: {
         save: 'Save',
         saving: 'Saving',

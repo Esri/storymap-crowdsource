@@ -19,18 +19,6 @@ define({
         saved: 'Story saved'
       }
     },
-    header: {
-      form: {
-        title: {
-          label: 'Title',
-          placeholder: 'Enter title'
-        },
-        participateButton: {
-          label: 'Participate Button',
-          placeholder: 'Enter participate button label'
-        }
-      }
-    },
     introSplash: {
       form: {
         title: {
@@ -44,10 +32,6 @@ define({
         exploreButton: {
           label: 'Explore Map Button',
           placeholder: 'Enter explore button label'
-        },
-        participateButton: {
-          label: 'Participate Button',
-          placeholder: 'Enter participate button label'
         }
       }
     },
@@ -131,7 +115,7 @@ define({
       globals: {
         participateShort: 'Participate',
         participateLong: 'Share your experience',
-        exploreText: 'Explore the map'
+        exploreText: 'Explore Map'
       }
     },
     itempageDefaults: {

@@ -21,8 +21,6 @@ import viewerText from 'i18n!translations/viewer/nls/template';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-const OR_TEXT = viewerText.common.or;
-
 class Viewer extends React.Component {
 
   constructor() {
@@ -45,11 +43,9 @@ class Viewer extends React.Component {
       <div className={viewerClasses}>
         <style>{this.props.layout.font + this.props.layout.style + this.props.layout.theme}</style>
         <Header
-          editingAllowed={this.props.mode.isBuilder}
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
-          {...this.props.noticationsActions}
           {...this.props.components.header}
           {...this.props.components.common}
           sharing={shareConfigWithAction}
@@ -57,12 +53,9 @@ class Viewer extends React.Component {
         </Header>
         <IntroSplash
           editingAllowed={this.props.mode.isBuilder}
-          seperatorText={OR_TEXT}
           showLoader={this.props.loading.map}
           showExploreActionButton={this.props.loading.map}
-          showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
           exploreAction={this.props.showComponent.bind(this,componentNames.MAP)}
-          participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.noticationsActions}
           {...this.props.components.intro}
           {...this.props.components.common}>

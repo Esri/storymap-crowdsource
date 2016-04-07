@@ -46,10 +46,8 @@
 
   .action-buttons {
     position: absolute;
-    bottom: 130px;
-    text-align: center;
-    width: 80%;
-    left: 10%;
+    bottom: 50px;
+    left: calc(50vw - 90px);
 
     .wait-for-action-enter {
       opacity: 0;
@@ -70,20 +68,30 @@
       display: inline-block;
     }
 
-    .action-seperator {
-      margin: 20px;
-      text-transform: uppercase;
+    button {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      min-height: 180px;
+      width: 180px;
+      padding: 30px 30px 20px;
+      border-radius: 90px;
     }
 
-    button {
-      position: relative;
-      margin: 10px 0;
-      padding: 0 20px;
+    .text {
+      margin: 0;
+      font-size: 1.5em;
+      max-width: 120px;
+      line-height: 1.1em;
+    }
 
-      span {
-        font-size: 1.2em;
-        line-height: 2.3em;
-        position: relative;
+    .icon-arrow-down {
+      height: 54px;
+
+      svg {
+        height: 100px;
+        width: 100px;
+        margin-top: -20px
       }
     }
   }
