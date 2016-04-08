@@ -6,7 +6,7 @@
   justify-content: space-around;
   height: $mobileBottomNavigationHeight;
   width: 100%;
-  z-index: 50;
+  z-index: 300;
   @include animation(slideInBottomNavigation 2s);
 
   button {

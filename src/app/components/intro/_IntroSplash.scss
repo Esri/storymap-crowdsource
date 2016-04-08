@@ -101,14 +101,26 @@
   }
 
   // RESPONSIVE STYLES START
-  @media (max-width: 1000px) {
+  @media (max-width: 1400px) {
     .title-pane {
       .title {
-        font-size: 2.5em;
+        font-size: 3em;
       }
 
       .subtitle {
-        font-size: 1.8em;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .title-pane {
+      .title {
+        font-size: 2.2em;
+      }
+
+      .subtitle {
+        font-size: 1.3em;
       }
     }
   }
