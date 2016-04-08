@@ -91,6 +91,9 @@ export default class Location extends FormGroup {
     this.geocoder.on('clear',this.onClear);
     this.geocoder.on('select',this.onSelect);
     this.geocoderInput.on('blur',this.onBlur);
+
+    this.geocoder.startup();
+    this.locateButton.startup();
   }
 
   componentDidUpdate() {

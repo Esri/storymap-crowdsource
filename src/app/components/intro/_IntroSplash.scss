@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #E5E5E5;
   @include box-shadow(inset 0px 0px 82px 19px rgba(0,0,0,0.3));
-  z-index: 49;
+  z-index: 200;
 
   .background-fill {
     border-radius: 10px;

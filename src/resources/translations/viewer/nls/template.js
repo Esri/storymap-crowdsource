@@ -35,8 +35,8 @@ define({
     layouts: {
       stacked: {
         changeView: {
-          mapView: 'Map View',
-          galleryView: 'Thumbnail View'
+          mapView: 'View Map',
+          galleryView: 'View Gallery'
         }
       }
     },

@@ -16,7 +16,7 @@ const defaultItem = {
 };
 
 const defaultServiceDefinition = {
-	capabilities: 'Create,Query,Editing,Sync',
+	capabilities: 'Create,Update,Query,Editing,Sync',
 	supportsDisconnectedEditing: false,
 	spatialReference: {
 		wkid: 4326
@@ -93,7 +93,7 @@ const defaultLayerDefinition = {
 				wkid: 4326
 			}
 		},
-		capabilities: 'Create,Query,Editing,Sync',
+		capabilities: 'Create,Update,Query,Editing,Sync',
 		hasStaticData: false,
 		hasAttachments: true,
 		geometryType: 'esriGeometryPoint',
