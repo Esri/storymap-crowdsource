@@ -86,7 +86,8 @@ export const IntroSplash = class IntroSplash extends React.Component {
             autoUpdate: {
               when: 'notChanged',
               value: value
-            }
+            },
+            handleChange: this.saveChanges.bind(this,component)
           };
         default:
           return {
@@ -104,11 +105,22 @@ export const IntroSplash = class IntroSplash extends React.Component {
             autoUpdate: {
               when: 'notChanged',
               value: value
-            }
+            },
+            handleChange: this.saveChanges.bind(this,component)
           };
       }
     } else {
       return false;
+    }
+  }
+
+  saveChanges(component,data) {
+    if (data.valid && data.value) {
+      [].concat(this.props.saveActions[component]).forEach((action) => {
+        if (typeof action === 'function') {
+          action(data.value);
+        }
+      });
     }
   }
 
@@ -124,7 +136,21 @@ IntroSplash.propTypes = {
   showLoader: React.PropTypes.bool,
   showExploreActionButton: React.PropTypes.bool,
   addNotifications: React.PropTypes.func,
-  removeNotifications: React.PropTypes.func
+  removeNotifications: React.PropTypes.func,
+  saveActions: React.PropTypes.shape({
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    subtitle: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    exploreButton: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ])
+  })
 };
 
 IntroSplash.defaultProps = {

@@ -2,6 +2,7 @@ import AppStore from 'babel/store/AppStore';
 import {
   UPDATE_ITEM_APP_ITEM,
   UPDATE_ITEM_APP_ITEM_TITLE,
+  UPDATE_ITEM_APP_ITEM_SUBTITLE,
   UPDATE_ITEM_WEBMAP_ITEM,
   UPDATE_ITEM_WEBMAP_ITEM_TITLE,
   UPDATE_ITEM_WEBMAP_DATA,
@@ -26,6 +27,13 @@ export const updateAppItemTitle = function (title) {
   return {
     type: UPDATE_ITEM_APP_ITEM_TITLE,
     title
+  };
+};
+
+export const updateAppItemSubtitle = function (subtitle) {
+  return {
+    type: UPDATE_ITEM_APP_ITEM_SUBTITLE,
+    subtitle
   };
 };
 
@@ -90,6 +98,7 @@ export const updateFeatureServiceLayerDefinition = function (parameters) {
 export const boundActions = {
   updateAppItem: (parameters) => dispatch(updateAppItem(parameters)),
   updateAppItemTitle: (title) => dispatch(updateAppItemTitle(title)),
+  updateAppItemSubtitle: (subtitle) => dispatch(updateAppItemSubtitle(subtitle)),
   updateWebmapItem: (parameters) => dispatch(updateWebmapItem(parameters)),
   updateWebmapItemTitle: (title) => dispatch(updateWebmapItemTitle(title)),
   updateWebmapData: (data) => dispatch(updateWebmapData(data)),

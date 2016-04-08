@@ -29,7 +29,10 @@ class Builder extends React.Component {
 
     return (
       <div className={builderClasses}>
-        { this.props.loading.data ? <BuilderBanner brandOnly={ this.props.activeDialog.length > 0 } /> : null }
+        { this.props.loading.data ? <BuilderBanner
+          brandOnly={ this.props.activeDialog.length > 0 }
+          saving={this.props.saving} /> 
+        : null }
         <ReactCSSTransitionGroup
           component="div"
           transitionName="modal"
@@ -115,6 +118,7 @@ class Builder extends React.Component {
 
 Builder.propTypes = {
   activeDialog: React.PropTypes.string.isRequired,
+  saving: React.PropTypes.bool,
   loading: React.PropTypes.shape({
     data: React.PropTypes.bool
   }).isRequired,
@@ -134,6 +138,7 @@ Builder.propTypes = {
 const mapStateToProps = (state) => {
   return {
     activeDialog: state.builder.activeDialog,
+    saving: state.builder.saving,
     loading: state.app.loading,
     portal: state.app.portal,
     layout: state.items.app.data.settings.layout.id,

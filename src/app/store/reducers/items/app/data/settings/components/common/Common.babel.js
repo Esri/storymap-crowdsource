@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux';
 import sharing from './sharing/Sharing';
+import {
+  UPDATE_SETTINGS_COMMON_EXPLORE_TEXT
+} from 'babel/constants/actionsTypes/Settings';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 // TODO global to common in path
@@ -27,7 +30,7 @@ export const participateLong = function (state = defaultParticipateLong, action)
 
 export const exploreText = function (state = defaultExploreText, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_COMMON_EXPLORE_TEXT':
+    case UPDATE_SETTINGS_COMMON_EXPLORE_TEXT:
       return action.text;
     default:
       return state;

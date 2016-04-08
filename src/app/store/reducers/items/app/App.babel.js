@@ -6,7 +6,8 @@ import {
 } from 'babel/constants/actionsTypes/Arcgis';
 import {
   UPDATE_ITEM_APP_ITEM,
-  UPDATE_ITEM_APP_ITEM_TITLE
+  UPDATE_ITEM_APP_ITEM_TITLE,
+  UPDATE_ITEM_APP_ITEM_SUBTITLE
 } from 'babel/constants/actionsTypes/Items';
 import {
   UPDATE_LAYOUT_ID
@@ -26,6 +27,8 @@ export const item = function (state = defaultItem, action) {
       return $.extend(true,{},state,action.parameters);
     case UPDATE_ITEM_APP_ITEM_TITLE:
       return $.extend(true,{},state,{title: action.title});
+    case UPDATE_ITEM_APP_ITEM_SUBTITLE:
+      return $.extend(true,{},state,{snippet: action.subtitle});
     case UPDATE_LAYOUT_ID:
       let index = state.typeKeywords.length;
 

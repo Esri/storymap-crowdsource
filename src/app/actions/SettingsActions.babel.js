@@ -1,6 +1,7 @@
 import AppStore from 'babel/store/AppStore';
 import {
   UPDATE_SETTINGS_OAUTH,
+  UPDATE_SETTINGS_COMMON_EXPLORE_TEXT,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_HEADER_TITLE,
@@ -20,6 +21,14 @@ export const updateOAuthSettings = function (options) {
 };
 
 // Components
+
+// Common Components
+export const updateCommonExploreText = function (text) {
+  return {
+    type: UPDATE_SETTINGS_COMMON_EXPLORE_TEXT,
+    text
+  };
+};
 
 // Intro Components
 export const updateIntroTitle = function (title) {
@@ -69,6 +78,7 @@ export const updateLayoutId = function (id) {
 
 export const boundActions = {
   updateOAuthSettings: (options) => dispatch(updateOAuthSettings(options)),
+  updateCommonExploreText: (text) => dispatch(updateCommonExploreText(text)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),

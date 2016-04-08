@@ -44,7 +44,7 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
           <li><a href="#help">{bannerText.buttons.help}</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li><p className="navbar-text">{bannerText.hintText.saved}</p></li>
+          <li><p className="navbar-text">{this.props.saving ? bannerText.hintText.saving : bannerText.hintText.saved}</p></li>
         </ul>
       </div>
     );
@@ -68,11 +68,13 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
 };
 
 BuilderBanner.propTypes = {
-  brandOnly: React.PropTypes.bool
+  brandOnly: React.PropTypes.bool,
+  saving: React.PropTypes.bool
 };
 
 BuilderBanner.defaultProps = {
-  brandOnly: false
+  brandOnly: false,
+  saving: false
 };
 
 export default BuilderBanner;

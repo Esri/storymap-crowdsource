@@ -16,7 +16,9 @@ define({
         save: 'Save'
       },
       hintText: {
-        saved: 'Story saved'
+        saved: 'Story saved',
+        saving: 'Saving',
+        leavingBeforeSave: 'You have unsaved changes in your story. If you leave now, your changes will be lost.'
       }
     },
     introSplash: {

@@ -16,6 +16,8 @@ import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/Bot
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
 import UserActions from 'babel/actions/UserActions';
+import ItemActions from 'mode!isBuilder?babel/actions/ItemActions';
+import SettingsActions from 'mode!isBuilder?babel/actions/SettingsActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -53,6 +55,7 @@ class Viewer extends React.Component {
         </Header>
         <IntroSplash
           editingAllowed={this.props.mode.isBuilder}
+          saveActions={this.props.introSaveActions}
           showLoader={this.props.loading.map}
           showExploreActionButton={this.props.loading.map}
           exploreAction={this.props.showComponent.bind(this,componentNames.MAP)}
@@ -372,7 +375,12 @@ const mapDispatchToProps = (dispatch) => {
       removeNotifications: (notifications) => {
         dispatch(AppActions.removeNotifications(notifications));
       }
-    }
+    },
+    introSaveActions: SettingsActions && ItemActions ? {
+      title: [SettingsActions.updateIntroTitle,ItemActions.updateAppItemTitle],
+      subtitle: [SettingsActions.updateIntroSubtitle,ItemActions.updateAppItemSubtitle],
+      exploreButton: SettingsActions.updateCommonExploreText
+    } : null
   };
 };
 
