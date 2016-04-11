@@ -11,6 +11,19 @@ internals.googleFontsGruntOptions = {
 
 internals.fontsGroups = [
   {
+    longName: 'Open Sans',
+    shortName: 'openSans',
+    sassVariables: {
+      primaryFontSanserif: 'Open Sans',
+      primaryFontSerif: 'Open Sans',
+      primaryHeadingsWeight: 300
+    },
+    fonts: [{
+      family: 'Open Sans',
+      styles: [300,'300italic',700,'700italic']
+    }]
+  },
+  {
     longName: 'Lato and Merriweather',
     shortName: 'latoMerriweather',
     sassVariables: {

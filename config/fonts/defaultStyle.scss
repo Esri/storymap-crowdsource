@@ -1,13 +1,9 @@
 h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+.h1, .h2, .h3, .h4, .h5, .h6, .tooltip, .popover {
   font-family: $primary-font-sanserif, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
-.serif-face {
-  font-family: $primary-font-serif, Georgia, serif;
-}
-
-blockquote {
+html, body, blockquote, .serif-face {
   font-family: $primary-font-serif, Georgia, serif;
 }
 

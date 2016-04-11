@@ -43,7 +43,7 @@ class Viewer extends React.Component {
 
     return (
       <div className={viewerClasses}>
-        <style>{this.props.layout.font + this.props.layout.style + this.props.layout.theme}</style>
+        <style dangerouslySetInnerHTML={{__html: this.props.layout.font + this.props.layout.style + this.props.layout.theme}}></style>
         <Header
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
           showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}

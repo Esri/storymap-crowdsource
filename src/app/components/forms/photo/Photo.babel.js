@@ -181,7 +181,7 @@ export default class Photo extends FormGroup {
   createCropper() {
     this.cropper = new window.Cropper(this.imagePreview, {
       dragMode: 'crop',
-      autoCropArea: 0.95,
+      autoCropArea: 1,
       guides: true,
       center: false,
       highlight: false,
@@ -194,28 +194,28 @@ export default class Photo extends FormGroup {
   zoomIn() {
     if (this.cropper) {
       this.cropper.zoom(0.1);
-      this.saveCropValue;
+      this.saveCropValue();
     }
   }
 
   zoomOut() {
     if (this.cropper) {
       this.cropper.zoom(-0.1);
-      this.saveCropValue;
+      this.saveCropValue();
     }
   }
 
   rotateLeft() {
     if (this.cropper) {
       this.cropper.rotate(-90);
-      this.saveCropValue;
+      this.saveCropValue();
     }
   }
 
   rotateRight() {
     if (this.cropper) {
       this.cropper.rotate(90);
-      this.saveCropValue;
+      this.saveCropValue();
     }
   }
 

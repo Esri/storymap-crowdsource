@@ -217,7 +217,7 @@ module.exports = function (grunt) {
             name: 'Add Font CSS to default config',
 						search: 'DEFAULT_FONT_CSS_APPENDED_HERE',
 						replace: function() {
-              return grunt.file.read('build/resources/fonts/google/css/latoMerriweather.css').trim();
+              return grunt.file.read('build/resources/fonts/google/css/openSans.css').trim();
             },
 						flags: 'g'
           }
