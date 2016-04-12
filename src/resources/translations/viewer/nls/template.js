@@ -98,6 +98,9 @@ define({
         },
         acceptedTerms: 'You must accept the terms and conditions before sharing.'
       },
+      pattern: {
+        website: 'You must enter a valid website url.'
+      },
       arcgis: {
         location: {
           notValid: 'The location you entered is not valid, please try again.',

@@ -13,6 +13,8 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.previewLink = Helper.getSharingUrl();
   }
 
   render() {
@@ -38,10 +40,10 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
     const bannerButtons = this.props.brandOnly ? null : (
       <div id="builder-banner" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
-          <li><a href="#settings">{bannerText.buttons.settings}</a></li>
-          <li><a href="#share">{bannerText.buttons.share}</a></li>
-          <li><a href="#preview">{bannerText.buttons.preview}</a></li>
-          <li><a href="#help">{bannerText.buttons.help}</a></li>
+          <li><a href="#" onClick={this.props.settingsAction}>{bannerText.buttons.settings}</a></li>
+          <li><a href="#">{bannerText.buttons.share}</a></li>
+          <li><a href={this.previewLink} target="_blank">{bannerText.buttons.preview}</a></li>
+          <li><a href="#">{bannerText.buttons.help}</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li><p className="navbar-text">{this.props.saving ? bannerText.hintText.saving : bannerText.hintText.saved}</p></li>
@@ -69,12 +71,14 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
 
 BuilderBanner.propTypes = {
   brandOnly: React.PropTypes.bool,
-  saving: React.PropTypes.bool
+  saving: React.PropTypes.bool,
+  settingsAction: React.PropTypes.func
 };
 
 BuilderBanner.defaultProps = {
   brandOnly: false,
-  saving: false
+  saving: false,
+  settingsAction: () => {}
 };
 
 export default BuilderBanner;

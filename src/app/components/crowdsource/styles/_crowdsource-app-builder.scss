@@ -1,12 +1,14 @@
 @import "calcite/colors-default";
 
 $buiderBannerHeight: 50px;
+$sidePanelWidth: 350px;
 $nameStandard: $Calcite_Gray_300;
 $nameHighlight: $Calcite_Blue_200;
 
 @import "crowdsource/styles/settingsModals/SettingsModal";
 @import "crowdsource/styles/settingsModals/Layout";
 @import "builder/banner/Banner";
+@import "builder/settings/sidePanel/Settings";
 
 // Editor UI
 @import "forms/inlineEditor/InlineEditor";
@@ -14,9 +16,15 @@ $nameHighlight: $Calcite_Blue_200;
 .viewer {
   height: calc(100% - #{$buiderBannerHeight});
   width: 100%;
+  float: right;
+  @include transition(width 500ms);
 }
 
 .no-banner .viewer {
   height: 100%;
-  width: 100%;
+}
+
+.visible-side-panel .viewer {
+  width: calc(100% - #{$sidePanelWidth});
+  @include transition(width 500ms);
 }

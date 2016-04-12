@@ -5,6 +5,7 @@ import {
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY,
   APP_LAYOUT_SHOW_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT,
+  APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH,
   UPDATE_APP_CONTRIBUTE_STATE,
   APP_NOTIFICATIONS_ADD,
   APP_NOTIFICATIONS_REMOVE
@@ -48,6 +49,13 @@ export const hideComponent = function (component) {
   };
 };
 
+export const hideComponentByStringMatch = function (component) {
+  return {
+    type: APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH,
+    component
+  };
+};
+
 export const updateContributeState = function (options) {
   return {
     type: UPDATE_APP_CONTRIBUTE_STATE,
@@ -75,6 +83,7 @@ export const boundActions = {
   changeComponentsVisibility: (changes) => dispatch(changeComponentsVisibility(changes)),
   showComponent: (component) => dispatch(showComponent(component)),
   hideComponent: (component) => dispatch(hideComponent(component)),
+  hideComponentByStringMatch: (component) => dispatch(hideComponentByStringMatch(component)),
   updateContributeState: (options) => dispatch(updateContributeState(options)),
   addNotifications: (notifications) => dispatch(addNotifications(notifications)),
   removeNotifications: (notifications) => dispatch(removeNotifications(notifications))

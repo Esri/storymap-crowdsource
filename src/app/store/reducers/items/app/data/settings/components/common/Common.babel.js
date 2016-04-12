@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import sharing from './sharing/Sharing';
 import {
+  UPDATE_SETTINGS_COMMON_PARTICIPATE_SHORT,
   UPDATE_SETTINGS_COMMON_EXPLORE_TEXT
 } from 'babel/constants/actionsTypes/Settings';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
@@ -12,7 +13,7 @@ const defaultExploreText = builderText ? builderText.appDataPlaceholderText.glob
 
 export const participateShort = function (state = defaultParticipateShort, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_COMMON_PARTICIPATE_SHORT':
+    case UPDATE_SETTINGS_COMMON_PARTICIPATE_SHORT:
       return action.text;
     default:
       return state;

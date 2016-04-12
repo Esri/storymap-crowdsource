@@ -1,0 +1,15 @@
+.settings.side-panel {
+  position: absolute;
+  top: $buiderBannerHeight;
+  background-color: #fff;
+  color: #333;
+  height: calc(100% - #{$buiderBannerHeight});
+  width: $sidePanelWidth;
+  left: -$sidePanelWidth;
+  @include transition(left 500ms);
+}
+
+.visible-side-panel .settings.side-panel {
+  left: 0;
+  @include transition(left 500ms);
+}

@@ -66,6 +66,33 @@ define({
       saving: 'Creating Application Items',
       layerNameInWebmap: 'Crowdsource Layer (DO NOT REMOVE)'
     },
+    settings: {
+      title: 'Settings',
+      panes: {
+        header: {
+          title: 'Header',
+          fields: {
+            logo: {
+              label: 'Upload a logo',
+              placeholder: 'Drag and Drop',
+              attribute: 'logo'
+            },
+            logoLink: {
+              label: 'Logo link',
+              placeholder: 'https://www.example.com'
+            },
+            bannerTitle: {
+              label: 'Header Title',
+              placeholder: 'Enter title'
+            },
+            participateButton: {
+              label: 'Participate Button Label',
+              placeholder: 'Enter label'
+            }
+          }
+        }
+      }
+    },
     settingsModals: {
       common: {
         advancedOptions: 'Advanced Options',

@@ -308,6 +308,8 @@ export default class Photo extends FormGroup {
 
         if (dfd) {
           return dfd;
+        } else {
+          return value;
         }
       } else if (typeof this.props.extras.photoSettings === 'object') {
         const options = $.extend(true,{},{canvas},this.props.extras.photoSettings);

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import {
   APP_LAYOUT_SHOW_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT,
+  APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH,
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY
 } from 'babel/constants/actionsTypes/App';
 
@@ -39,6 +40,15 @@ export const visibleComponents = function (state = [], action) {
     case APP_LAYOUT_HIDE_COMPONENT:
       return state.reduce((prev,current) => {
         if ([].concat(action.component).indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
+    case APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH:
+      return state.reduce((prev,current) => {
+        if ([].concat(action.component).filter((fC) => {
+          return current.toLowerCase().match(fC.toLowerCase());
+        }).length < 0) {
           return prev.concat(current);
         }
         return prev;

@@ -4,6 +4,7 @@ import Helper from 'babel/utils/helper/Helper';
 import Builder from 'mode!isBuilder?./builder/Builder';
 import Viewer from './viewer/Viewer';
 import Loader from 'babel/components/helper/loading/Loader';
+import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -18,7 +19,8 @@ class CrowdsourceApp extends React.Component {
     const showViewer = !this.props.mode.fromScratch && (!this.props.mode.isBuilder || this.props.mode.isBuilder && this.props.user.editor) && this.props.loading.data && !error;
 
     const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
-      'no-banner': !showBuilder
+      'no-banner': !showBuilder,
+      'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL) >= 0
     });
 
     return (
@@ -109,7 +111,8 @@ CrowdsourceApp.propTypes = {
     authenticated: React.PropTypes.bool,
     publisher: React.PropTypes.bool,
     editor: React.PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  visibleComponents: React.PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -120,7 +123,8 @@ const mapStateToProps = (state) => {
     mode: state.mode,
     loading: state.app.loading,
     layoutId: state.items.app.data.settings.layout.id,
-    user: state.user
+    user: state.user,
+    visibleComponents: state.app.layout.visibleComponents
   };
 };
 
