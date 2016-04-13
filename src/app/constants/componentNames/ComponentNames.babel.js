@@ -7,7 +7,7 @@ export const SELECTED_SHARES = 'selected-shares';
 export const SHARE_LINK = 'share-link';
 
 // BUILDER ONLY
-export const SIDE_PANEL = 'side-panel';
+export const SIDE_PANEL_SETTINGS = 'side-panel-settings';
 
 export default {
   // VIEWER AND BUILDER
@@ -18,5 +18,5 @@ export default {
   SELECTED_SHARES,
   SHARE_LINK,
   // BUILDER ONLY
-  SIDE_PANEL
+  SIDE_PANEL_SETTINGS
 };

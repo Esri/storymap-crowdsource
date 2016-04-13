@@ -32,9 +32,13 @@ export default class HeaderSettings extends React.Component {
     let settings = {
       formId: 'headerSettings',
       id: input,
-      required: true,
       type: 'photo',
-      label: builderText.settings.panes.header.fields[input].label
+      label: builderText.settings.panes.header.fields[input].label,
+      handleChange: (res) => {
+        if (res.valid && res.value && this.props.actions[input]){
+          this.props.actions[input](res.value);
+        }
+      }
     };
 
     switch (input) {
@@ -47,34 +51,30 @@ export default class HeaderSettings extends React.Component {
               name: 'logo',
               type: 'png',
               height: 30
-            }],
-            handleChange: (res) => {
-              console.log(res);
-            }
+            }]
           }
         });
         break;
       default:
         $.extend(true,settings,{
+          required: true,
           inputAttr: {
-            value: this.props.defaultValues[input],
+            defaultValue: this.props.defaultValues[input],
             placeholder: builderText.settings.panes.header.fields[input].placeholder
           },
-          validations: ['required'],
-          handleChange: (res) => {
-            if (res.valid && res.value && this.props.actions[input]){
-              this.props.actions[input](res.value);
-            }
-          }
+          validations: ['required']
         });
     }
-
-    console.log(settings);
     return settings;
   }
 }
 
 HeaderSettings.propTypes = {
+  defaultValues: React.PropTypes.shape({
+    logoLink: React.PropTypes.string,
+    bannerTitle: React.PropTypes.string,
+    participateButton: React.PropTypes.string
+  })
 };
 
 HeaderSettings.defaultProps = {

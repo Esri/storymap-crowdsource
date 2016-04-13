@@ -349,6 +349,101 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     return dfd;
   }
 
+  uploadAppItemAttachments(options) {
+    const dfd = new Deferred();
+    const appState = lang.getObject('items.app',false,AppStore.getState());
+    const defaults = appState;
+    const settings = $.extend(true, {}, defaults, options);
+
+    const username = this.getPortalUser().username;
+    const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/addResources';
+
+    const formdata = new FormData();
+
+    formdata.append('attachment', settings.attachment, settings.filename);
+    formdata.append('f', 'json');
+
+    esriRequest({
+      url,
+      handleAs: 'json',
+      form: formdata
+    },{
+      usePost: true
+    }).then((res) => {
+      if (res.success) {
+        const attachmentUrl = this.portalUrl.stripTrailingSlash()  + '/content/items/' + settings.item.id + '/resources/' + settings.filename;
+
+        dfd.resolve(attachmentUrl);
+      } else {
+        _onError(res);
+        dfd.reject();
+      }
+    },(err) => {
+      _onError(err);
+      dfd.reject();
+    });
+
+    return dfd;
+
+  }
+
+  removeAttachments(options) {
+    const appState = lang.getObject('items.app',false,AppStore.getState());
+    const defaults = appState;
+    const settings = $.extend(true, {}, defaults, options);
+
+    const username = this.getPortalUser().username;
+    const removeUrl = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/removeResources';
+    const queryUrl = this.portalUrl.stripTrailingSlash() + '/content/items/' + settings.item.id + '/resources';
+
+    const removeExtraResouces = function(resources) {
+      const keep = [].concat(settings.keep);
+      const filter = [].concat(settings.filter);
+
+      resources.forEach((current) => {
+        const name = current.resource;
+
+        if (keep.indexOf(name) < 0 && filter.filter((fC) => {
+            return name.match(fC);
+          }).length > 0) {
+
+            const content = {
+              resource: name,
+              f: 'json'
+            };
+
+            esriRequest({
+              url: removeUrl,
+              handleAs: 'json',
+              content
+            },{
+              usePost: true
+            });
+        }
+      });
+    };
+
+    const query = function() {
+      const content = {
+        f: 'json'
+      };
+
+      esriRequest({
+        url: queryUrl,
+        handleAs: 'json',
+        content
+      },{
+        usePost: true
+      }).then((res) => {
+        if (res.resources && res.resources.length > 0) {
+          removeExtraResouces(res.resources);
+        }
+      });
+    };
+
+    query();
+  }
+
 };
 
 export default Portal;

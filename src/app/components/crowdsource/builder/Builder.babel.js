@@ -37,7 +37,7 @@ class Builder extends React.Component {
         { this.props.loading.data ? <BuilderBanner
           brandOnly={ this.props.activeDialog.length > 0 }
           saving={this.props.saving}
-          settingsAction={this.props.showComponent.bind(this,componentNames.SIDE_PANEL)} />
+          settingsAction={this.props.showComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)} />
         : null }
         <ReactCSSTransitionGroup
           component="div"
@@ -56,7 +56,7 @@ class Builder extends React.Component {
               component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
             }
           ]}
-          closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL)}>
+          closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
         </SidePanelSettings>
       </div>
     );
@@ -180,6 +180,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(AppActions.hideComponent(component));
     },
     headerSettingsActions: {
+      logo: (value) => {
+        BuilderActions.addAppItemAttatchment({
+          id: 'logo_' + Helper.getRandomId(),
+          type: 'photo',
+          attachment: value.logo,
+          removeAttachments: true,
+          removeFilter: 'logo_',
+          callback: SettingsActions.updateHeaderLogoUrl
+        });
+      },
       logoLink: SettingsActions.updateHeaderLogoLink,
       bannerTitle: SettingsActions.updateHeaderTitle,
       participateButton: SettingsActions.updateCommonParticipateShort

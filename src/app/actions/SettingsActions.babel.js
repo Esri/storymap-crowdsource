@@ -6,6 +6,7 @@ import {
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_HEADER_TITLE,
+  UPDATE_SETTINGS_HEADER_LOGO_URL,
   UPDATE_SETTINGS_HEADER_LOGO_LINK,
   UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_ID,
   UPDATE_SETTINGS_MAP_WEBMAP_ID,
@@ -62,6 +63,13 @@ export const updateHeaderTitle = function (title) {
   };
 };
 
+export const updateHeaderLogoUrl = function (url) {
+  return {
+    type: UPDATE_SETTINGS_HEADER_LOGO_URL,
+    url
+  };
+};
+
 export const updateHeaderLogoLink = function (link) {
   return {
     type: UPDATE_SETTINGS_HEADER_LOGO_LINK,
@@ -99,6 +107,7 @@ export const boundActions = {
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),
+  updateHeaderLogoUrl: (url) => dispatch(updateHeaderLogoUrl(url)),
   updateHeaderLogoLink: (link) => dispatch(updateHeaderLogoLink(link)),
   updateMapCrowdsourceLayerId: (id) => dispatch(updateMapCrowdsourceLayerId(id)),
   updateMapWebmapId: (webmap) => dispatch(updateMapWebmapId(webmap)),

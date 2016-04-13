@@ -1,10 +1,26 @@
 import AppStore from 'babel/store/AppStore';
 import {
+  BUILDER_ADD_APP_ITEM_ATTACHMENT,
+  BUILDER_REMOVE_APP_ITEM_ATTACHMENT,
   CHANGE_BUIDER_DIALOG,
   UPDATE_BUILDER_SAVE_STATUS
 } from 'babel/constants/actionsTypes/Builder';
 
 const dispatch = AppStore.dispatch;
+
+export const addAppItemAttatchment = function(data) {
+  return {
+    type: BUILDER_ADD_APP_ITEM_ATTACHMENT,
+    data
+  };
+};
+
+export const removeAppItemAttatchment = function(id) {
+  return {
+    type: BUILDER_REMOVE_APP_ITEM_ATTACHMENT,
+    id
+  };
+};
 
 export const changeDialog = function (dialog) {
   return {
@@ -21,6 +37,8 @@ export const updateSaveStatus = function (saving) {
 };
 
 export const boundActions = {
+  addAppItemAttatchment: (data) => dispatch(addAppItemAttatchment(data)),
+  removeAppItemAttatchment: (id) => dispatch(removeAppItemAttatchment(id)),
   changeDialog: (dialog) => dispatch(changeDialog(dialog)),
   updateSaveStatus: (saving) => dispatch(updateSaveStatus(saving))
 };

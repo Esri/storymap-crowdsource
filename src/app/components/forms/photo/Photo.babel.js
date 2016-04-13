@@ -231,9 +231,7 @@ export default class Photo extends FormGroup {
     this.input.value = false;
     clearTimeout(this.cropDelay);
     this.cropDelay = setTimeout(() => {
-      const canvas = this.cropper.getCroppedCanvas({
-        fillColor: '#000'
-      });
+      const canvas = this.cropper.getCroppedCanvas();
 
       const value = this.generatePhotos(canvas);
 

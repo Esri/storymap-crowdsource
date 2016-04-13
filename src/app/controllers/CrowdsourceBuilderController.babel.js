@@ -2,6 +2,7 @@ import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import Logger from 'babel/utils/logging/Logger';
 import StoryCreator from './fromScratch/StoryCreator';
+import AppItemAttachments from './builder/appItemAttachments/AppItemAttachments';
 import BuilderActions from 'babel/actions/BuilderActions';
 import AppStore from 'babel/store/AppStore';
 import builderText from 'i18n!translations/builder/nls/template';
@@ -38,6 +39,9 @@ export default class CrowdsourceBuilderController {
 
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
+
+    // Load extra builder controllers
+    new AppItemAttachments();
 
     window.onbeforeunload = () => {
       if (lang.getObject('appState.builder.saving',false,this) || this.lastSaveAppData !== JSON.stringify(lang.getObject('appState.items.app',false,this))) {

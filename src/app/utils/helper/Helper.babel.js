@@ -62,6 +62,10 @@ const getSharingUrl = function getSharingUrl() {
   }
 };
 
+const getRandomId = function getRandomId() {
+  return Math.random().toString(36).substr(2, 9);
+};
+
 export const Icons = {
   getIcon
 };
@@ -69,6 +73,7 @@ export const Icons = {
 export default {
   classnames,
   getSharingUrl,
+  getRandomId,
   icons: Icons,
   layout: Layout,
   objectUtils: ObjectUtils,
