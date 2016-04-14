@@ -37,11 +37,16 @@ export const Header = class Header extends React.Component {
       </button>
     ) : null;
 
+    const logoUrl = Helper.attachmentUtils.checkForCredential({
+      url: this.props.logo.source,
+      portal: this.props.portal
+    });
+
     return (
       <header className={headerClass}>
         <div className="cell-wrapper">
           <a href={this.props.logo.link} className="logo-link cell" target="_blank">
-            <img src={this.props.logo.source} className="logo" alt={this.props.logo.link} />
+            <img src={logoUrl} className="logo" alt={this.props.logo.link} />
           </a>
           <div className="title-cell cell fill-cell">
             <h4 className="title" tabIndex="0" onClick={this.props.homeAction}>{this.props.title}</h4>
@@ -78,6 +83,10 @@ export const Header = class Header extends React.Component {
 };
 
 Header.propTypes = {
+  portal: React.PropTypes.oneOfType([
+    React.PropTypes.shape({}),
+    React.PropTypes.bool
+  ]),
   homeAction: React.PropTypes.func,
   participateAction: React.PropTypes.func,
   logo: React.PropTypes.shape({
@@ -93,6 +102,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
+  portal: false,
   homeAction: () => {},
   participateAction: () => {},
   logo: {

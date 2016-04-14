@@ -6,6 +6,8 @@
   height: calc(100% - #{$buiderBannerHeight});
   width: $sidePanelWidth;
   left: -$sidePanelWidth;
+  padding-bottom: 15px;
+  overflow: auto;
   @include transition(left 500ms);
 }
 

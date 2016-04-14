@@ -51,6 +51,7 @@ class Viewer extends React.Component {
           {...this.props.components.header}
           {...this.props.components.common}
           sharing={shareConfigWithAction}
+          portal={this.props.portal}
           loading={this.props.loading}>
         </Header>
         <IntroSplash
@@ -241,6 +242,7 @@ Viewer.propTypes = {
     featuresInExtent: React.PropTypes.array.isRequired,
     selectedFeatures: React.PropTypes.array.isRequired
   }).isRequired,
+  portal: React.PropTypes.shape({}),
   mode: React.PropTypes.shape({
     isBuilder: React.PropTypes.bool
   }).isRequired,
@@ -334,6 +336,7 @@ const mapStateToProps = (state) => {
     layoutId: state.items.app.data.settings.layout.id,
     layout: state.app.layout,
     map: state.app.map,
+    portal: state.app.portal,
     mode: state.mode,
     notifications: state.app.notifications,
     user: state.user,

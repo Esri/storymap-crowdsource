@@ -28,6 +28,8 @@ export const checkForCredential = function(options) {
 
   const attachmentUrl = new URI(settings.url);
 
+  // console.log(settings);
+
   // Append token to URL for private photo attachments
   if (lang.getObject('layer.credential.token',false,settings) && lang.getObject('layer.credential.server',false,settings)) {
     const serverURI = new URI(lang.getObject('layer.credential.server',false,settings));
@@ -36,6 +38,14 @@ export const checkForCredential = function(options) {
 
     if (testPhotoString.match(matchString)) {
       attachmentUrl.setSearch('token', lang.getObject('layer.credential.token',false,settings));
+    }
+  } else if (lang.getObject('portal.user.credential.token',false,settings)) {
+    const serverURI = new URI(lang.getObject('portal.portalUrl',false,settings));
+    const testPhotoString = attachmentUrl.host() + attachmentUrl.path();
+    const matchString = serverURI.host() + serverURI.path();
+
+    if (testPhotoString.match(matchString)) {
+      attachmentUrl.setSearch('token', lang.getObject('portal.user.credential.token',false,settings));
     }
   }
 
