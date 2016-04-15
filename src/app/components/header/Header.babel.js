@@ -45,9 +45,11 @@ export const Header = class Header extends React.Component {
     return (
       <header className={headerClass}>
         <div className="cell-wrapper">
-          <a href={this.props.logo.link} className="logo-link cell" target="_blank">
-            <img src={logoUrl} className="logo" alt={this.props.logo.link} />
-          </a>
+          {this.props.logo.type === 'none' ? null : (
+            <a href={this.props.logo.link} className="logo-link cell" target="_blank">
+              <img src={logoUrl} className="logo" alt={this.props.logo.link} />
+            </a>
+          )}
           <div className="title-cell cell fill-cell">
             <h4 className="title" tabIndex="0" onClick={this.props.homeAction}>{this.props.title}</h4>
           </div>
@@ -77,7 +79,7 @@ export const Header = class Header extends React.Component {
       siblingWidth += $(this).outerWidth();
     });
 
-    node.find('.title').width(fullWidth - siblingWidth);
+    node.find('.title').width(fullWidth - siblingWidth - 45);
   }
 
 };

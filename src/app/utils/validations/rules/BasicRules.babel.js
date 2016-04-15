@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Deferred from 'dojo/Deferred';
 import ValidationUtils from 'babel/utils/validations/ValidationUtils';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
@@ -183,7 +184,65 @@ const BasicRules = {
     }
 
     return res;
-  }
+  },
+	https: function https(options) {
+		let res = {
+			isValid: true,
+			error: false
+		};
+    const defaults = {
+      errorMessage: ValitdateText.https
+    };
+    const settings = $.extend(true,{},defaults,options);
+		const msgOptions = {
+			attribute: settings.attribute
+		};
+    const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
+
+    if (settings.value && typeof settings.value === 'string' && settings.value.length > 1 && settings.value.search('https') !== 0 && settings.value.search('//') !== 0) {
+			res = {
+				isValid: false,
+				error: errorMessage
+			};
+    }
+
+    return res;
+	},
+	imageUrl: function imageUrl(options) {
+
+		let res = {
+			isValid: true,
+			error: false
+		};
+    const defaults = {
+			errorMessage: ValitdateText.imageUrl
+		};
+    const settings = $.extend(true,{},defaults,options);
+		const msgOptions = {
+			attribute: settings.attribute
+		};
+		const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
+
+		if (settings.value && typeof settings.value === 'string' && settings.value.length > 0) {
+			const dfd = new Deferred();
+
+			const image = new Image();
+
+      image.onload = () => {
+        dfd.resolve(res);
+      };
+			image.onerror = () => {
+				res.isValid = false,
+				res.error = errorMessage;
+				dfd.resolve(res);
+			};
+			image.src = settings.value;
+
+			return dfd;
+		} else {
+			return res;
+		}
+	}
 };
 
 export default BasicRules;

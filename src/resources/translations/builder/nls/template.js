@@ -72,7 +72,21 @@ define({
         header: {
           title: 'Header',
           fields: {
-            logo: {
+            logoType: {
+              label: 'Logo',
+              optionLabels: {
+                esri: 'Esri logo',
+                upload: 'Custom logo upload',
+                url: 'Custom logo from URL',
+                none: 'No logo'
+              }
+            },
+            logoUrl: {
+              label: 'Logo URL',
+              placeholder: 'https://www.example.org/your_logo.png',
+              attribute: 'logo'
+            },
+            logoUpload: {
               label: 'Upload a logo',
               placeholder: 'Drag and Drop',
               attribute: 'logo'

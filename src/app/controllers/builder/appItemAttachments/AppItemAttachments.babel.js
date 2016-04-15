@@ -63,8 +63,6 @@ export default class addAppItemAttatchments {
     let filename;
     let attachment;
 
-    console.log(data);
-
     switch (data.type) {
       case 'photo':
         filename = data.id + data.attachment.ext;

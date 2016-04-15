@@ -6,18 +6,18 @@
   z-index: 902;
 
   .cell-wrapper {
-    display: table;
+    display: flex;
+    align-items: center;
     height: 100%;
     width: 100%;
   }
 
   .cell {
-    display: table-cell;
     white-space: nowrap;
-    vertical-align: middle;
+    flex: 0;
 
     &:first-child {
-      padding: 0 ($headerMargin * 3) 0 $headerMargin;
+      margin-left: 5px;
     }
 
     &:last-child {
@@ -26,16 +26,17 @@
     }
 
     &.fill-cell {
-      width: 100%;
+      flex: 1;
     }
   }
 
   img.logo{
-    height: $headerHeight - ($headerMargin * 2);
+    height: $headerHeight - 16;
+    margin: 0 $headerMargin;
   }
 
   .title {
-    margin: 0;
+    margin-left: $headerMargin;
     font-size: 1.3em;
     line-height: 1.3em;
     overflow: hidden;
@@ -45,7 +46,7 @@
 
   .participate {
     cursor: pointer;
-    margin: 0  ($headerMargin * 2) 0 ($headerMargin * 3);
+    margin: 0  $headerMargin 0 0;
 
     &.participate-btn-enter {
       opacity: 0;

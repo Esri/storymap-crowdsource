@@ -1,9 +1,15 @@
 @import "textarea/Textarea";
+@import "radioGroup/RadioGroup";
 @import "location/Location";
 @import "photo/Photo";
 @import "termsAndConditions/TermsAndConditions";
 
 form {
+
+  .form-group .control-label {
+    font-weight: bold;
+    font-weight: 14px;
+  }
 
   .required label::after {
     color: $Calcite_Red_a150;

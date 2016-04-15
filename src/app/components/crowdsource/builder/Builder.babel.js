@@ -163,6 +163,8 @@ const mapStateToProps = (state) => {
     },
     defaultValues: {
       headerSettings: {
+        logoType: state.items.app.data.settings.components.header.logo.type,
+        logoUrl: state.items.app.data.settings.components.header.logo.source === 'resources/images/logo/esri-logo-reversed.svg' ? null : state.items.app.data.settings.components.header.logo.source,
         logoLink: state.items.app.data.settings.components.header.logo.link,
         bannerTitle: state.items.app.data.settings.components.header.title,
         participateButton: state.items.app.data.settings.components.common.participateShort
@@ -180,7 +182,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(AppActions.hideComponent(component));
     },
     headerSettingsActions: {
-      logo: (value) => {
+      logoType: (value) => {
+        SettingsActions.updateHeaderLogoType(value);
+        if (value === 'esri') {
+          SettingsActions.updateHeaderLogoUrl('resources/images/logo/esri-logo-reversed.svg');
+        } else if (value === 'none') {
+          SettingsActions.updateHeaderLogoUrl('');
+        }
+      },
+      logoUrl: SettingsActions.updateHeaderLogoUrl,
+      logoUpload: (value) => {
         BuilderActions.addAppItemAttatchment({
           id: 'logo_' + Helper.getRandomId(),
           type: 'photo',
