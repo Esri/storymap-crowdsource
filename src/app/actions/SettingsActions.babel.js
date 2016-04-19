@@ -3,6 +3,8 @@ import {
   UPDATE_SETTINGS_OAUTH,
   UPDATE_SETTINGS_COMMON_PARTICIPATE_SHORT,
   UPDATE_SETTINGS_COMMON_EXPLORE_TEXT,
+  UPDATE_SETTINGS_COMMON_SHARING_SERVICES,
+  UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_HEADER_TITLE,
@@ -38,6 +40,20 @@ export const updateCommonExploreText = function (text) {
   return {
     type: UPDATE_SETTINGS_COMMON_EXPLORE_TEXT,
     text
+  };
+};
+
+export const updateCommonSharingServices = function (settings) {
+  return {
+    type: UPDATE_SETTINGS_COMMON_SHARING_SERVICES,
+    settings
+  };
+};
+
+export const updateCommonSharingTwitter = function (settings) {
+  return {
+    type: UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
+    settings
   };
 };
 
@@ -112,6 +128,8 @@ export const boundActions = {
   updateOAuthSettings: (options) => dispatch(updateOAuthSettings(options)),
   updateCommonParticipateShort: (text) => dispatch(updateCommonParticipateShort(text)),
   updateCommonExploreText: (text) => dispatch(updateCommonExploreText(text)),
+  updateCommonSharingServices: (settings) => dispatch(updateCommonSharingServices(settings)),
+  updateCommonSharingTwitter: (settings) => dispatch(updateCommonSharingTwitter(settings)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),

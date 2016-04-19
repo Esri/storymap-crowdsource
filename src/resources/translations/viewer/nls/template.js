@@ -97,11 +97,11 @@ define({
           number: 'The <% attribute %> must be less than or equal to <% max %>.'
         },
         acceptedTerms: 'You must accept the terms and conditions before sharing.',
-        https: 'The <% attribute %> must be loaded over a secure connection. The URL must start with "https" or "//" to load correctly.',
+        https: 'The <% attribute %> must be loaded over a secure connection. The URL must start with "https://" or "//" to load correctly.',
         imageUrl: 'The <% attribute %> must be a valid image URL. In most cases the URL will end with ".jpg", ".gif"., or ".png" extension.'
       },
       pattern: {
-        website: 'You must enter a valid website url.'
+        noSpace: 'The <% attribute %> cannot contain any spaces.'
       },
       arcgis: {
         location: {

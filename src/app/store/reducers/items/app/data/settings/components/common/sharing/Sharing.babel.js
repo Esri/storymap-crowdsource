@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import { combineReducers } from 'redux';
 import {
+  UPDATE_SETTINGS_COMMON_SHARING_SERVICES,
   UPDATE_SETTINGS_COMMON_SHARING_TWITTER
-} from 'babel/constants/actionsTypes/Component';
+} from 'babel/constants/actionsTypes/Settings';
 
 const defaultServices = {
   facebook: true,
@@ -14,14 +15,13 @@ const defaultTwitter = {
   text: '',
   hashtags: 'storymaps',
   twitterHandle: '',
-  relative: 'EsriStoryMaps'
+  related: 'EsriStoryMaps'
 };
 
 export const services = function (state = defaultServices, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_COMMON_SHARING_SERVICES':
-      // TODO check available services and that they are boolean
-      return $.extend(true,{},state,action.services);
+    case UPDATE_SETTINGS_COMMON_SHARING_SERVICES:
+      return $.extend(true,{},state,action.settings);
     default:
       return state;
   }
@@ -30,8 +30,7 @@ export const services = function (state = defaultServices, action) {
 export const twitter = function (state = defaultTwitter, action) {
   switch (action.type) {
     case UPDATE_SETTINGS_COMMON_SHARING_TWITTER:
-      // TODO check available services and that they are boolean
-      return $.extend(true,{},state,action.services);
+      return $.extend(true,{},state,action.settings);
     default:
       return state;
   }

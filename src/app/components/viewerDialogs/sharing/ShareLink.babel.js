@@ -182,7 +182,7 @@ export default class ShareLink extends React.Component {
               </button>
               <ul className="dropdown-menu">
                 {this.sizeOptions.map((current) => {
-                  return <li key={current.id} onClick={this.changeEmbedSize.bind(this,current)}>{current.width} / {current.height}</li>;
+                  return <li key={current.id} onClick={this.changeEmbedSize.bind(this,current)}><a href="#"><small>{current.width} / {current.height}</small></a></li>;
                 })}
               </ul>
             </div>

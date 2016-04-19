@@ -3,19 +3,6 @@
     margin-top: 0;
   }
 
-  .required-warning {
-    margin-top: 15px;
-    font-style: italic;
-  }
-
-  .required-warning::before{
-    color: $Calcite_Red_a150;
-    font-weight: bold;
-    font-size: 18px;
-    margin-right: 3px;
-    content: "*";
-  }
-
   .save-btn {
     margin: 15px 0;
   }

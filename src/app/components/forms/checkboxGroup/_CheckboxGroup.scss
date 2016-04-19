@@ -1,0 +1,18 @@
+.checkbox-group {
+
+  .checkbox {
+    margin-top: 0;
+  }
+
+  &.has-error .checkbox {
+    color: inherit;
+  }
+
+  &.required .checkbox label::after {
+    content: none;
+  }
+
+  label span {
+    vertical-align: top;
+  }
+}

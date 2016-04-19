@@ -5,7 +5,7 @@ import RadioGroup from 'babel/components/forms/radioGroup/RadioGroup';
 import Input from 'babel/components/forms/input/Input';
 import Photo from 'babel/components/forms/photo/Photo';
 import builderText from 'i18n!translations/builder/nls/template';
-// import viewerText from 'i18n!translations/viewer/nls/template';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
 export default class HeaderSettings extends React.Component {
 
@@ -17,16 +17,17 @@ export default class HeaderSettings extends React.Component {
   }
 
   render() {
-    const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'header-settings','settings-pane']);
+    const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'header-settings']);
 
     return (
       <form className={settingsClasses}>
         <RadioGroup {...this.getInputSettings('logoType')}></RadioGroup>
         {this.props.defaultValues.logoType === 'upload' ? <Photo {...this.getInputSettings('logoUpload')}></Photo> : null }
         {this.props.defaultValues.logoType === 'url' ? <Input {...this.getInputSettings('logoUrl')}></Input> : null }
-        <Input {...this.getInputSettings('logoLink')}></Input>
+        {this.props.defaultValues.logoType === 'url' || this.props.defaultValues.logoType === 'upload' ? <Input {...this.getInputSettings('logoLink')}></Input> : null }
         <Input {...this.getInputSettings('bannerTitle')}></Input>
         <Input {...this.getInputSettings('participateButton')}></Input>
+        <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
     );
   }
@@ -34,11 +35,10 @@ export default class HeaderSettings extends React.Component {
   getInputSettings(input) {
     let settings = {
       id: 'headerSettings' + input,
-      type: 'photo',
       label: builderText.settings.panes.header.fields[input].label,
-      attributeName: builderText.settings.panes.header.fields[input].attribute,
+      attribute: builderText.settings.panes.header.fields[input].attribute,
       handleChange: (res) => {
-        if (res.valid && res.value && this.props.actions[input]){
+        if (res.valid && res.value !== undefined && this.props.actions[input]){
           this.props.actions[input](res.value);
         }
       }
@@ -67,6 +67,8 @@ export default class HeaderSettings extends React.Component {
         break;
       case 'logoUpload':
         $.extend(true,settings,{
+
+            // type: 'photo',
           placeholder: builderText.settings.panes.header.fields[input].placeholder,
           extras: {
             photoSettings: [{
@@ -87,7 +89,7 @@ export default class HeaderSettings extends React.Component {
           validations: ['required','https','imageUrl']
         });
         break;
-      default:
+      case 'logoLink':
         $.extend(true,settings,{
           required: true,
           inputAttr: {
@@ -95,6 +97,14 @@ export default class HeaderSettings extends React.Component {
             placeholder: builderText.settings.panes.header.fields[input].placeholder
           },
           validations: ['required']
+        });
+        break;
+      default:
+        $.extend(true,settings,{
+          inputAttr: {
+            defaultValue: this.props.defaultValues[input],
+            placeholder: builderText.settings.panes.header.fields[input].placeholder
+          }
         });
     }
     return settings;
@@ -104,6 +114,7 @@ export default class HeaderSettings extends React.Component {
 HeaderSettings.propTypes = {
   defaultValues: React.PropTypes.shape({
     logoType: React.PropTypes.string,
+    logoUrl: React.PropTypes.string,
     logoLink: React.PropTypes.string,
     bannerTitle: React.PropTypes.string,
     participateButton: React.PropTypes.string

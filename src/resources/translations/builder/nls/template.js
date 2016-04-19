@@ -104,6 +104,36 @@ define({
               placeholder: 'Enter label'
             }
           }
+        },
+        socialSharing: {
+          title: 'Social',
+          fields: {
+            includeSharing: {
+              label: 'Sharing buttons',
+              optionLabels: {
+                include: 'Display social sharing buttons in your story'
+              }
+            },
+            twitterText: {
+              label: 'Prepoulated tweet text',
+              placeholder: 'Enter tweet text',
+              attribute: 'tweet text field'
+            },
+            twitterHashtags: {
+              label: 'Hashtags (comma seperated)',
+              placeholder: 'Enter label',
+              attribute: 'hashtags field'
+            },
+            twitterHandle: {
+              label: 'Your twitter handle',
+              placeholder: 'Enter twitter handle'
+            },
+            twitterRelated: {
+              label: '"Who to follow" twitter accounts (comma seperated)',
+              placeholder: 'Enter twitter handles',
+              attribute: 'recommended accounts field'
+            }
+          }
         }
       }
     },

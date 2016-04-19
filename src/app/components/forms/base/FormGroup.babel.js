@@ -106,7 +106,6 @@ export default class FormGroup extends React.Component {
 
   validateForm() {
     const finished = function finished(res) {
-
       if (!res.newValidation) {
         this.value = this.input.value;
         this.valid = res.isValid;

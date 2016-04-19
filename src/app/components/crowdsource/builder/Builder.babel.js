@@ -8,6 +8,7 @@ import SettingsLayout from 'babel/components/settings/Layout';
 import SettingsItemName from 'babel/components/settings/ItemName';
 import SidePanelSettings from 'babel/components/builder/settings/sidePanel/Settings';
 import HeaderSettings from 'babel/components/builder/settings/sidePanel/header/HeaderSettings';
+import SocialSharingSettings from 'babel/components/builder/settings/sidePanel/socialSharing/SocialSharingSettings';
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
@@ -48,16 +49,26 @@ class Builder extends React.Component {
           { this.props.activeDialog === 'itemNameScratch' ? this.getSettingsModal('itemNames') : null }
           { this.props.activeDialog === 'savingFromScratch' ? <Loader message={builderText.fromScratchMessage.saving}></Loader> : null }
         </ReactCSSTransitionGroup>
-        <SidePanelSettings
-          settingsPanes={[
-            {
-              id: 'header',
-              title: builderText.settings.panes.header.title,
-              component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
-            }
-          ]}
-          closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
-        </SidePanelSettings>
+        { this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0 ? (
+          <SidePanelSettings
+            settingsPanes={[
+              {
+                id: 'header',
+                title: builderText.settings.panes.header.title,
+                component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
+              },
+              {
+                id: 'socialSharing',
+                title: builderText.settings.panes.socialSharing.title,
+                component: <SocialSharingSettings defaultValues={this.props.defaultValues.socialSharing} actions={this.props.socialSharingActions}></SocialSharingSettings>
+              }
+            ]}
+            visibleComponents={this.props.visibleComponents}
+            showComponent={this.props.showComponent}
+            hideComponentByString={this.props.hideComponentByStringMatch}
+            closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
+          </SidePanelSettings>
+        ) : null }
       </div>
     );
   }
@@ -161,6 +172,7 @@ const mapStateToProps = (state) => {
     scratchNaming: {
       ownerFolder: state.items.app.item.ownerFolder
     },
+    visibleComponents: state.app.layout.visibleComponents,
     defaultValues: {
       headerSettings: {
         logoType: state.items.app.data.settings.components.header.logo.type,
@@ -168,6 +180,15 @@ const mapStateToProps = (state) => {
         logoLink: state.items.app.data.settings.components.header.logo.link,
         bannerTitle: state.items.app.data.settings.components.header.title,
         participateButton: state.items.app.data.settings.components.common.participateShort
+      },
+      socialSharing: {
+        includeLink: state.items.app.data.settings.components.common.sharing.services.link,
+        includeFacebook: state.items.app.data.settings.components.common.sharing.services.facebook,
+        includeTwitter: state.items.app.data.settings.components.common.sharing.services.twitter,
+        twitterText: state.items.app.data.settings.components.common.sharing.twitter.text,
+        twitterHashtags: state.items.app.data.settings.components.common.sharing.twitter.hashtags,
+        twitterHandle: state.items.app.data.settings.components.common.sharing.twitter.twitterHandle,
+        twitterRelated: state.items.app.data.settings.components.common.sharing.twitter.related
       }
     }
   };
@@ -181,11 +202,15 @@ const mapDispatchToProps = (dispatch) => {
     hideComponent: (component) => {
       dispatch(AppActions.hideComponent(component));
     },
+    hideComponentByStringMatch: (component) => {
+      dispatch(AppActions.hideComponentByStringMatch(component));
+    },
     headerSettingsActions: {
       logoType: (value) => {
         SettingsActions.updateHeaderLogoType(value);
         if (value === 'esri') {
           SettingsActions.updateHeaderLogoUrl('resources/images/logo/esri-logo-reversed.svg');
+          SettingsActions.updateHeaderLogoLink('https://www.esri.com');
         } else if (value === 'none') {
           SettingsActions.updateHeaderLogoUrl('');
         }
@@ -204,6 +229,29 @@ const mapDispatchToProps = (dispatch) => {
       logoLink: SettingsActions.updateHeaderLogoLink,
       bannerTitle: SettingsActions.updateHeaderTitle,
       participateButton: SettingsActions.updateCommonParticipateShort
+    },
+    socialSharingActions: {
+      includeSharing: (value) => {
+        const boolVal = value ? true : false;
+
+        SettingsActions.updateCommonSharingServices({
+          facebook: boolVal,
+          link: boolVal,
+          twitter: boolVal
+        });
+      },
+      twitterText: (value) => {
+        SettingsActions.updateCommonSharingTwitter({text: value});
+      },
+      twitterHashtags: (value) => {
+        SettingsActions.updateCommonSharingTwitter({hashtags: value});
+      },
+      twitterHandle: (value) => {
+        SettingsActions.updateCommonSharingTwitter({twitterHandle: value});
+      },
+      twitterRelated: (value) => {
+        SettingsActions.updateCommonSharingTwitter({related: value});
+      }
     }
   };
 };

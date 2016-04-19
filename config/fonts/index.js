@@ -20,7 +20,7 @@ internals.fontsGroups = [
     },
     fonts: [{
       family: 'Open Sans',
-      styles: [300,'300italic',700,'700italic']
+      styles: [300,'300italic',600,'600italic']
     }]
   },
   {

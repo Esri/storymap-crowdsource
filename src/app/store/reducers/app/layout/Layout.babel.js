@@ -45,14 +45,16 @@ export const visibleComponents = function (state = [], action) {
         return prev;
       },[]);
     case APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH:
-      return state.reduce((prev,current) => {
+      const newState = state.reduce((prev,current) => {
         if ([].concat(action.component).filter((fC) => {
-          return current.toLowerCase().match(fC.toLowerCase());
-        }).length < 0) {
+          return current.search(fC) >= 0;
+        }).length === 0) {
           return prev.concat(current);
         }
         return prev;
       },[]);
+
+      return newState;
     case APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY:
       let shows = [].concat(action.show);
       let hides = [].concat(action.hide);

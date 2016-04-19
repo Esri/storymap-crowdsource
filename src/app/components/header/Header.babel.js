@@ -42,10 +42,14 @@ export const Header = class Header extends React.Component {
       portal: this.props.portal
     });
 
+    const includeSharing = Object.keys(this.props.sharing.services).filter((key) => {
+      return this.props.sharing.services[key] === true;
+    }).length > 0;
+
     return (
       <header className={headerClass}>
         <div className="cell-wrapper">
-          {this.props.logo.type === 'none' ? null : (
+          {this.props.logo.type === 'none' || logoUrl.length === 0 ? null : (
             <a href={this.props.logo.link} className="logo-link cell" target="_blank">
               <img src={logoUrl} className="logo" alt={this.props.logo.link} />
             </a>
@@ -61,7 +65,7 @@ export const Header = class Header extends React.Component {
             transitionLeaveTimeout={1000} >
             {participateBtn}
           </ReactCSSTransitionGroup>
-          <ShareButtonPane className="cell" config={this.props.sharing} />
+          {includeSharing ? <ShareButtonPane className="cell" config={this.props.sharing} /> : null}
         </div>
       </header>
     );

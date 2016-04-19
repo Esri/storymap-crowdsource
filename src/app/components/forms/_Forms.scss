@@ -1,4 +1,5 @@
 @import "textarea/Textarea";
+@import "checkboxGroup/CheckboxGroup";
 @import "radioGroup/RadioGroup";
 @import "location/Location";
 @import "photo/Photo";
@@ -31,4 +32,17 @@ form {
     }
   }
 
+}
+
+.required-warning {
+  margin-top: 15px;
+  font-style: italic;
+}
+
+.required-warning::before{
+  color: $Calcite_Red_a150;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 3px;
+  content: "*";
 }
