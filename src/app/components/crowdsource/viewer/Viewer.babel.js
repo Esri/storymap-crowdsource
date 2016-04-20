@@ -351,33 +351,17 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
-    loginUser: (service) => {
-      dispatch(UserActions.loginOAuthStart(service));
-    },
-    changeComponentsVisibility: (changes) => {
-      dispatch(AppActions.changeComponentsVisibility(changes));
-    },
-    showComponent: (component) => {
-      dispatch(AppActions.showComponent(component));
-    },
-    hideComponent: (component) => {
-      dispatch(AppActions.hideComponent(component));
-    },
-    updateContributeState: (options) => {
-      dispatch(AppActions.updateContributeState(options));
-    },
-    selectFeatures: (features) => {
-      dispatch(MapActions.selectFeatures(features));
-    },
+    loginUser: UserActions.loginOAuthStart,
+    changeComponentsVisibility: AppActions.changeComponentsVisibility,
+    showComponent: AppActions.showComponent,
+    hideComponent: AppActions.hideComponent,
+    updateContributeState: AppActions.updateContributeState,
+    selectFeatures: MapActions.selectFeatures,
     noticationsActions: {
-      addNotifications: (notifications) => {
-        dispatch(AppActions.addNotifications(notifications));
-      },
-      removeNotifications: (notifications) => {
-        dispatch(AppActions.removeNotifications(notifications));
-      }
+      addNotifications: AppActions.addNotifications,
+      removeNotifications: AppActions.removeNotifications
     },
     introSaveActions: SettingsActions && ItemActions ? {
       title: [SettingsActions.updateIntroTitle,ItemActions.updateAppItemTitle],

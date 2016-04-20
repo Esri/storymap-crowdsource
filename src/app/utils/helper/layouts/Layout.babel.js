@@ -5,13 +5,7 @@ export const getStylesheetAsString = function getStylesheetAsString() {
   const dfd = new Deferred();
 
   xhr.get({
-    url: require.toUrl('babel/components/crowdsource/styles/layouts/Scroll.css'),
-    load: function(stylesheet) {
-      console.log(stylesheet);
-    },
-    error: function(error) {
-      console.log(error);
-    }
+    url: require.toUrl('babel/components/crowdsource/styles/layouts/Scroll.css')
   });
 
   return dfd;

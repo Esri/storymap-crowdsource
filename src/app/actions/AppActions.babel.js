@@ -6,6 +6,7 @@ import {
   APP_LAYOUT_SHOW_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH,
+  APP_LAYOUT_TOGGLE_COMPONENT,
   UPDATE_APP_CONTRIBUTE_STATE,
   APP_NOTIFICATIONS_ADD,
   APP_NOTIFICATIONS_REMOVE
@@ -56,6 +57,13 @@ export const hideComponentByStringMatch = function (component) {
   };
 };
 
+export const toggleComponent = function (component) {
+  return {
+    type: APP_LAYOUT_TOGGLE_COMPONENT,
+    component
+  };
+};
+
 export const updateContributeState = function (options) {
   return {
     type: UPDATE_APP_CONTRIBUTE_STATE,
@@ -84,9 +92,12 @@ export const boundActions = {
   showComponent: (component) => dispatch(showComponent(component)),
   hideComponent: (component) => dispatch(hideComponent(component)),
   hideComponentByStringMatch: (component) => dispatch(hideComponentByStringMatch(component)),
+  toggleComponent: (component) => dispatch(toggleComponent(component)),
   updateContributeState: (options) => dispatch(updateContributeState(options)),
   addNotifications: (notifications) => dispatch(addNotifications(notifications)),
   removeNotifications: (notifications) => dispatch(removeNotifications(notifications))
 };
+
+window.boundTest = boundActions.toggleComponent;
 
 export default boundActions;

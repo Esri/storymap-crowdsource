@@ -3,6 +3,7 @@ import {
   APP_LAYOUT_SHOW_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT,
   APP_LAYOUT_HIDE_COMPONENT_BY_STRING_MATCH,
+  APP_LAYOUT_TOGGLE_COMPONENT,
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY
 } from 'babel/constants/actionsTypes/App';
 
@@ -55,6 +56,21 @@ export const visibleComponents = function (state = [], action) {
       },[]);
 
       return newState;
+    case APP_LAYOUT_TOGGLE_COMPONENT:
+      Object.freeze(state);
+      const removedState = state.reduce((prev,current) => {
+        if ([].concat(action.component).indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
+
+      return [].concat(action.component).reduce((prev,current) => {
+        if (prev.indexOf(current) < 0 && state.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },removedState);
     case APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY:
       let shows = [].concat(action.show);
       let hides = [].concat(action.hide);

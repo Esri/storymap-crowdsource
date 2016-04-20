@@ -5,13 +5,7 @@
   color: #333;
   height: calc(100% - #{$buiderBannerHeight});
   width: $sidePanelWidth;
-  left: -$sidePanelWidth;
+  left: 0;
   padding-bottom: 15px;
   overflow: auto;
-  @include transition(left 500ms);
-}
-
-.visible-side-panel .settings.side-panel {
-  left: 0;
-  @include transition(left 500ms);
 }

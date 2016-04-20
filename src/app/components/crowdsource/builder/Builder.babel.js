@@ -38,7 +38,7 @@ class Builder extends React.Component {
         { this.props.loading.data ? <BuilderBanner
           brandOnly={ this.props.activeDialog.length > 0 }
           saving={this.props.saving}
-          settingsAction={this.props.showComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)} />
+          settingsAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)} />
         : null }
         <ReactCSSTransitionGroup
           component="div"
@@ -49,6 +49,11 @@ class Builder extends React.Component {
           { this.props.activeDialog === 'itemNameScratch' ? this.getSettingsModal('itemNames') : null }
           { this.props.activeDialog === 'savingFromScratch' ? <Loader message={builderText.fromScratchMessage.saving}></Loader> : null }
         </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+          component="div"
+          transitionName="side-panel"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500} >
         { this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0 ? (
           <SidePanelSettings
             settingsPanes={[
@@ -69,6 +74,7 @@ class Builder extends React.Component {
             closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
           </SidePanelSettings>
         ) : null }
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
@@ -194,17 +200,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+// TODO Move to generic mapToProps since dispatch is not needed. Actions are already bound
+const mapDispatchToProps = () => {
   return {
-    showComponent: (component) => {
-      dispatch(AppActions.showComponent(component));
-    },
-    hideComponent: (component) => {
-      dispatch(AppActions.hideComponent(component));
-    },
-    hideComponentByStringMatch: (component) => {
-      dispatch(AppActions.hideComponentByStringMatch(component));
-    },
+    showComponent: AppActions.showComponent,
+    hideComponent: AppActions.hideComponent,
+    hideComponentByStringMatch: AppActions.hideComponentByStringMatch,
+    toggleComponent: AppActions.toggleComponent,
     headerSettingsActions: {
       logoType: (value) => {
         SettingsActions.updateHeaderLogoType(value);
