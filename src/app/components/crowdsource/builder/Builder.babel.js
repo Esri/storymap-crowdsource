@@ -9,6 +9,7 @@ import SettingsItemName from 'babel/components/settings/ItemName';
 import SidePanelSettings from 'babel/components/builder/settings/sidePanel/Settings';
 import HeaderSettings from 'babel/components/builder/settings/sidePanel/header/HeaderSettings';
 import SocialSharingSettings from 'babel/components/builder/settings/sidePanel/socialSharing/SocialSharingSettings';
+import IntroSplashSettings from 'babel/components/builder/settings/sidePanel/introSplash/IntroSplashSettings';
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
@@ -58,19 +59,25 @@ class Builder extends React.Component {
           <SidePanelSettings
             settingsPanes={[
               {
-                id: 'header',
+                id: componentNames.SPS_HEADER,
                 title: builderText.settings.panes.header.title,
                 component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
               },
               {
-                id: 'socialSharing',
+                id: componentNames.SPS_SOCIAL_SHARING,
                 title: builderText.settings.panes.socialSharing.title,
                 component: <SocialSharingSettings defaultValues={this.props.defaultValues.socialSharing} actions={this.props.socialSharingActions}></SocialSharingSettings>
+              },
+              {
+                id: componentNames.SPS_INTRO_SPLASH,
+                title: builderText.settings.panes.introSplash.title,
+                component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions}></IntroSplashSettings>
               }
             ]}
             visibleComponents={this.props.visibleComponents}
             showComponent={this.props.showComponent}
             hideComponentByString={this.props.hideComponentByStringMatch}
+            hideComponent={this.props.hideComponent}
             closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
           </SidePanelSettings>
         ) : null }
@@ -195,6 +202,9 @@ const mapStateToProps = (state) => {
         twitterHashtags: state.items.app.data.settings.components.common.sharing.twitter.hashtags,
         twitterHandle: state.items.app.data.settings.components.common.sharing.twitter.twitterHandle,
         twitterRelated: state.items.app.data.settings.components.common.sharing.twitter.related
+      },
+      introSplashSettings: {
+        backgroundImage: state.items.app.data.settings.components.intro.background.type === 'photo' ? state.items.app.data.settings.components.intro.background.source : null
       }
     }
   };
@@ -219,14 +229,16 @@ const mapDispatchToProps = () => {
       },
       logoUrl: SettingsActions.updateHeaderLogoUrl,
       logoUpload: (value) => {
-        BuilderActions.addAppItemAttatchment({
-          id: 'logo_' + Helper.getRandomId(),
-          type: 'photo',
-          attachment: value.logo,
-          removeAttachments: true,
-          removeFilter: 'logo_',
-          callback: SettingsActions.updateHeaderLogoUrl
-        });
+        if (value) {
+          BuilderActions.addAppItemAttatchment({
+            id: 'logo_' + Helper.getRandomId(),
+            type: 'photo',
+            attachment: value.logo,
+            removeAttachments: true,
+            removeFilter: 'logo_',
+            callback: SettingsActions.updateHeaderLogoUrl
+          });
+        }
       },
       logoLink: SettingsActions.updateHeaderLogoLink,
       bannerTitle: SettingsActions.updateHeaderTitle,
@@ -253,6 +265,22 @@ const mapDispatchToProps = () => {
       },
       twitterRelated: (value) => {
         SettingsActions.updateCommonSharingTwitter({related: value});
+      }
+    },
+    introSplashActions: {
+      backgroundImage: (value) => {
+        if (value) {
+          BuilderActions.addAppItemAttatchment({
+            id: 'introSplashBackgroundPhoto_' + Helper.getRandomId(),
+            type: 'photo',
+            attachment: value.backgroundImage,
+            removeAttachments: true,
+            removeFilter: 'introSplashBackgroundPhoto_',
+            callback: (url) => {
+              SettingsActions.updateIntroBackground({source: url});
+            }
+          });
+        }
       }
     }
   };

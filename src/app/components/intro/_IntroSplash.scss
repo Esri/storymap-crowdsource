@@ -6,6 +6,31 @@
   @include box-shadow(inset 0px 0px 82px 19px rgba(0,0,0,0.3));
   z-index: 200;
 
+  .inline-editable {
+    padding: 3px 0;
+  }
+
+  &.editing .inline-editable {
+    padding: 0;
+  }
+
+  .background-edit-button {
+    position: absolute;
+    top: calc(#{$headerHeight} + 15px);
+    right: 15px;
+    border-radius: 2em;
+    height: 4em;
+    width: 4em;
+    border-width: 5px;
+    z-index: 1;
+
+    svg {
+      margin-top: 1px;
+      height: 2em;
+      width: 2em;
+    }
+  }
+
   .background-fill {
     border-radius: 10px;
   }
@@ -95,7 +120,7 @@
       svg {
         height: 100px;
         width: 100px;
-        margin-top: -20px
+        margin-top: -22px
       }
     }
   }

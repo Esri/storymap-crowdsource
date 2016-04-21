@@ -106,7 +106,7 @@ define({
           }
         },
         socialSharing: {
-          title: 'Social',
+          title: 'Social Sharing',
           fields: {
             includeSharing: {
               label: 'Sharing buttons',
@@ -132,6 +132,16 @@ define({
               label: '"Who to follow" twitter accounts (comma seperated)',
               placeholder: 'Enter twitter handles',
               attribute: 'recommended accounts field'
+            }
+          }
+        },
+        introSplash: {
+          title: 'Cover Page',
+          fields: {
+            backgroundImage: {
+              label: 'Upload a background photo',
+              placeholder: 'Drag and Drop',
+              attribute: 'background photo'
             }
           }
         }

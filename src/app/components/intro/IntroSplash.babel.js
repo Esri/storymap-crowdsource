@@ -16,43 +16,61 @@ export const IntroSplash = class IntroSplash extends React.Component {
 
   render() {
 
-    const introClass = Helper.classnames([this.props.className, {
-      splash: true
+    const introClass = Helper.classnames([this.props.className, 'splash', {
+      editing: this.props.editingAllowed
     }]);
 
     const loader = this.props.showLoader ? null : <Loader></Loader>;
 
     const showExploreActionButton = this.props.showExploreActionButton ?
-      <button className="explore text-btn background-fill" inlineEditDisableActions="true" onClick={this.props.exploreAction}>
-        <p className="text" inlineEditConfig={this.getEditConfig('exploreButton')}>{this.props.exploreText}</p>
-        <div className="icon-arrow-down" dangerouslySetInnerHTML={{__html: getIcon('arrow-down-open')}}></div>
-      </button> : null;
+    <InlineEditorWrapper
+      editingAllowed={this.props.editingAllowed}
+      component="span"
+      addNotifications={this.props.addNotifications}
+      removeNotifications={this.props.removeNotifications}>
+        <button className="explore text-btn background-fill" inlineEditDisableActions="true" onClick={this.props.exploreAction}>
+          <p className="text inline-editable" inlineEditConfig={this.getEditConfig('exploreButton')}>{this.props.exploreText}</p>
+          <div className="icon-arrow-down" dangerouslySetInnerHTML={{__html: getIcon('arrow-down-open')}}></div>
+        </button>
+      </InlineEditorWrapper> : null;
 
     let background;
 
     switch (this.props.background.type) {
       case 'photo':
-        background = <LazyImage className="background-image" src={this.props.background.source}></LazyImage>;
+        const backgroundUrl = Helper.attachmentUtils.checkForCredential({
+          url: this.props.background.source,
+          portal: this.props.portal
+        });
+
+        background = <LazyImage className="background-image" src={backgroundUrl}></LazyImage>;
         break;
     }
 
     return (
-      <InlineEditorWrapper
-        editingAllowed={this.props.editingAllowed}
-        component="div"
-        addNotifications={this.props.addNotifications}
-        removeNotifications={this.props.removeNotifications}
-        className={introClass}>
+      <div className={introClass}>
+        {builderText && !this.props.editingAllowed ? (
+          // TODO check builder mode instead of if builder text
+          <button
+            onClick={this.props.editAction}
+            className="background-edit-button btn btn-primary btn-lg"
+            dangerouslySetInnerHTML={{__html: getIcon('edit')}}></button>
+        ) : null}
         {background}
-        <div className="title-pane background-fill">
-          <h1 className="title" inlineEditConfig={this.getEditConfig('title')}>{this.props.title}</h1>
-          <h2 className="subtitle serif-face" inlineEditConfig={this.getEditConfig('subtitle')}>{this.props.subtitle}</h2>
-        </div>
+        <InlineEditorWrapper
+          className="title-pane background-fill"
+          editingAllowed={this.props.editingAllowed}
+          component="div"
+          addNotifications={this.props.addNotifications}
+          removeNotifications={this.props.removeNotifications}>
+          <h1 className="title inline-editable" inlineEditConfig={this.getEditConfig('title')}>{this.props.title}</h1>
+          <h2 className="subtitle serif-face inline-editable" inlineEditConfig={this.getEditConfig('subtitle')}>{this.props.subtitle}</h2>
+        </InlineEditorWrapper>
         <ReactCSSTransitionGroup component="div" className="action-buttons" transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
           {loader}
           {showExploreActionButton}
         </ReactCSSTransitionGroup>
-      </InlineEditorWrapper>
+      </div>
     );
 
   }
@@ -135,6 +153,7 @@ IntroSplash.propTypes = {
   exploreAction: React.PropTypes.func,
   showLoader: React.PropTypes.bool,
   showExploreActionButton: React.PropTypes.bool,
+  editAction: React.PropTypes.func,
   addNotifications: React.PropTypes.func,
   removeNotifications: React.PropTypes.func,
   saveActions: React.PropTypes.shape({
@@ -162,6 +181,7 @@ IntroSplash.defaultProps = {
   exploreAction: () => {},
   showLoader: true,
   showExploreActionButton: true,
+  editAction: () => {},
   addNotifications: () => {},
   removeNotifications: () => {}
 };

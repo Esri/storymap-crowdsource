@@ -7,6 +7,7 @@ import {
   UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
+  UPDATE_SETTINGS_INTRO_BACKGROUND,
   UPDATE_SETTINGS_HEADER_TITLE,
   UPDATE_SETTINGS_HEADER_LOGO_TYPE,
   UPDATE_SETTINGS_HEADER_LOGO_URL,
@@ -72,6 +73,13 @@ export const updateIntroSubtitle = function (subtitle) {
   };
 };
 
+export const updateIntroBackground = function (background) {
+  return {
+    type: UPDATE_SETTINGS_INTRO_BACKGROUND,
+    background
+  };
+};
+
 // Header Components
 export const updateHeaderTitle = function (title) {
   return {
@@ -132,6 +140,7 @@ export const boundActions = {
   updateCommonSharingTwitter: (settings) => dispatch(updateCommonSharingTwitter(settings)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
+  updateIntroBackground: (background) => dispatch(updateIntroBackground(background)),
   updateHeaderTitle: (title) => dispatch(updateHeaderTitle(title)),
   updateHeaderLogoType: (logoType) => dispatch(updateHeaderLogoType(logoType)),
   updateHeaderLogoUrl: (url) => dispatch(updateHeaderLogoUrl(url)),

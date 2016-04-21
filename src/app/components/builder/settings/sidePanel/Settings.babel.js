@@ -18,6 +18,27 @@ export default class SidePanelSettings extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const add = this.props.visibleComponents.filter((current) => {
+      return current.search(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH) >= 0 &&
+      prevProps.visibleComponents.indexOf(current) < 0;
+    });
+    const remove = prevProps.visibleComponents.filter((current) => {
+      return current.search(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH) >= 0 &&
+      this.props.visibleComponents.indexOf(current) >= 0;
+    });
+
+    if (add.length > 0) {
+      remove.forEach((current) => {
+        this.props.hideComponent(current);
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.hideComponentByString(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH);
+  }
+
   getVisibleSettingsPane() {
     return this.props.visibleComponents.filter((fC) => {
       return fC.search(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH) >= 0;
@@ -25,7 +46,6 @@ export default class SidePanelSettings extends React.Component {
   }
 
   changeSettingsPane(settingsPane) {
-    this.props.hideComponentByString(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH);
     this.props.showComponent(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + settingsPane);
   }
 
@@ -86,6 +106,7 @@ export default class SidePanelSettings extends React.Component {
 SidePanelSettings.propTypes = {
   closeAction: React.PropTypes.func,
   hideComponentByString: React.PropTypes.func,
+  hideComponent: React.PropTypes.func,
   showComponent: React.PropTypes.func,
   settingsPanes: React.PropTypes.array,
   visibleComponents: React.PropTypes.array
@@ -94,6 +115,7 @@ SidePanelSettings.propTypes = {
 SidePanelSettings.defaultProps = {
   closeAction: () => {},
   hideComponentByString: () => {},
+  hideComponent: () => {},
   showComponent: () => {},
   settingsPanes: [],
   visibleComponents: []

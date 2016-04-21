@@ -55,10 +55,12 @@ class Viewer extends React.Component {
           loading={this.props.loading}>
         </Header>
         <IntroSplash
-          editingAllowed={this.props.mode.isBuilder}
+          editAction={this.props.showComponent.bind(this,[componentNames.SIDE_PANEL_SETTINGS,componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH])}
+          editingAllowed={this.props.mode.isBuilder && this.props.layout.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH) >= 0}
           saveActions={this.props.introSaveActions}
           showLoader={this.props.loading.map}
           showExploreActionButton={this.props.loading.map}
+          portal={this.props.portal}
           exploreAction={this.props.showComponent.bind(this,componentNames.MAP)}
           {...this.props.noticationsActions}
           {...this.props.components.intro}

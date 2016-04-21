@@ -9,6 +9,9 @@ export const SHARE_LINK = 'share-link';
 // BUILDER ONLY
 export const SIDE_PANEL_SETTINGS = 'side-panel-settings';
 export const SIDE_PANEL_SETTINGS_STRING_MATCH = 'side-panel-settings:';
+export const SPS_INTRO_SPLASH = 'intro-splash';
+export const SPS_HEADER = 'header';
+export const SPS_SOCIAL_SHARING = 'socialSharing';
 
 export default {
   // VIEWER AND BUILDER
@@ -20,5 +23,8 @@ export default {
   SHARE_LINK,
   // BUILDER ONLY
   SIDE_PANEL_SETTINGS,
-  SIDE_PANEL_SETTINGS_STRING_MATCH
+  SIDE_PANEL_SETTINGS_STRING_MATCH,
+  SPS_INTRO_SPLASH,
+  SPS_HEADER,
+  SPS_SOCIAL_SHARING
 };

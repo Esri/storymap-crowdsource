@@ -4,7 +4,8 @@ import Helper from 'babel/utils/helper/Helper';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 import {
   UPDATE_SETTINGS_INTRO_TITLE,
-  UPDATE_SETTINGS_INTRO_SUBTITLE
+  UPDATE_SETTINGS_INTRO_SUBTITLE,
+  UPDATE_SETTINGS_INTRO_BACKGROUND
 } from 'babel/constants/actionsTypes/Settings';
 
 const defaultSubtitle = builderText ? builderText.appDataPlaceholderText.intro.subtitle : '';
@@ -34,7 +35,7 @@ export const subtitle = function (state = defaultSubtitle, action) {
 
 export const background = function (state = defaultBackground, action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_HEADER_BACKGROUND':
+    case UPDATE_SETTINGS_INTRO_BACKGROUND:
       return $.extend(true,{},state,action.background);
     default:
       return state;

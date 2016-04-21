@@ -78,6 +78,12 @@ const _icons = {
     viewBox: '0 0 24 24',
     path: 'M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z'
   },
+  'pencil': {
+    id: 'icon-pencil',
+    html: '<svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>',
+    viewBox: '0 0 28 32',
+    path: 'M22 2l-4 4 6 6 4-4-6-6zM0 24l0.021 6.018 5.979-0.018 16-16-6-6-16 16zM6 28h-4v-4h2v2h2v2z'
+  },
   'rotate-left': {
     id: 'icon-rotate-left',
     html: '<svg class="icon icon-rotate-left"><use xlink:href="#icon-rotate-left"></use></svg>',
@@ -112,6 +118,7 @@ const _icons = {
 
 // Alias List
 _icons.bitly = _icons.link;
+_icons.edit = _icons.pencil;
 _icons.selected = _icons['circled-check'];
 
 const _loadSymbol = function loadSymbol(iconObj) {
