@@ -1,6 +1,8 @@
 import $ from 'jquery';
+import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
+import IdentityManager from 'esri/IdentityManager';
 import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisActions from 'babel/actions/ArcgisActions';
@@ -13,6 +15,14 @@ const _onError = function onError(err) {
   _logger.logMessage({
     type: 'error',
     error: err
+  });
+};
+
+const _onStatus = function onStatus(message,debugOnly) {
+  _logger.logMessage({
+    type: 'status',
+    debugOnly,
+    message
   });
 };
 
@@ -41,33 +51,32 @@ export const getDataById = function getDataById(options) {
     _onError(err);
   };
 
-  const getAppData = function() {
+  const checkUserLogin = function() {
+    const dfd = new Deferred();
 
-    const content = {
-      f: 'json',
-      token: settings.token
-    };
+    if (settings.requiresLogin) {
+      settings.portal.signIn().then(dfd.resolve);
+    } else {
+      IdentityManager.checkSignInStatus(settings.portal.url).then((res) => {
+        if (res) {
+          settings.portal.signIn().then(dfd.resolve);
+        } else {
+          dfd.resolve();
+        }
+      },(err) => {
+        dfd.resolve();
+        _onStatus(err.message,true);
+      });
+    }
 
-    esriRequest({
-      url: itemUrl + '/data',
-      content,
-      handleAs: 'json'
-    }).then((res) => {
-      if (res.settings) {
-        response.data = res;
-        ArcgisActions.receiveAppItem(response);
-      } else {
-        AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
-        _onError(res);
-      }
-    },onError);
+    return dfd;
   };
 
-  const getAppItem = function() {
+  const getAppItem = function(token) {
 
     const content = {
       f: 'json',
-      token: settings.token
+      token
     };
 
     esriRequest({
@@ -77,7 +86,7 @@ export const getDataById = function getDataById(options) {
     }).then((res) => {
       if (res.id && res.id === settings.id) {
         response.item = res;
-        getAppData();
+        ArcgisActions.receiveAppItem(response);
       } else {
         AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
         _onError(res);
@@ -85,7 +94,28 @@ export const getDataById = function getDataById(options) {
     },onError);
   };
 
-  getAppItem();
+  const getAppData = function() {
+
+    const content = {
+      f: 'json'
+    };
+
+    esriRequest({
+      url: itemUrl + '/data',
+      content,
+      handleAs: 'json'
+    }).then((res) => {
+      if (res.settings) {
+        response.data = res;
+        checkUserLogin().then(getAppItem);
+      } else {
+        AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+        _onError(res);
+      }
+    },onError);
+  };
+
+  getAppData();
 };
 
 export default {

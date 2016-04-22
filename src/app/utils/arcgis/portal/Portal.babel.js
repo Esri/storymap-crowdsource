@@ -56,7 +56,7 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
   userIsAppEditor() {
     const appItem = lang.getObject('items.app.item',false,AppStore.getState());
 
-    return (appItem && appItem.itemControl && (appItem.itemControl === 'update' || appItem.itemControl === 'admin'));
+    return (this.getPortalUser() && appItem && appItem.itemControl && (appItem.itemControl === 'update' || appItem.itemControl === 'admin'));
   }
 
   hasUserPrivileges(privileges) {

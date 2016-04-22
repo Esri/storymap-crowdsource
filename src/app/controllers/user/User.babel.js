@@ -12,12 +12,12 @@ import viewerText from 'i18n!translations/viewer/nls/template';
 
 const _logger = new Logger({source: 'User Controller'});
 
-const _onError = function onError(error) {
-  _logger.logMessage({
-    type: 'error',
-    error
-  });
-};
+// const _onError = function onError(error) {
+//   _logger.logMessage({
+//     type: 'error',
+//     error
+//   });
+// };
 
 const _onStatus = function onStatus(message,debugOnly) {
   _logger.logMessage({
@@ -32,7 +32,7 @@ export default class UserController {
 
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
-    this.initialLoginAndLoad = this.initialLoginAndLoad.bind(this);
+    this.initialLoad = this.initialLoad.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
     this.loginWithOAuth = this.loginWithOAuth.bind(this);
     this.finishOAuthLogin = this.finishOAuthLogin.bind(this);
@@ -43,7 +43,7 @@ export default class UserController {
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
-    this.initialLoginAndLoad();
+    this.initialLoad();
 
   }
 
@@ -56,31 +56,14 @@ export default class UserController {
     }
   }
 
-  initialLoginAndLoad() {
+  initialLoad() {
     const portal = lang.getObject('appState.app.portal',false,this);
 
-    if (lang.getObject('appState.mode.isBuilder',false,this)) {
-      portal.signIn().then((user) => {
-        const token = lang.getObject('credential.token',false,user);
-
-        if (lang.exists('appState.mode.isBuilder',this) && lang.exists('appState.config.appid',this) && this.appState.config.appid.length === 32) {
-          ArcgisAppItem.getDataById({
-            token
-          });
-        } else if (lang.exists('appState.mode.fromScratch',this)) {
-          this.verifyCredentials();
-        }
-      },_onError);
-    } else if (lang.exists('appState.config.appid',this) && this.appState.config.appid.length === 32) {
-      IdentityManager.checkSignInStatus(portal.portalUrl).then((credential) => {
-        const token = lang.getObject('token',false,credential);
-
-        ArcgisAppItem.getDataById({
-          token
-        });
-      },(err) => {
-        ArcgisAppItem.getDataById();
-        _onStatus('App load check sign in status - ' + err.message,true);
+    if (lang.getObject('appState.mode.fromScratch',false,this)) {
+      portal.signIn().then(this.verifyCredentials);
+    } else {
+      ArcgisAppItem.getDataById({
+        requiresLogin: lang.getObject('appState.mode.isBuilder',false,this)
       });
     }
   }
@@ -155,13 +138,14 @@ export default class UserController {
 
   }
 
-  verifyCredentials() {
+  verifyCredentials(forceAuthenticate) {
     const portal = lang.getObject('appState.app.portal',false,this);
     const userPermissions = {
       publisher: false,
       editor: false,
       contributor: false
     };
+
     const portalUser = portal.getPortalUser() ? portal.getPortalUser().username : false;
     const appOwner = lang.getObject('appState.items.app.item.owner',false,this);
     const authorizedOwners = lang.getObject('appState.config.authorizedOwners',false,this);
@@ -181,6 +165,8 @@ export default class UserController {
     }
 
     if (lang.getObject('appState.user.contributor',false,this) !== userPermissions.contributor || lang.getObject('appState.user.editor',false,this) !== userPermissions.editor || lang.getObject('appState.user.publisher',false,this) !== userPermissions.publisher) {
+      UserActions.authenticateUser(userPermissions);
+    } else if (forceAuthenticate) {
       UserActions.authenticateUser(userPermissions);
     }
 
