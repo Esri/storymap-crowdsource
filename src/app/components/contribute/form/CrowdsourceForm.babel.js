@@ -25,6 +25,10 @@ export default class CrowdsourceForm extends React.Component {
       attributes: {}
     };
 
+    // Add visible and non-vetted values by default
+    this.graphic.attributes[this.props.vettedField] = 0;
+    this.graphic.attributes[this.props.hiddenField] = 0;
+
     this.onSave = this.onSave.bind(this);
     this.onClose = this.onClose.bind(this);
     this.getFormField = this.getFormField.bind(this);
@@ -199,6 +203,8 @@ export default class CrowdsourceForm extends React.Component {
 }
 
 CrowdsourceForm.propTypes = {
+  vettedField: React.PropTypes.string,
+  hiddenField: React.PropTypes.string,
   title: React.PropTypes.string,
   fields: React.PropTypes.array,
   fieldDefinitions: React.PropTypes.array,
@@ -209,6 +215,8 @@ CrowdsourceForm.propTypes = {
 };
 
 CrowdsourceForm.defaultProps = {
+  vettedField: 'Vetted',
+  hiddenField: 'Hidden',
   title: '',
   fields: [],
   fieldDefinitions: [],

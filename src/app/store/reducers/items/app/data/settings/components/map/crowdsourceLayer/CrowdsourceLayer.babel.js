@@ -46,12 +46,32 @@ export const secondaryField = function (state = 'LocationName', action) {
   }
 };
 
+export const hiddenField = function (state = 'Hidden', action) {
+  switch (action.type) {
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_HIDDEN_FIELD':
+      return action.field;
+    default:
+      return state;
+  }
+};
+
+export const vettedField = function (state = 'Vetted', action) {
+  switch (action.type) {
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_SECONDARY_FIELD':
+      return action.field;
+    default:
+      return state;
+  }
+};
+
 export const crowdsourceLayer = combineReducers({
   id,
   attributePath,
   idField,
   primaryField,
   secondaryField,
+  hiddenField,
+  vettedField,
   fields
 });
 
