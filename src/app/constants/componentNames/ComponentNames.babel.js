@@ -1,3 +1,6 @@
+// VIEWER ONLY
+export const ADMIN_BANNER = 'admin-banner';
+
 // VIEWER AND BUILDER
 export const CONTRIBUTE = 'contribute';
 export const GALLERY = 'gallery';
@@ -14,6 +17,8 @@ export const SPS_HEADER = 'header';
 export const SPS_SOCIAL_SHARING = 'socialSharing';
 
 export default {
+  // VIEWER ONLY
+  ADMIN_BANNER,
   // VIEWER AND BUILDER
   CONTRIBUTE,
   GALLERY,

@@ -17,6 +17,7 @@
 @import "forms/Forms";
 
 // UI Components
+@import "admin/banner/AdminBanner";
 @import "viewerDialogs/ViewerDialogs";
 @import "intro/IntroSplash";
 @import "header/Header";
@@ -36,4 +37,31 @@ html,body,#app,.crowdsource-app,.viewer {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+.banner .viewer {
+  height: calc(100% - #{$bannerHeight});
+}
+
+.banner .control-banner {
+  margin: 0;
+  z-index: 1000;
+
+  .background-image.lazy-image.loaded {
+    @include animation(fadeIn 1.5s);
+  }
+
+  .container-fluid {
+    position: relative;
+  }
+
+  .app-name {
+    color: $nameHighlight;
+    font-weight: bold;
+  }
+
+  .prepend, .append {
+    color: $nameStandard;
+  }
+
 }

@@ -1,6 +1,8 @@
 import lang from 'dojo/_base/lang';
 import AppStore from 'babel/store/AppStore';
+import AppActions from 'babel/actions/AppActions';
 import StackedController from './stacked/StackedController';
+import componentNames from 'babel/constants/componentNames/ComponentNames';
 
 export default class LayoutController {
 
@@ -20,6 +22,11 @@ export default class LayoutController {
     this.appState = AppStore.getState();
 
     const currentLayout = lang.getObject('appState.items.app.data.settings.layout.id',false,this);
+
+    if (!this.checkedAdminPanel && !lang.getObject('appState.mode.isBuilder',false,this) && lang.getObject('appState.user.editor',false,this)) {
+      this.checkedAdminPanel = true;
+      AppActions.showComponent(componentNames.ADMIN_BANNER);
+    }
 
     if (this.layout !== currentLayout) {
       this.layout = currentLayout;

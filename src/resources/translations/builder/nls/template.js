@@ -1,7 +1,6 @@
 define({
   root: {
     common: {
-      appName: 'Crowdsource',
       appNameAppend: 'Builder',
       buttons: {
         next: 'Next'
@@ -13,7 +12,8 @@ define({
         preview: 'View Live',
         share: 'Share',
         settings: 'Settings',
-        save: 'Save'
+        save: 'Save',
+        toggleNav: 'Toggle navigation'
       },
       hintText: {
         saved: 'Story saved',

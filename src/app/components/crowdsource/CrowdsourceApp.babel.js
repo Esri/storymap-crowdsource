@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'reactRedux';
 import Helper from 'babel/utils/helper/Helper';
+import AdminBanner from 'babel/components/admin/banner/AdminBanner';
 import Builder from 'mode!isBuilder?./builder/Builder';
 import Viewer from './viewer/Viewer';
 import Loader from 'babel/components/helper/loading/Loader';
+import AppActions from 'babel/actions/AppActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
+import URI from 'lib/urijs/src/URI';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -17,15 +20,24 @@ class CrowdsourceApp extends React.Component {
     const error = this.Error;
     const showBuilder = this.props.mode.isBuilder && ((this.props.mode.fromScratch && this.props.user.publisher) || (!this.props.mode.fromScratch && this.props.loading.data && this.props.user.editor)) && !error;
     const showViewer = !this.props.mode.fromScratch && (!this.props.mode.isBuilder || this.props.mode.isBuilder && this.props.user.editor) && this.props.loading.data && !error;
+    const adminBanner = this.props.visibleComponents.indexOf(componentNames.ADMIN_BANNER) >= 0;
 
     const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
-      'no-banner': !showBuilder,
+      'banner': adminBanner || showBuilder,
       'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0
     });
 
     return (
       <div className={appClasses}>
         { showBuilder ? <Builder></Builder> : null }
+        { adminBanner ? <AdminBanner
+          hideAction={this.props.actions.hideComponent.bind(null,componentNames.ADMIN_BANNER)}
+          editAction={() => {
+            const redirect = new URI(window.location.href);
+
+            redirect.setSearch('edit','true');
+            window.location = redirect.href();
+          }} /> : null }
         { showViewer ? <Viewer></Viewer> : null }
         { showViewer || this.props.activeDialog ? null : <Loader></Loader> }
         <ReactCSSTransitionGroup transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1} >
@@ -124,7 +136,10 @@ const mapStateToProps = (state) => {
     loading: state.app.loading,
     layoutId: state.items.app.data.settings.layout.id,
     user: state.user,
-    visibleComponents: state.app.layout.visibleComponents
+    visibleComponents: state.app.layout.visibleComponents,
+    actions: {
+      hideComponent: AppActions.hideComponent
+    }
   };
 };
 

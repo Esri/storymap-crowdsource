@@ -61,7 +61,7 @@ export default class UserController {
 
     if (lang.getObject('appState.mode.fromScratch',false,this)) {
       portal.signIn().then(this.verifyCredentials);
-    } else {
+    } else if (lang.getObject('appState.config.appid',false,this)) {
       ArcgisAppItem.getDataById({
         requiresLogin: lang.getObject('appState.mode.isBuilder',false,this)
       });
@@ -154,7 +154,7 @@ export default class UserController {
       userPermissions.publisher = true;
       userPermissions.editor = true;
       userPermissions.contributor = true;
-    } else if (!lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.mode.isBuilder',false,this) && portal.userIsAppEditor()) {
+    } else if (!lang.getObject('appState.mode.fromScratch',false,this) && portal.userIsAppEditor()) {
       userPermissions.editor = true;
       userPermissions.contributor = true;
     } else if (lang.getObject('appState.mode.isBuilder',false,this) && portal.userIsAppPublisher()) {

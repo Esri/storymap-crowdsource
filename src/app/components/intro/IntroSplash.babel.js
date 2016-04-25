@@ -25,7 +25,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
     const showExploreActionButton = this.props.showExploreActionButton ?
     <InlineEditorWrapper
       editingAllowed={this.props.editingAllowed}
-      component="span"
+      component="div"
       addNotifications={this.props.addNotifications}
       removeNotifications={this.props.removeNotifications}>
         <button className="explore text-btn background-fill" inlineEditDisableActions="true" onClick={this.props.exploreAction}>

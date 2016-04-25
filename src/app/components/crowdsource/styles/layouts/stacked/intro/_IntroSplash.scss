@@ -1,7 +1,7 @@
 .splash {
 
   .loadingIndicator {
-    top: calc(100% - 160px);
+    top: calc(100% - 140px);
     @include animation(moveLoadingIndicator 3s);
   }
 
@@ -12,12 +12,26 @@
 
 }
 
+.banner .splash .loadingIndicator {
+  top: calc(100% - 140px + $bannerHeight);
+  @include animation(moveLoadingIndicatorWithBanner 3s);
+}
+
+@include keyframes(moveLoadingIndicatorWithBanner) {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: calc(100% - 140px + $bannerHeight);
+  }
+};
+
 @include keyframes(moveLoadingIndicator) {
   0% {
     top: 50%;
   }
   100% {
-    top: calc(100% - 160px);
+    top: calc(100% - 140px);
   }
 };
 

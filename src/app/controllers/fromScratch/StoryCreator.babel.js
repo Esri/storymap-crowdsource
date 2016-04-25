@@ -8,8 +8,10 @@ import ModeActions from 'babel/actions/ModeActions';
 import ItemActions from 'babel/actions/ItemActions';
 import SettingsActions from 'babel/actions/SettingsActions';
 import BuilderActions from 'babel/actions/BuilderActions';
+import AppActions from 'babel/actions/AppActions';
 import UserActions from 'babel/actions/UserActions';
 import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
+import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'i18n!translations/builder/nls/template';
 
 const _logger = new Logger({source: 'StoryCreator'});
@@ -174,6 +176,7 @@ export default class StoryCreator {
     });
     UserActions.signOutUser();
     ArcgisAppItem.getDataById(appid);
+    AppActions.showComponent([componentNames.SIDE_PANEL_SETTINGS,componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH]);
   }
 
 }

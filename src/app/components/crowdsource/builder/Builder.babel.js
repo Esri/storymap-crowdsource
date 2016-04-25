@@ -15,6 +15,7 @@ import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'i18n!translations/builder/nls/template';
+import viewerText from 'i18n!translations/viewer/nls/template';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -96,7 +97,7 @@ class Builder extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <h4 className="title col-xs-12">
-            {builderText.settingsModals.common.welcome} <strong>{builderText.common.appName}</strong> {builderText.common.appNameAppend}
+            {builderText.settingsModals.common.welcome} <strong>{viewerText.common.appName}</strong> {builderText.common.appNameAppend}
           </h4>
         </div>
       </div>
