@@ -6,15 +6,15 @@
   z-index: 902;
 
   .cell-wrapper {
-    display: flex;
-    align-items: center;
+    display: table;
     height: 100%;
     width: 100%;
   }
 
   .cell {
+    display: table-cell;
+    vertical-align: middle;
     white-space: nowrap;
-    flex: 0;
 
     &:first-child {
       margin-left: 5px;
@@ -30,7 +30,7 @@
     }
 
     &.fill-cell {
-      flex: 1;
+      width: 100%;
     }
   }
 
@@ -50,7 +50,7 @@
 
   .participate {
     cursor: pointer;
-    margin: 0 $headerMargin 0 0;
+    margin: 0 ($headerMargin - 5) 0 0;
 
     &.participate-btn-enter {
       opacity: 0;
