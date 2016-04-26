@@ -85,7 +85,7 @@ export default class UserController {
       });
     }
 
-    if (!this.pendingLogin && pendingLogin && pendingLogin.method) {
+    if (pendingLogin && pendingLogin.method) {
       if (pendingLogin.method === 'oauth') {
         this.pendingLogin = pendingLogin;
         this.loginWithOAuth(this.pendingLogin.service);
@@ -120,7 +120,7 @@ export default class UserController {
       IdentityManager.registerOAuthInfos([info]);
 
       if (socialOAuthUrl && service !== 'arcgis') {
-        window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=400,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+        window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
       } else {
         IdentityManager.getCredential(portal.url,{
           oAuthPopupConfirmation: false

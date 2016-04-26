@@ -72,7 +72,7 @@ define({
           facebook: 'Facebook',
           google: 'Google'
         },
-        loginDescription: 'Before participating, you must first sign in with one of the services above. Signing in will enable you to edit or delete your share after you\'ve submitted it.'
+        loginDescription: 'Before participating, you must first sign in with one of the services above.'
       },
       form: {
         photo: {
