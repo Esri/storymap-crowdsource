@@ -60,6 +60,12 @@ export default class StoryCreator {
     if (lang.getObject('appState.builder.activeDialog',false,this) === 'savingFromScratch' && !this.itemCreationPending) {
       this.createFeatureService();
     }
+    if (this.showCoverPageSettingsOnLoad && lang.getObject('appState.app.loading.data',false,this) && lang.getObject('appState.app.loading.map',false,this)) {
+      this.showCoverPageSettingsOnLoad = false;
+      setTimeout(() => {
+        AppActions.showComponent([componentNames.SIDE_PANEL_SETTINGS,componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH]);
+      },1000);
+    }
   }
 
   openItemNameDialog() {
@@ -175,8 +181,8 @@ export default class StoryCreator {
       fromScratch: false
     });
     UserActions.signOutUser();
+    this.showCoverPageSettingsOnLoad = true;
     ArcgisAppItem.getDataById(appid);
-    AppActions.showComponent([componentNames.SIDE_PANEL_SETTINGS,componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH]);
   }
 
 }

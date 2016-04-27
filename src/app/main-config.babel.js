@@ -105,6 +105,9 @@
   _loadCSS(window.app.pathJSAPI + 'dijit/themes/claro/claro.css', true);
   _loadJS(window.app.pathJSAPI + 'init.js', true);
 
+  // TODO Remove when bootstrap option is available
+  window.app.indexCfg.bootstrapTheme = window.app.indexCfg.bootstrapTheme ? window.app.indexCfg.bootstrapTheme : '';
+
   const pathMods = {
     bootstrapPath: window.app.indexCfg.bootstrapTheme === '' ? '-calcite' : '',
     cssBuilderPath: window.app.mode.isBuilder ? '-builder' : '',
