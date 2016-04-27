@@ -56,7 +56,7 @@ const getSharingUrl = function getSharingUrl() {
     const url = new URI(window.location.href);
 
     url.filename('index.html');
-    url.removeSearch('edit','debug','fromscratch','fromScratch');
+    url.removeSearch(['edit','debug','fromscratch','fromScratch']);
 
     return url.href();
   }
