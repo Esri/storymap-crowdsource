@@ -18,7 +18,7 @@
     To correctly reference your Story Maps Crowdsource App in search engine:
      - create and fill out extensively an ArcGIS Online item that link to your final application
      - edit the following six tags. For more information, see the following blog post:
-      (https://medium.com/@ssylviageo/grow-your-story-maps-audience-with-open-graph-tags-b7639cb65d5c)
+      (https://developerscorner.storymaps.arcgis.com/grow-your-story-maps-audience-with-open-graph-tags-b7639cb65d5c)
   -->
   <title></title>
   <meta name="description" content="">
@@ -37,21 +37,10 @@
 		var configOptions = {
 			// Enter an application ID created through the Crowdsource builder
 			appid: "",
-			// Optionally to secure Crowdsource's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
-			// User will need to sign-in to access the viewer even if your application is public
-			oAuthAppId: "",
 			// Optionally to be able to use the appid URL parameter, configure here the list of application author
 			//  whose application are allowed to be viewed by this Crowdsource deployment
 			// This is the Portal username of the Crowdsource owner (e.g. ["user1"] or ["user1", "user2"])
 			authorizedOwners: ["*"],
-      // By default the Crowdsource app will container styling from Esri's Calcite (http://esri.github.io/calcite-bootstrap/)
-      // library which is a customized version of the Bootstrap library (http://getbootstrap.com/). You can choose to override
-      // this by with either the default bootstrap theme or your own customized themes
-      // To use default theme use "default",
-      // To use a customized bootstrap theme provide the path .css file (the best place to put this is in the resources directory,
-      // e.g. resources/bootstrap/custom-bootstrap.css) or provide the full https path to a hosted version. Required JavaScript is
-      // already loaded; only the css is required.
-      bootstrapTheme: ""
 		};
 		// Optionally sharing, proxy URLs, Bing Maps key, Geometry and Geocode service's URLs can be configured in app/config.js. This is only required
 		//   when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the application isn't deployed as /home/StoryMapCrowdsource/ or /apps/StoryMapCrowdsource/.
