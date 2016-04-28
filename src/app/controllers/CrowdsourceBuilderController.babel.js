@@ -44,7 +44,11 @@ export default class CrowdsourceBuilderController {
     new AppItemAttachments();
 
     window.onbeforeunload = () => {
-      if (lang.getObject('appState.builder.saving',false,this) || this.lastSaveAppData !== JSON.stringify(lang.getObject('appState.items.app',false,this))) {
+
+      console.log(this.lastSaveAppData,lang.getObject('appState.items.app',false,this));
+      if (!lang.getObject('appState.mode.fromScratch',false,this) && this.lastSaveAppData
+        && (lang.getObject('appState.builder.saving',false,this)
+          || this.lastSaveAppData !== JSON.stringify(lang.getObject('appState.items.app',false,this)))) {
         return builderText.banner.hintText.leavingBeforeSave;
       }
     };
@@ -52,7 +56,7 @@ export default class CrowdsourceBuilderController {
 
   updateAppState() {
     this.appState = AppStore.getState();
-    const fromScratch =lang.getObject('appState.mode.fromScratch',false,this);
+    const fromScratch = lang.getObject('appState.mode.fromScratch',false,this);
 
     if (!this.loadStarted && lang.getObject('appState.user.publisher',false,this) && fromScratch) {
       this.createNewStory();
