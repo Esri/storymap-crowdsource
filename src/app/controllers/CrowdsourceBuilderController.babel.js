@@ -44,8 +44,6 @@ export default class CrowdsourceBuilderController {
     new AppItemAttachments();
 
     window.onbeforeunload = () => {
-
-      console.log(this.lastSaveAppData,lang.getObject('appState.items.app',false,this));
       if (!lang.getObject('appState.mode.fromScratch',false,this) && this.lastSaveAppData
         && (lang.getObject('appState.builder.saving',false,this)
           || this.lastSaveAppData !== JSON.stringify(lang.getObject('appState.items.app',false,this)))) {

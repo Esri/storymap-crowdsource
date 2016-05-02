@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Helper from 'babel/utils/helper/Helper';
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import URI from 'lib/urijs/src/URI';
@@ -318,13 +319,14 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
 
     url.protocol('https');
 
-    const appUrl = window.location.origin + window.location.pathname;
-    const redirectUri = appUrl.stripTrailingSlash() + '/oauth-callback.html';
+    const currentUrl = window.location.href.match('localhost') ? 'https://*.arcgis.com' : 'https://*.' + new URI(window.location.href).domain();
+    const portalUrl = 'https://*.' + new URI(this.portalUrl).domain();
+    const redirectUris = Helper.arrayUtils.unique([currentUrl,portalUrl,'https://*.arcgis.com','https://*.esri.com','https://localhost']);
 
     const content = {
       itemId: settings.item.id,
       appType: 'browser',
-      redirect_uris: JSON.stringify([redirectUri]), // eslint-disable-line camelcase
+      redirect_uris: JSON.stringify(redirectUris), // eslint-disable-line camelcase
       f: 'json'
     };
 

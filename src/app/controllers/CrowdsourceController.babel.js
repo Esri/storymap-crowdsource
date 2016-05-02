@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
 import Portal from 'babel/utils/arcgis/portal/Portal';
 import CrowdsourceBuilderController from 'mode!isBuilder?./CrowdsourceBuilderController';
 import AppStore from 'babel/store/AppStore';
@@ -23,6 +24,12 @@ export default class CrowdsourceController {
     // Subscribe to state changes
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
+
+    const location = new URI(window.location);
+
+    if (location.filename() === 'index.html') {
+      window.history.replaceState({},null,location.filename('').href());
+    }
 
     // TODO configure from app state
     EnvironmentConfig.configSharingUrl();

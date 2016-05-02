@@ -79,6 +79,14 @@ server.register(require('inert'), (err) => {
 
   server.route({
     method: 'GET',
+    path: '/index.html',
+    handler: {
+      file: Path.join(__dirname,'../../build/index.html')
+    }
+  });
+
+  server.route({
+    method: 'GET',
     path: '/{param*}',
     handler: {
       directory: {
