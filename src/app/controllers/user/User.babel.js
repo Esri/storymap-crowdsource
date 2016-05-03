@@ -100,23 +100,14 @@ export default class UserController {
       const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
       const locationUri = new URI(window.location).protocol('https').filename('oauth-callback.html');
       const redirectUri =  locationUri.origin() + locationUri.path();
-      const url = new URI(portal.url);
-      const portalHost = portal.portalHostname;
-      let socialOAuthUrl = false;
+      const portalUrl = new URI(portal.portalHostname).protocol('https').href().stripTrailingSlash();
+      const socialOAuthUrl = portalUrl + '/sharing/rest/oauth2/social/authorize';
 
-      if (portalHost === 'devext.arcgis.com') {
-        socialOAuthUrl = 'https://devext.arcgis.com/sharing/rest/oauth2/social/authorize';
-      } if (portalHost === 'qaext.arcgis.com') {
-        socialOAuthUrl = 'https://qaext.arcgis.com/sharing/rest/oauth2/social/authorize';
-      } else if (portalHost === 'www.arcgis.com') {
-        socialOAuthUrl = 'https://arcgis.com/sharing/rest/oauth2/social/authorize';
-      }
-
-      url.protocol('https');
       const info = new OAuthInfo({
         appId: clientId,
-        portalUrl: url.href().stripTrailingSlash(),
+        portalUrl: portalUrl,
         popup: true,
+        popupCallbackUrl: redirectUri,
         showSocialLogins: true
       });
 
@@ -125,8 +116,6 @@ export default class UserController {
       if (socialOAuthUrl && service !== 'arcgis') {
         window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
       } else {
-        // TODO Remove after verified.
-        // window.open(socialOAuthUrl.replace('social/','') + '?client_id='+clientId+'&response_type=token&expiration=20160&showSocialLogins=true&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
         IdentityManager.useSignInPage = false;
         IdentityManager.getCredential(portal.url,{
           oAuthPopupConfirmation: false
