@@ -5,6 +5,20 @@ import {
   UPDATE_MAP_SELECTED_FEATURES
 } from 'babel/constants/actionsTypes/Map';
 
+const itemInfo = function(state = false, action) {
+  switch (action.type) {
+    case UPDATE_MAP_REFERENCES:
+      if (action.references.itemInfo) {
+        return action.references.itemInfo;
+      } else {
+        return state;
+      }
+      break;
+    default:
+      return state;
+  }
+};
+
 const layer = function(state = false, action) {
   switch (action.type) {
     case UPDATE_MAP_REFERENCES:
@@ -13,7 +27,7 @@ const layer = function(state = false, action) {
       } else {
         return state;
       }
-      return action.dialog;
+      break;
     default:
       return state;
   }
@@ -27,7 +41,7 @@ const originalObject = function(state = false, action) {
       } else {
         return state;
       }
-      return action.dialog;
+      break;
     default:
       return state;
   }
@@ -55,6 +69,7 @@ const selectedFeatures = function(state = [], action) {
 };
 
 export const map = combineReducers({
+  itemInfo,
   layer,
   originalObject,
   featuresInExtent,

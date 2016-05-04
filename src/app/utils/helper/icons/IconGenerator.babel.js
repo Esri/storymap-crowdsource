@@ -84,6 +84,18 @@ const _icons = {
     viewBox: '0 0 28 32',
     path: 'M22 2l-4 4 6 6 4-4-6-6zM0 24l0.021 6.018 5.979-0.018 16-16-6-6-16 16zM6 28h-4v-4h2v2h2v2z'
   },
+  'people': {
+    id: 'icon-people',
+    html: '<svg class="icon icon-people"><use xlink:href="#icon-people"></use></svg>',
+    viewBox: '0 0 24 24',
+    path: 'M15.984 12.984q1.313 0 2.859 0.375t2.859 1.219 1.313 1.922v2.484h-6v-2.484q0-2.063-1.969-3.469 0.328-0.047 0.938-0.047zM8.016 12.984q1.313 0 2.859 0.375t2.836 1.219 1.289 1.922v2.484h-14.016v-2.484q0-1.078 1.313-1.922t2.859-1.219 2.859-0.375zM8.016 11.016q-1.219 0-2.109-0.891t-0.891-2.109 0.891-2.109 2.109-0.891 2.086 0.891 0.867 2.109-0.867 2.109-2.086 0.891zM15.984 11.016q-1.219 0-2.109-0.891t-0.891-2.109 0.891-2.109 2.109-0.891 2.109 0.891 0.891 2.109-0.891 2.109-2.109 0.891z'
+  },
+  'person': {
+    id: 'icon-person',
+    html: '<svg class="icon icon-person"><use xlink:href="#icon-person"></use></svg>',
+    viewBox: '0 0 24 24',
+    path: 'M12 14.016q2.531 0 5.273 1.102t2.742 2.883v2.016h-16.031v-2.016q0-1.781 2.742-2.883t5.273-1.102zM12 12q-1.641 0-2.813-1.172t-1.172-2.813 1.172-2.836 2.813-1.195 2.813 1.195 1.172 2.836-1.172 2.813-2.813 1.172z'
+  },
   'rotate-left': {
     id: 'icon-rotate-left',
     html: '<svg class="icon icon-rotate-left"><use xlink:href="#icon-rotate-left"></use></svg>',
@@ -119,6 +131,7 @@ const _icons = {
 // Alias List
 _icons.bitly = _icons.link;
 _icons.edit = _icons.pencil;
+_icons.globe = _icons.map;
 _icons.selected = _icons['circled-check'];
 
 const _loadSymbol = function loadSymbol(iconObj) {

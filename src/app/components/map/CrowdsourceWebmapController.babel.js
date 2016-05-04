@@ -49,6 +49,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
         if (layer) {
           MapActions.updateMapReferences({
+            itemInfo: this._itemInfo,
             map,
             layer
           });

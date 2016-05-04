@@ -4,6 +4,10 @@
   justify-content: center;
 }
 
+.modal-backdrop {
+  z-index: 0;
+}
+
 @media (max-width: 767px) {
   .modal {
     display: block;

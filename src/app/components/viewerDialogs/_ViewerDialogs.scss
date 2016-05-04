@@ -1,4 +1,4 @@
-@import "sharing/ShareLink";
+@import "appSharing/AppSharing";
 
 .viewer-dialogs {
   color: #4c4c4c;
@@ -9,6 +9,35 @@
 
   .modal-title {
     font-weight: bold;
+  }
+
+  .link-button {
+    margin: 5px 5px 0 0;
+  }
+
+  .dropdown {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  .btn .caret {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 767px) {
+    .dropdown {
+      width: 100%;
+      margin: 5px 0 0;
+
+      .dropdown-toggle {
+        width: 100%;
+      }
+    }
+
+    .copy-button {
+      width: 100%;
+      margin-top: 5px;
+    }
   }
 
 }

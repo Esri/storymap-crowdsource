@@ -446,6 +446,64 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
     query();
   }
 
+  shareItems(options) {
+    const dfd = new Deferred();
+    const appState = AppStore.getState();
+    const defaults = {
+      appState,
+      everyone: false,
+      org: false
+    };
+
+    const settings = $.extend(true, {}, defaults, options);
+    const username = this.getPortalUser().username;
+    const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + '/shareItems';
+
+    const appId = lang.getObject('appState.items.app.item.id',false,settings);
+    const webmapId = lang.getObject('appState.app.map.itemInfo.item.id',false,settings);
+    const layers = [].concat(lang.getObject('appState.app.map.itemInfo.itemData.operationalLayers',false,settings)).concat(lang.getObject('appState.app.map.itemInfo.itemData.baseMap.baseMapLayers',false,settings));
+    let layerIds = [];
+
+    layers.forEach((layer) => {
+      if (layer && layer.itemId && typeof layer.itemId === 'string' && layer.itemId.length === 32) {
+        layerIds.push(layer.itemId);
+      }
+    });
+
+    const items = settings.items || [appId,webmapId].concat(layerIds);
+
+     $.extend(true, {items}, settings);
+
+     const content = {
+       items: items.toString(),
+       everyone: settings.everyone,
+       org: settings.org,
+       f: 'json'
+     };
+
+     esriRequest({
+       url,
+       handleAs: 'json',
+       content
+     },{
+       usePost: true
+     }).then((res) => {
+       if (res.results) {
+        //  TODO Error Handling
+         dfd.resolve(res);
+       } else {
+         _onError(res);
+         dfd.reject(res);
+       }
+     },(err) => {
+       _onError(err);
+       dfd.reject(err);
+     });
+
+     return dfd;
+
+  }
+
 };
 
 export default Portal;

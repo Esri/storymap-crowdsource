@@ -14,8 +14,8 @@ export default class Modal extends React.Component {
   componentDidMount() {
     this.node = ReactDOM.findDOMNode(this);
     $(this.node).modal({
-      backdrop: this.props.backdrop,
-      keyboard: this.props.keyboardClose,
+      backdrop: false,
+      keyboard: false,
       show: true
     });
   }
@@ -81,12 +81,6 @@ Modal.propTypes = {
     React.PropTypes.string,
     React.PropTypes.shape({})
   ]),
-  closeButton: React.PropTypes.bool,
-  keyboardClose: React.PropTypes.bool,
-  backdrop: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.bool
-  ]),
   headerStyle: React.PropTypes.shape({}),
   classNames: React.PropTypes.array
 };
@@ -95,9 +89,6 @@ Modal.defaultProps = {
   title: '',
   body: '',
   footer: '',
-  closeButton: false,
-  keyboardClose: false,
-  backdrop: false,
   headerStyle: {},
   classNames: []
 };

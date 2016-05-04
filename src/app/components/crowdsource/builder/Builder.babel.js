@@ -40,7 +40,9 @@ class Builder extends React.Component {
         { this.props.loading.data ? <BuilderBanner
           brandOnly={ this.props.activeDialog.length > 0 }
           saving={this.props.saving}
-          settingsAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)} />
+          settingsAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}
+          shareAction={this.props.showComponent.bind(this,componentNames.APP_SHARING)}
+          helpAction={this.props.toggleComponent.bind(this,componentNames.APP_HELP)} />
         : null }
         <ReactCSSTransitionGroup
           component="div"

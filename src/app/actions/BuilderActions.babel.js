@@ -2,6 +2,8 @@ import AppStore from 'babel/store/AppStore';
 import {
   BUILDER_ADD_APP_ITEM_ATTACHMENT,
   BUILDER_REMOVE_APP_ITEM_ATTACHMENT,
+  UPDATE_BUILDER_APP_SHARE,
+  UPDATE_BUILDER_APP_SHARE_STATUS,
   CHANGE_BUIDER_DIALOG,
   UPDATE_BUILDER_SAVE_STATUS
 } from 'babel/constants/actionsTypes/Builder';
@@ -22,6 +24,20 @@ export const removeAppItemAttatchment = function(id) {
   };
 };
 
+export const updateShare = function (sharing) {
+  return {
+    type: UPDATE_BUILDER_APP_SHARE,
+    sharing
+  };
+};
+
+export const updateSharingStatus = function (sharing) {
+  return {
+    type: UPDATE_BUILDER_APP_SHARE_STATUS,
+    sharing
+  };
+};
+
 export const changeDialog = function (dialog) {
   return {
     type: CHANGE_BUIDER_DIALOG,
@@ -39,6 +55,8 @@ export const updateSaveStatus = function (saving) {
 export const boundActions = {
   addAppItemAttatchment: (data) => dispatch(addAppItemAttatchment(data)),
   removeAppItemAttatchment: (id) => dispatch(removeAppItemAttatchment(id)),
+  updateShare: (sharing) => dispatch(updateShare(sharing)),
+  updateSharingStatus: (sharing) => dispatch(updateSharingStatus(sharing)),
   changeDialog: (dialog) => dispatch(changeDialog(dialog)),
   updateSaveStatus: (saving) => dispatch(updateSaveStatus(saving))
 };

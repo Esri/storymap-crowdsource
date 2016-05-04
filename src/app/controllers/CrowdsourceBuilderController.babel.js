@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import Logger from 'babel/utils/logging/Logger';
 import StoryCreator from './fromScratch/StoryCreator';
 import AppItemAttachments from './builder/appItemAttachments/AppItemAttachments';
+import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import AppStore from 'babel/store/AppStore';
 import builderText from 'i18n!translations/builder/nls/template';
@@ -36,6 +37,7 @@ export default class CrowdsourceBuilderController {
     this.updateAppState = this.updateAppState.bind(this);
     this.createNewStory = this.createNewStory.bind(this);
     this.checkAppStateChange = this.checkAppStateChange.bind(this);
+    this.checkAppShareChange = this.checkAppShareChange.bind(this);
 
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
@@ -60,6 +62,7 @@ export default class CrowdsourceBuilderController {
       this.createNewStory();
     } else if (!fromScratch && lang.getObject('appState.app.loading.data',false,this)) {
       this.checkAppStateChange();
+      this.checkAppShareChange();
     }
   }
 
@@ -91,6 +94,58 @@ export default class CrowdsourceBuilderController {
 
     } else if (appDataFromState !== this.currentAppData) {
       this.currentAppData = appDataFromState;
+    }
+  }
+
+  checkAppShareChange() {
+    const startingShare = lang.getObject('appState.items.app.item.access',false,this);
+    const currentShare = lang.getObject('appState.builder.appShare',false,this);
+    const sharePending = lang.getObject('appState.builder.appSharePending',false,this);
+
+    if (this.currentShare === undefined && startingShare) {
+      this.currentShare = startingShare;
+      BuilderActions.updateShare(this.currentShare);
+    } else if (this.currentShare !== currentShare && !sharePending) {
+      this.prevShare = this.currentShare;
+      this.currentShare = currentShare;
+
+      BuilderActions.updateSharingStatus(true);
+
+      const portal = lang.getObject('appState.app.portal',false,this);
+
+      portal.shareItems({
+        org: this.currentShare !== 'private' ? true : false,
+        everyone: this.currentShare === 'public' ? true : false
+      }).then((res) => {
+        const errors = res.results.reduce((prev,current) => {
+          if (current.success) {
+            return prev;
+          }
+          return prev.concat(current.itemId);
+        },[]);
+
+        if (errors.length > 0){
+          AppActions.addNotifications({
+            id: 'builderNotfication_shareAppError',
+            type: 'error',
+            content: builderText.errors.shareItems.notShared + ': ' + errors.toString().replace(/,/g, ', ')
+          });
+
+          setTimeout(() => {
+            AppActions.removeNotifications({
+              id: 'builderNotfication_shareAppError'
+            });
+          },7000);
+
+          if (errors.indexOf(lang.getObject('appState.items.app.item.id',false,this)) >= 0) {
+            BuilderActions.updateShare(this.prevShare);
+            this.currentShare = this.prevShare;
+          }
+        }
+
+        BuilderActions.updateSharingStatus(false);
+      });
+
     }
   }
 }

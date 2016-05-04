@@ -6,7 +6,8 @@ import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Header from 'babel/components/header/Header';
 import IntroSplash from 'babel/components/intro/IntroSplash';
-import ShareLink from 'babel/components/viewerDialogs/sharing/ShareLink';
+import ShareLink from 'babel/components/viewerDialogs/socialSharing/ShareLink';
+import AppSharing from 'mode!isBuilder?babel/components/viewerDialogs/appSharing/AppSharing';
 import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
@@ -17,6 +18,7 @@ import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
 import UserActions from 'babel/actions/UserActions';
 import ItemActions from 'mode!isBuilder?babel/actions/ItemActions';
+import BuilderActions from 'mode!isBuilder?babel/actions/BuilderActions';
 import SettingsActions from 'mode!isBuilder?babel/actions/SettingsActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -101,6 +103,14 @@ class Viewer extends React.Component {
           transitionLeaveTimeout={300} >
           { this.props.layout.visibleComponents.indexOf(componentNames.SHARE_LINK) >= 0 ? (
             <ShareLink closeAction={this.props.hideComponent.bind(this,componentNames.SHARE_LINK)} sharing={this.props.sharing}></ShareLink>
+            ) : null }
+          { AppSharing && this.props.layout.visibleComponents.indexOf(componentNames.APP_SHARING) >= 0 ? (
+            <AppSharing
+            appPrivacy={this.props.appPrivacy}
+            appPrivacyUpdating={this.props.appPrivacyUpdating}
+            updatePrivacyAction={BuilderActions.updateShare}
+            closeAction={this.props.hideComponent.bind(this,componentNames.APP_SHARING)}
+            sharing={this.props.sharing}></AppSharing>
             ) : null }
         </ReactCSSTransitionGroup>
       </div>
@@ -216,6 +226,8 @@ class Viewer extends React.Component {
 }
 
 Viewer.propTypes = {
+  appPrivacy: React.PropTypes.string.isRequired,
+  appPrivacyUpdating: React.PropTypes.bool.isRequired,
   layoutId: React.PropTypes.string.isRequired,
   layout: React.PropTypes.shape({
     font: React.PropTypes.string.isRequired,
@@ -331,6 +343,8 @@ Viewer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    appPrivacy: state.mode.isBuilder ? state.builder.appShare : 'private',
+    appPrivacyUpdating: state.mode.isBuilder ? state.builder.appSharePending : false,
     config: state.config,
     components: state.items.app.data.settings.components,
     contributing: state.app.contributing,

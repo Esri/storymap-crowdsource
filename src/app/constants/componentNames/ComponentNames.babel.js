@@ -15,6 +15,8 @@ export const SIDE_PANEL_SETTINGS_STRING_MATCH = 'side-panel-settings:';
 export const SPS_INTRO_SPLASH = 'intro-splash';
 export const SPS_HEADER = 'header';
 export const SPS_SOCIAL_SHARING = 'socialSharing';
+export const APP_SHARING = 'app-sharing';
+export const APP_HELP = 'app-help';
 
 export default {
   // VIEWER ONLY
@@ -31,5 +33,7 @@ export default {
   SIDE_PANEL_SETTINGS_STRING_MATCH,
   SPS_INTRO_SPLASH,
   SPS_HEADER,
-  SPS_SOCIAL_SHARING
+  SPS_SOCIAL_SHARING,
+  APP_SHARING,
+  APP_HELP
 };
