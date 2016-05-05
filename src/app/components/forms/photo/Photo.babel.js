@@ -64,7 +64,7 @@ export default class Photo extends FormGroup {
     }]);
 
     const fileUploader = !navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
-      <div className={uploaderClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
+      <div className={uploaderClasses}>
         <h6>
           {this.props.placeholder}
           <br></br>
@@ -83,7 +83,7 @@ export default class Photo extends FormGroup {
     );
 
     return (
-      <div className={inputClasses}>
+      <div className={inputClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
         {fileUploader}
         <div className="cropper-pane">

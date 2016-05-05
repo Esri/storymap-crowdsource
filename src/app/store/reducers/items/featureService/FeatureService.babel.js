@@ -45,7 +45,9 @@ const defaultServiceDefinition = {
 		enableOwnershipAccessControl: true,
 		allowOthersToQuery: true,
 		allowOthersToUpdate: false,
-		allowOthersToDelete: false
+		allowOthersToDelete: false,
+    allowAnonymousToUpdate: false,
+    allowAnonymousToDelete: false
 	},
 	xssPreventionInfo: {
 		xssPreventionEnabled: true,
@@ -63,7 +65,9 @@ const defaultLayerDefinition = {
 		ownershipBasedAccessControlForFeatures: {
 			allowOthersToQuery: true,
 			allowOthersToDelete: false,
-			allowOthersToUpdate: false
+			allowOthersToUpdate: false,
+      allowAnonymousToUpdate: false,
+      allowAnonymousToDelete: false
 		},
 		editFieldsInfo: {
 			creationDateField: 'CreationDate',

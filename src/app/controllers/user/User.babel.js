@@ -43,13 +43,17 @@ export default class UserController {
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
-    this.initialLoad();
-
   }
 
   updateAppState() {
     this.appState = AppStore.getState();
-    this.checkLoginStatus();
+
+    const portal = lang.getObject('appState.app.portal',false,this);
+
+    if (portal) {
+      this.initialLoad();
+      this.checkLoginStatus();
+    }
 
     if (lang.getObject('appState.app.loading.data',false,this) && !lang.getObject('appState.user.authenticated',false,this)) {
       this.verifyCredentials();
@@ -57,14 +61,17 @@ export default class UserController {
   }
 
   initialLoad() {
-    const portal = lang.getObject('appState.app.portal',false,this);
+    if (!this.loadStarted) {
+      this.loadStarted = true;
+      const portal = lang.getObject('appState.app.portal',false,this);
 
-    if (lang.getObject('appState.mode.fromScratch',false,this)) {
-      portal.signIn().then(this.verifyCredentials);
-    } else if (lang.getObject('appState.config.appid',false,this)) {
-      ArcgisAppItem.getDataById({
-        requiresLogin: lang.getObject('appState.mode.isBuilder',false,this)
-      });
+      if (lang.getObject('appState.mode.fromScratch',false,this)) {
+        portal.signIn().then(this.verifyCredentials);
+      } else if (lang.getObject('appState.config.appid',false,this)) {
+        ArcgisAppItem.getDataById({
+          requiresLogin: lang.getObject('appState.mode.isBuilder',false,this)
+        });
+      }
     }
   }
 
@@ -194,9 +201,14 @@ export default class UserController {
   }
 
   finishOAuthLogin() {
-    this.verifyCredentials();
-    this.pendingLogin = false;
-    UserActions.loginOAuthFinish();
+    const layerUrl = lang.getObject('appState.app.map.layer.url',false,this);
+
+    // Add credential to layer then finish up
+    IdentityManager.getCredential(layerUrl).then(() => {
+      this.verifyCredentials();
+      this.pendingLogin = false;
+      UserActions.loginOAuthFinish();
+    });
   }
 
 }

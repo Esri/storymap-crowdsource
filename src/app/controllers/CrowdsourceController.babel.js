@@ -68,18 +68,30 @@ export default class CrowdsourceController {
 
   createPortal() {
     if (lang.exists('appState.config.sharingurl',this)) {
-      const portal = new Portal(this.appState.config.sharingurl.split('/sharing/')[0]);
 
-      PortalActions.setPortalInstance(portal);
-      portal.on('load',() => {
+      const loadPortal = function(portalUrl) {
+        const portal = new Portal(portalUrl);
 
-        const portalHost = portal.portalHostname;
-        const socialAvailable = portalHost === 'devext.arcgis.com' || portalHost === 'www.arcgis.com' ? true : false;
+        portal.on('load',() => {
 
-        ConfigActions.updateConfig({
-          allowSocialLogin: socialAvailable
+          const portalHost = new URI(portal.portalUrl).hostname();
+          const portalRootHost = portal.portalHostname;
+
+          if (portalHost === portalRootHost) {
+            const socialAvailable = portalRootHost === 'qaext.arcgis.com' || portalRootHost === 'devext.arcgis.com' || portalRootHost === 'www.arcgis.com' ? true : false;
+
+            PortalActions.setPortalInstance(portal);
+            ConfigActions.updateConfig({
+              allowSocialLogin: socialAvailable
+            });
+          } else {
+            loadPortal(new URI(portalRootHost).protocol('https').href());
+          }
+
         });
-      });
+      };
+
+      loadPortal(this.appState.config.sharingurl.split('/sharing/')[0]);
 
     }
   }
