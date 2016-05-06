@@ -5,10 +5,11 @@ import BasicRules from 'babel/utils/validations/rules/BasicRules';
 const ValitdateText = ViewerText.validations.pattern;
 
 const PatternRules = {
-	noSpace: function noSpace(options) {
+	commaSeparated: function commaSeparated(options) {
     const defaults = {
-			regex: /\s/g,
-      errorMessage: ValitdateText.noSpace
+			regex: [/[;.\s]/g,/,{2,}/g],
+			regexReplace: ',',
+      errorMessage: ValitdateText.commaSeparated
     };
     const settings = $.extend(true,{},defaults,options);
 

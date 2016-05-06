@@ -1,6 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
+import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import autosize from 'lib/autosize/dist/autosize';
 
 export default class Textarea extends FormGroup {
@@ -14,11 +15,6 @@ export default class Textarea extends FormGroup {
     autosize(this.input);
   }
 
-  // componentWillUnmount() {
-  //   super.componentWillUnmount();
-  //   autosize.destroy(this.input);
-  // }
-
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'textarea','form-group',{
@@ -29,6 +25,7 @@ export default class Textarea extends FormGroup {
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
+        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
         <textarea
           id={this.props.id}
           className="form-control"

@@ -3,6 +3,7 @@ import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import CheckboxGroup from 'babel/components/forms/checkboxGroup/CheckboxGroup';
 import Input from 'babel/components/forms/input/Input';
+import Textarea from 'babel/components/forms/textarea/Textarea';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -21,9 +22,7 @@ export default class SocialSharingSetttings extends React.Component {
     return (
       <form className={settingsClasses}>
         <CheckboxGroup {...this.getInputSettings('includeSharing')}></CheckboxGroup>
-        { this.props.defaultValues.includeTwitter ? (<Input {...this.getInputSettings('twitterText')}></Input>) : null }
-        { this.props.defaultValues.includeTwitter ? (<Input {...this.getInputSettings('twitterHashtags')}></Input>) : null }
-        { this.props.defaultValues.includeTwitter ? (<Input {...this.getInputSettings('twitterHandle')}></Input>) : null }
+        { this.props.defaultValues.includeTwitter ? (<Textarea {...this.getInputSettings('twitterText')}></Textarea>) : null }
         { this.props.defaultValues.includeTwitter ? (<Input {...this.getInputSettings('twitterRelated')}></Input>) : null }
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
@@ -45,7 +44,6 @@ export default class SocialSharingSetttings extends React.Component {
     switch (input) {
       case 'includeSharing':
         $.extend(true,settings,{
-          required: true,
           defaultValue: this.props.defaultValues.includeFacebook && this.props.defaultValues.includeLink && this.props.defaultValues.includeTwitter ? true : false,
           options: [{
             label: builderText.settings.panes.socialSharing.fields[input].optionLabels.include,
@@ -56,6 +54,9 @@ export default class SocialSharingSetttings extends React.Component {
       case 'twitterText':
         $.extend(true,settings,{
           required: true,
+          tooltip: {
+            content: builderText.settings.panes.socialSharing.fields[input].tooltip
+          },
           inputAttr: {
             defaultValue: this.props.defaultValues[input],
             placeholder: builderText.settings.panes.socialSharing.fields[input].placeholder
@@ -63,15 +64,17 @@ export default class SocialSharingSetttings extends React.Component {
           validations: ['required']
         });
         break;
-      case 'twitterHashtags':
-      case 'twitterHandle':
       case 'twitterRelated':
         $.extend(true,settings,{
+          tooltip: {
+            content: builderText.settings.panes.socialSharing.fields[input].tooltip
+          },
           inputAttr: {
             defaultValue: this.props.defaultValues[input],
             placeholder: builderText.settings.panes.socialSharing.fields[input].placeholder
           },
-          validations: ['noSpace']
+          validations: ['commaSeparated'],
+          autoFix: true
         });
         break;
       default:

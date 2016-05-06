@@ -82,7 +82,7 @@ define({
               }
             },
             logoUrl: {
-              label: 'Logo URL',
+              label: 'Logo image URL',
               placeholder: 'https://www.example.org/your_logo.png',
               attribute: 'logo'
             },
@@ -92,7 +92,7 @@ define({
               attribute: 'logo'
             },
             logoLink: {
-              label: 'Logo link',
+              label: 'Logo click-through link',
               placeholder: 'https://www.example.com'
             },
             bannerTitle: {
@@ -111,26 +111,19 @@ define({
             includeSharing: {
               label: 'Sharing buttons',
               optionLabels: {
-                include: 'Display social sharing buttons in your story'
+                include: 'Display sharing buttons'
               }
             },
             twitterText: {
-              label: 'Prepoulated tweet text',
+              label: 'Tweet',
+              tooltip: 'A link to your story will be added to the end of your tweet.',
               placeholder: 'Enter tweet text',
               attribute: 'tweet text field'
             },
-            twitterHashtags: {
-              label: 'Hashtags (comma seperated)',
-              placeholder: 'Enter label',
-              attribute: 'hashtags field'
-            },
-            twitterHandle: {
-              label: 'Your twitter handle',
-              placeholder: 'Enter twitter handle'
-            },
             twitterRelated: {
-              label: '"Who to follow" twitter accounts (comma seperated)',
-              placeholder: 'Enter twitter handles',
+              label: '"Who to follow" suggestions',
+              tooltip: 'Suggest additional Twitter usernames related to the Tweet as comma-separated values. Twitter may suggest these accounts to follow after the posted retweet.',
+              placeholder: 'Enter Twitter handles',
               attribute: 'recommended accounts field'
             }
           }

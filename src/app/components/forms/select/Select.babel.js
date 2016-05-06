@@ -3,6 +3,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import Logger from 'babel/utils/logging/Logger';
+import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
 const formText = ViewerText.forms.select;
@@ -34,6 +35,7 @@ export default class Select extends FormGroup {
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
+        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
         <select
           id={this.props.id}
           className="form-control"

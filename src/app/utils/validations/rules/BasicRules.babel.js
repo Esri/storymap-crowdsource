@@ -78,7 +78,8 @@ const BasicRules = {
 			error: false
 		};
     const defaults = {
-      errorMessage: ValitdateText.regex
+      errorMessage: ValitdateText.regex,
+			regexReplace: ''
     };
     const settings = $.extend(true,{},defaults,options);
 		const msgOptions = {
@@ -86,15 +87,38 @@ const BasicRules = {
 		};
     const errorMessage = ValidationUtils.templateMessage(settings.errorMessage,msgOptions);
 
-    if (settings.regex && typeof settings.regex === 'object' && settings.value && settings.value.match(settings.regex)) {
+		const patterns = [].concat(settings.regex);
+
+    if (settings.regex && typeof settings.regex === 'object' && settings.value && patterns.length === 1 && settings.value.match(patterns[0])) {
 			const value = settings.prefix ? settings.prefix(settings.value) : settings.value;
 
 			res = {
 				isValid: false,
 				error: errorMessage
 			};
-			res.fixValue = value.replace(settings.regex,'');
-    }
+
+			res.fixValue = value.replace(settings.regex, settings.regexReplace);
+    } else if (settings.regex && typeof settings.regex === 'object' && settings.value && patterns.length > 1) {
+			const matches = patterns.reduce((prev,current) => {
+				if (settings.value.match(current)) {
+					return prev.concat(current);
+				}
+				return prev;
+			},[]);
+
+			if (matches.length > 0) {
+				const value = settings.prefix ? settings.prefix(settings.value) : settings.value;
+
+				res = {
+					isValid: false,
+					error: errorMessage
+				};
+
+				matches.forEach((current) => {
+					res.fixValue = value.replace(current, settings.regexReplace);
+				});
+			}
+		}
 
     return res;
 	},

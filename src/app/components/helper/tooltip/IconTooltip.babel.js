@@ -34,7 +34,7 @@ export const IconTooltip = class IconTooltip extends React.Component {
     };
 
     return (
-      <button className={btnClass} dangerouslySetInnerHTML={iconHtml}></button>
+      <button type="button" className={btnClass} dangerouslySetInnerHTML={iconHtml}></button>
     );
   }
 

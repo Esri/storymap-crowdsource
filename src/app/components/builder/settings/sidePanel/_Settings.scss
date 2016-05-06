@@ -8,4 +8,29 @@
   left: 0;
   padding-bottom: 15px;
   overflow: auto;
+
+  .settings-selector {
+    width: 100%;
+
+    button {
+      text-align: left;
+      width: 100%;
+    }
+
+    h2 .selected {
+      font-size: 21px;
+      font-weight: bold;
+      margin: 10px;
+      text-transform: uppercase;
+    }
+
+    &:hover h2 .selected {
+      text-decoration: underline;
+    }
+
+    ul {
+      margin-left: -1px;
+      width: calc(100% + 2px);
+    }
+  }
 }

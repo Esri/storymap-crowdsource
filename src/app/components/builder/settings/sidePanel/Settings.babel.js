@@ -63,14 +63,18 @@ export default class SidePanelSettings extends React.Component {
           { selectedPane ? (
           <div className="row">
             <div className="col-xs-12">
-              <h2 className="text-primary">{builderText.settings.title}</h2>
               <div className="dropdown settings-selector">
                 <button type="button" className="text-btn dropdown-toggle" data-toggle="dropdown">
-                  <h4>{selectedPane.title}<span className="caret"></span></h4>
+                  <h2>
+                    <span className="main">{builderText.settings.title}</span>
+                    <span className="selected text-primary">{selectedPane.title}<span className="caret"></span></span>
+                  </h2>
                 </button>
                 <ul className="dropdown-menu">
                   {this.props.settingsPanes.map((current) => {
-                    if (current.title !== selectedPane.title) {
+                    if (current.title === selectedPane.title) {
+                      return <li className="active" key={'selector_' + current.id} onClick={this.changeSettingsPane.bind(this,current.id)}><a href="#">{current.title}</a></li>;
+                    } else {
                       return <li key={'selector_' + current.id} onClick={this.changeSettingsPane.bind(this,current.id)}><a href="#">{current.title}</a></li>;
                     }
                   })}

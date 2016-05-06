@@ -32,6 +32,16 @@ form {
     }
   }
 
+  .form-tooltip.text-btn {
+    vertical-align: middle;
+    margin: 0 5px;
+
+    svg.icon {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
 }
 
 .required-warning {

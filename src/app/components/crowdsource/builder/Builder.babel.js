@@ -202,8 +202,6 @@ const mapStateToProps = (state) => {
         includeFacebook: state.items.app.data.settings.components.common.sharing.services.facebook,
         includeTwitter: state.items.app.data.settings.components.common.sharing.services.twitter,
         twitterText: state.items.app.data.settings.components.common.sharing.twitter.text,
-        twitterHashtags: state.items.app.data.settings.components.common.sharing.twitter.hashtags,
-        twitterHandle: state.items.app.data.settings.components.common.sharing.twitter.twitterHandle,
         twitterRelated: state.items.app.data.settings.components.common.sharing.twitter.related
       },
       introSplashSettings: {
@@ -259,12 +257,6 @@ const mapDispatchToProps = () => {
       },
       twitterText: (value) => {
         SettingsActions.updateCommonSharingTwitter({text: value});
-      },
-      twitterHashtags: (value) => {
-        SettingsActions.updateCommonSharingTwitter({hashtags: value});
-      },
-      twitterHandle: (value) => {
-        SettingsActions.updateCommonSharingTwitter({twitterHandle: value});
       },
       twitterRelated: (value) => {
         SettingsActions.updateCommonSharingTwitter({related: value});

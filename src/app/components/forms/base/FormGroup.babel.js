@@ -17,10 +17,12 @@ export default class FormGroup extends React.Component {
     this.value = false;
     this.valid = false;
 
+    // Autobind
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.fixValue = this.fixValue.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -49,20 +51,34 @@ export default class FormGroup extends React.Component {
 
   getErrorMessage() {
     if (!this.state.isValid && this.state.errors && this.state.errors.length > 0) {
-      return (
-        <ul className="text-danger form-error-message">
-          {this.state.errors.map((error) => {
-            return (
-              <li key={error.rule}>
-                <strong><small>
-                  {error.message}
-                  {error.fixValue ? <button className="text-btn text-primary" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}
-                </small></strong>
-              </li>
-            );
-          })}
-        </ul>
-      );
+      const fixable = this.state.errors.reduce((prev,current) => {
+        if (current.fixValue) {
+          return prev.concat(current.fixValue);
+        }
+        return prev;
+      },[]);
+
+      if (this.props.autoFix && fixable.length > 0) {
+        setTimeout(() => {
+          this.fixValue(fixable[0]);
+        },0);
+        return null;
+      } else {
+        return (
+          <ul className="text-danger form-error-message">
+            {this.state.errors.map((error) => {
+              return (
+                <li key={error.rule}>
+                  <strong><small>
+                    {error.message}
+                    {error.fixValue ? <button className="text-btn text-primary" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}
+                  </small></strong>
+                </li>
+              );
+            })}
+          </ul>
+        );
+      }
     } else {
       return null;
     }
@@ -223,6 +239,7 @@ FormGroup.propTypes = {
   formId: React.PropTypes.string,
   required: React.PropTypes.bool,
   extras: React.PropTypes.shape({}),
+  autoFix: React.PropTypes.bool,
   autoUpdate: React.PropTypes.shape({
     when: React.PropTypes.oneOfType([
       React.PropTypes.bool,
@@ -249,6 +266,7 @@ FormGroup.defaultProps = {
   formId: '',
   required: false,
   extras: {},
+  autoFix: false,
   autoUpdate: {
     when: false,
     value: false

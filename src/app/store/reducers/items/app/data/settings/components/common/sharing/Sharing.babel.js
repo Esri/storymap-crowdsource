@@ -13,8 +13,6 @@ const defaultServices = {
 
 const defaultTwitter = {
   text: '',
-  hashtags: 'storymaps',
-  twitterHandle: '',
   related: 'EsriStoryMaps'
 };
 

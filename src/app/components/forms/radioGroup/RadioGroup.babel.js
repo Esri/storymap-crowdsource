@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
+import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 
 export default class RadioInput extends FormGroup {
@@ -31,6 +32,7 @@ export default class RadioInput extends FormGroup {
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
+        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
           {this.props.options.map((current) => {
             const id = (this.props.id + current.value + '').toCamelCase();
 

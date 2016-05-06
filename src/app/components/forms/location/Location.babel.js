@@ -8,6 +8,7 @@ import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import Validator from 'babel/utils/validations/Validator';
 // import FormActions from 'babel/actions/FormActions';
+import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 
@@ -118,6 +119,8 @@ export default class Location extends FormGroup {
     return (
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
+        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
+        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
         <div
           ref={(ref) => this.inputContainer = ref}>
         </div>
