@@ -201,10 +201,10 @@ export default class UserController {
   }
 
   finishOAuthLogin() {
-    const layerUrl = lang.getObject('appState.app.map.layer.url',false,this);
+    const layer = lang.getObject('appState.app.map.layer',false,this);
 
     // Add credential to layer then finish up
-    IdentityManager.getCredential(layerUrl).then(() => {
+    layer._forceIdentity(() => {
       this.verifyCredentials();
       this.pendingLogin = false;
       UserActions.loginOAuthFinish();
