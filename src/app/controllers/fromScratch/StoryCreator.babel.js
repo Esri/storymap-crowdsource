@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
+import Helper from 'babel/utils/helper/Helper';
 import UrlUtils from 'esri/urlUtils';
 import Logger from 'babel/utils/logging/Logger';
 import AppStore from 'babel/store/AppStore';
@@ -35,10 +36,9 @@ export default class StoryCreator {
 
   constructor() {
 
-    this.itemCreationPending = false;
-
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
+    this.saveOrgDefaults = this.saveOrgDefaults.bind(this);
     this.createFeatureService = this.createFeatureService.bind(this);
     this.createWebmap = this.createWebmap.bind(this);
     this.createApp = this.createApp.bind(this);
@@ -57,6 +57,9 @@ export default class StoryCreator {
   updateAppState() {
     this.appState = AppStore.getState();
 
+    if (lang.getObject('appState.app.portal',false,this) && !this.savedOrgDefaults) {
+      this.saveOrgDefaults();
+    }
     if (lang.getObject('appState.builder.activeDialog',false,this) === 'savingFromScratch' && !this.itemCreationPending) {
       this.createFeatureService();
     }
@@ -70,6 +73,25 @@ export default class StoryCreator {
 
   openItemNameDialog() {
     BuilderActions.changeDialog('itemNameScratch');
+  }
+
+  saveOrgDefaults() {
+    this.savedOrgDefaults = true;
+    const portal = lang.getObject('appState.app.portal',false,this);
+    const extent = Helper.mapUtils.serializeExtentToItem({
+      extent: portal.defaultExtent,
+      type: 'string'
+    });
+
+    ItemActions.updateFeatureServiceItem({
+      extent
+    });
+    ItemActions.updateWebmapItem({
+      extent
+    });
+    ItemActions.updateAppItem({
+      extent
+    });
   }
 
   createFeatureService() {

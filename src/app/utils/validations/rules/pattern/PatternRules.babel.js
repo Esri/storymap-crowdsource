@@ -7,7 +7,7 @@ const ValitdateText = ViewerText.validations.pattern;
 const PatternRules = {
 	commaSeparated: function commaSeparated(options) {
     const defaults = {
-			regex: [/[;.\s]/g,/,{2,}/g],
+			regex: [/[;.\/\\:*|-\s]/g,/,{2,}/g],
 			regexReplace: ',',
       errorMessage: ValitdateText.commaSeparated
     };

@@ -4,6 +4,7 @@ import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Layout from 'babel/utils/helper/layout/Layout';
 import ObjectUtils from 'babel/utils/helper/objects/ObjectUtils';
 import MathUtils from 'babel/utils/helper/math/MathUtils';
+import MapUtils from 'babel/utils/helper/map/MapUtils';
 import ArrayUtils from 'babel/utils/helper/array/ArrayUtils';
 import AttachmentUtils from 'babel/utils/helper/attachments/AttachmentUtils';
 import Logger from 'babel/utils/logging/Logger';
@@ -78,6 +79,7 @@ export default {
   layout: Layout,
   objectUtils: ObjectUtils,
   mathUtils: MathUtils,
+  mapUtils: MapUtils,
   arrayUtils: ArrayUtils,
   attachmentUtils: AttachmentUtils
 };
