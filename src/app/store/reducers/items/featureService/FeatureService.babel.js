@@ -18,27 +18,27 @@ const defaultItem = {
 const defaultServiceDefinition = {
 	capabilities: 'Create,Update,Query,Editing,Sync',
 	supportsDisconnectedEditing: false,
-	spatialReference: {
-		wkid: 4326
-	},
-	fullExtent: {
-		xmin: -179,
-		ymin: -80,
-		xmax: 179,
-		ymax: 80,
-		spatialReference: {
-			wkid: 4326
-		}
-	},
-	initialExtent: {
-		xmin: -179,
-		ymin: -80,
-		xmax: 179,
-		ymax: 80,
-		spatialReference: {
-			wkid: 4326
-		}
-	},
+  spatialReference: {
+    wkid: 102100
+  },
+  initialExtent: {
+    xmin: -20085668.703089,
+    ymin: -20085668.703089,
+    xmax: 20085668.703089,
+    ymax: 20085668.703089,
+    spatialReference: {
+      wkid: 102100
+    }
+  },
+  fullExtent: {
+    xmin: -20085668.703089,
+    ymin: -20085668.703089,
+    xmax: 20085668.703089,
+    ymax: 20085668.703089,
+    spatialReference: {
+      wkid: 102100
+    }
+  },
 	units: 'esriDecimalDegrees',
 	editorTrackingInfo: {
 		enableEditorTracking: true,
@@ -89,13 +89,13 @@ const defaultLayerDefinition = {
 			}
 		},
 		extext: {
-			xmin: -179,
-			ymin: -80,
-			xmax: 179,
-			ymax: 80,
-			spatialReference: {
-				wkid: 4326
-			}
+      xmin: -20085668.703089,
+      ymin: -20085668.703089,
+      xmax: 20085668.703089,
+      ymax: 20085668.703089,
+      spatialReference: {
+        wkid: 102100
+      }
 		},
 		capabilities: 'Create,Update,Query,Editing,Sync',
 		hasStaticData: false,

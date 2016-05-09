@@ -18,7 +18,7 @@ const defaultItem = {
   title: '',
   tags: ['Story Map,Story Maps,Crowdsource'],
   type: 'Web Mapping Application',
-  typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource','layout-stacked','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']
+  typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMapCrowdsource','layout-stacked','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']
 };
 
 export const item = function (state = defaultItem, action) {

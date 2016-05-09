@@ -62,7 +62,6 @@ export default class InlineEditorWrapper extends React.Component {
   }
 
   render() {
-    // TODO allow only in builder and in "edit mode"
     const editingAllowed = this.props.editingAllowed && InlineInput;
     const className = Helper.classnames([this.props.className,'inline-editor']);
 
