@@ -22,7 +22,6 @@ export const updateFeaturesInExtent = function (features) {
 };
 
 export const selectFeatures = function (features) {
-  console.log(features);
   return {
     type: UPDATE_MAP_SELECTED_FEATURES,
     features

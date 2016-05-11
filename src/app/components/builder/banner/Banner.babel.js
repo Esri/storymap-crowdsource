@@ -48,6 +48,23 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
           <li><a href="#" onClick={this.props.helpAction}>{bannerText.buttons.help}</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
+          { this.props.displayReviewDropdown ? (
+            <li className="dropdown">
+              <button
+                type="button"
+                className="btn btn-primary navbar-btn dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false">{builderText.review.selection.header}: {builderText.review.selection.options[this.props.reviewSelection]} <span className="caret"></span></button>
+              <ul className="dropdown-menu">
+                <li className={Helper.classnames({active: this.props.reviewSelection === 'all'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'all')}>{builderText.review.selection.options.all}</a></li>
+                <li className={Helper.classnames({active: this.props.reviewSelection === 'new'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'new')}>{builderText.review.selection.options.new}</a></li>
+                <li className={Helper.classnames({active: this.props.reviewSelection === 'approved'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'approved')}>{builderText.review.selection.options.approved}</a></li>
+                <li className={Helper.classnames({active: this.props.reviewSelection === 'rejected'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'rejected')}>{builderText.review.selection.options.rejected}</a></li>
+              </ul>
+            </li>
+          ) : null }
           <li><p className="navbar-text">{this.props.saving ? bannerText.hintText.saving : bannerText.hintText.saved}</p></li>
         </ul>
       </div>
@@ -74,6 +91,9 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
 BuilderBanner.propTypes = {
   brandOnly: React.PropTypes.bool,
   saving: React.PropTypes.bool,
+  displayReviewDropdown: React.PropTypes.bool,
+  reviewSelection: React.PropTypes.string,
+  changeReviewSelection: React.PropTypes.func,
   settingsAction: React.PropTypes.func,
   shareAction: React.PropTypes.func,
   helpAction: React.PropTypes.func
@@ -82,6 +102,9 @@ BuilderBanner.propTypes = {
 BuilderBanner.defaultProps = {
   brandOnly: false,
   saving: false,
+  displayReviewDropdown: false,
+  reviewSelection: 'all',
+  changeReviewSelection: () => {},
   settingsAction: () => {},
   shareAction: () => {},
   helpAction: () => {}

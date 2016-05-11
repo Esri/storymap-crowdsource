@@ -2,6 +2,7 @@ import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 export default class SelectedShares extends React.Component {
 
@@ -43,19 +44,22 @@ export default class SelectedShares extends React.Component {
                       }
 
                     })}
-                    {this.props.reviewEnabled ? (
+                  </div>
+                  {this.props.reviewEnabled ? (
+                    <div className="review-section bg-info">
+                      <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
                       <div className="btn-group">
-                        <button type="button" className={Helper.classnames(['btn','btn-sm'],{
+                        <button type="button" className={Helper.classnames(['btn'],{
                             'btn-default': attributes[this.props.vettedField] !== 1,
                             'btn-primary': attributes[this.props.vettedField] === 1
                           })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
-                        <button type="button" className={Helper.classnames(['btn','btn-sm'],{
+                        <button type="button" className={Helper.classnames(['btn'],{
                             'btn-default': attributes[this.props.vettedField] !== 2,
                             'btn-primary': attributes[this.props.vettedField] === 2
                           })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
                       </div>
-                    ) : null}
-                  </div>
+                    </div>
+                  ) : null}
                 </article>
               </li>
             );

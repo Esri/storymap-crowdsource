@@ -13,6 +13,7 @@ import IntroSplashSettings from 'babel/components/builder/settings/sidePanel/int
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
+import ReviewActions from 'babel/actions/ReviewActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -40,6 +41,9 @@ class Builder extends React.Component {
         { this.props.loading.data ? <BuilderBanner
           brandOnly={ this.props.activeDialog.length > 0 }
           saving={this.props.saving}
+          displayReviewDropdown={this.props.visibleComponents.indexOf(componentNames.MAP) >= 0 || this.props.visibleComponents.indexOf(componentNames.GALLERY) >= 0}
+          reviewSelection={this.props.review.selection}
+          changeReviewSelection={this.props.changeReviewableSelection}
           settingsAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}
           shareAction={this.props.showComponent.bind(this,componentNames.APP_SHARING)}
           helpAction={this.props.toggleComponent.bind(this,componentNames.APP_HELP)} />
@@ -175,6 +179,9 @@ Builder.propTypes = {
       React.PropTypes.shape(null),
       React.PropTypes.string
     ])
+  }).isRequired,
+  review: React.PropTypes.shape({
+    selection: React.PropTypes.string.isRequired
   }).isRequired
 };
 
@@ -189,6 +196,7 @@ const mapStateToProps = (state) => {
       ownerFolder: state.items.app.item.ownerFolder
     },
     visibleComponents: state.app.layout.visibleComponents,
+    review: state.review,
     defaultValues: {
       headerSettings: {
         logoType: state.items.app.data.settings.components.header.logo.type,
@@ -218,6 +226,7 @@ const mapDispatchToProps = () => {
     hideComponent: AppActions.hideComponent,
     hideComponentByStringMatch: AppActions.hideComponentByStringMatch,
     toggleComponent: AppActions.toggleComponent,
+    changeReviewableSelection: ReviewActions.changeReviewableSelection,
     headerSettingsActions: {
       logoType: (value) => {
         SettingsActions.updateHeaderLogoType(value);

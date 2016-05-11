@@ -62,6 +62,20 @@ define({
         }
       }
     },
+    review: {
+      selection: {
+        header: 'Review',
+        options: {
+          'all': 'All Contributions',
+          'new': 'New Contributions',
+          'approved': 'Approved Contributions',
+          'rejected': 'Rejected Contributions'
+        }
+      },
+      selectedShare: {
+        header: 'Review'
+      }
+    },
     fromScratchMessage: {
       saving: 'Creating Application Items',
       layerNameInWebmap: 'Crowdsource Layer (DO NOT REMOVE)'

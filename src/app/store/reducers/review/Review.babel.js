@@ -1,8 +1,18 @@
 import { combineReducers } from 'redux';
 import {
+  CHANGE_REVIEW_SELECTION,
   REVIEW_APPROVE_FEATURES,
   REVIEW_REJECT_FEATURES
 } from 'babel/constants/actionsTypes/Review';
+
+export const selection = function (state = 'new', action) {
+  switch (action.type) {
+    case CHANGE_REVIEW_SELECTION:
+      return action.selection;
+    default:
+      return state;
+  }
+};
 
 export const approved = function (state = [], action) {
   switch (action.type) {
@@ -55,6 +65,7 @@ export const rejected = function (state = [], action) {
 };
 
 export const review = combineReducers({
+  selection,
   approved,
   rejected
 });

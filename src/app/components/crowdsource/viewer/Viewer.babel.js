@@ -174,7 +174,7 @@ class Viewer extends React.Component {
                 {...this.props.components.contribute}
                 {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 ? <SelectedShares
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures().length > 0 ? <SelectedShares
                 className="overlay-panel"
                 items={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
