@@ -7,6 +7,7 @@ import Graphic from 'esri/graphic';
 import Helper from 'babel/utils/helper/Helper';
 import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
+import MapActions from 'babel/actions/MapActions';
 import Logger from 'babel/utils/logging/Logger';
 
 const _logger = new Logger({source: 'Contribute Controller'});
@@ -163,6 +164,7 @@ export default class ContributeController {
         if ($.isArray(res) && res[0] && res[0].success) {
           const oid = res[0].objectId;
 
+          MapActions.selectFeatures(oid);
           uploadAttachments(oid).then(editWithAttachmentUrls.bind(null,oid),() => {
             // TODO Handle Attachment errors
           });
