@@ -16,6 +16,7 @@ import AppNotifications from 'babel/components/helper/notifications/AppNotificat
 import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/BottomNavigation';
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
+import ReviewActions from 'mode!isBuilder?babel/actions/ReviewActions';
 import UserActions from 'babel/actions/UserActions';
 import ItemActions from 'mode!isBuilder?babel/actions/ItemActions';
 import BuilderActions from 'mode!isBuilder?babel/actions/BuilderActions';
@@ -139,7 +140,7 @@ class Viewer extends React.Component {
           <div className="main-content">
             <div className="scroll-container">
               <div className="content-pane map-view">
-                <CrowdsourceWebmap controllerOptions={this.props.components.map}/>
+                <CrowdsourceWebmap controllerOptions={this.webmapControllerOptions} />
                 <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
                   <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
                   <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
@@ -178,6 +179,13 @@ class Viewer extends React.Component {
                 className="overlay-panel"
                 items={this.props.map.selectedFeatures}
                 layer={this.props.map.layer}
+                reviewEnabled={this.props.mode.isBuilder}
+                approveAction={(features) => {
+                  this.props.approveFeatures({add: features});
+                }}
+                rejectAction={(features) => {
+                  this.props.rejectFeatures({add: features});
+                }}
                 closeAction={this.props.selectFeatures.bind(null,false)}
                 {...this.props.components.shareDisplay}
                 {...this.props.components.map.crowdsourceLayer}>
@@ -188,6 +196,14 @@ class Viewer extends React.Component {
 
         return stacked;
     }
+  }
+
+  get webmapControllerOptions() {
+    return $.extend(true,{
+      crowdsourceLayer: {
+        selectFeaturesIds: this.getSelectedIds()
+      }
+    },this.props.components.map);
   }
 
   getSelectedIds () {
@@ -363,18 +379,15 @@ const mapStateToProps = (state) => {
         facebook: state.config.FACEBOOK_APP_ID
       },
       twitter: state.items.app.data.settings.components.common.sharing.twitter
-    }
-  };
-};
-
-const mapDispatchToProps = () => {
-  return {
+    },
     loginUser: UserActions.loginOAuthStart,
     changeComponentsVisibility: AppActions.changeComponentsVisibility,
     showComponent: AppActions.showComponent,
     hideComponent: AppActions.hideComponent,
     updateContributeState: AppActions.updateContributeState,
     selectFeatures: MapActions.selectFeatures,
+    approveFeatures: state.mode.isBuilder ? ReviewActions.approveFeatures : null,
+    rejectFeatures: state.mode.isBuilder ? ReviewActions.rejectFeatures: null,
     noticationsActions: {
       addNotifications: AppActions.addNotifications,
       removeNotifications: AppActions.removeNotifications
@@ -387,4 +400,4 @@ const mapDispatchToProps = () => {
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Viewer);
+export default connect(mapStateToProps)(Viewer);

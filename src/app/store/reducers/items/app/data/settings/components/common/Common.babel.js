@@ -11,6 +11,15 @@ const defaultParticipateShort = builderText ? builderText.appDataPlaceholderText
 const defaultParticipateLong = builderText ? builderText.appDataPlaceholderText.globals.participateLong : '';
 const defaultExploreText = builderText ? builderText.appDataPlaceholderText.globals.exploreText : '';
 
+export const acceptNewContributions = function (state = true, action) {
+  switch (action.type) {
+    case 'UPDATE_SETTINGS_COMMON_PARTICIPATE_LONG':
+      return action.acceptNew;
+    default:
+      return state;
+  }
+};
+
 export const participateShort = function (state = defaultParticipateShort, action) {
   switch (action.type) {
     case UPDATE_SETTINGS_COMMON_PARTICIPATE_SHORT:
@@ -39,6 +48,7 @@ export const exploreText = function (state = defaultExploreText, action) {
 };
 
 export const common = combineReducers({
+  acceptNewContributions,
   participateShort,
   participateLong,
   exploreText,

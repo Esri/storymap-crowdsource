@@ -57,8 +57,17 @@ export const hiddenField = function (state = 'Hidden', action) {
 
 export const vettedField = function (state = 'Vetted', action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_SECONDARY_FIELD':
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VETTED_FIELD':
       return action.field;
+    default:
+      return state;
+  }
+};
+
+export const visibleFeatures = function (state = 'notHidden', action) {
+  switch (action.type) {
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES':
+      return action.visibleFeatures;
     default:
       return state;
   }
@@ -72,7 +81,8 @@ export const crowdsourceLayer = combineReducers({
   secondaryField,
   hiddenField,
   vettedField,
-  fields
+  fields,
+  visibleFeatures
 });
 
 export default crowdsourceLayer;

@@ -18,7 +18,8 @@ Webmap.propTypes = {
     webmap: React.PropTypes.string,
     mapOptions: React.PropTypes.shape({}),
     crowdsourceLayer: React.PropTypes.shape({
-      id: React.PropTypes.string
+      id: React.PropTypes.string,
+      where: React.PropTypes.string
     })
   })
 };
@@ -29,7 +30,8 @@ Webmap.defaultProps = {
     webmap: '',
     mapOptions: {},
     crowdsourceLayer: {
-      id: ''
+      id: '',
+      where: '1=1'
     }
   }
 };

@@ -40,7 +40,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
     this._settings = $.extend(true, {}, defaults, options);
   }
 
-  createMap(options) {
+  updateMap(options) {
     const mapDiv = this._settings.node || this._settings.mapDiv;
     const defaults = {};
 

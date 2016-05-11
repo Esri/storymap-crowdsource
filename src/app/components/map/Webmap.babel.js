@@ -20,12 +20,12 @@ export const Webmap = class Webmap extends React.Component {
     });
 
     if (this.props.controllerOptions.webmap) {
-      this.mapController.createMap(this.props.controllerOptions);
+      this.mapController.updateMap(this.props.controllerOptions);
     }
   }
 
   componentDidUpdate() {
-    this.mapController.createMap(this.props.controllerOptions);
+    this.mapController.updateMap(this.props.controllerOptions);
   }
 
   render() {

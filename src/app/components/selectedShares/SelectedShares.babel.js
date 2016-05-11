@@ -43,6 +43,18 @@ export default class SelectedShares extends React.Component {
                       }
 
                     })}
+                    {this.props.reviewEnabled ? (
+                      <div className="btn-group">
+                        <button type="button" className={Helper.classnames(['btn','btn-sm'],{
+                            'btn-default': attributes[this.props.vettedField] !== 1,
+                            'btn-primary': attributes[this.props.vettedField] === 1
+                          })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
+                        <button type="button" className={Helper.classnames(['btn','btn-sm'],{
+                            'btn-default': attributes[this.props.vettedField] !== 2,
+                            'btn-primary': attributes[this.props.vettedField] === 2
+                          })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
+                      </div>
+                    ) : null}
                   </div>
                 </article>
               </li>
@@ -87,6 +99,9 @@ export default class SelectedShares extends React.Component {
 }
 
 SelectedShares.propTypes = {
+  reviewEnabled: React.PropTypes.bool,
+  approveAction: React.PropTypes.func,
+  rejectAction: React.PropTypes.func,
   closeAction: React.PropTypes.func,
   items: React.PropTypes.array,
   displayOrder: React.PropTypes.array,
@@ -94,6 +109,7 @@ SelectedShares.propTypes = {
   idField: React.PropTypes.string.isRequired,
   primaryField: React.PropTypes.string.isRequired,
   secondaryField: React.PropTypes.string.isRequired,
+  vettedField: React.PropTypes.string,
   media: React.PropTypes.shape({
     type: React.PropTypes.string,
     field: React.PropTypes.string
@@ -117,5 +133,8 @@ SelectedShares.defaultProps = {
   displayOrder: [],
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: '',
+  reviewEnabled: false,
+  approveAction: () => {},
+  rejectAction: () => {},
   closeAction: () => {}
 };

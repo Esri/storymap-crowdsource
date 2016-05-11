@@ -3,6 +3,7 @@ import on from 'dojo/on';
 import Logger from 'babel/utils/logging/Logger';
 import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
+// TODO Move actions out at a prop
 import MapActions from 'babel/actions/MapActions';
 import AppActions from 'babel/actions/AppActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
@@ -21,6 +22,15 @@ const _onError = function onError(err) {
 
 export const CrowdsourceWebmapController = class CrowdsourceWebmapController extends WebmapController {
 
+  updateMap(options) {
+    super.updateMap(options);
+
+    if (this._map && this._map.setClusterLayerQueryWhere && this.crowdsourceLayerWhere !== this._settings.crowdsourceLayer.where) {
+      this.crowdsourceLayerWhere = this._settings.crowdsourceLayer.where;
+      this._map.setClusterLayerQueryWhere(this.crowdsourceLayerWhere);
+    }
+  }
+
   onMapLoad() {
     super.onMapLoad();
     this.createClusterLayer();
@@ -38,10 +48,11 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterDefaults = {
           objectIdField,
           disablePopup: true,
-          distance: 100,
+          distance: 125,
           id: 'crowdsourceClusters',
           labelColor: '#fff',
           resolution: map.extent.getWidth() / map.width,
+          where: this._settings.crowdsourceLayer.where,
           url
         };
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
@@ -91,6 +102,11 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         map.refreshCrowdsourceLayer = function () {
           clusterLayer._visitedExtent = null;
           clusterLayer.updateClusters();
+        };
+
+        map.setClusterLayerQueryWhere = function (where) {
+          clusterLayer._where = where || '1=1';
+          map.refreshCrowdsourceLayer();
         };
 
       } else if (layer)  {

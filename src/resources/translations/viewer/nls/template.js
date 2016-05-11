@@ -61,7 +61,14 @@ define({
       }
     },
     selectedShares: {
-      enlargePhotoButton: 'View Larger'
+      enlargePhotoButton: 'View Larger',
+      review: {
+        title: 'Review Item',
+        options: {
+          approve: 'Approve',
+          reject: 'Reject'
+        }
+      }
     },
     contribute: {
       login: {
