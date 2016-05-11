@@ -56,7 +56,7 @@ const featuresInExtent = function(state = [], action) {
   }
 };
 
-const selectedFeatures = function(state = [], action) {
+const selectedFeatureIds = function(state = [], action) {
   switch (action.type) {
     case UPDATE_MAP_SELECTED_FEATURES:
       if (action.features === false) {
@@ -73,7 +73,7 @@ export const map = combineReducers({
   layer,
   originalObject,
   featuresInExtent,
-  selectedFeatures
+  selectedFeatureIds
 });
 
 export default map;

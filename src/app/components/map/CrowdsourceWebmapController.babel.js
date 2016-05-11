@@ -85,7 +85,11 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         });
 
         clusterLayer.on('singles-click', (e) => {
-          MapActions.selectFeatures(e.singles);
+          const ids = [].concat(e.singles).reduce((prev,current) => {
+            return prev.concat(current.attributes[layer.objectIdField]);
+          },[]);
+
+          MapActions.selectFeatures(ids);
         });
 
         map.on('click', () => {

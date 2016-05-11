@@ -45,12 +45,12 @@ export default class StackedController {
 
   checkOverlayComponentVisibility() {
     const featuresInExtent = lang.getObject('appState.app.map.featuresInExtent',false,this);
-    const selectedFeatures = lang.getObject('appState.app.map.selectedFeatures',false,this);
+    const selectedFeatureIds = lang.getObject('appState.app.map.selectedFeatureIds',false,this);
     const contributing = lang.getObject('appState.app.contributing.active',false,this);
 
-    if (!contributing && selectedFeatures.length > 0 && featuresInExtent.length > 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) < 0) {
+    if (!contributing && selectedFeatureIds.length > 0 && featuresInExtent.length > 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) < 0) {
       AppActions.changeComponentsVisibility({show: componentNames.SELECTED_SHARES, hide: componentNames.INTRO});
-    } else if (selectedFeatures.length === 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0) {
+    } else if (selectedFeatureIds.length === 0 && this.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0) {
       AppActions.hideComponent(componentNames.SELECTED_SHARES);
     }
 

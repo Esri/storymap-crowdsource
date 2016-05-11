@@ -32,8 +32,7 @@ class Viewer extends React.Component {
     super();
 
     // Bind class methods
-    this.getSelectedIds = this.getSelectedIds.bind(this);
-    this.selectFeaturesById = this.selectFeaturesById.bind(this);
+    this.getSelectedFeatures = this.getSelectedFeatures.bind(this);
     this.saveContribution = this.saveContribution.bind(this);
   }
 
@@ -154,8 +153,8 @@ class Viewer extends React.Component {
                 <ThumbnailGallery
                   items={this.props.map.featuresInExtent}
                   layer={this.props.map.layer}
-                  selected={this.getSelectedIds()}
-                  selectAction={this.selectFeaturesById}
+                  selected={this.props.selectFeatureIds}
+                  selectAction={this.props.selectFeatures}
                   {...this.props.components.gallery}
                   {...this.props.components.map.crowdsourceLayer}>
                 </ThumbnailGallery>;
@@ -177,7 +176,7 @@ class Viewer extends React.Component {
               </ContributePanel> : null }
               { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 ? <SelectedShares
                 className="overlay-panel"
-                items={this.props.map.selectedFeatures}
+                items={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
                 approveAction={(features) => {
@@ -201,35 +200,27 @@ class Viewer extends React.Component {
   get webmapControllerOptions() {
     return $.extend(true,{
       crowdsourceLayer: {
-        selectFeaturesIds: this.getSelectedIds()
+        selectFeaturesIds: this.props.selectFeatureIds
       }
     },this.props.components.map);
   }
 
-  getSelectedIds () {
+  getSelectedFeatures () {
 
     const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
-    const features = lang.getObject('props.map.selectedFeatures',false,this);
+    const featureIds = lang.getObject('props.map.selectedFeatureIds',false,this);
+    const features = this.props.map.featuresInExtent;
 
-    if (oidField && features) {
+    if (oidField && featureIds && featureIds.length > 0) {
       return features.reduce((prev,current) => {
-        return prev.concat(current.attributes[oidField]);
+        if (featureIds.indexOf(current.attributes[oidField]) >= 0) {
+          return prev.concat(current);
+        }
+        return prev;
       },[]);
     } else {
       return [];
     }
-  }
-
-  selectFeaturesById(ids) {
-    const oidField = this.props.map.layer.objectIdField;
-    const features = this.props.map.featuresInExtent;
-
-    this.props.selectFeatures(features.reduce((prev,current) => {
-      if ([].concat(ids).indexOf(current.attributes[oidField]) < 0) {
-        return prev;
-      }
-      return prev.concat(current);
-    },[]));
   }
 
   saveContribution(graphic) {
@@ -270,7 +261,7 @@ Viewer.propTypes = {
       React.PropTypes.bool
     ]),
     featuresInExtent: React.PropTypes.array.isRequired,
-    selectedFeatures: React.PropTypes.array.isRequired
+    selectedFeatureIds: React.PropTypes.array.isRequired
   }).isRequired,
   portal: React.PropTypes.shape({}),
   mode: React.PropTypes.shape({
