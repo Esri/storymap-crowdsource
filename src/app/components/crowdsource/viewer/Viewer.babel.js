@@ -198,9 +198,33 @@ class Viewer extends React.Component {
   }
 
   get webmapControllerOptions() {
+    const vettedField = lang.getObject('props.components.map.crowdsourceLayer.vettedField',false,this);
+    const visibleFeaturesQuery = lang.getObject('props.components.map.crowdsourceLayer.visibleFeaturesQuery',false,this);
+    let where = '1=1';
+
+    if (this.props.mode.isBuilder && this.props.review && this.props.review.selection) {
+      switch (this.props.review.selection) {
+        case 'new':
+          where = vettedField + ' = 0';
+          break;
+        case 'approved':
+          where = vettedField + ' = 1';
+          break;
+        case 'rejected':
+          where = vettedField + ' = 2';
+          break;
+        default:
+          where = vettedField + ' < 3';
+      }
+    } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:new') >= 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
+      where = vettedField + ' = 2';
+    } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
+      where = vettedField + ' = 1';
+    }
+
     return $.extend(true,{
       crowdsourceLayer: {
-        selectFeaturesIds: this.props.selectFeatureIds
+        where
       }
     },this.props.components.map);
   }
@@ -361,6 +385,7 @@ const mapStateToProps = (state) => {
     map: state.app.map,
     portal: state.app.portal,
     mode: state.mode,
+    review: state.mode.isBuilder ? state.review : null,
     notifications: state.app.notifications,
     user: state.user,
     sharing: {

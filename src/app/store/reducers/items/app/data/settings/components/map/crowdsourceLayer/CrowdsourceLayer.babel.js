@@ -64,10 +64,38 @@ export const vettedField = function (state = 'Vetted', action) {
   }
 };
 
-export const visibleFeatures = function (state = 'notHidden', action) {
+export const visibleFeaturesQuery = function (state = ['vetted:new','vetted:approved'], action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES':
-      return action.visibleFeatures;
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD':
+      return [].concat(action.query).reduce((prev,current) => {
+        if (prev.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },state);
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE':
+      return state.reduce((prev,current) => {
+        if ([].concat(action.query).indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
+    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY':
+      let adds = [].concat(action.add);
+      let removes = [].concat(action.remove);
+      const added = adds.reduce((prev,current) => {
+        if (prev.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },state);
+
+      return added.reduce((prev,current) => {
+        if (removes.indexOf(current) < 0) {
+          return prev.concat(current);
+        }
+        return prev;
+      },[]);
     default:
       return state;
   }
@@ -82,7 +110,7 @@ export const crowdsourceLayer = combineReducers({
   hiddenField,
   vettedField,
   fields,
-  visibleFeatures
+  visibleFeaturesQuery
 });
 
 export default crowdsourceLayer;
