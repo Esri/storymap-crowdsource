@@ -5,6 +5,8 @@ import {
   UPDATE_SETTINGS_COMMON_EXPLORE_TEXT,
   UPDATE_SETTINGS_COMMON_SHARING_SERVICES,
   UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
+  UPDATE_SETTINGS_CONTRIBUTE_PARTICIPATION_ALLOWED,
+  UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_INTRO_BACKGROUND,
@@ -55,6 +57,21 @@ export const updateCommonSharingTwitter = function (settings) {
   return {
     type: UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
     settings
+  };
+};
+
+// Contribute Component
+export const changeParticipationAllowed = function (allowed) {
+  return {
+    type: UPDATE_SETTINGS_CONTRIBUTE_PARTICIPATION_ALLOWED,
+    allowed
+  };
+};
+
+export const changeParticipantLoginOptions = function (options) {
+  return {
+    type: UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS,
+    options
   };
 };
 
@@ -138,6 +155,8 @@ export const boundActions = {
   updateCommonExploreText: (text) => dispatch(updateCommonExploreText(text)),
   updateCommonSharingServices: (settings) => dispatch(updateCommonSharingServices(settings)),
   updateCommonSharingTwitter: (settings) => dispatch(updateCommonSharingTwitter(settings)),
+  changeParticipationAllowed: (allowed) => dispatch(changeParticipationAllowed(allowed)),
+  changeParticipantLoginOptions: (options) => dispatch(changeParticipantLoginOptions(options)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateIntroBackground: (background) => dispatch(updateIntroBackground(background)),

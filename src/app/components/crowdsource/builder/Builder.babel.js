@@ -10,6 +10,7 @@ import SidePanelSettings from 'babel/components/builder/settings/sidePanel/Setti
 import HeaderSettings from 'babel/components/builder/settings/sidePanel/header/HeaderSettings';
 import SocialSharingSettings from 'babel/components/builder/settings/sidePanel/socialSharing/SocialSharingSettings';
 import IntroSplashSettings from 'babel/components/builder/settings/sidePanel/introSplash/IntroSplashSettings';
+import ContributeSettings from 'babel/components/builder/settings/sidePanel/contribute/ContributeSettings';
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
@@ -66,6 +67,10 @@ class Builder extends React.Component {
           <SidePanelSettings
             settingsPanes={[
               {
+                id: componentNames.SPS_INTRO_SPLASH,
+                title: builderText.settings.panes.introSplash.title,
+                component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions}></IntroSplashSettings>
+              },{
                 id: componentNames.SPS_HEADER,
                 title: builderText.settings.panes.header.title,
                 component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
@@ -76,9 +81,9 @@ class Builder extends React.Component {
                 component: <SocialSharingSettings defaultValues={this.props.defaultValues.socialSharing} actions={this.props.socialSharingActions}></SocialSharingSettings>
               },
               {
-                id: componentNames.SPS_INTRO_SPLASH,
-                title: builderText.settings.panes.introSplash.title,
-                component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions}></IntroSplashSettings>
+                id: componentNames.SPS_CONTRIBUTE,
+                title: builderText.settings.panes.contribute.title,
+                component: <ContributeSettings defaultValues={this.props.defaultValues.contribute} actions={this.props.contributeActions}></ContributeSettings>
               }
             ]}
             visibleComponents={this.props.visibleComponents}
@@ -214,6 +219,14 @@ const mapStateToProps = (state) => {
       },
       introSplashSettings: {
         backgroundImage: state.items.app.data.settings.components.intro.background.type === 'photo' ? state.items.app.data.settings.components.intro.background.source : null
+      },
+      contribute: {
+        allowParticipation: state.items.app.data.settings.components.contribute.participationAllowed,
+        loginOptions: (
+          Object.keys(state.items.app.data.settings.components.contribute.loginOptions).filter((current) => {
+            return state.items.app.data.settings.components.contribute.loginOptions[current];
+          }).toString()
+        )
       }
     }
   };
@@ -285,6 +298,24 @@ const mapDispatchToProps = () => {
             }
           });
         }
+      }
+    },
+    contributeActions: {
+      allowParticipation: (value) => {
+        const boolVal = value ? true : false;
+
+        SettingsActions.changeParticipationAllowed(boolVal);
+      },
+      loginOptions: (val) => {
+        const optionsArray = val.split(',');
+
+        const options = {
+          arcgis: optionsArray.indexOf('arcgis') >= 0,
+          facebook: optionsArray.indexOf('facebook') >= 0,
+          google: optionsArray.indexOf('google') >= 0
+        };
+
+        SettingsActions.changeParticipantLoginOptions(options);
       }
     }
   };

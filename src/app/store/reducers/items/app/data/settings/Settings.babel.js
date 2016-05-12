@@ -7,8 +7,7 @@ import {
 } from 'babel/constants/actionsTypes/Settings';
 
 const defaultOAuth = {
-  clientId: '',
-  redirectUris: []
+  clientId: ''
 };
 
 export const oauth = function (state = defaultOAuth, action) {

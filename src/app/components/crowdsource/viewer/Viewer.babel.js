@@ -48,7 +48,7 @@ class Viewer extends React.Component {
         <style dangerouslySetInnerHTML={{__html: this.props.layout.font + this.props.layout.style + this.props.layout.theme}}></style>
         <Header
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
-          showParticipateActionButton={this.props.loading.map && !this.props.contributing.active}
+          showParticipateActionButton={this.props.components.contribute.participationAllowed && this.props.loading.map && !this.props.contributing.active}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.header}
           {...this.props.components.common}
@@ -217,7 +217,7 @@ class Viewer extends React.Component {
           where = vettedField + ' < 3';
       }
     } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:new') >= 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
-      where = vettedField + ' = 2';
+      where = vettedField + ' < 2';
     } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
       where = vettedField + ' = 1';
     }

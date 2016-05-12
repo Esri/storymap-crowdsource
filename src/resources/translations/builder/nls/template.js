@@ -151,6 +151,25 @@ define({
               attribute: 'background photo'
             }
           }
+        },
+        contribute: {
+          title: 'Contributions',
+          fields: {
+            allowParticipation: {
+              label: 'Contributions',
+              optionLabels: {
+                accept: 'Accept new contributions'
+              }
+            },
+            loginOptions: {
+              label: 'Participants can sign in with',
+              optionLabels: {
+                arcgis: 'ArcGIS',
+                facebook: 'Facebook',
+                google: 'Google'
+              }
+            }
+          }
         }
       }
     },

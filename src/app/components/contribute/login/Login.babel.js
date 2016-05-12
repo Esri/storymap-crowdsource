@@ -18,8 +18,8 @@ export default class Login extends React.Component {
       <div className="row">
         <div className="col-xs-12">
           <h3>{viewerText.contribute.login.title}</h3>
-          { Object.keys(this.props.loginTypes).map((current) => {
-            if (this.props.loginTypes[current] && (this.props.socialLogin || current === 'arcgis' )) {
+          { Object.keys(this.props.loginOptions).map((current) => {
+            if (this.props.loginOptions[current] && (this.props.socialLogin || current === 'arcgis' )) {
               const loginBtn = Helper.classnames(['btn','btn-block','btn-' + current,'login-btn',current]);
 
               return (
@@ -50,7 +50,7 @@ export default class Login extends React.Component {
 Login.propTypes = {
   socialLogin: React.PropTypes.bool,
   loginAction: React.PropTypes.func,
-  loginTypes: React.PropTypes.shape({
+  loginOptions: React.PropTypes.shape({
     arcgis: React.PropTypes.bool,
     facebook: React.PropTypes.bool,
     google: React.PropTypes.bool
@@ -60,7 +60,7 @@ Login.propTypes = {
 Login.defaultProps = {
   loginAction: () => {},
   socialLogin: false,
-  loginTypes: {
+  loginOptions: {
     arcgis: true,
     facebook: true,
     google: true

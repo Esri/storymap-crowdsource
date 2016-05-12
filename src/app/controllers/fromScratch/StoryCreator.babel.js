@@ -173,8 +173,7 @@ export default class StoryCreator {
     portal.registerApp().then((res) => {
       if (res.client_id && res.redirect_uris) {
         SettingsActions.updateOAuthSettings({
-          clientId: res.client_id,
-          redirectUris: res.redirect_uris
+          clientId: res.client_id
         });
         this.saveApp(this.redirectToEditor);
       }
