@@ -6,11 +6,12 @@ import Loader from 'babel/components/helper/loading/Loader';
 import Modal from 'babel/components/helper/modal/Modal';
 import SettingsLayout from 'babel/components/settings/Layout';
 import SettingsItemName from 'babel/components/settings/ItemName';
-import SidePanelSettings from 'babel/components/builder/settings/sidePanel/Settings';
-import HeaderSettings from 'babel/components/builder/settings/sidePanel/header/HeaderSettings';
-import SocialSharingSettings from 'babel/components/builder/settings/sidePanel/socialSharing/SocialSharingSettings';
-import IntroSplashSettings from 'babel/components/builder/settings/sidePanel/introSplash/IntroSplashSettings';
-import ContributeSettings from 'babel/components/builder/settings/sidePanel/contribute/ContributeSettings';
+import SidePanelHelp from 'babel/components/builder/sidePanel/help/Help';
+import SidePanelSettings from 'babel/components/builder/sidePanel/settings/Settings';
+import HeaderSettings from 'babel/components/builder/sidePanel/settings/header/HeaderSettings';
+import SocialSharingSettings from 'babel/components/builder/sidePanel/settings/socialSharing/SocialSharingSettings';
+import IntroSplashSettings from 'babel/components/builder/sidePanel/settings/introSplash/IntroSplashSettings';
+import ContributeSettings from 'babel/components/builder/sidePanel/settings/contribute/ContributeSettings';
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import SettingsActions from 'babel/actions/SettingsActions';
@@ -47,7 +48,7 @@ class Builder extends React.Component {
           changeReviewSelection={this.props.changeReviewableSelection}
           settingsAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}
           shareAction={this.props.showComponent.bind(this,componentNames.APP_SHARING)}
-          helpAction={this.props.toggleComponent.bind(this,componentNames.APP_HELP)} />
+          helpAction={this.props.toggleComponent.bind(this,componentNames.SIDE_PANEL_HELP)} />
         : null }
         <ReactCSSTransitionGroup
           component="div"
@@ -92,6 +93,11 @@ class Builder extends React.Component {
             hideComponent={this.props.hideComponent}
             closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_SETTINGS)}>
           </SidePanelSettings>
+        ) : null }
+        { this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_HELP) >= 0 ? (
+          <SidePanelHelp
+            closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_HELP)}>
+          </SidePanelHelp>
         ) : null }
         </ReactCSSTransitionGroup>
       </div>

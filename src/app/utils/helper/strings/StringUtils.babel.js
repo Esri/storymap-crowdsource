@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 String.prototype.toCamelCase = function() {
   return this.replace(/\s(.)/g,($1) => {
     return $1.toUpperCase();
@@ -11,4 +13,21 @@ String.prototype.stripTrailingSlash = function() {
 		return this.substr(0, this.length - 1);
 	}
 	return this;
+};
+
+String.prototype.templateString = function (options) {
+    const defaults = {
+      templates: []
+    };
+    const settings = $.extend(true,{},defaults,options);
+    const self = this;
+    let newMessage = self;
+
+    settings.templates.map((current) => {
+      newMessage = newMessage.replace(current.string,current.replace);
+    });
+
+    newMessage = newMessage.replace(/\s+/g,' ').trim();
+
+    return newMessage;
 };

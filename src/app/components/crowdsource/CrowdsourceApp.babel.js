@@ -24,7 +24,8 @@ class CrowdsourceApp extends React.Component {
 
     const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
       'banner': adminBanner || showBuilder,
-      'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0
+      'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0 ||
+        this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_HELP) >= 0
     });
 
     return (

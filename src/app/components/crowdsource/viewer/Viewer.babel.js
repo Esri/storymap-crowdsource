@@ -161,7 +161,7 @@ class Viewer extends React.Component {
               </div>
             </div>
             <ReactCSSTransitionGroup transitionName="overlay-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
-              { this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0 ? <ContributePanel
+              { this.props.components.contribute.participationAllowed && this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0 ? <ContributePanel
                 className="overlay-panel"
                 loginAction={this.props.loginUser}
                 closeAction={this.props.updateContributeState.bind(this,{active: false})}

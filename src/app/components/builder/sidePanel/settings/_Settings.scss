@@ -1,13 +1,4 @@
 .settings.side-panel {
-  position: absolute;
-  top: $bannerHeight;
-  background-color: #fff;
-  color: #333;
-  height: calc(100% - #{$bannerHeight});
-  width: $sidePanelWidth;
-  left: 0;
-  padding-bottom: 15px;
-  overflow: auto;
 
   .settings-selector {
     width: 100%;

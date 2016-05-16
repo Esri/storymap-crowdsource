@@ -4,6 +4,7 @@ import Logger from 'babel/utils/logging/Logger';
 import StoryCreator from './fromScratch/StoryCreator';
 import AppItemAttachments from './builder/appItemAttachments/AppItemAttachments';
 import CrowdsourceReviewController from './builder/review/CrowdsourceReviewController';
+import ComponentsController from './builder/components/Components';
 import AppActions from 'babel/actions/AppActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import AppStore from 'babel/store/AppStore';
@@ -46,6 +47,7 @@ export default class CrowdsourceBuilderController {
     // Load extra builder controllers
     new AppItemAttachments();
     new CrowdsourceReviewController();
+    new ComponentsController();
 
     window.onbeforeunload = () => {
       if (!lang.getObject('appState.mode.fromScratch',false,this) && this.lastSaveAppData
