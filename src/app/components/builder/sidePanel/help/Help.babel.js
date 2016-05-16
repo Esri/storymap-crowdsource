@@ -47,7 +47,7 @@ export default class SidePanelHelp extends React.Component {
           link = 'https://github.com/Esri/story-map-crowdsource';
           break;
         case 'map':
-          link = 'https://storymaps.arcgis.com/en/gallery/#s=0&md=storymaps-apps:crowdsource';
+          link = this.props.webmapLink;
           break;
         case 'agoCredits':
           link = 'https://www.esri.com/software/arcgis/arcgisonline/credits';
@@ -114,8 +114,10 @@ export default class SidePanelHelp extends React.Component {
   }
 }
  SidePanelHelp.propTypes = {
+  webmapLink: React.PropTypes.string,
   closeAction: React.PropTypes.func
 };
  SidePanelHelp.defaultProps = {
+   webmapLink: '',
   closeAction: () => {}
 };

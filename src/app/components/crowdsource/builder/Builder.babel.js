@@ -3,6 +3,7 @@ import { connect } from 'reactRedux';
 import Helper from 'babel/utils/helper/Helper';
 import BuilderBanner from 'babel/components/builder/banner/Banner';
 import Loader from 'babel/components/helper/loading/Loader';
+import URI from 'lib/urijs/src/URI';
 import Modal from 'babel/components/helper/modal/Modal';
 import SettingsLayout from 'babel/components/settings/Layout';
 import SettingsItemName from 'babel/components/settings/ItemName';
@@ -29,6 +30,7 @@ class Builder extends React.Component {
 
     this.onItemNamesChange = this.onItemNamesChange.bind(this);
     this.onSettingsNext = this.onSettingsNext.bind(this);
+    this.getWebmapLink = this.getWebmapLink.bind(this);
 
     this.state = {
       continueDisabled: true
@@ -96,6 +98,7 @@ class Builder extends React.Component {
         ) : null }
         { this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_HELP) >= 0 ? (
           <SidePanelHelp
+            webmapLink={this.getWebmapLink()}
             closeAction={this.props.hideComponent.bind(this,componentNames.SIDE_PANEL_HELP)}>
           </SidePanelHelp>
         ) : null }
@@ -172,6 +175,13 @@ class Builder extends React.Component {
     }
   }
 
+  getWebmapLink() {
+    const portal = this.props.portal;
+    const webmapUrl = new URI('').hostname(portal.portalHostname).protocol('https').pathname('home/webmap/viewer.html').setSearch('webmap',this.props.webmap);
+
+    return webmapUrl.href();
+  }
+
 }
 
 Builder.propTypes = {
@@ -203,6 +213,7 @@ const mapStateToProps = (state) => {
     loading: state.app.loading,
     portal: state.app.portal,
     layout: state.items.app.data.settings.layout.id,
+    webmap: state.items.app.data.settings.components.map.webmap,
     scratchNaming: {
       ownerFolder: state.items.app.item.ownerFolder
     },
