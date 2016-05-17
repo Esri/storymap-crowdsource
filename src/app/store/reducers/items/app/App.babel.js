@@ -33,14 +33,14 @@ export const item = function (state = defaultItem, action) {
       let index = state.typeKeywords.length;
 
       state.typeKeywords.forEach((current,i) => {
-        if (current.id.match('layout-')) {
+        if (current.match('layout-')) {
           index = i;
         }
       });
 
       const typeKeywords = [
         ...state.typeKeywords.slice(0, index),
-        $.extend(true,{},state.typeKeywords[index],'layout-' + action.id),
+        'layout-' + action.id,
         ...state.typeKeywords.slice(index + 1)
       ];
 

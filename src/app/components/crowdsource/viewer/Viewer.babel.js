@@ -120,8 +120,55 @@ class Viewer extends React.Component {
   get Layout() {
     switch (this.props.layoutId) {
       case 'sidePanel':
-        // TODO add sidePanel layout
-        return null;
+        const sidePanel = (
+          <div className="main-content">
+            <div className="content-pane map-view">
+              <CrowdsourceWebmap controllerOptions={this.webmapControllerOptions} />
+            </div>
+            <div className="content-pane gallery-view">
+              <ThumbnailGallery
+                items={this.props.map.featuresInExtent}
+                layer={this.props.map.layer}
+                selected={this.props.selectFeatureIds}
+                selectAction={this.props.selectFeatures}
+                {...this.props.components.gallery}
+                {...this.props.components.map.crowdsourceLayer}>
+              </ThumbnailGallery>;
+              <ReactCSSTransitionGroup transitionName="overlay-toggle" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
+                { this.props.components.contribute.participationAllowed && this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0 ? <ContributePanel
+                  className="overlay-panel"
+                  loginAction={this.props.loginUser}
+                  closeAction={this.props.updateContributeState.bind(this,{active: false})}
+                  saveAction={this.saveContribution}
+                  socialLogin={this.props.config.allowSocialLogin}
+                  fieldDefinitions={this.props.map.layer.fields}
+                  map={this.props.map.originalObject}
+                  user={this.props.user}
+                  {...this.props.contributing}
+                  {...this.props.components.contribute}
+                  {...this.props.components.map.crowdsourceLayer}>
+                </ContributePanel> : null }
+                { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures().length > 0 ? <SelectedShares
+                  className="overlay-panel"
+                  items={this.getSelectedFeatures()}
+                  layer={this.props.map.layer}
+                  reviewEnabled={this.props.mode.isBuilder}
+                  approveAction={(features) => {
+                    this.props.approveFeatures({add: features});
+                  }}
+                  rejectAction={(features) => {
+                    this.props.rejectFeatures({add: features});
+                  }}
+                  closeAction={this.props.selectFeatures.bind(null,false)}
+                  {...this.props.components.shareDisplay}
+                  {...this.props.components.map.crowdsourceLayer}>
+                </SelectedShares> : null }
+              </ReactCSSTransitionGroup>
+            </div>
+          </div>
+        );
+
+        return sidePanel;
       default:
         // Translation Strings
         const CHANGE_VIEW_TO_GALLERY = viewerText.layouts.stacked.changeView.galleryView;

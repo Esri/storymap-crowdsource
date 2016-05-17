@@ -37,6 +37,22 @@ class Builder extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.state.continueDisabled && this.props.activeDialog === 'layoutScratch') {
+      this.setState({
+        continueDisabled: false
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.continueDisabled && this.props.activeDialog === 'layoutScratch') {
+      this.setState({
+        continueDisabled: false
+      });
+    }
+  }
+
   render() {
     const builderClasses = Helper.classnames('crowdsource-builder');
 
@@ -134,6 +150,7 @@ class Builder extends React.Component {
         },
         title: welcomeTitle,
         body: <SettingsLayout
+          handleChange={this.props.updateLayoutId}
           alwaysChangeHint={true}
           selected={this.props.layout}>
         </SettingsLayout>,
@@ -168,6 +185,9 @@ class Builder extends React.Component {
   onSettingsNext() {
     if (!this.state.continueDisabled) {
       switch (this.props.activeDialog) {
+        case 'layoutScratch':
+          BuilderActions.changeDialog('itemNameScratch');
+          break;
         case 'itemNameScratch':
           BuilderActions.changeDialog('savingFromScratch');
           break;
@@ -257,6 +277,7 @@ const mapDispatchToProps = () => {
     hideComponentByStringMatch: AppActions.hideComponentByStringMatch,
     toggleComponent: AppActions.toggleComponent,
     changeReviewableSelection: ReviewActions.changeReviewableSelection,
+    updateLayoutId: SettingsActions.updateLayoutId,
     headerSettingsActions: {
       logoType: (value) => {
         SettingsActions.updateHeaderLogoType(value);

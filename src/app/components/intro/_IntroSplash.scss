@@ -44,6 +44,11 @@
     @include animation(fadeIn 1.5s);
   }
 
+  .loadingIndicator {
+    top: calc(100% - 140px);
+    @include animation(moveLoadingIndicator 3s);
+  }
+
   .title-pane {
     position: absolute;
     width: 76%;
@@ -67,6 +72,11 @@
     .background-fill {
       border-radius: 10px;
     }
+  }
+
+  .title-pane {
+    opacity: 1;
+    @include animation(fadeInTitle 3s);
   }
 
   .action-buttons {
@@ -172,6 +182,11 @@
   // RESPONSIVE STYLES END
 }
 
+.banner .splash .loadingIndicator {
+  top: calc(100% - 140px + $bannerHeight);
+  @include animation(moveLoadingIndicatorWithBanner 3s);
+}
+
 @media (max-width: 767px) {
   .splash {
     height: 100%;
@@ -181,3 +196,33 @@
     }
   }
 }
+
+@include keyframes(moveLoadingIndicatorWithBanner) {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: calc(100% - 140px + $bannerHeight);
+  }
+};
+
+@include keyframes(moveLoadingIndicator) {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: calc(100% - 140px);
+  }
+};
+
+@include keyframes(fadeInTitle) {
+  0% {
+    opacity: 0;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+};

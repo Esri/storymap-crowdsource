@@ -4,6 +4,8 @@
   top: 0;
   overflow: hidden;
   z-index: 902;
+  width: 100%;
+  @include animation(slideInHeader 1s);
 
   .cell-wrapper {
     display: table;
@@ -98,3 +100,12 @@
   // RESPONSIVE STYLES END
 
 }
+
+@include keyframes(slideInHeader) {
+  0% {
+    top: -$headerHeight;
+  }
+  100% {
+    top: 0;
+  }
+};
