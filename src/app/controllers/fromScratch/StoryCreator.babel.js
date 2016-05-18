@@ -72,7 +72,7 @@ export default class StoryCreator {
   }
 
   openItemNameDialog() {
-    BuilderActions.changeDialog('layoutScratch');
+    BuilderActions.changeDialog('itemNameScratch');
   }
 
   saveOrgDefaults() {

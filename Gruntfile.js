@@ -223,32 +223,6 @@ module.exports = function (grunt) {
           }
         ]
       },
-      defaultLayout: {
-        src: ['build/app/store/reducers/app/layout/Layout.js'],
-        actions: [
-          {
-            name: 'Add Stacked CSS Layout String',
-						search: 'DEFAULT_LAYOUT_CSS_APPENDED_HERE',
-						replace: function() {
-              return grunt.file.read('build/app/layouts/stacked.css').trim();
-            },
-						flags: 'g'
-          }
-        ]
-      },
-      defaultTheme: {
-        src: ['build/app/store/reducers/app/layout/Layout.js'],
-        actions: [
-          {
-            name: 'Add Default CSS Theme String',
-						search: 'DEFAULT_THEME_CSS_APPENDED_HERE',
-						replace: function() {
-              return grunt.file.read('build/app/themes/stacked/default.css').trim();
-            },
-						flags: 'g'
-          }
-        ]
-      },
       i18nAlias: {
         src: ['dist/app/main-config.min.js'],
         actions: [
@@ -372,28 +346,6 @@ module.exports = function (grunt) {
           dest: 'build/',
           ext: '.css'
         }]
-      },
-      layouts: {
-        options: {
-          outputStyle: 'compressed',
-          sourceMap: false
-        },
-        files: {
-          'build/app/layouts/stacked.css': 'src/app/components/crowdsource/styles/layouts/stacked/Stacked.scss'
-        }
-      },
-      themes: {
-        options: {
-          outputStyle: 'compressed',
-          sourceMap: false
-        },
-        files: [{
-          expand: true,
-          cwd: 'src/',
-          src: [ 'app/themes/**/*.scss' ],
-          dest: 'build/',
-          ext: '.css'
-        }]
       }
     },
 
@@ -449,19 +401,11 @@ module.exports = function (grunt) {
         tasks: [ 'eslint' ]
       },
       sass: {
-        files: [ 'src/app/components/**/*.scss','!src/app/components/crowdsource/styles/layouts/**/*.scss' ],
+        files: [ 'src/app/components/**/*.scss' ],
         tasks: [ 'sass:dev' ]
       },
       fonts: {
         files: ['src/resources/fonts/google/**/*.scss'],
-        tasks: ['babelAndAppend']
-      },
-      layouts: {
-        files: ['src/app/components/crowdsource/styles/layouts/**/*.scss'],
-        tasks: ['babelAndAppend']
-      },
-      themes: {
-        files: [ 'src/app/themes/**/*.scss' ],
         tasks: ['babelAndAppend']
       },
       swig: {
@@ -533,12 +477,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('babelAndAppend', [
     'babel',
-    'sass:layouts',
-    'sass:themes',
     'sass:fonts',
     'regex-replace:stylesheetQuotes',
-    'regex-replace:defaultLayout',
-    'regex-replace:defaultTheme',
     'regex-replace:defaultFonts'
   ]);
 };

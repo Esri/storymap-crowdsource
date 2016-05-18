@@ -29,8 +29,11 @@ export const ThumbnailGalleryController = class ThumbnailGalleryController exten
     let rowLength = Math.floor(nodeWidth / this._settings.size);
     let tileSize = (nodeWidth / rowLength) || this._settings.size;
 
-    if (rowLength === 1 && nodeWidth > (this._settings.size * 1.5)) {
-      rowLength = 2;
+    if (rowLength > 1 && tileSize < (this._settings.size * 0.8)) {
+      rowLength = rowLength - 1;
+      tileSize = (nodeWidth / rowLength);
+    } else if (tileSize >= (this._settings.size * 1.2)) {
+      rowLength = rowLength + 1;
       tileSize = (nodeWidth / rowLength);
     }
 

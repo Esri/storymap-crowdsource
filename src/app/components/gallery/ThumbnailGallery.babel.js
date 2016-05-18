@@ -69,9 +69,10 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
       url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
       layer: this.props.layer
     });
+
     const itemStyle = {
       height: this.state.tileSettings.tileSize,
-      width: endTile ? this.state.tileSettings.tileSize - 0.1 : this.state.tileSettings.tileSize
+      width: endTile ? this.state.tileSettings.tileSize - 0.5 : this.state.tileSettings.tileSize
     };
 
     const itemClasses = Helper.classnames(['gallery-item', {

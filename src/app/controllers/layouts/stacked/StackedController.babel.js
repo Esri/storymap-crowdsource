@@ -14,7 +14,11 @@ export default class StackedController {
 
   constructor() {
 
+    this.enabled = false;
+
     // Autobind methods
+    this.enable = this.enable.bind(this);
+    this.disable = this.disable.bind(this);
     this.checkOverlayComponentVisibility = this.checkOverlayComponentVisibility.bind(this);
     this.updateAppState = this.updateAppState.bind(this);
     this.updateAppView = this.updateAppView.bind(this);
@@ -29,18 +33,30 @@ export default class StackedController {
 
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
+  }
+
+  enable() {
+    this.enabled = true;
 
     // Initial State
     AppActions.showComponent(componentNames.INTRO);
 
     $(window).on('resize',this.refreshDisplay.bind(this,{duration: 0}));
+    this.updateAppState();
+  }
+
+  disable() {
+    this.enabled = false;
+    $(window).off('resize',this.refreshDisplay);
   }
 
   updateAppState() {
-    this.appState = AppStore.getState();
+    if (this.enabled) {
+      this.appState = AppStore.getState();
 
-    this.updateAppView();
-    this.checkOverlayComponentVisibility();
+      this.updateAppView();
+      this.checkOverlayComponentVisibility();
+    }
   }
 
   checkOverlayComponentVisibility() {

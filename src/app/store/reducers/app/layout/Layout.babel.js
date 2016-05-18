@@ -7,28 +7,6 @@ import {
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY
 } from 'babel/constants/actionsTypes/App';
 
-const defaultFont = "DEFAULT_FONT_CSS_APPENDED_HERE";
-const defaultStyle = "DEFAULT_LAYOUT_CSS_APPENDED_HERE";
-const defaultTheme = "DEFAULT_THEME_CSS_APPENDED_HERE";
-
-export const font = function (state = defaultFont, action) {
-  switch (action.type) {
-    case 'UPDATE_LAYOUT_FONT':
-      return action.id;
-    default:
-      return state;
-  }
-};
-
-export const style = function (state = defaultStyle, action) {
-  switch (action.type) {
-    case 'UPDATE_LAYOUT_STYLE':
-      return action.id;
-    default:
-      return state;
-  }
-};
-
 export const visibleComponents = function (state = [], action) {
   switch (action.type) {
     case APP_LAYOUT_SHOW_COMPONENT:
@@ -92,20 +70,8 @@ export const visibleComponents = function (state = [], action) {
   }
 };
 
-export const theme = function (state = defaultTheme, action) {
-  switch (action.type) {
-    case 'UPDATE_LAYOUT_THEME':
-      return action.id;
-    default:
-      return state;
-  }
-};
-
 export const layout = combineReducers({
-  font,
-  style,
-  visibleComponents,
-  theme
+  visibleComponents
 });
 
 export default layout;

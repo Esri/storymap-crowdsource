@@ -22,7 +22,7 @@ class CrowdsourceApp extends React.Component {
     const showViewer = !this.props.mode.fromScratch && (!this.props.mode.isBuilder || this.props.mode.isBuilder && this.props.user.editor) && this.props.loading.data && !error;
     const adminBanner = this.props.visibleComponents.indexOf(componentNames.ADMIN_BANNER) >= 0;
 
-    const appClasses = Helper.classnames(['crowdsource-app',this.props.layoutId],{
+    const appClasses = Helper.classnames(['crowdsource-app',this.props.layout.id,this.props.layout.id + '-' + this.props.layout.theme],{
       'banner': adminBanner || showBuilder,
       'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0 ||
         this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_HELP) >= 0
@@ -36,7 +36,7 @@ class CrowdsourceApp extends React.Component {
           editAction={() => {
             const redirect = new URI(window.location.href);
 
-            redirect.setSearch('edit','true');
+            redirect.setSearch('edit');
             window.location = redirect.href();
           }} /> : null }
         { showViewer ? <Viewer></Viewer> : null }
@@ -119,7 +119,10 @@ CrowdsourceApp.propTypes = {
     isBuilder: React.PropTypes.bool,
     fromScratch: React.PropTypes.bool
   }).isRequired,
-  layoutId: React.PropTypes.string.isRequired,
+  layout: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    theme: React.PropTypes.string.isRequired
+  }).isRequired,
   user: React.PropTypes.shape({
     authenticated: React.PropTypes.bool,
     publisher: React.PropTypes.bool,
@@ -135,7 +138,7 @@ const mapStateToProps = (state) => {
     error: state.app.mainError,
     mode: state.mode,
     loading: state.app.loading,
-    layoutId: state.items.app.data.settings.layout.id,
+    layout: state.items.app.data.settings.layout,
     user: state.user,
     visibleComponents: state.app.layout.visibleComponents,
     actions: {
