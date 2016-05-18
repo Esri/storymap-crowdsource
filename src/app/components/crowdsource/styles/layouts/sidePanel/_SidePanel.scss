@@ -1,0 +1,97 @@
+@import "crowdsource/styles/base/SharedImports";
+@import "./themes/default.scss";
+
+.sidePanel {
+
+  .main-content {
+    position: absolute;
+    top: $headerHeight;
+    height: calc(100% - #{$headerHeight});
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .scroll-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .content-pane {
+    position: absolute;
+    top: 0;
+
+    &.map, &.thumbnail-gallery {
+      height: 100%;
+    }
+  }
+
+  .map-pane {
+    width: 65%;
+    left: 0;
+    max-width: calc(100% - 300px);
+  }
+
+  .gallery-pane {
+    width: 35%;
+    right: 0;
+    min-width: 300px;
+  }
+
+  .overlay-panel {
+    position: absolute;
+    height: 100%;
+    width: 35%;
+    top: 0;
+    right: 0;
+    min-width: 300px;
+    padding: 15px;
+    z-index: 100;
+    overflow: auto;
+
+    &.overlay-toggle-enter {
+      opacity: 0;
+    }
+
+    &.overlay-toggle-enter-active {
+      opacity: 1;
+      @include transition(opacity 1s);
+    }
+
+    &.overlay-toggle-leave {
+      opacity: 0;
+      @include transition(opacity 1s);
+    }
+  }
+
+  // RESPONSIVE STYLES START
+  @media (max-width: 767px) {
+    .main-content {
+      height: calc(100% - #{$headerHeight}  - #{$mobileBottomNavigationHeight});
+    }
+
+    .content-pane {
+      position: relative;
+      width: 100%;
+      max-width: none;
+      min-width: auto;
+
+      .map, .thumbnail-gallery {
+        height: 100%;
+      }
+    }
+
+    .overlay-panel {
+      width: 100%;
+      left: 0%;
+      right: auto;
+      min-width: auto;
+    }
+
+    .overlay-panel {
+      max-width: none;
+    }
+  }
+  // RESPONSIVE STYLES END
+
+}
