@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import React from 'react';
+import Input from 'babel/components/forms/input/Input';
 import CheckboxGroup from 'babel/components/forms/checkboxGroup/CheckboxGroup';
+import RadioGroup from 'babel/components/forms/radioGroup/RadioGroup';
 import Helper from 'babel/utils/helper/Helper';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -20,7 +22,9 @@ export default class ContributeSettings extends React.Component {
     return (
       <form className={settingsClasses}>
         <CheckboxGroup {...this.getInputSettings('allowParticipation')}></CheckboxGroup>
+        <RadioGroup {...this.getInputSettings('showNewFeatures')}></RadioGroup>
         <CheckboxGroup {...this.getInputSettings('loginOptions')}></CheckboxGroup>
+        <Input {...this.getInputSettings('participateButton')}></Input>
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
     );
@@ -45,6 +49,18 @@ export default class ContributeSettings extends React.Component {
           options: [{
             label: builderText.settings.panes.contribute.fields[input].optionLabels.accept,
             value: true
+          }]
+        });
+        break;
+      case 'showNewFeatures':
+        $.extend(true,settings,{
+          defaultValue: this.props.defaultValues[input],
+          options: [{
+            label: builderText.settings.panes.contribute.fields[input].optionLabels.new,
+            value: 'new'
+          },{
+            label: builderText.settings.panes.contribute.fields[input].optionLabels.approved,
+            value: 'approved'
           }]
         });
         break;

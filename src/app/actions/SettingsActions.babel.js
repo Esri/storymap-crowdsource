@@ -16,6 +16,8 @@ import {
   UPDATE_SETTINGS_HEADER_LOGO_LINK,
   UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_ID,
   UPDATE_SETTINGS_MAP_WEBMAP_ID,
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD,
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE,
   UPDATE_LAYOUT_ID
 } from 'babel/constants/actionsTypes/Settings';
 
@@ -141,6 +143,20 @@ export const updateMapWebmapId = function (webmap) {
   };
 };
 
+export const addVisibleFeatureQuery = function (query) {
+  return {
+    type: UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD,
+    query
+  };
+};
+
+export const removeVisibleFeatureQuery = function (query) {
+  return {
+    type: UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE,
+    query
+  };
+};
+
 // Layout Actions
 export const updateLayoutId = function (id) {
   return {
@@ -166,6 +182,8 @@ export const boundActions = {
   updateHeaderLogoLink: (link) => dispatch(updateHeaderLogoLink(link)),
   updateMapCrowdsourceLayerId: (id) => dispatch(updateMapCrowdsourceLayerId(id)),
   updateMapWebmapId: (webmap) => dispatch(updateMapWebmapId(webmap)),
+  addVisibleFeatureQuery: (query) => dispatch(addVisibleFeatureQuery(query)),
+  removeVisibleFeatureQuery: (query) => dispatch(removeVisibleFeatureQuery(query)),
   updateLayoutId: (id) => dispatch(updateLayoutId(id))
 };
 

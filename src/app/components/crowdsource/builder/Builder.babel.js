@@ -244,8 +244,7 @@ const mapStateToProps = (state) => {
         logoType: state.items.app.data.settings.components.header.logo.type,
         logoUrl: state.items.app.data.settings.components.header.logo.source === 'resources/images/logo/esri-logo-reversed.svg' ? null : state.items.app.data.settings.components.header.logo.source,
         logoLink: state.items.app.data.settings.components.header.logo.link,
-        bannerTitle: state.items.app.data.settings.components.header.title,
-        participateButton: state.items.app.data.settings.components.common.participateShort
+        bannerTitle: state.items.app.data.settings.components.header.title
       },
       socialSharing: {
         includeLink: state.items.app.data.settings.components.common.sharing.services.link,
@@ -259,11 +258,13 @@ const mapStateToProps = (state) => {
       },
       contribute: {
         allowParticipation: state.items.app.data.settings.components.contribute.participationAllowed,
+        showNewFeatures: state.items.app.data.settings.components.map.crowdsourceLayer.visibleFeaturesQuery.indexOf('vetted:new') >= 0 ? 'new' : 'approved',
         loginOptions: (
           Object.keys(state.items.app.data.settings.components.contribute.loginOptions).filter((current) => {
             return state.items.app.data.settings.components.contribute.loginOptions[current];
           }).toString()
-        )
+        ),
+        participateButton: state.items.app.data.settings.components.common.participateShort
       }
     }
   };
@@ -302,8 +303,7 @@ const mapDispatchToProps = () => {
         }
       },
       logoLink: SettingsActions.updateHeaderLogoLink,
-      bannerTitle: SettingsActions.updateHeaderTitle,
-      participateButton: SettingsActions.updateCommonParticipateShort
+      bannerTitle: SettingsActions.updateHeaderTitle
     },
     socialSharingActions: {
       includeSharing: (value) => {
@@ -344,6 +344,13 @@ const mapDispatchToProps = () => {
 
         SettingsActions.changeParticipationAllowed(boolVal);
       },
+      showNewFeatures: (val) => {
+        if (val === 'new') {
+          SettingsActions.addVisibleFeatureQuery('vetted:new');
+        } else {
+          SettingsActions.removeVisibleFeatureQuery('vetted:new');
+        }
+      },
       loginOptions: (val) => {
         const optionsArray = val.split(',');
 
@@ -354,7 +361,8 @@ const mapDispatchToProps = () => {
         };
 
         SettingsActions.changeParticipantLoginOptions(options);
-      }
+      },
+      participateButton: SettingsActions.updateCommonParticipateShort
     }
   };
 };

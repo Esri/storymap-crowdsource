@@ -26,7 +26,6 @@ export default class HeaderSettings extends React.Component {
         {this.props.defaultValues.logoType === 'url' ? <Input {...this.getInputSettings('logoUrl')}></Input> : null }
         {this.props.defaultValues.logoType === 'url' || this.props.defaultValues.logoType === 'upload' ? <Input {...this.getInputSettings('logoLink')}></Input> : null }
         <Input {...this.getInputSettings('bannerTitle')}></Input>
-        <Input {...this.getInputSettings('participateButton')}></Input>
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
     );
@@ -47,9 +46,7 @@ export default class HeaderSettings extends React.Component {
     switch (input) {
       case 'logoType':
         $.extend(true,settings,{
-          required: true,
           defaultValue: this.props.defaultValues[input],
-          validations: ['required'],
           options: [{
             label: builderText.settings.panes.header.fields[input].optionLabels.esri,
             value: 'esri'

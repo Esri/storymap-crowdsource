@@ -177,10 +177,6 @@ define({
             bannerTitle: {
               label: 'Header Title',
               placeholder: 'Enter title'
-            },
-            participateButton: {
-              label: 'Participate Button Label',
-              placeholder: 'Enter label'
             }
           }
         },
@@ -226,6 +222,13 @@ define({
                 accept: 'Accept new contributions'
               }
             },
+            showNewFeatures: {
+              label: 'Show contributions',
+              optionLabels: {
+                'new': 'Immediately',
+                'approved': 'After review'
+              }
+            },
             loginOptions: {
               label: 'Participants can sign in with',
               optionLabels: {
@@ -233,6 +236,10 @@ define({
                 facebook: 'Facebook',
                 google: 'Google'
               }
+            },
+            participateButton: {
+              label: 'Participate Button Label',
+              placeholder: 'Enter label'
             }
           }
         }

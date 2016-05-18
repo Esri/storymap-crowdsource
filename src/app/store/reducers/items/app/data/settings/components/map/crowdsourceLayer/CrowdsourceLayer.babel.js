@@ -1,5 +1,9 @@
 import fields from './fields/Fields';
 import { combineReducers } from 'redux';
+import {
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD,
+  UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE
+} from 'babel/constants/actionsTypes/Settings';
 
 export const id = function (state = '', action) {
   switch (action.type) {
@@ -66,14 +70,14 @@ export const vettedField = function (state = 'Vetted', action) {
 
 export const visibleFeaturesQuery = function (state = ['vetted:new','vetted:approved'], action) {
   switch (action.type) {
-    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD':
+    case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_ADD:
       return [].concat(action.query).reduce((prev,current) => {
         if (prev.indexOf(current) < 0) {
           return prev.concat(current);
         }
         return prev;
       },state);
-    case 'UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE':
+    case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE:
       return state.reduce((prev,current) => {
         if ([].concat(action.query).indexOf(current) < 0) {
           return prev.concat(current);
