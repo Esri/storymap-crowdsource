@@ -45,7 +45,7 @@ class Viewer extends React.Component {
 
     return (
       <div className={viewerClasses}>
-        {/*<style dangerouslySetInnerHTML={{__html: this.props.layout.customCss}}></style>*/}
+        <style dangerouslySetInnerHTML={{__html: this.props.layout.fontCss}}></style>
         <Header
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
           showParticipateActionButton={this.props.components.contribute.participationAllowed && this.props.loading.map && !this.props.contributing.active}
@@ -307,6 +307,7 @@ Viewer.propTypes = {
   appPrivacyUpdating: React.PropTypes.bool.isRequired,
   layoutId: React.PropTypes.string.isRequired,
   layout: React.PropTypes.shape({
+    fontCss: React.PropTypes.string,
     visibleComponents: React.PropTypes.array
   }).isRequired,
   loading: React.PropTypes.shape({

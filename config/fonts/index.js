@@ -60,7 +60,7 @@ module.exports = internals.Fonts = function() {
     return config;
   };
 
-  var _getSassVariables = function getSassVariables (fontName) {
+  var _getFontSassString = function getFontSassString (fontName) {
     var variable = {};
 
     var font = internals.fontsGroups.filter(function(font) {
@@ -76,18 +76,34 @@ module.exports = internals.Fonts = function() {
     variable.primaryFontMonospace = font.sassVariables.primaryFontMonospace || '';
     variable.primaryHeadingsWeight = font.sassVariables.primaryHeadingsWeight || 300;
 
-    var variableStr = '\
-      $primary-font-sanserif: "' + variable.primaryFontSanserif + '";\
-      $primary-font-serif: "' + variable.primaryFontSerif + '";\
-      $primary-font-monospace: "' + variable.primaryFontMonospace + '";\
-      $primary-headings-weight: ' + variable.primaryHeadingsWeight + ';';
+    const fontSassString = '\n\
+      .font-' + fontName + ' {\n\
+        h1, h2, h3, h4, h5, h6,\n\
+        .h1, .h2, .h3, .h4, .h5, .h6, .tooltip, .popover {\n\
+          font-family: "' + variable.primaryFontSanserif + '", "Helvetica Neue", "Helvetica", "Arial", sans-serif;\n\
+        }\n\
+      }\n\
+      \n\
+      html .font-' + fontName + ', body .font-' + fontName + ', .font-' + fontName + ' blockquote, .font-' + fontName + ' .serif-face {\n\
+        font-family: "' + variable.primaryFontSerif + '", Georgia, serif;\n\
+      }\n\
+      \n\
+      .font-' + fontName + '{\n\
+        code,\n\
+        kbd,\n\
+        pre,\n\
+        samp {\n\
+          font-family: "' + variable.primaryFontMonospace + '", "Consolas", "Andale Mono", "Lucida Console", "Monaco", "Courier New", Courier, monospace;\n\
+        }\n\
+      }\n\
+    ';
 
-    return variableStr;
+    return fontSassString;
   };
 
   return {
     getGoogleFontsConfig: _getGoogleFontsConfig,
-    getSassVariables: _getSassVariables
+    getFontSassString: _getFontSassString
   };
 
 };

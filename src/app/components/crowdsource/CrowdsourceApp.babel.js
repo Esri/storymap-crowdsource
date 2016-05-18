@@ -22,7 +22,7 @@ class CrowdsourceApp extends React.Component {
     const showViewer = !this.props.mode.fromScratch && (!this.props.mode.isBuilder || this.props.mode.isBuilder && this.props.user.editor) && this.props.loading.data && !error;
     const adminBanner = this.props.visibleComponents.indexOf(componentNames.ADMIN_BANNER) >= 0;
 
-    const appClasses = Helper.classnames(['crowdsource-app',this.props.layout.id,this.props.layout.id + '-' + this.props.layout.theme],{
+    const appClasses = Helper.classnames(['crowdsource-app',this.props.layout.id,this.props.layout.id + '-' + this.props.layout.theme,'font-' + this.props.layout.font],{
       'banner': adminBanner || showBuilder,
       'visible-side-panel': this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0 ||
         this.props.visibleComponents.indexOf(componentNames.SIDE_PANEL_HELP) >= 0

@@ -217,7 +217,7 @@ module.exports = function (grunt) {
             name: 'Add Font CSS to default config',
 						search: 'DEFAULT_FONT_CSS_APPENDED_HERE',
 						replace: function() {
-              return grunt.file.read('build/resources/fonts/google/css/openSans.css').trim();
+              return grunt.file.read('build/resources/fonts/google/css/Font.css').trim();
             },
 						flags: 'g'
           }
@@ -339,13 +339,9 @@ module.exports = function (grunt) {
           outputStyle: 'compressed',
           sourceMap: false
         },
-        files: [{
-          expand: true,
-          cwd: 'src/',
-          src: ['resources/fonts/google/css/*.scss'],
-          dest: 'build/',
-          ext: '.css'
-        }]
+        files: {
+          'build/resources/fonts/google/css/Font.css': 'src/resources/fonts/google/css/Fonts.scss'
+        }
       }
     },
 
@@ -425,15 +421,24 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask('concatFontStyle','Add default styles to google font stylesheets',function(){
     var files = this.filesSrc;
+    var fontImportFile = false;
+    var importString = '';
 
     files.map(function(file) {
       var name = Path.basename(file,'.scss');
+      var newFileName = Path.join(Path.dirname(file),'_' + Path.basename(file));
 
-      var styles = grunt.file.read(file).trim() + configDev.fonts.getSassVariables(name) + grunt.file.read('config/fonts/defaultStyle.scss').trim();
+      if (!fontImportFile) {
+        fontImportFile = Path.join(Path.dirname(file),'Fonts.scss');
+      }
+      importString = importString + '\n@import "' + name + '";';
+
+      var styles = grunt.file.read(file).trim() + '\n\n'  + configDev.fonts.getFontSassString(name).trim();
 
       grunt.file.delete(file);
-      grunt.file.write(file,styles);
+      grunt.file.write(newFileName,styles);
     });
+    grunt.file.write(fontImportFile,importString);
   });
 
   // Grunt tasks

@@ -7,6 +7,17 @@ import {
   APP_LAYOUT_CHANGE_COMPONENT_VISIBILITY
 } from 'babel/constants/actionsTypes/App';
 
+const defaultFontCss = "DEFAULT_FONT_CSS_APPENDED_HERE";
+
+export const fontCss = function (state = defaultFontCss, action) {
+  switch (action.type) {
+    case 'UPDATE_APP_LAYOUT_FONT_CSS':
+      return action.fontCss;
+    default:
+      return state;
+  }
+};
+
 export const visibleComponents = function (state = [], action) {
   switch (action.type) {
     case APP_LAYOUT_SHOW_COMPONENT:
@@ -71,6 +82,7 @@ export const visibleComponents = function (state = [], action) {
 };
 
 export const layout = combineReducers({
+  fontCss,
   visibleComponents
 });
 
