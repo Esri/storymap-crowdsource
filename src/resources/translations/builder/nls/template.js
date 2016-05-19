@@ -86,7 +86,7 @@ define({
         {
           title: 'Introduction',
           paragraphs: [
-            'Story Map Crowdsource is an ArcGIS web application designed to collect photos and short stories on a topic you specify from anyone and display them on a map. The app is easy to use and configure and can be used in any web browser and on most devices, including smartphones and tablets. Contributors can log in with their Facebook or Google account or with an ArcGIS account if they have one.',
+            'Story Map Crowdsource is an ArcGIS web application designed to collect photos and captions, on a topic you specify, from anyone and display them on a map. The app is easy to use and configure, and can be used in a web browser on laptop and desktop computers, mobile phones, and tablets. Contributors can log in with their Facebook or Google account or with an ArcGIS account if they have one.',
             'To see examples of Crowdsource stories that other authors are creating, visit the <% galleryLink %>. You can also follow us on Twitter at <% twitterFollowLink %>.',
             'We would love to hear from you! Whether you have a question, want to request a new feature, or think you\'ve found a bug, please visit the <% geonet %>.'
           ],
@@ -99,7 +99,7 @@ define({
         {
           title: 'Configuration and Customization',
           paragraphs: [
-            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more.',
+            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more. We suggest that you enable submissions to appear immediately in order to reward your contributors. If you're concerned about objectionable posts, you can choose to approve them first.',
             'You can also set the <% homeMap %>, which is also the area of the map that is shown when your story loads. Just navigate the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
             'If the available configuration options do not meet your needs or you wish to host the application on your own web server the application source code is available for developers to customize. To download the most recent version of the code and learn more about how to use it, visit its <% github %>.'
           ],
@@ -116,7 +116,7 @@ define({
           questions: [
             {
               question: 'Where are are the photos stored?',
-              response: 'Submitted photos are resampled to an appropriate size and stored in your ArcGIS account as feature service attachments. Images uploaded by you in the builder for the cover image and logo are stored as item resources with your story map application item.'
+              response: 'Submitted photos are resampled to an appropriate size and stored in your ArcGIS account (as feature service attachments). Images uploaded by you in the builder for the cover image and logo are stored as item resources with your story map application item.'
             },
             {
               question: 'Can I create a Crowdsource story using my ArcGIS Online public account?',
