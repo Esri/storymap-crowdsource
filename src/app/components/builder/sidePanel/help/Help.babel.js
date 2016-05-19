@@ -43,9 +43,6 @@ export default class SidePanelHelp extends React.Component {
         case 'geonet':
           link = 'http://links.esri.com/storymaps/forum';
           break;
-        case 'storymapsWebsite':
-          link = 'http://storymaps.arcgis.com';
-          break;
         case 'github':
           link = 'https://github.com/Esri/story-map-crowdsource';
           break;
