@@ -38,7 +38,7 @@ class Builder extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.continueDisabled && this.props.activeDialog === 'layoutScratch') {
+    if (this.state.continueDisabled && (this.props.activeDialog === 'layoutScratch' || this.props.activeDialog === 'betaMessage')) {
       this.setState({
         continueDisabled: false
       });
@@ -46,7 +46,7 @@ class Builder extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.continueDisabled && this.props.activeDialog === 'layoutScratch') {
+    if (this.state.continueDisabled && (this.props.activeDialog === 'layoutScratch' || this.props.activeDialog === 'betaMessage')) {
       this.setState({
         continueDisabled: false
       });
@@ -74,6 +74,7 @@ class Builder extends React.Component {
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={300} >
           { this.props.activeDialog === 'layoutScratch' ? this.getSettingsModal('layout') : null }
+          { this.props.activeDialog === 'betaMessage' ? this.getSettingsModal('betaMessage') : null }
           { this.props.activeDialog === 'itemNameScratch' ? this.getSettingsModal('itemNames') : null }
           { this.props.activeDialog === 'savingFromScratch' ? <Loader message={builderText.fromScratchMessage.saving}></Loader> : null }
         </ReactCSSTransitionGroup>
@@ -171,6 +172,24 @@ class Builder extends React.Component {
           portal={this.props.portal}>
         </SettingsItemName>,
         footer: continueButton
+      },
+      betaMessage: {
+        className: Helper.classnames(['beta-message'],modalClasses),
+        headerStyle: {
+          backgroundSize: 'auto',
+          backgroundRepeat: 'repeat-x',
+          backgroundImage: 'url(resources/images/builder/builder-banner-background.png)'
+        },
+        title: welcomeTitle,
+        body: (
+          <div className="message">
+            <h5 className="text-danger">{builderText.betaMessage.title}</h5>
+            {builderText.betaMessage.messageParagraphs.map((current) => {
+              return <p key={current.slice(0,10).toCamelCase()}>{current}</p>;
+            })}
+          </div>
+        ),
+        footer: continueButton
       }
     };
 
@@ -191,6 +210,9 @@ class Builder extends React.Component {
           break;
         case 'itemNameScratch':
           BuilderActions.changeDialog('savingFromScratch');
+          break;
+        case 'betaMessage':
+          BuilderActions.changeDialog('itemNameScratch');
           break;
       }
     }

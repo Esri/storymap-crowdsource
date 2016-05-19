@@ -1,5 +1,13 @@
 define({
   root: {
+    // TODO Remove after beta
+    betaMessage: {
+      title: 'This is a beta release of Story Map Crowdsource',
+      messageParagraphs: [
+        'A beta release means that some features of this app are not in their final form. In most cases, stories created with this beta version of the app it will simply continue to work when the final version is released.',
+        'If a Story Map Crowdsource is modified outside the builder, however, there is a possibility it may not work with the final version of the app. For more information please read the applicable FAQ in the Help section of the app.'
+      ]
+    },
     common: {
       appNameAppend: 'Builder',
       buttons: {
