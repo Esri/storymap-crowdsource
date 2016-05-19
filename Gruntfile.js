@@ -458,6 +458,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'eslint',
     'clean:dist',
+    'clean:fontsSrc',
     'clean:fontsDist',
     'googlefonts',
     'concatFontStyle',
