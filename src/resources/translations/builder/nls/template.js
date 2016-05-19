@@ -127,8 +127,12 @@ define({
               response: 'Yes, but contributors can log in to ArcGIS Online using their Facebook or Google account. Logging in with one of these social services will create a <% publicAccount %> for the contributor.'
             },
             {
-              question: 'Can I add other layers to the map?',
-              response: 'Yes, you can add other layers to your map for context. Open your story\'s <% map %>, add layers, and save your changes. The next time you load your story you will see the new layers. Be careful not to delete or modify the contributions layer in your map or your Crowdsource story may stop working properly.'
+              question: 'Will Crowdsource stories created with the beta version of the app continue to work when the final version is released?',
+              response: 'Yes it will work, but there are two possible exceptions. If you add layers to your beta Crowdsource story's web map (which can only be done outside the builder), those layers may stop working or their symbols may change after the final release. To avoid this situation you can convert any supporting layers to feature layers before adding them to your map and use simple symbols. There is also a possibility that the data model for the crowdsource layer feature service may change. If this occurs, we intend to provide a workflow or tool to update your feature service to the new data model.',
+            },
+            {
+              question: 'Can I add other layers to my Crowdsource story\'s map?',
+              response: 'Yes, you can add other layers to the map for context, but first read the previous question for important information about doing this with the beta release of Story Map Crowdsource. Open your story\'s <% map %>, add layers, and save your changes. The next time you load your story you will see the new layers. Be careful not to delete or modify the contributions layer in your map or your Crowdsource story may stop working properly.'
             },
             {
               question: 'Will my Crowdsource story consume credits?',
