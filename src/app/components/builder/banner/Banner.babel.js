@@ -52,7 +52,7 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
             <li className="dropdown">
               <button
                 type="button"
-                className="btn btn-primary navbar-btn dropdown-toggle"
+                className="btn btn-info navbar-btn dropdown-toggle"
                 data-toggle="dropdown"
                 role="button"
                 aria-haspopup="true"

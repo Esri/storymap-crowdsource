@@ -99,7 +99,7 @@ define({
         {
           title: 'Configuration and Customization',
           paragraphs: [
-            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more. We suggest that you enable submissions to appear immediately in order to reward your contributors. If you're concerned about objectionable posts, you can choose to approve them first.',
+            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more. We suggest that you enable submissions to appear immediately in order to reward your contributors. If you\'re concerned about objectionable posts, you can choose to approve them first.',
             'You can also set the <% homeMap %>, which is also the area of the map that is shown when your story loads. Just navigate the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
             'If the available configuration options do not meet your needs or you wish to host the application on your own web server the application source code is available for developers to customize. To download the most recent version of the code and learn more about how to use it, visit its <% github %>.'
           ],
@@ -128,7 +128,7 @@ define({
             },
             {
               question: 'Will Crowdsource stories created with the beta version of the app continue to work when the final version is released?',
-              response: 'Yes it will work, but there are two possible exceptions. If you add layers to your beta Crowdsource story's web map (which can only be done outside the builder), those layers may stop working or their symbols may change after the final release. To avoid this situation you can convert any supporting layers to feature layers before adding them to your map and use simple symbols. There is also a possibility that the data model for the crowdsource layer feature service may change. If this occurs, we intend to provide a workflow or tool to update your feature service to the new data model.',
+              response: 'Yes it will work, but there are two possible exceptions. If you add layers to your beta Crowdsource story\'s web map (which can only be done outside the builder), those layers may stop working or their symbols may change after the final release. To avoid this situation you can convert any supporting layers to feature layers before adding them to your map and use simple symbols. There is also a possibility that the data model for the crowdsource layer feature service may change. If this occurs, we intend to provide a workflow or tool to update your feature service to the new data model.'
             },
             {
               question: 'Can I add other layers to my Crowdsource story\'s map?',
@@ -235,6 +235,7 @@ define({
             },
             loginOptions: {
               label: 'Participants can sign in with',
+              attribute: 'sign-in option',
               optionLabels: {
                 arcgis: 'ArcGIS',
                 facebook: 'Facebook',

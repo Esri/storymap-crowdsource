@@ -89,7 +89,13 @@ class Builder extends React.Component {
                 id: componentNames.SPS_INTRO_SPLASH,
                 title: builderText.settings.panes.introSplash.title,
                 component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions}></IntroSplashSettings>
-              },{
+              },
+              {
+                id: componentNames.SPS_CONTRIBUTE,
+                title: builderText.settings.panes.contribute.title,
+                component: <ContributeSettings defaultValues={this.props.defaultValues.contribute} actions={this.props.contributeActions}></ContributeSettings>
+              },
+              {
                 id: componentNames.SPS_HEADER,
                 title: builderText.settings.panes.header.title,
                 component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
@@ -98,11 +104,6 @@ class Builder extends React.Component {
                 id: componentNames.SPS_SOCIAL_SHARING,
                 title: builderText.settings.panes.socialSharing.title,
                 component: <SocialSharingSettings defaultValues={this.props.defaultValues.socialSharing} actions={this.props.socialSharingActions}></SocialSharingSettings>
-              },
-              {
-                id: componentNames.SPS_CONTRIBUTE,
-                title: builderText.settings.panes.contribute.title,
-                component: <ContributeSettings defaultValues={this.props.defaultValues.contribute} actions={this.props.contributeActions}></ContributeSettings>
               }
             ]}
             visibleComponents={this.props.visibleComponents}

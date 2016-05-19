@@ -55,6 +55,11 @@ export default class StackedController {
           case componentNames.SIDE_PANEL_HELP:
             AppActions.hideComponent([componentNames.SIDE_PANEL_SETTINGS]);
             break;
+          case componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + componentNames.SPS_INTRO_SPLASH:
+            if (this.visibleComponents.indexOf(componentNames.INTRO) < 0) {
+              AppActions.showComponent([componentNames.INTRO]);
+            }
+            break;
         }
 
       });

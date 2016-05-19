@@ -65,7 +65,7 @@ export default class SidePanelHelp extends React.Component {
 
   render() {
     const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'side-panel','help','container-fluid']);
-    const closeBtnClasses = Helper.classnames(['btn','btn-default','btn-block','close-btn']);
+    const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
 
     return (
       <div className={settingsClasses}>

@@ -19,7 +19,7 @@ export default class SelectedShares extends React.Component {
       'selected-shares'
     ]);
 
-    const closeBtnClasses = Helper.classnames(['btn','btn-default','btn-block','close-btn']);
+    const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
 
     return (
       <div className={mainClasses}>
@@ -55,7 +55,7 @@ export default class SelectedShares extends React.Component {
                           })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
                         <button type="button" className={Helper.classnames(['btn'],{
                             'btn-default': attributes[this.props.vettedField] !== 2,
-                            'btn-primary': attributes[this.props.vettedField] === 2
+                            'btn-danger': attributes[this.props.vettedField] === 2
                           })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
                       </div>
                     </div>

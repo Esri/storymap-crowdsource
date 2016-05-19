@@ -66,7 +66,9 @@ export default class ContributeSettings extends React.Component {
         break;
       case 'loginOptions':
         $.extend(true,settings,{
+          required: true,
           defaultValue: this.props.defaultValues[input],
+          validations: ['required'],
           options: [{
             label: builderText.settings.panes.contribute.fields[input].optionLabels.arcgis,
             value: 'arcgis'
