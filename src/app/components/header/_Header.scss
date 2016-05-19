@@ -51,8 +51,7 @@
   }
 
   .participate {
-    cursor: pointer;
-    margin: 0 ($headerMargin - 5) 0 0;
+    position: relative;
 
     &.participate-btn-enter {
       opacity: 0;
@@ -69,14 +68,15 @@
     }
 
     .text {
-      font-size: 1.5em;
-      vertical-align: middle;
+      margin-left: 28px;
     }
 
     .icon {
-      height: 2.5em;
-      width: 2.5em;
-      vertical-align: middle;
+      position: absolute;
+      height: 32px;
+      width: 32px;
+      left: 3px;
+      top: 1px;
     }
 
   }

@@ -31,7 +31,7 @@ export const Header = class Header extends React.Component {
       __html: getIcon('participate')
     };
     const participateBtn = this.props.showParticipateActionButton ? (
-      <button className="participate text-btn" onClick={this.props.participateAction}>
+      <button className="participate btn btn-primary nav-btn" onClick={this.props.participateAction}>
         <span className="icon" dangerouslySetInnerHTML={participateIconHtml}></span>
         <span className="text">{this.props.participateShort}</span>
       </button>

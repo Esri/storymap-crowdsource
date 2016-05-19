@@ -1,5 +1,4 @@
 $paneNavigation: #6e6e6e;
-$actionText: #4d8fbb;
 $shadowColor: #fff;
 
 .stacked {
@@ -13,14 +12,6 @@ $shadowColor: #fff;
 
       &:hover{
         color: #fff;
-      }
-    }
-
-    .participate{
-      color: $actionText;
-
-      &:hover{
-        color: lighten($actionText, 10%);
       }
     }
 

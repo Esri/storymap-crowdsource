@@ -110,6 +110,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
         map.setClusterLayerQueryWhere = function (where) {
           clusterLayer._where = where || '1=1';
+          MapActions.updateFeaturesInExtent([]);
           map.refreshCrowdsourceLayer();
         };
 
