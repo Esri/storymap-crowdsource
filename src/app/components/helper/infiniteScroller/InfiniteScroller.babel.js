@@ -37,11 +37,16 @@ export default class InfiniteScroller extends React.Component {
     }
   }
 
-  onScroll() {
+  onScroll(fromScroll) {
     switch (this.props.type) {
       case 'grid':
         this.updateGrid();
         break;
+    }
+    if (!fromScroll) {
+      setTimeout(() => {
+        $(this.node).trigger('scroll');
+      },0);
     }
   }
 
@@ -51,7 +56,7 @@ export default class InfiniteScroller extends React.Component {
     const transitionProps = $.extend(true,{},InfiniteScroller.defaultProps.transitionProps,this.props.transitionProps);
 
     return (
-      <div className={scrollerClasses} onScroll={this.onScroll}>
+      <div className={scrollerClasses} onScroll={this.onScroll.bind(this,true)}>
         <ReactCSSTransitionGroup
           className="scrollable"
           {...transitionProps}
