@@ -77,10 +77,14 @@ class CrowdsourceApp extends React.Component {
         window.location.replace('?fromScratch');
       };
 
-      error = {
-        message: {__html: viewerText.errors.loading.invalidConfigNoApp},
-        actionBtn: <button className="btn btn-primary error-action-button" onClick={redirectToScratchBuilder}>{viewerText.errors.actionsBtns.startFromScratch}</button>
-      };
+      if (this.props.mode.isHosted) {
+        redirectToScratchBuilder();
+      } else {
+        error = {
+          message: {__html: viewerText.errors.loading.invalidConfigNoApp},
+          actionBtn: <button className="btn btn-primary error-action-button" onClick={redirectToScratchBuilder}>{viewerText.errors.actionsBtns.startFromScratch}</button>
+        };
+      }
     }
 
     if (error) {

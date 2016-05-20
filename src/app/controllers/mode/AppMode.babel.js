@@ -8,7 +8,10 @@ export default class AppMode {
   constructor () {
 
     this.setAppMode(this.urlQuery);
-    ModeActions.updateMode({isMobile: window.innerWidth < 768});
+    ModeActions.updateMode({
+      isHosted: document.location.pathname.indexOf('/apps/') >= 0 || document.location.pathname.indexOf('/home/') >= 0,
+      isMobile: window.innerWidth < 768
+    });
 
     // Autobind methods
     this.onWindowResize = this.onWindowResize.bind(this);
