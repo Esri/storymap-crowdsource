@@ -41,6 +41,7 @@ html,body,#app,.crowdsource-app,.viewer {
   height: 100%;
   width: 100%;
   z-index: 2;
+  overflow: visible;
 }
 
 .banner .viewer {
