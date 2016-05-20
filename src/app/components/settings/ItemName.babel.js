@@ -42,10 +42,6 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     this.mounted = true;
   }
 
-  componentDidUpdate() {
-    this.getUserFolders();
-  }
-
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -228,7 +224,9 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
     this.formItems[item] = valid;
 
     Object.keys(this.formItems).forEach((current) => {
-      if (!this.formItems[current]) {
+      if (this.formItems[current] === 'validating') {
+        formValid = 'validating';
+      } else if (!this.formItems[current]) {
         formValid = false;
       }
     });
@@ -237,40 +235,49 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
   }
 
   setAutoUpdateValues(value) {
-
-    const self = this;
-
-    this.updateValue = value;
     this.handleFieldChange('autoUpdate',false);
-    this.layerNameValidator.validate(value).then((res) => {
+    if (this.updateValue === value) {
 
-      let layerName = value;
+      const self = this;
 
-      const getFormatedLayerName = function getFormatedLayerName() {
-        self.layerNameValidator.validate(layerName).then((newRes) => {
-          if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
-            layerName = newRes.errors[0].fixValue;
-          }
-          if (self.updateValue === value) {
-            self.handleFieldChange('autoUpdate',true);
-            self.setState({
-              layerNameAutoUpdate: layerName,
-              mapNameAutoUpdate: value
-            });
-          }
-        });
-      };
+      this.handleFieldChange('autoUpdate','validating');
+      this.layerNameValidator.validate(value).then((res) => {
 
-      if (res.isValid && this.updateValue === value) {
-        this.handleFieldChange('autoUpdate',true);
-        this.setState({
-          layerNameAutoUpdate: layerName,
-          mapNameAutoUpdate: value
-        });
-      } else {
-        getFormatedLayerName();
-      }
-    });
+        let layerName = value;
+
+        const getFormatedLayerName = function getFormatedLayerName() {
+          self.layerNameValidator.validate(layerName).then((newRes) => {
+            if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
+              layerName = newRes.errors[0].fixValue;
+            }
+            if (self.updateValue === value) {
+              self.handleFieldChange('autoUpdate',true);
+              self.setState({
+                layerNameAutoUpdate: layerName,
+                mapNameAutoUpdate: value
+              });
+            }
+          });
+        };
+
+        if (res.isValid && this.updateValue === value) {
+          this.handleFieldChange('autoUpdate',true);
+          this.setState({
+            layerNameAutoUpdate: layerName,
+            mapNameAutoUpdate: value
+          });
+        } else {
+          getFormatedLayerName();
+        }
+      });
+
+    } else {
+      this.updateValue = value;
+      clearTimeout(this.updateValueTimeout);
+      this.updateValueTimeout = setTimeout(()=>{
+        this.setAutoUpdateValues(value);
+      },300);
+    }
 
   }
 

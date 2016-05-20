@@ -33,7 +33,8 @@ class Builder extends React.Component {
     this.getWebmapLink = this.getWebmapLink.bind(this);
 
     this.state = {
-      continueDisabled: true
+      continueDisabled: true,
+      validating: false
     };
   }
 
@@ -140,7 +141,22 @@ class Builder extends React.Component {
         </div>
       </div>
     );
-    const continueButton = <button type="button" className={continueButtonClasses} onClick={this.onSettingsNext}>{builderText.common.buttons.next}</button>;
+    const continueButton = this.state.validating ?
+    (
+      <button
+        type="button"
+        className={continueButtonClasses}
+        dangerouslySetInnerHTML={{__html: '<img class="loading-gif" src="resources/images/loader-light.gif" alt="' + viewerText.contribute.form.location.gettingLocatingAlt + '"/> ' + builderText.validations.waitMessage}} >
+      </button>
+    )
+    : (
+      <button
+        type="button"
+        className={continueButtonClasses}
+        onClick={this.onSettingsNext}>
+        {builderText.common.buttons.next}
+      </button>
+    );
 
     let options = {
       layout: {
@@ -198,7 +214,8 @@ class Builder extends React.Component {
 
   onItemNamesChange(valid) {
     this.setState({
-      continueDisabled: !valid
+      continueDisabled: !valid || valid === 'validating',
+      validating: valid === 'validating' ? true : false
     });
   }
 

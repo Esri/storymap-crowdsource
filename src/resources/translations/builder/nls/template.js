@@ -357,6 +357,7 @@ define({
       }
     },
     validations: {
+      waitMessage: 'Checking',
       arcgis: {
         naming: {
           arcgisItemName: 'The <% attribute %> may not contain < or >.',

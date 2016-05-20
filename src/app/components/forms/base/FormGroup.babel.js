@@ -112,7 +112,9 @@ export default class FormGroup extends React.Component {
   }
 
   onBlur() {
-    this.validateForm();
+    if (!this.valid) {
+      this.validateForm();
+    }
   }
 
   fixValue(value) {
@@ -133,6 +135,7 @@ export default class FormGroup extends React.Component {
         });
 
         if (this.valid) {
+          this.lastValidValue = this.value;
           this.handleChange();
         }
       }
