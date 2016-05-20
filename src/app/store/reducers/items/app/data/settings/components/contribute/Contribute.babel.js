@@ -2,11 +2,13 @@ import $ from 'jquery';
 import { combineReducers } from 'redux';
 import {
   UPDATE_SETTINGS_CONTRIBUTE_PARTICIPATION_ALLOWED,
-  UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS
+  UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS,
+  UPDATE_SETTINGS_CONTRIBUTE_TERMS_AND_CONDITIONS
 } from 'babel/constants/actionsTypes/Settings';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 const defaultTitle = builderText ? builderText.contribute.defaultTitle : '';
+const defaultTermsAndCondtions = builderText ? builderText.contribute.defaultForm.termsAndConditions.legal : '';
 
 const defaultLoginOptions = {
   arcgis: true,
@@ -41,10 +43,20 @@ export const loginOptions = function (state = defaultLoginOptions, action) {
   }
 };
 
+export const termsAndConditions = function (state = defaultTermsAndCondtions, action) {
+  switch (action.type) {
+    case UPDATE_SETTINGS_CONTRIBUTE_TERMS_AND_CONDITIONS:
+      return action.terms;
+    default:
+      return state;
+  }
+};
+
 export const contribute = combineReducers({
   title,
   participationAllowed,
-  loginOptions
+  loginOptions,
+  termsAndConditions
 });
 
 export default contribute;

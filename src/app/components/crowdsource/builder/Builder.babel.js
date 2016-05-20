@@ -287,7 +287,8 @@ const mapStateToProps = (state) => {
             return state.items.app.data.settings.components.contribute.loginOptions[current];
           }).toString()
         ),
-        participateButton: state.items.app.data.settings.components.common.participateShort
+        participateButton: state.items.app.data.settings.components.common.participateShort,
+        termsAndConditions: state.items.app.data.settings.components.contribute.termsAndConditions
       }
     }
   };
@@ -385,7 +386,8 @@ const mapDispatchToProps = () => {
 
         SettingsActions.changeParticipantLoginOptions(options);
       },
-      participateButton: SettingsActions.updateCommonParticipateShort
+      participateButton: SettingsActions.updateCommonParticipateShort,
+      termsAndConditions: SettingsActions.updateContributeTermsAndCondtions
     }
   };
 };

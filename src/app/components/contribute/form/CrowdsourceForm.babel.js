@@ -41,6 +41,7 @@ export default class CrowdsourceForm extends React.Component {
       formId: this._formId,
       id: 'termsAndCondtions',
       label: ViewerText.contribute.form.termsAndConditions.label,
+      terms: this.props.termsAndConditions,
       inputAttr: {
         type: 'checkbox'
       }

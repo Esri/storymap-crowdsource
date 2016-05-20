@@ -7,6 +7,7 @@ import {
   UPDATE_SETTINGS_COMMON_SHARING_TWITTER,
   UPDATE_SETTINGS_CONTRIBUTE_PARTICIPATION_ALLOWED,
   UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS,
+  UPDATE_SETTINGS_CONTRIBUTE_TERMS_AND_CONDITIONS,
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_INTRO_BACKGROUND,
@@ -74,6 +75,13 @@ export const changeParticipantLoginOptions = function (options) {
   return {
     type: UPDATE_SETTINGS_CONTRIBUTE_LOGIN_OPTIONS,
     options
+  };
+};
+
+export const updateContributeTermsAndCondtions = function (terms) {
+  return {
+    type: UPDATE_SETTINGS_CONTRIBUTE_TERMS_AND_CONDITIONS,
+    terms
   };
 };
 
@@ -173,6 +181,7 @@ export const boundActions = {
   updateCommonSharingTwitter: (settings) => dispatch(updateCommonSharingTwitter(settings)),
   changeParticipationAllowed: (allowed) => dispatch(changeParticipationAllowed(allowed)),
   changeParticipantLoginOptions: (options) => dispatch(changeParticipantLoginOptions(options)),
+  updateContributeTermsAndCondtions: (terms) => dispatch(updateContributeTermsAndCondtions(terms)),
   updateIntroTitle: (title) => dispatch(updateIntroTitle(title)),
   updateIntroSubtitle: (subtitle) => dispatch(updateIntroSubtitle(subtitle)),
   updateIntroBackground: (background) => dispatch(updateIntroBackground(background)),
