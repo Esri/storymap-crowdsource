@@ -263,7 +263,7 @@ define({
       sharePermissions: {
         'private': 'Private',
         'organization': 'Organization',
-        'public': 'Everyone'
+        'public': 'Public'
       },
       socialize: {
         header: 'Socialize'

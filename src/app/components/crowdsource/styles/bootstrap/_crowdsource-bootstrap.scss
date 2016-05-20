@@ -1,6 +1,6 @@
 $bootstrap: '' !default;
 
-@if $bootstrap == 'calcite' {
+// @if $bootstrap == 'calcite' {
   // Add Calcite Colors
   @import "calcite/colors-default";
   // Set variable to change the primary typeface in the font stack
@@ -34,9 +34,9 @@ $bootstrap: '' !default;
   @import "calcite/sticky-footer";
   @import "calcite/loader";
   @import "calcite/card-custom";
-}
+// }
 
-@if $bootstrap == 'calcite' or $bootstrap == 'default' {
+// @if $bootstrap == 'calcite' or $bootstrap == 'default' {
   // Core variables and mixins
   @import "bootstrap/variables";
   @import "bootstrap/mixins";
@@ -87,4 +87,4 @@ $bootstrap: '' !default;
   // // Utility classes
   @import "bootstrap/utilities";
   @import "bootstrap/responsive-utilities";
-}
+// }
