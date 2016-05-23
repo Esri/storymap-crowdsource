@@ -189,7 +189,11 @@ export default class StoryCreator {
       edit: true
     });
 
-    delete urlQuery.fromScratch;
+    Object.keys(urlQuery).forEach((current) => {
+      if (current.toLowerCase() === 'fromscratch') {
+        delete urlQuery[current];
+      }
+    });
 
     const urlParams = $.param(urlQuery);
 

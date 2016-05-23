@@ -20,6 +20,7 @@ export default class CrowdsourceController {
     this.updateAppState = this.updateAppState.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.createPortal = this.createPortal.bind(this);
+    this.disableGlobalDragAndDrop = this.disableGlobalDragAndDrop.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
@@ -43,6 +44,8 @@ export default class CrowdsourceController {
       this.user = new User();
       this.contrbuteController = new ContrbuteController();
     }
+
+    this.disableGlobalDragAndDrop();
 
     // Remove Loader
     $('#loadingIndicator').remove();
@@ -94,6 +97,20 @@ export default class CrowdsourceController {
       loadPortal(this.appState.config.sharingurl.split('/sharing/')[0]);
 
     }
+  }
+
+  disableGlobalDragAndDrop() {
+    window.addEventListener('dragover',(e) => {
+      if (e) {
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener('drop',(e) => {
+      if (e) {
+        e.preventDefault();
+      }
+    });
   }
 
 }
