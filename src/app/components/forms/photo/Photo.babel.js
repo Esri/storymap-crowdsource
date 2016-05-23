@@ -19,6 +19,8 @@ export default class Photo extends FormGroup {
       value: false
     };
 
+    this.isMobileDevice = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i);
+
     this.fileChange = this.fileChange.bind(this);
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
@@ -63,7 +65,7 @@ export default class Photo extends FormGroup {
       'alert-info': this.state.dragging
     }]);
 
-    const fileUploader = !navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
+    const fileUploader = !this.isMobileDevice && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
       <div className={uploaderClasses}>
         <h6>
           {this.props.placeholder}
@@ -186,6 +188,9 @@ export default class Photo extends FormGroup {
       center: false,
       highlight: false,
       zoomOnWheel: false,
+      movable: !this.isMobileDevice,
+      cropBoxMovable: !this.isMobileDevice,
+      cropBoxResizable: !this.isMobileDevice,
       built: this.saveCropValue,
       cropend: this.saveCropValue
     });

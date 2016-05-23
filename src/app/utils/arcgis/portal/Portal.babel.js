@@ -193,10 +193,27 @@ export const Portal = class Portal extends ArcgisPortal.Portal{
       return dfd;
     };
 
+    const protect = function() {
+      const url = baseRequestPath + '/items/' + response.crowdsourceLayerItemId + '/protect';
+
+      const content = $.extend(true, settings.item, {
+        f: 'json'
+      });
+
+      esriRequest({
+        url,
+        handleAs: 'json',
+        content
+      },{
+        usePost: true
+      });
+    };
+
     createFeatureService().then(addCrowdsourceLayerToFeatureService,(err) => {
       _onError(err);
       deferred.reject(err);
     }).then(() => {
+      protect();
       deferred.resolve(response);
     },(err) => {
       _onError(err);

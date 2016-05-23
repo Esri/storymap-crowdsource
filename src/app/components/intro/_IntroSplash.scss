@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #E5E5E5;
   @include box-shadow(inset 0px 0px 82px 19px rgba(0,0,0,0.3));
-  z-index: 200;
+  z-index: 50;
 
   .inline-editable {
     padding: 3px 0;

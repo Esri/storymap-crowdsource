@@ -93,7 +93,7 @@ export default class SelectedShares extends React.Component {
               src={photoUrl}>
             </LazyImage>
             {/*<div className="card-options">
-              <button type="button" className="open-btn" data-ember-action="501">{viewerText.selectedShares.enlargePhotoButton}</button>
+              <button type="button" className="open-btn">{viewerText.selectedShares.enlargePhotoButton}</button>
             </div>*/}
           </div>
         );

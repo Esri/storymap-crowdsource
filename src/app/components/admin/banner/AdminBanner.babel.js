@@ -21,8 +21,8 @@ export const AdminBanner = class AdminBanner extends React.Component {
     ]);
 
     const backgroundImageStyle = {
-      backgroundSize: 'auto',
-      backgroundRepeat: 'repeat-x'
+      backgroundSize: 'cover',
+      backgroundRepeat: 'norepeat'
     };
 
     const mobileMenuButton = this.props.brandOnly ? null : (
