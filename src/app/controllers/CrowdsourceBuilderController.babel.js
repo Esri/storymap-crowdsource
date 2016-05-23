@@ -75,13 +75,13 @@ export default class CrowdsourceBuilderController {
     new StoryCreator();
   }
 
-  checkAppStateChange() {
+  checkAppStateChange(force) {
     const appDataFromState = JSON.stringify(lang.getObject('appState.items.app',false,this));
 
     if (this.currentAppData === undefined) {
       this.currentAppData = appDataFromState;
       this.lastSaveAppData = appDataFromState;
-    } else if ((appDataFromState !== this.currentAppData || this.currentAppData !== this.lastSaveAppData) && !lang.getObject('appState.builder.saving',false,this)) {
+    } else if (force || ((appDataFromState !== this.currentAppData || this.currentAppData !== this.lastSaveAppData) && !lang.getObject('appState.builder.saving',false,this))) {
       this.currentAppData = appDataFromState;
       this.lastSaveAppData = appDataFromState;
       BuilderActions.updateSaveStatus(true);
@@ -90,11 +90,30 @@ export default class CrowdsourceBuilderController {
 
       portal.saveApp().then((res) => {
         if (res.success) {
+          AppActions.removeNotifications({
+            id: 'builderNotfication_saveAppError'
+          });
           BuilderActions.updateSaveStatus(false);
           this.checkAppStateChange();
         }
         // TODO add visibile error dialog to user
-      },_onError);
+      }, (err) => {
+        if (err.toString().search('Unable to load')) {
+          AppActions.addNotifications({
+            id: 'builderNotfication_saveAppError',
+            type: 'error',
+            content: builderText.errors.saving.checkInternet
+          });
+          setTimeout(this.checkAppStateChange.bind(this,true),10000);
+        } else {
+          AppActions.addNotifications({
+            id: 'builderNotfication_saveAppError',
+            type: 'error',
+            content: builderText.errors.saving.unknown
+          });
+        }
+        _onError(err);
+      });
 
     } else if (appDataFromState !== this.currentAppData) {
       this.currentAppData = appDataFromState;

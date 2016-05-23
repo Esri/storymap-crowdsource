@@ -354,6 +354,10 @@ define({
       },
       shareItems: {
         notShared: 'The following item(s) could not be shared'
+      },
+      saving: {
+        checkInternet: 'Your story could not be saved. Check your internet connection or refresh your page and try again.',
+        unknown: 'An unknown error occured and your story could not be saved. Refresh your page and try again.'
       }
     },
     validations: {
