@@ -1,15 +1,16 @@
+$primary-font-sanserif: '';
+$primary-font-serif: '';
+$primary-headings-weight: 300;
+@import "calcite/variables";
 // COMPONENTS START
 
 // Banner
-$bannerHeight: 50px;
 $nameStandard: $Calcite_Gray_300;
 $nameHighlight: $Calcite_Blue_200;
 
 // Header
-$headerHeight: 50px;
 $headerMargin: 15px;
 
 // Mobile
 $mobileBottomNavigationHeight: 65px;
-
 // COMPONENST END

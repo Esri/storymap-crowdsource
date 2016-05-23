@@ -16,7 +16,7 @@
 
   .background-edit-button {
     position: absolute;
-    top: calc(#{$headerHeight} + 15px);
+    top: calc(#{$navbar-height} + 15px);
     right: 15px;
     border-radius: 2em;
     height: 4em;
@@ -159,10 +159,10 @@
 
   @media (max-width: 767px) {
     .title-pane {
-      height: calc(100% - #{$headerHeight});
+      height: calc(100% - #{$navbar-height});
       width: 100%;
       left: 0;
-      top: $headerHeight;
+      top: $navbar-height;
       border-radius: 0;
       overflow: auto;
 
@@ -183,7 +183,7 @@
 }
 
 .banner .splash .loadingIndicator {
-  top: calc(100% - 140px + $bannerHeight);
+  top: calc(100% - 140px + $navbar-height);
   @include animation(moveLoadingIndicatorWithBanner 3s);
 }
 
@@ -202,7 +202,7 @@
     top: 50%;
   }
   100% {
-    top: calc(100% - 140px + $bannerHeight);
+    top: calc(100% - 140px + $navbar-height);
   }
 };
 

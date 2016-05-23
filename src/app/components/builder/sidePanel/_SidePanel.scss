@@ -1,9 +1,9 @@
 .side-panel {
   position: absolute;
-  top: $bannerHeight;
+  top: $navbar-height;
   background-color: #fff;
   color: #333;
-  height: calc(100% - #{$bannerHeight});
+  height: calc(100% - #{$navbar-height});
   width: $sidePanelWidth;
   left: 0;
   padding-bottom: 15px;

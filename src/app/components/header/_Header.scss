@@ -1,6 +1,6 @@
 .header {
   position: absolute;
-  height: $headerHeight;
+  height: $navbar-height;
   top: 0;
   overflow: hidden;
   z-index: 902;
@@ -37,7 +37,7 @@
   }
 
   img.logo{
-    height: $headerHeight - 16;
+    height: $navbar-height - 20;
     margin: 0 $headerMargin;
   }
 
@@ -103,7 +103,7 @@
 
 @include keyframes(slideInHeader) {
   0% {
-    top: -$headerHeight;
+    top: -$navbar-height;
   }
   100% {
     top: 0;

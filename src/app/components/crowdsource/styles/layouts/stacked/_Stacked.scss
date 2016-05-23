@@ -7,8 +7,8 @@ $paneNavigationHeight: 40px;
 
   .main-content {
     position: absolute;
-    top: $headerHeight;
-    height: calc(100% - #{$headerHeight});
+    top: $navbar-height;
+    height: calc(100% - #{$navbar-height});
     width: 100%;
     overflow: hidden;
   }
@@ -80,7 +80,7 @@ $paneNavigationHeight: 40px;
   // RESPONSIVE STYLES START
   @media (max-width: 767px) {
     .main-content {
-      height: calc(100% - #{$headerHeight}  - #{$mobileBottomNavigationHeight});
+      height: calc(100% - #{$navbar-height}  - #{$mobileBottomNavigationHeight});
     }
 
     .content-pane {

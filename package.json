@@ -31,7 +31,7 @@
     "grunt-nodemon": "^0.4.0",
     "grunt-open": "^0.2.3",
     "grunt-regex-replace": "^0.2.6",
-    "grunt-sass": "^1.0.0",
+    "grunt-sass": "^1.1.0",
     "grunt-swig-templates": "^0.1.4",
     "hapi": "^13.0.0",
     "hoek": "^2.14.0",

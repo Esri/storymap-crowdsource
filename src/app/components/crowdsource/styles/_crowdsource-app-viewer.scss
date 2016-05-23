@@ -45,7 +45,7 @@ html,body,#app,.crowdsource-app,.viewer {
 }
 
 .banner .viewer {
-  height: calc(100% - #{$bannerHeight});
+  height: calc(100% - #{$navbar-height});
 }
 
 .banner .control-banner {
