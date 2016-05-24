@@ -150,7 +150,7 @@ define({
             },
             {
               question: 'Do people need an ArcGIS account to contribute to my Crowdsource story?',
-              response: 'Yes, but contributors can log in to ArcGIS Online using their Facebook or Google account. Logging in with one of these social services will create a <% publicAccount %> for the contributor.'
+              response: 'Yes, but contributors can log in to ArcGIS Online using their <% facebook %> or <% google %> account. Logging in with one of these social services will create an ArcGIS public account for the contributor.'
             },
             {
               question: 'Can I create a Crowdsource story using my ArcGIS Online public account?',
@@ -166,7 +166,8 @@ define({
             }
           ],
           bold: {
-            publicAccount: 'public account'
+            facebook: 'Facebook',
+            google: 'Google'
           },
           links: {
             map: 'map',
