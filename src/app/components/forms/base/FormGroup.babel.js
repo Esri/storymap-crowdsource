@@ -148,8 +148,8 @@ export default class FormGroup extends React.Component {
   }
 
   getValidations() {
-    const validations = this.props.validations.slice(0);
-    const type = this.props.inputAttr.type || 'text';
+    const validations = this.props.validations && $.isArray(this.props.validations) ? this.props.validations.slice(0) : [];
+    const type = (this.props.inputAttr && this.props.inputAttr.type) ? this.props.inputAttr.type : 'text';
 
     const addToValidations = function addToValidations(validation) {
       if (validation && $.inArray(validation.rule,validations) === -1 && $.grep(validations,(val) => {
@@ -169,49 +169,51 @@ export default class FormGroup extends React.Component {
       });
     }
 
-    $.each(this.props.inputAttr,(key,value) => {
-      let validation = false;
+    if (this.props.inputAttr && typeof this.props.inputAttr === 'object') {
+      $.each(this.props.inputAttr,(key,value) => {
+        let validation = false;
 
-      // TODO add all validations http://www.w3schools.com/tags/tag_input.asp
-      switch (key.toLowerCase()) {
-        case 'required':
-          if (value) {
+        // TODO add all validations http://www.w3schools.com/tags/tag_input.asp
+        switch (key.toLowerCase()) {
+          case 'required':
+            if (value) {
+              validation = {
+                rule: 'required'
+              };
+            }
+            break;
+          case 'max':
             validation = {
-              rule: 'required'
+              rule: 'max',
+              max: value,
+              type: type
             };
-          }
-          break;
-        case 'max':
-          validation = {
-            rule: 'max',
-            max: value,
-            type: type
-          };
-          break;
-        case 'min':
-          validation = {
-            rule: 'min',
-            max: value,
-            type: type
-          };
-          break;
-        case 'maxlength':
-          validation = {
-            rule: 'max',
-            max: value,
-            type: 'string'
-          };
-          break;
-        case 'pattern':
-          validation = {
-            rule: 'regex',
-            pattern: value
-          };
-          break;
-      }
+            break;
+          case 'min':
+            validation = {
+              rule: 'min',
+              max: value,
+              type: type
+            };
+            break;
+          case 'maxlength':
+            validation = {
+              rule: 'max',
+              max: value,
+              type: 'string'
+            };
+            break;
+          case 'pattern':
+            validation = {
+              rule: 'regex',
+              pattern: value
+            };
+            break;
+        }
 
-      addToValidations(validation);
-    });
+        addToValidations(validation);
+      });
+    }
     return validations;
   }
 
@@ -225,12 +227,12 @@ export default class FormGroup extends React.Component {
   }
 
   updateValue() {
-    const commonChecks = this.props.autoUpdate.when && this.props.autoUpdate.value && this.props.autoUpdate.value !== this.input.value;
+    const commonChecks = this.props.autoUpdate && this.props.autoUpdate.when && this.props.autoUpdate.value && this.props.autoUpdate.value !== this.input.value;
 
-    if (commonChecks && this.props.autoUpdate.when === 'always') {
+    if (commonChecks && this.props.autoUpdate && this.props.autoUpdate.when === 'always') {
       this.input.value = this.props.autoUpdate.value;
       this.validateForm();
-    } else if (commonChecks && this.props.autoUpdate.when === 'notChanged' && !this.state.changed) {
+    } else if (commonChecks && this.props.autoUpdate && this.props.autoUpdate.when === 'notChanged' && !this.state.changed) {
       this.input.value = this.props.autoUpdate.value;
       this.validateForm();
     }

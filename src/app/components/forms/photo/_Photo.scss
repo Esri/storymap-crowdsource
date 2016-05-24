@@ -46,6 +46,11 @@
     }
   }
 
+  label.btn-file::after {
+    content: "";
+    margin-left: 0;
+  }
+
   .cropper-pane {
     display: none;
     position: relative;
