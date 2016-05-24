@@ -46,7 +46,7 @@ define({
       }
     },
     contribute: {
-      defaultTitle: 'Add your share',
+      defaultTitle: 'Add your contribution',
       defaultForm: {
         name: {
           label: 'Add a title',
