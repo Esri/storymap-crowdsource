@@ -121,7 +121,8 @@ define({
         {
           title: 'Reviewing Contributions',
           paragraphs: [
-            'If you would like to review all content before it is posted to the map go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
+            'Having contributions appear immediately on the map is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, you can choose to review and approve submissions first.',
+            'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
             'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the header. Then click the map to view a contribution and choose <% approve %> or <% reject %>. You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the header. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
           ],
           bold: {
