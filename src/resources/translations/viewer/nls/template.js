@@ -95,8 +95,8 @@ define({
           buttonShow: 'Show terms and conditions',
           buttonHide: 'Hide terms and conditions'
         },
-        save: 'Accept Terms and Save',
-        saving: 'Saving',
+        save: 'Accept Terms and Submit',
+        saving: 'Submittingad',
         requiredWarning: 'Required Fields'
       }
     },
