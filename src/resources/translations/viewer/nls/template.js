@@ -5,6 +5,7 @@ define({
       map: 'Loading map'
     },
     common: {
+      or: 'or',
       appNamePrepend: 'Story Map',
       appName: 'Crowdsource',
       buttons: {
@@ -83,7 +84,7 @@ define({
       },
       form: {
         photo: {
-          pickFile: 'Pick a File',
+          pickFile: 'Tap to pick a file',
           choosePhoto: 'Upload a Photo',
           selectNew: 'Use a different photo'
         },

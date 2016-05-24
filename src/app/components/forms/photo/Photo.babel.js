@@ -67,13 +67,13 @@ export default class Photo extends FormGroup {
 
     const fileUploader = !this.isMobileDevice && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
       <div className={uploaderClasses}>
-        <h6>
+        <h4>
           {this.props.placeholder}
-          <br></br>
-          {ViewerText.common.or}
-        </h6>
-        <label className="btn btn-default btn-file" tabIndex="-1" onBlur={this.onBlur}>
-          {ViewerText.contribute.form.photo.pickFile}
+        </h4>
+        {ViewerText.common.or}
+        <br />
+        {ViewerText.contribute.form.photo.pickFile}
+        <label className="btn-file" tabIndex="-1" onBlur={this.onBlur}>
           <input id={this.props.id} style={{display: 'none'}} type="file" tabIndex="-1" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} onChange={this.fileChange}></input>
         </label>
       </div>

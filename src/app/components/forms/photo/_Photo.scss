@@ -15,20 +15,25 @@
   }
 
   .drag-area.uploader {
+    position: relative;
     text-align: center;
     padding: 80px 0;
 
-    h6 {
+    h4 {
       line-height: 1.5em;
       margin: 0;
     }
   }
 
   .btn-file {
-    position: relative;
+    position: absolute;
     overflow: hidden;
-    vertical-align: initial;
-    margin-top: 0.5em;
+    margin: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
 
     input[type=file] {
       position: absolute;
