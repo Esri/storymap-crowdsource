@@ -25,6 +25,11 @@ export default class SelectedShares extends React.Component {
 
     return (
       <div className={mainClasses}>
+        <div className="close-button-wrapper">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeAction}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          </button>
+        </div>
         <ul className="cards-list">
           {this.props.items.map((current) => {
 

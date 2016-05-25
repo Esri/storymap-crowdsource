@@ -55,6 +55,11 @@ export default class CrowdsourceForm extends React.Component {
 
     return (
       <div className="row">
+        <div className="close-button-wrapper">
+          <button type="button" className="close" aria-label="Close" onClick={this.onClose}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          </button>
+        </div>
         <div className="col-xs-12">
           <h3 className="form-title">{this.props.title}</h3>
           <form>

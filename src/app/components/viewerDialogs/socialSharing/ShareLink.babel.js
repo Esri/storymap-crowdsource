@@ -140,6 +140,8 @@ export default class ShareLink extends React.Component {
     const modalClasses = Helper.classnames([this.props.className,this.props.classNames,'share-link-dialog']);
 
     const options = {
+      closeButton: true,
+      closeAction: this.props.closeAction,
       title: viewerText.sharing.link.title,
       body: (
         <form>

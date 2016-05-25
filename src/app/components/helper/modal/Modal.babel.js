@@ -47,9 +47,13 @@ export default class Modal extends React.Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header" style={this.props.headerStyle}>
-                { this.props.closeButton ? <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}} ></span>
-                </button> : null }
+                { this.props.closeButton ? (
+                  <div className="close-button-wrapper">
+                    <button type="button" className="close" aria-label="Close" onClick={this.props.closeAction}>
+                      <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+                    </button>
+                  </div>
+                ) : null }
                 <h4 className="modal-title">
                   { parseContent(this.props.title) }
                 </h4>
@@ -82,7 +86,9 @@ Modal.propTypes = {
     React.PropTypes.shape({})
   ]),
   headerStyle: React.PropTypes.shape({}),
-  classNames: React.PropTypes.array
+  classNames: React.PropTypes.array,
+  closeButton: React.PropTypes.bool,
+  closeAction: React.PropTypes.func
 };
 
 Modal.defaultProps = {
@@ -90,5 +96,7 @@ Modal.defaultProps = {
   body: '',
   footer: '',
   headerStyle: {},
-  classNames: []
+  classNames: [],
+  closeButton: false,
+  closeAction: () => {}
 };

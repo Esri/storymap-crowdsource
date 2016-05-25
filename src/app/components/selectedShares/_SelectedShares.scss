@@ -1,5 +1,13 @@
 .selected-shares {
 
+  .close-button-wrapper {
+    display: none;
+  }
+
+  &:hover .close-button-wrapper{
+    display: block;
+  }
+
   .share-title {
     height: auto;
     margin-bottom: 0;

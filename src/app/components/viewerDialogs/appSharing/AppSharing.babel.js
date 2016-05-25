@@ -148,6 +148,8 @@ export default class AppSharing extends React.Component {
     const modalClasses = Helper.classnames([this.props.className,this.props.classNames,'app-share']);
 
     const options = {
+      closeButton: true,
+      closeAction: this.props.closeAction,
       title: builderText.shareApp.title,
       body: (
         <form>

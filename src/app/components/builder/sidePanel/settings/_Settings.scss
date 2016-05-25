@@ -2,6 +2,14 @@
 
 .settings.side-panel {
 
+  .close-button-wrapper {
+    display: none;
+  }
+
+  &:hover .close-button-wrapper{
+    display: block;
+  }
+
   .settings-selector {
     width: 100%;
 

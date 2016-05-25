@@ -69,6 +69,11 @@ export default class SidePanelHelp extends React.Component {
 
     return (
       <div className={settingsClasses}>
+        <div className="close-button-wrapper">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeAction}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          </button>
+        </div>
         <div className="row">
           <div className="col-xs-12">
             <h2>

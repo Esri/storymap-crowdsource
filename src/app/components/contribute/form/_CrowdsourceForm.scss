@@ -1,4 +1,12 @@
 .contribute-panel {
+  .close-button-wrapper {
+    display: none;
+  }
+
+  &:hover .close-button-wrapper{
+    display: block;
+  }
+
   .form-title {
     margin-top: 0;
   }

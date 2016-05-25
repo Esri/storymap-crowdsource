@@ -16,6 +16,11 @@ export default class Login extends React.Component {
 
     return (
       <div className="row">
+        <div className="close-button-wrapper">
+          <button type="button" className="close" aria-label="Close" onClick={this.onClose}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          </button>
+        </div>
         <div className="col-xs-12">
           <h3>{viewerText.contribute.login.title}</h3>
           { Object.keys(this.props.loginOptions).map((current) => {

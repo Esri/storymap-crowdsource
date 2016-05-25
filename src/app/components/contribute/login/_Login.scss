@@ -16,6 +16,14 @@ $btn-google-border: lighten(#ed412d,10%);;
 
 .contribute-panel {
 
+  .close-button-wrapper {
+    display: none;
+  }
+
+  &:hover .close-button-wrapper{
+    display: block;
+  }
+
   .btn-arcgis {
     @include button-variant($btn-arcgis-color, $btn-arcgis-bg, $btn-arcgis-border);
   }

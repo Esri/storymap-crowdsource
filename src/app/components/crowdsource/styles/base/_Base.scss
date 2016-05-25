@@ -65,6 +65,22 @@
     }
   }
 
+  .close-button-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: inherit;
+    z-index: 2;
+    overflow: hidden;
+
+    .close {
+      height: 50px;
+      width: 50px;
+      font-size: 50px;
+      font-weight: normal;
+    }
+  }
+
   // CALCITE OVERRIDES
   .tooltip.in {
     opacity: 1;
