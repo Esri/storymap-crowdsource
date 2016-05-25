@@ -116,7 +116,7 @@ define({
           bold: {
             settings: 'Settings',
             homeMap: 'home map view'
-          },
+          }
         },
         {
           title: 'Reviewing Contributions',
@@ -132,7 +132,7 @@ define({
             newContributions: 'Review: New Contributions',
             approve: 'Approve',
             reject: 'Reject'
-          },
+          }
         },
         {
           title: 'FAQ',
@@ -215,6 +215,10 @@ define({
         },
         socialSharing: {
           title: 'Social Sharing',
+          extra: {
+            tweetLength: 'Estimated tweet length',
+            tweetLengthWarning: 'Your estimated tweet is greater than 140 characters. We recommend testing your tweet to prevent your users from encountering an error.'
+          },
           fields: {
             includeSharing: {
               label: 'Sharing buttons',

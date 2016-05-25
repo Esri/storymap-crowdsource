@@ -17,12 +17,25 @@ export default class SocialSharingSetttings extends React.Component {
   }
 
   render() {
-    const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'header-settings']);
+    const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'social-settings']);
+    const tweetLength = this.props.defaultValues.includeTwitter ? this.props.defaultValues.twitterText.length + 24 : null;
+    const tweetLengthCountClass = Helper.classnames({
+      'text-muted': tweetLength < 119,
+      'text-danger': tweetLength > 140
+    });
 
     return (
       <form className={settingsClasses}>
         <CheckboxGroup {...this.getInputSettings('includeSharing')}></CheckboxGroup>
         { this.props.defaultValues.includeTwitter ? (<Textarea {...this.getInputSettings('twitterText')}></Textarea>) : null }
+          { this.props.defaultValues.includeTwitter && tweetLength > 140 ? (
+          <p className="tweet-count-warning text-info"><small>
+            {builderText.settings.panes.socialSharing.extra.tweetLengthWarning}
+          </small></p>) : null }
+          { this.props.defaultValues.includeTwitter ? (
+          <small className="tweet-count">
+            {builderText.settings.panes.socialSharing.extra.tweetLength}: <strong><span className={tweetLengthCountClass}>{tweetLength}</span></strong>
+          </small>) : null }
         { this.props.defaultValues.includeTwitter ? (<Input {...this.getInputSettings('twitterRelated')}></Input>) : null }
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>

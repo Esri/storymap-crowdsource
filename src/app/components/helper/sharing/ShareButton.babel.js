@@ -63,10 +63,10 @@ export const ShareButton = class ShareButton extends React.Component {
       url: Helper.getSharingUrl()
     };
 
-    if (this.props.twitter.hashtags.length > 0) {
+    if (this.props.twitter.hashtags && this.props.twitter.hashtags.length > 0) {
       urlParams.hashtags = this.props.twitter.hashtags;
     }
-    if (this.props.twitter.twitterHandle.length > 0) {
+    if (this.props.twitter.twitterHandle && this.props.twitter.twitterHandle.length > 0) {
       urlParams.via = this.props.twitter.twitterHandle.search('@') === 0 ? this.props.twitter.twitterHandle.slice(1) : this.props.twitter.twitterHandle;
     }
 

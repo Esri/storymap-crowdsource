@@ -56,7 +56,7 @@ export default class AppSharing extends React.Component {
     this.selectAllFromNode(this.linkInput);
 
     if (this.copySupported) {
-      const clipboard = new Clipboard('.share-link-dialog .copy-button');
+      const clipboard = new Clipboard('.app-share .copy-button');
 
       clipboard.on('success',this.onCopy);
     }
