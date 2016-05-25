@@ -261,6 +261,7 @@ define({
             },
             showNewFeatures: {
               label: 'Show contributions',
+              tooltip: 'This controls when new contributions appear on the map. "Immediately" shows contributions right away while "After review" requires you to approve or reject each contribution before it is visible to anyone else. See the Help for more information',
               optionLabels: {
                 'new': 'Immediately',
                 'approved': 'After review'
@@ -282,7 +283,7 @@ define({
             termsAndConditions: {
               label: 'Terms and Conditions',
               placeholder: 'Enter terms',
-              tooltip: 'These are the terms and conditions your participants must accept before they can add their contributions to the story.'
+              tooltip: 'These are the terms and conditions your participants must accept before they can add their contributions to this story.'
             }
           }
         }

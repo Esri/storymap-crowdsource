@@ -1,6 +1,7 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
+import Autolinker from 'babel/components/helper/autolinker/Autolinker';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
@@ -11,6 +12,7 @@ export default class SelectedShares extends React.Component {
 
     // autobind methods
     this.getMedia = this.getMedia.bind(this);
+    this.getFieldLayout = this.getFieldLayout.bind(this);
   }
 
   render() {
@@ -35,15 +37,7 @@ export default class SelectedShares extends React.Component {
                   <div className="info-section">
                     <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
                     <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
-                    { this.props.displayOrder.map((current) => {
-
-                      if (typeof current === 'string') {
-                        const fieldClasses = Helper.classnames(['field-display', 'field-' + current]);
-
-                        return (<p key={current} className={fieldClasses}>{attributes[current]}</p>);
-                      }
-
-                    })}
+                  { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
                   </div>
                   {this.props.reviewEnabled ? (
                     <div className="review-section bg-info">
@@ -98,6 +92,22 @@ export default class SelectedShares extends React.Component {
           </div>
         );
     }
+  }
+
+  getFieldLayout(attributes,current) {
+
+      if (typeof current === 'string') {
+        const fieldClasses = Helper.classnames(['field-display', 'field-' + current]);
+        const fieldProps = this.props.fields.filter((fCurrent) => {
+          return fCurrent.fieldID === current;
+        })[0];
+
+        if (fieldProps && fieldProps.type === 'textarea') {
+          return (<Autolinker key={current} className={fieldClasses} text={attributes[current]}></Autolinker>);
+        } else {
+          return (<p key={current} className={fieldClasses}>{attributes[current]}</p>);
+        }
+      }
   }
 
 }

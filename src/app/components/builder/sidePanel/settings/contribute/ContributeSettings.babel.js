@@ -57,6 +57,10 @@ export default class ContributeSettings extends React.Component {
       case 'showNewFeatures':
         $.extend(true,settings,{
           defaultValue: this.props.defaultValues[input],
+          tooltip: {
+            placement: 'right',
+            content: builderText.settings.panes.contribute.fields[input].tooltip
+          },
           options: [{
             label: builderText.settings.panes.contribute.fields[input].optionLabels.new,
             value: 'new'

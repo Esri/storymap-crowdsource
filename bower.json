@@ -37,6 +37,7 @@
     "smartcrop": "*",
     "autosize": "^3.0.15",
     "clipboard": "^1.5.9",
-    "urijs": "^1.18.0"
+    "urijs": "^1.18.0",
+    "Autolinker.js": "^0.26.0"
   }
 }
