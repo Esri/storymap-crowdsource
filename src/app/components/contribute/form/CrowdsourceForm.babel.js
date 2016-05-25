@@ -29,6 +29,8 @@ export default class CrowdsourceForm extends React.Component {
     this.graphic.attributes[this.props.vettedField] = 0;
     this.graphic.attributes[this.props.hiddenField] = 0;
 
+    this.changedCompareString = JSON.stringify(this.graphic);
+
     this.onSave = this.onSave.bind(this);
     this.onClose = this.onClose.bind(this);
     this.getFormField = this.getFormField.bind(this);
@@ -85,7 +87,16 @@ export default class CrowdsourceForm extends React.Component {
   }
 
   onClose() {
-    this.props.closeAction();
+    // TODO make a nicer confirm dialog
+    if (JSON.stringify(this.graphic) === this.changedCompareString) {
+      this.props.closeAction();
+    } else {
+      const confirmed = confirm(ViewerText.contribute.form.changedCloseWarning); //eslint-disable-line no-alert
+
+      if (confirmed) {
+        this.props.closeAction();
+      }
+    }
   }
 
   getFieldDefinitionValue(name,key) {
