@@ -51,7 +51,7 @@ define({
         name: {
           label: 'Add a title',
           attribute: 'title',
-          placeholder: 'Name your share'
+          placeholder: 'Enter a title'
         },
         description: {
           label: 'Add a description',
