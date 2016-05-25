@@ -380,6 +380,9 @@ define({
       saving: {
         checkInternet: 'Your story could not be saved. Check your internet connection or refresh your page and try again.',
         unknown: 'An unknown error occured and your story could not be saved. Refresh your page and try again.'
+      },
+      scratchCreation: {
+        unknown: 'An unknown error occured when creating the items required for your story and opening the builder. Refresh the page and try again.'
       }
     },
     validations: {
@@ -387,7 +390,7 @@ define({
       arcgis: {
         naming: {
           arcgisItemName: 'The <% attribute %> may not contain < or >.',
-          arcgisServiceNameFormat: 'The <% attribute %> may contain only contain letters, numbers, and underscores.'
+          arcgisServiceNameFormat: 'The <% attribute %> may not begin with a number and may contain only contain letters, numbers, and underscores.'
         },
         portal: {
           unableToCheckName: 'An unknown error occured and we are unable to check if the name is available. Please try again later.',

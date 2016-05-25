@@ -51,7 +51,7 @@ const PortalRules = {
     };
 
     if (portal) {
-      if (settings.value && typeof settings.value === 'string' && settings.value.length > 0 && !settings.value.match(/[^a-zA-Z0-9_]/gi)){
+      if (settings.value && typeof settings.value === 'string' && settings.value.length > 0 && !settings.value.match(/[^a-zA-Z0-9_]/gi) && !settings.value.match(/^[\d]*/gi)){
         const dfd = new Deferred();
 
         portal.isNameAvailable({
@@ -79,9 +79,9 @@ const PortalRules = {
           dfd.resolve(res);
         });
         return dfd;
-      } else if (settings.value && typeof settings.value === 'string' && settings.value.length > 0 && settings.value.match(/[^a-zA-Z0-9_]/gi)) {
+      } else if (settings.value && typeof settings.value === 'string' && settings.value.length > 0 && (settings.value.match(/[^a-zA-Z0-9_]/gi) || settings.value.match(/^[\d]/gi))) {
         const dfd = new Deferred();
-        const correctFormat = settings.value.toCamelCase().replace(/[^a-zA-Z0-9_]/gi,'');
+        const correctFormat = settings.value.match(/^[\d]*/gi) ? '_' + settings.value.toCamelCase().replace(/[^a-zA-Z0-9_]/gi,'').slice(0,120) : settings.value.toCamelCase().replace(/[^a-zA-Z0-9_]/gi,'').slice(0,120);
 
         res.isValid = false;
         res.error = ValidationUtils.templateMessage(settings.errorMessage || ValitdateText.naming.arcgisServiceNameFormat,msgOptions);

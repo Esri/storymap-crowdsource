@@ -120,8 +120,10 @@ export default class StoryCreator {
         SettingsActions.updateMapCrowdsourceLayerId(layerId);
         this.createWebmap();
       }
-      // TODO add visibile error dialog to user
-    },_onError);
+    },(err) => {
+      AppActions.displayMainError(builderText.errors.scratchCreation.unknown);
+      _onError(err);
+    });
   }
 
   createWebmap() {
@@ -133,8 +135,10 @@ export default class StoryCreator {
         SettingsActions.updateMapWebmapId(res.createResponse.id);
         this.createApp();
       }
-      // TODO add visibile error dialog to user
-    },_onError);
+    },(err) => {
+      AppActions.displayMainError(builderText.errors.scratchCreation.unknown);
+      _onError(err);
+    });
   }
 
   createApp() {
@@ -152,8 +156,10 @@ export default class StoryCreator {
 
         this.saveApp(this.registerApp);
       }
-      // TODO add visibile error dialog to user
-    },_onError);
+    },(err) => {
+      AppActions.displayMainError(builderText.errors.scratchCreation.unknown);
+      _onError(err);
+    });
   }
 
   saveApp(callback) {
@@ -163,8 +169,10 @@ export default class StoryCreator {
       if (res.success) {
         callback();
       }
-      // TODO add visibile error dialog to user
-    },_onError);
+    },(err) => {
+      AppActions.displayMainError(builderText.errors.scratchCreation.unknown);
+      _onError(err);
+    });
   }
 
   registerApp() {
@@ -177,8 +185,10 @@ export default class StoryCreator {
         });
         this.saveApp(this.redirectToEditor);
       }
-      // TODO add visibile error dialog to user
-    },_onError);
+    },(err) => {
+      AppActions.displayMainError(builderText.errors.scratchCreation.unknown);
+      _onError(err);
+    });
   }
 
   redirectToEditor() {
