@@ -76,6 +76,14 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           this.onLoad();
         });
 
+        on(clusterLayer,'ids-returned',(e) => {
+          if (e.results.length === 0){
+            const features = clusterLayer._inExtent();
+
+            MapActions.updateFeaturesInExtent(features);
+          }
+        });
+
         // Map ready when cluster are first shown
         clusterLayer.on('clusters-shown', () => {
           // Get original features in current extent
