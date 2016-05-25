@@ -380,14 +380,17 @@ define({
       saving: {
         checkInternet: 'Your story could not be saved. Check your internet connection and reload the page to try again.',
         unknown: 'Your story could not be saved. Reload the page to try again.'
+      },
+      scratchCreation: {
+        unknown: 'Could not create the items required for your story. Refresh the page to try again.'
       }
     },
     validations: {
       waitMessage: 'Checking...',
       arcgis: {
         naming: {
-          arcgisItemName: 'The <% attribute %> may not contain < or >.',
-          arcgisServiceNameFormat: 'The <% attribute %> may contain only contain letters, numbers, and underscores.'
+          arcgisItemName: 'The <% attribute %> must not contain < or >.',
+          arcgisServiceNameFormat: 'The <% attribute %> must contain only contain letters, numbers, and underscores and cannot begin with a number.'
         },
         portal: {
           unableToCheckName: 'Unable to check if the name is available. Please try again.',
