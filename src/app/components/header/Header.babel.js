@@ -93,6 +93,7 @@ export const Header = class Header extends React.Component {
         placement: 'left'
       });
     } else if (destroy || (this.participationButtonTooltip && !this.props.participationButtonDisabled)) {
+      this.participationButtonTooltip = false;
       $(this.participateBtn).tooltip('destroy');
     }
   }
