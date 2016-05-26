@@ -35,7 +35,7 @@ export const Webmap = class Webmap extends React.Component {
     }]);
 
     return (
-      <div className={mapClass}></div>
+      <div className={mapClass} tabIndex="-1"></div>
     );
   }
 

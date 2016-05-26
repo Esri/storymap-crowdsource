@@ -48,7 +48,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterDefaults = {
           objectIdField,
           disablePopup: true,
-          distance: 125,
+          distance: 80,
           id: 'crowdsourceClusters',
           labelColor: '#fff',
           resolution: map.extent.getWidth() / map.width,

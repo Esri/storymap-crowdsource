@@ -58,7 +58,7 @@ export default class ContributeSettings extends React.Component {
         $.extend(true,settings,{
           defaultValue: this.props.defaultValues[input],
           tooltip: {
-            placement: 'right',
+            placement: 'bottom',
             content: builderText.settings.panes.contribute.fields[input].tooltip
           },
           options: [{
