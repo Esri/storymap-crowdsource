@@ -4,7 +4,7 @@ define({
     betaMessage: {
       title: 'This is a beta release of Story Map Crowdsource',
       messageParagraphs: [
-        'This version of Story Map Crowdsource has its core features completed and stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial release.',
+        'This version of Story Map Crowdsource has its core features completed and is stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial release.',
         'Stories created with this beta version will continue to work with later releases unless you modify it or one of its components outside the Builder.',
         'Please read the Help for more information on how to use this app and where to submit feedback.'
       ]
