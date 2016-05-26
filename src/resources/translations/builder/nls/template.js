@@ -367,7 +367,7 @@ define({
         redirectToSecureConnection: 'Reload with a secure connection'
       },
       inlineEditing: {
-        heading: 'Your attention is required'
+        heading: 'Attention'
       },
       loading: {
         notAuthorizedCreateNew: 'To create a Crowdsource story you must use an ArcGIS Subscription Account with publishing privileges. If you are using a Subscription Account, contact your ArcGIS administrator to request additional privileges. If you are using an ArcGIS Public Account, <a href="http://www.arcgis.com/features/plans/pricing.html" target="-blank">upgrade</a> to a subscription or start a <a href="http://www.arcgis.com/features/free-trial.html" target="-blank">free trial</a>.',
