@@ -30,6 +30,9 @@ define({
         leavingBeforeSave: 'You have unsaved changes in your story. If you leave now, your changes will be lost.'
       }
     },
+    header: {
+      participateBtnDisabledTooltip: 'Close Settings panel to enable'
+    },
     introSplash: {
       form: {
         title: {

@@ -4,6 +4,9 @@ import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import ShareButtonPane from 'babel/components/helper/sharing/ShareButtonPane';
+import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
+import 'bootstrap/tooltip';
+import 'bootstrap/transition';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -12,16 +15,24 @@ export const Header = class Header extends React.Component {
   constructor(props) {
     super(props);
     this.updateTitleWidth = this.updateTitleWidth.bind(this);
+    this.participateAction = this.participateAction.bind(this);
+    this.toggleParticipateBtnTooltip = this.toggleParticipateBtnTooltip.bind(this);
+  }
+
+  componentDidMount() {
+    this.toggleParticipateBtnTooltip();
   }
 
   componentDidUpdate() {
     this.node = ReactDOM.findDOMNode(this);
     this.updateTitleWidth();
     $(window).on('resize',this.updateTitleWidth);
+    this.toggleParticipateBtnTooltip();
   }
 
   componentWillUnmount() {
     $(window).off('resize',this.updateTitleWidth);
+    this.toggleParticipateBtnTooltip(true);
   }
 
   render() {
@@ -31,7 +42,9 @@ export const Header = class Header extends React.Component {
       __html: getIcon('participate')
     };
     const participateBtn = this.props.showParticipateActionButton ? (
-      <button className="participate btn btn-primary nav-btn" onClick={this.props.participateAction}>
+      <button ref={(ref) => this.participateBtn = ref} className={Helper.classnames(['participate', 'btn', 'btn-primary', 'nav-btn'],{
+          disabled: this.props.participationButtonDisabled
+        })} onClick={this.participateAction}>
         <span className="icon" dangerouslySetInnerHTML={participateIconHtml}></span>
         <span className="text">{this.props.participateShort}</span>
       </button>
@@ -70,6 +83,24 @@ export const Header = class Header extends React.Component {
       </header>
     );
 
+  }
+
+  toggleParticipateBtnTooltip(destroy) {
+    if (builderText && !this.participationButtonTooltip && this.props.participationButtonDisabled) {
+      this.participationButtonTooltip = true;
+      $(this.participateBtn).tooltip({
+        title: builderText.header.participateBtnDisabledTooltip,
+        placement: 'left'
+      });
+    } else if (destroy || (this.participationButtonTooltip && !this.props.participationButtonDisabled)) {
+      $(this.participateBtn).tooltip('destroy');
+    }
+  }
+
+  participateAction() {
+    if (!this.props.participationButtonDisabled) {
+      this.props.participateAction();
+    }
   }
 
   updateTitleWidth() {

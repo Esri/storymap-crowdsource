@@ -48,7 +48,8 @@ class Viewer extends React.Component {
         <style dangerouslySetInnerHTML={{__html: this.props.layout.fontCss}}></style>
         <Header
           homeAction={this.props.showComponent.bind(this,componentNames.INTRO)}
-          showParticipateActionButton={this.props.components.contribute.participationAllowed && this.props.loading.map && !this.props.contributing.active && this.props.layout.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) < 0}
+          showParticipateActionButton={this.props.components.contribute.participationAllowed && this.props.loading.map && !this.props.contributing.active}
+          participationButtonDisabled={this.props.layout.visibleComponents.indexOf(componentNames.SIDE_PANEL_SETTINGS) >= 0}
           participateAction={this.props.updateContributeState.bind(this,{active: true})}
           {...this.props.components.header}
           {...this.props.components.common}
