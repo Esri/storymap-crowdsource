@@ -36,11 +36,11 @@ define({
           placeholder: 'Enter title'
         },
         subtitle: {
-          label: 'Subtitle',
+          label: 'cover message',
           placeholder: 'Enter cover message'
         },
         exploreButton: {
-          label: 'Explore Map Button',
+          label: 'map button label',
           placeholder: 'Enter label'
         }
       }
@@ -261,7 +261,7 @@ define({
             },
             showNewFeatures: {
               label: 'Show contributions',
-              tooltip: 'This controls when new contributions appear on the map. "Immediately" shows contributions right away while "After review" requires you to approve or reject each contribution before it is visible to anyone else. See the Help for more information',
+              tooltip: 'This controls when new contributions appear on the map. "Immediately" shows contributions right away. "After review" requires you to approve new contributions before they are visible to anyone else. See the Help for more information about reviewing contributions.',
               optionLabels: {
                 'new': 'Immediately',
                 'approved': 'After review'
@@ -367,7 +367,7 @@ define({
         redirectToSecureConnection: 'Reload with a secure connection'
       },
       inlineEditing: {
-        heading: 'Form Error'
+        heading: 'Attention'
       },
       loading: {
         notAuthorizedCreateNew: 'To create a Crowdsource story you must use an ArcGIS Subscription Account with publishing privileges. If you are using a Subscription Account, contact your ArcGIS administrator to request additional privileges. If you are using an ArcGIS Public Account, <a href="http://www.arcgis.com/features/plans/pricing.html" target="-blank">upgrade</a> to a subscription or start a <a href="http://www.arcgis.com/features/free-trial.html" target="-blank">free trial</a>.',
