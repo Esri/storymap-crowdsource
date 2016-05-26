@@ -36,11 +36,11 @@ define({
           placeholder: 'Enter title'
         },
         subtitle: {
-          label: 'Subtitle',
+          label: 'cover message',
           placeholder: 'Enter cover message'
         },
         exploreButton: {
-          label: 'Explore Map Button',
+          label: 'map button label',
           placeholder: 'Enter label'
         }
       }
