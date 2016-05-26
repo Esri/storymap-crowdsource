@@ -4,8 +4,9 @@ define({
     betaMessage: {
       title: 'This is a beta release of Story Map Crowdsource',
       messageParagraphs: [
-        'A beta release means that some features of this app are not in their final form. In most cases, stories created with this beta version of the app will simply continue to work when the final version is released.',
-        'If a Crowdsource story is modified outside the Builder, however, there is a possibility it may not work with the final version of the app. For more information please read the FAQ section of the Help.'
+        'This version of Story Map Crowdsource has its core features completed and stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial v1.0 release.',
+        'In most cases, stories created with this beta version will continue to work when v1.0 is released. However, if a Crowdsource story or one of its components is modified outside the Builder there is a possibility it may not work with the final released.',
+        'For more information about modifying stories created with this beta and how to submit feedback please read the FAQ section of the Help.'
       ]
     },
     common: {
@@ -97,7 +98,7 @@ define({
         {
           title: 'Introduction',
           paragraphs: [
-            'Story Map Crowdsource is an ArcGIS web application designed to collect photos and captions, on a topic you specify, from anyone and display them on a map. The app is easy to use and configure, and can be used in a web browser on laptop and desktop computers, mobile phones, and tablets. Contributors can log in with their Facebook or Google account or with an ArcGIS account if they have one.',
+            'Story Map Crowdsource (beta) is an ArcGIS web application designed to collect photos and captions from anyone and display them on a map. The app is easy to use and configure and can be used in a web browser on laptop and desktop computers, mobile phones, and tablets. Contributors can log in with their Facebook or Google account or with an ArcGIS account.',
             'To see examples of Crowdsource stories that other authors are creating, visit the <% galleryLink %>. You can also follow us on Twitter at <% twitterFollowLink %>.',
             'We would love to hear from you! Whether you have a question, want to request a new feature, or think you\'ve found a bug, please visit the <% geonet %>.'
           ],
@@ -110,8 +111,9 @@ define({
         {
           title: 'Configuration',
           paragraphs: [
-            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the Builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more. To return to the cover page from the map, click the title in the header bar.',
-            'You can also set the <% homeMap %>, which is also the area of the map that is shown when your story loads. Just navigate the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.'
+            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the Builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more.',
+            'You can also set the <% homeMap %>, which is the area of the map shown when your story loads. Navigate the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
+            'To return to the cover page from the map, click the title in the header bar.'
           ],
           bold: {
             settings: 'Settings',
@@ -123,7 +125,8 @@ define({
           paragraphs: [
             'Having contributions appear immediately on the map is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, you can choose to review and approve submissions first.',
             'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
-            'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the header. Then click the map to view a contribution and choose <% approve %> or <% reject %>. You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the header. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
+            'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the header. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
+            'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the header. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
           ],
           bold: {
             settings: 'Settings',
@@ -370,7 +373,7 @@ define({
         heading: 'Attention'
       },
       loading: {
-        notAuthorizedCreateNew: 'To create a Crowdsource story you must use an ArcGIS Subscription Account with publishing privileges. If you are using a Subscription Account, contact your ArcGIS administrator to request additional privileges. If you are using an ArcGIS Public Account, <a href="http://www.arcgis.com/features/plans/pricing.html" target="-blank">upgrade</a> to a subscription or start a <a href="http://www.arcgis.com/features/free-trial.html" target="-blank">free trial</a>.',
+        notAuthorizedCreateNew: 'To create a Crowdsource story you must use an ArcGIS subscription account with publishing privileges. If you are using a subscription account, contact your ArcGIS administrator to request additional privileges. If you are using an ArcGIS public account, <a href="http://www.arcgis.com/features/plans/pricing.html" target="-blank">upgrade</a> to a subscription or start a <a href="http://www.arcgis.com/features/free-trial.html" target="-blank">free trial subscription</a>.',
         notAuthorizedEdit: 'You are not authorized to edit this story. If you are not the owner, make sure you have been <a href="http://blogs.esri.com/esri/arcgis/2015/07/14/enable-colleagues-to-update-your-maps-and-apps/" target="-blank">given edit permissions</a> by the owner. You must also have access to edit items and publish new hosted feature services in your organization. Contact your ArcGIS Online organization administrator to request these privileges.',
         crowdsourceLayerNotFound: 'Could not find or load the crowdsource map layer correctly. Make sure you have permission to view the feature service.',
         builderNotSSL: 'This Crowdsource story requires the use of a secure (https) connection to ensure your audience can securely log in and contribute their photos. Make sure your server supports an https connection at this same URL. Others attempting to access your story over http will be redirected to a secure connection, if possible.'
