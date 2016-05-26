@@ -2,6 +2,7 @@ import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
+import MapActions from 'babel/actions/MapActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import 'velocity';
 
@@ -122,7 +123,8 @@ export default class SidePanelController {
         switch (component) {
           case componentNames.INTRO:
             this.showIntro(options);
-            AppActions.hideComponent([componentNames.MAP,componentNames.GALLERY]);
+            MapActions.selectFeatures([]);
+            AppActions.hideComponent([componentNames.MAP,componentNames.GALLERY,componentNames.CONTRIBUTE,componentNames.SELECTED_SHARES]);
             break;
           case componentNames.MAP:
             this.showMap(options);
