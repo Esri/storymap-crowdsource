@@ -150,7 +150,11 @@ define({
           title: 'FAQ',
           questions: [
             {
-              question: 'Will a Crowdsource story created with the beta version of the app continue to work when the final version is released?',
+              question: 'How do I provide feedback about this beta app?',
+              response: 'To provide feedback or suggestions, or to let us know about issues, please share your thoughts on the <% geonet %>.'
+            },
+            {
+              question: 'Will a Crowdsource story created with the beta version of the app continue to work after future software releases?',
               response: 'Yes it will work, but there are two possible exceptions: 1) If you add layers to your beta Crowdsource story\'s web map (which can only be done outside the Builder), those layers may stop working or their symbols may change after the final release. To avoid this situation you can convert any supporting layers to feature layers before adding them to your map and use simple symbols. 2) There is also a possibility that the data model for the crowdsource layer may change. If this occurs, we intend to provide a workflow or tool to update your layer to the new data model.'
             },
             {
@@ -183,6 +187,7 @@ define({
             google: 'Google'
           },
           links: {
+            geonet: 'Story Maps Forum on GeoNet'
             map: 'map',
             agoCredits: 'ArcGIS Online service credits',
             github: 'GitHub project page'
