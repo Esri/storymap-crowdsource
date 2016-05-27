@@ -52,7 +52,31 @@ export const checkForCredential = function(options) {
   return attachmentUrl.href();
 };
 
+export const getAttachmentUrlsByStringMatch = function(options) {
+  const defaults = {
+    attachmentKey: 'attachmentInfos'
+  };
+  const settings = $.extend(true,{},defaults,options);
+  const urls = [];
+
+  if (settings.layer && settings.feature && settings.match) {
+    const serviceUrl = settings.layer.url;
+    const objectId = settings.feature.attributes[settings.layer.objectIdField];
+
+    settings.feature[settings.attachmentKey].forEach((current) => {
+      if (typeof settings.position === 'number' && current.name.search(settings.match) === settings.position) {
+        urls.push(serviceUrl.stripTrailingSlash() + '/' + objectId + '/attachments/' + current.id);
+      } else if (current.name.search(settings.match) >= 0) {
+        urls.push(serviceUrl.stripTrailingSlash() + '/' + objectId + '/attachments/' + current.id);
+      }
+    });
+  }
+
+  return urls;
+};
+
 export default {
   checkForCredential,
-  dataURItoBlob
+  dataURItoBlob,
+  getAttachmentUrlsByStringMatch
 };

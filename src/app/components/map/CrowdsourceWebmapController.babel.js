@@ -50,6 +50,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           disablePopup: true,
           distance: 80,
           id: 'crowdsourceClusters',
+          queryAttachments: true,
           labelColor: '#fff',
           resolution: map.extent.getWidth() / map.width,
           where: this._settings.crowdsourceLayer.where,

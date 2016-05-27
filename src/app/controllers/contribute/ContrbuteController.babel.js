@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import URI from 'lib/urijs/src/URI';
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
@@ -87,10 +86,6 @@ export default class ContributeController {
             usePost: true
           }).then((res) => {
             if (res.addAttachmentResult && res.addAttachmentResult.success) {
-              const url = new URI(layer.url.stripTrailingSlash() + '/' + oid + '/attachments/' + res.addAttachmentResult.objectId);
-
-              url.protocol('https');
-              current.url = url.href();
               ++uploadsFinished;
               if (uploadsFinished === attachments.length) {
                 dfd.resolve();
@@ -109,46 +104,19 @@ export default class ContributeController {
 
       };
 
-      const editWithAttachmentUrls = function editWithAttachmentUrls(oid) {
-        const attributes = {};
-
-        attributes[layer.objectIdField] = oid;
-        attachments.forEach((current) => {
-          if (current.field && current.url) {
-            attributes[current.field] = current.url;
-          }
-        });
-
-        const esriGraphic = new Graphic({
-          attributes
-        });
-
-        layer.applyEdits(null,[esriGraphic],null,(adds,updates,deletes) => { // eslint-disable-line no-unused-vars
-          if ($.isArray(updates) && updates[0] && updates[0].success) {
-            self.finishSave();
-          }
-        },(err) => {
-          // TODO Handle errors in crowdsource form
-          AppActions.updateContributeState({
-            saving: false
-          });
-          _onError(err);
-        });
-      };
-
       Object.keys(graphic.attributes).forEach((key) => {
         const value = graphic.attributes[key];
 
         if (typeof value === 'object' && value.attachment && value.type) {
           switch (value.type) {
             case 'photo':
-              graphic.attributes[key] = 'ATTACHMENT_' + key;
               attachments.push({
                 field: key,
                 filename: key + value.ext,
                 attachment: Helper.attachmentUtils.dataURItoBlob(value.source),
                 url: false
               });
+              delete graphic.attributes[key];
               break;
             default:
 
@@ -165,9 +133,7 @@ export default class ContributeController {
           const oid = res[0].objectId;
 
           MapActions.selectFeatures(oid);
-          uploadAttachments(oid).then(editWithAttachmentUrls.bind(null,oid),() => {
-            // TODO Handle Attachment errors
-          });
+          uploadAttachments(oid).then(self.finishSave,_onError);
         }
       },(err) => {
         // TODO Handle errors in crowdsource form
