@@ -114,22 +114,24 @@ define({
         {
           title: 'Configuration',
           paragraphs: [
-            'You can create your own unique Crowdsource story using the Builder\'s configuration options. Click <% settings %> in the Builder toolbar and explore ways to change the cover image, title, logo and sharing options, and more.',
-            'You can also set the <% homeMap %>, which is the area of the map shown when your story loads or the <% home %> navigation button is pressed. Move the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
-            'To return to the cover page from the map, click the middle of the title bar.',
+            'To create your own unique Crowdsource story use the Builder\'s configuration options. Click <% settings %> in the Builder toolbar and explore ways to change the cover image, title, logo and sharing options, and more.',
+            'It\'s important to set the <% homeMap %>, which is the area of the map shown when your story loads or when the <% home %> navigation button is pressed. Move the map to the area you want to use and press the <% updateHomeMapView %> button (next to the map navigation controls) to save the current map view as the home view.',
+            'To return to the <% coverPage %> from the map, click the middle of the title bar.',
             'Configuration changes are <% autosaved %> as you make them. Modifications to text fields can be undone using your browser\'s undo command.'
           ],
           bold: {
             settings: 'Settings',
             homeMap: 'home map view',
             home: 'Home',
-            autosave: 'autosaved'
+            updateHomeMapView: 'Update Home Map View',
+            coverPage: 'cover page',
+            autosaved: 'autosaved'
           }
         },
         {
           title: 'Reviewing Contributions',
           paragraphs: [
-            'Having contributions appear immediately on the map is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, you can choose to review and approve submissions first.',
+            'Showing contributions on the map immediately after they are submitted is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, you can choose to review and approve submissions first.',
             'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
             'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the Builder toolbar. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
             'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the <% review %> filter in the Builder toolbar. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
