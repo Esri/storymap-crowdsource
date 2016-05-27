@@ -187,7 +187,7 @@ define({
             google: 'Google'
           },
           links: {
-            geonet: 'Story Maps Forum on GeoNet'
+            geonet: 'Story Maps Forum on GeoNet',
             map: 'map',
             agoCredits: 'ArcGIS Online service credits',
             github: 'GitHub project page'
