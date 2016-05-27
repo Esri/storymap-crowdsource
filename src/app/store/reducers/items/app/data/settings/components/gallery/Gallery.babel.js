@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 const defaultGallery = {
-  thumbnailField: 'ThumbnailUrl'
+  thumbnailField: 'ThumbnailUrl',
+  thumbnailIsAttachment: true
 };
 
 export const gallery = function (state = defaultGallery, action) {

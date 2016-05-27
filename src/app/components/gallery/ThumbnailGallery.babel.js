@@ -65,10 +65,26 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
   galleryItemRender(item,index) {
     const attr = this.props.attributePath ? Helper.objectUtils.getDescendentProperty(item,this.props.attributePath) : item;
     const endTile = index % this.state.tileSettings.tilesPerRow === 0;
-    const photoUrl = Helper.attachmentUtils.checkForCredential({
-      url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
-      layer: this.props.layer
-    });
+    let photoUrl;
+
+    if (this.props.thumbnailIsAttachment) {
+      const attachmentUrl = Helper.attachmentUtils.getAttachmentUrlsByStringMatch({
+        layer: this.props.layer,
+        feature: item,
+        match: this.props.thumbnailField,
+        position: 0
+      })[0];
+
+      photoUrl = Helper.attachmentUtils.checkForCredential({
+        url: attachmentUrl,
+        layer: this.props.layer
+      });
+    } else {
+      photoUrl = Helper.attachmentUtils.checkForCredential({
+        url: this.props.thumbnailUrlPrepend + attr[this.props.thumbnailField] + this.props.thumbnailUrlAppend,
+        layer: this.props.layer
+      });
+    }
 
     const itemStyle = {
       height: this.state.tileSettings.tileSize,
@@ -109,6 +125,7 @@ ThumbnailGallery.propTypes = {
   primaryField: React.PropTypes.string.isRequired,
   secondaryField: React.PropTypes.string.isRequired,
   size: React.PropTypes.number.isRequired,
+  thumbnailIsAttachment: React.PropTypes.bool,
   thumbnailField: React.PropTypes.string,
   thumbnailUrlPrepend: React.PropTypes.string,
   thumbnailUrlAppend: React.PropTypes.string,
@@ -131,6 +148,7 @@ ThumbnailGallery.defaultProps = {
   selected: [],
   selectAction: () => {},
   size: 200,
+  thumbnailIsAttachment: false,
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: ''
 };

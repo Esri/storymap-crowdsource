@@ -74,16 +74,35 @@ export default class SelectedShares extends React.Component {
   getMedia(item) {
     const media = this.props.media;
     const attributes = item[this.props.attributePath];
+    const fieldProps = this.props.fields.filter((current) => {
+      return current.fieldID === media.field;
+    })[0];
 
     switch (media.type) {
       case 'video':
         // add video
         break;
       default:
-        const photoUrl = Helper.attachmentUtils.checkForCredential({
-          url: this.props.thumbnailUrlPrepend + attributes[media.field] + this.props.thumbnailUrlAppend,
-          layer: this.props.layer
-        });
+        let photoUrl;
+
+        if (fieldProps.isAttachment) {
+          const attachmentUrl = Helper.attachmentUtils.getAttachmentUrlsByStringMatch({
+            layer: this.props.layer,
+            feature: item,
+            match: media.field,
+            position: 0
+          })[0];
+
+          photoUrl = Helper.attachmentUtils.checkForCredential({
+            url: attachmentUrl,
+            layer: this.props.layer
+          });
+        } else {
+          photoUrl = Helper.attachmentUtils.checkForCredential({
+            url: this.props.thumbnailUrlPrepend + attributes[media.field] + this.props.thumbnailUrlAppend,
+            layer: this.props.layer
+          });
+        }
 
         return (
           <div className="media-section">

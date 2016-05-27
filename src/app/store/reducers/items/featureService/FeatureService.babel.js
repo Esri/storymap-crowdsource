@@ -196,24 +196,6 @@ const defaultLayerDefinition = {
 			length: 256
 		},
 		{
-			name: 'ThumbnailUrl',
-			type: 'esriFieldTypeString',
-			alias: 'Thumbnail URL',
-			domain: null,
-			editable: true,
-			nullable: true,
-			length: 256
-		},
-		{
-			name: 'PhotoUrl',
-			type: 'esriFieldTypeString',
-			alias: 'Photo URL',
-			domain: null,
-			editable: true,
-			nullable: true,
-			length: 256
-		},
-		{
 			name: 'Hidden',
 			type: 'esriFieldTypeInteger',
 			alias: 'Share Hidden',
