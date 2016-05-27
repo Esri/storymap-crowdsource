@@ -114,13 +114,16 @@ define({
         {
           title: 'Configuration',
           paragraphs: [
-            'You can create your own unique Crowdsource story using the available configuration options. Click <% settings %> in the Builder header and explore ways to change the layout, cover image, title, logo and sharing links, whether new submissions must be approved before they appear on the map, and more.',
-            'You can also set the <% homeMap %>, which is the area of the map shown when your story loads. Navigate the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
-            'To return to the cover page from the map, click the title in the header bar.'
+            'You can create your own unique Crowdsource story using the Builder\'s configuration options. Click <% settings %> in the Builder toolbar and explore ways to change the cover image, title, logo and sharing options, and more.',
+            'You can also set the <% homeMap %>, which is the area of the map shown when your story loads or the <% home %> navigation button is pressed. Move the map to the area you want to use and press the "Update Home Map View" button (next to the map navigation controls) to store the current map view as the home view.',
+            'To return to the cover page from the map, click the middle of the title bar.',
+            'Configuration changes are <% autosaved %> as you make them. Modifications to text fields can be undone using your browser\'s undo command.'
           ],
           bold: {
             settings: 'Settings',
-            homeMap: 'home map view'
+            homeMap: 'home map view',
+            home: 'Home',
+            autosave: 'autosaved'
           }
         },
         {
@@ -128,8 +131,8 @@ define({
           paragraphs: [
             'Having contributions appear immediately on the map is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, you can choose to review and approve submissions first.',
             'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
-            'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the header. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
-            'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the header. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
+            'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the Builder toolbar. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
+            'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the <% review %> filter in the Builder toolbar. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
           ],
           bold: {
             settings: 'Settings',
@@ -137,7 +140,8 @@ define({
             afterReview: 'Show contributions: After review',
             newContributions: 'Review: New Contributions',
             approve: 'Approve',
-            reject: 'Reject'
+            reject: 'Reject',
+            review: 'Review'
           }
         },
         {
@@ -373,7 +377,7 @@ define({
         redirectToSecureConnection: 'Reload with a secure connection'
       },
       inlineEditing: {
-        heading: 'Attention'
+        heading: 'Attention:'
       },
       loading: {
         notAuthorizedCreateNew: 'To create a Crowdsource story you must use an ArcGIS subscription account with publishing privileges. If you are using a subscription account, contact your ArcGIS administrator to request additional privileges. If you are using an ArcGIS public account, <a href="http://www.arcgis.com/features/plans/pricing.html" target="-blank">upgrade</a> to a subscription or start a <a href="http://www.arcgis.com/features/free-trial.html" target="-blank">free trial subscription</a>.',
