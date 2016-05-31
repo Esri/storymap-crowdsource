@@ -5,7 +5,7 @@ export const featureServiceDefaults = {
     fieldSettings: [{
       required: true,
       type: 'photo',
-      fieldID: 'PhotoUrl',
+      fieldID: 'PrimaryPhoto',
       label: builderText.contribute.defaultForm.photo.label,
       placeholder: builderText.contribute.defaultForm.photo.placeholder,
       attributeName: builderText.contribute.defaultForm.photo.attribute,
@@ -14,10 +14,10 @@ export const featureServiceDefaults = {
       extras: {
         dataType: 'photo',
         photoSettings: [{
-          name: 'PhotoUrl',
+          name: 'PrimaryPhoto',
           smallestSide: 1000
         },{
-          name: 'ThumbnailUrl',
+          name: 'PrimaryThumbnail',
           height: 200,
           width: 200
         }]

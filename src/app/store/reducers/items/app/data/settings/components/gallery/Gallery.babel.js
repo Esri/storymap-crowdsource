@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 const defaultGallery = {
-  thumbnailField: 'ThumbnailUrl',
+  thumbnailField: 'PrimaryThumbnail',
   thumbnailIsAttachment: true
 };
 

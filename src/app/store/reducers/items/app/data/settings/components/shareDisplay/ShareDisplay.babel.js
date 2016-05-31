@@ -3,7 +3,7 @@ import $ from 'jquery';
 const defaultDisplay = {
   media: {
     type: 'photo',
-    field: 'PhotoUrl'
+    field: 'PrimaryPhoto'
   },
   displayOrder: ['Description']
 };
