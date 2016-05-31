@@ -117,7 +117,8 @@ define({
         imageUrl: 'The <% attribute %> must be a valid image URL. In most cases the URL will end with ".jpg", ".gif"., or ".png" extension.'
       },
       pattern: {
-        commaSeparated: 'The <% attribute %> cannot contain any spaces.'
+        commaSeparated: 'The <% attribute %> cannot contain any spaces.',
+        noNewLine: 'The <% attribute %> cannot contain line breaks.'
       },
       arcgis: {
         location: {

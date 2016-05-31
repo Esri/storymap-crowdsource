@@ -59,7 +59,7 @@ export const getAttachmentUrlsByStringMatch = function(options) {
   const settings = $.extend(true,{},defaults,options);
   const urls = [];
 
-  if (settings.layer && settings.feature && settings.match) {
+  if (settings.layer && settings.feature && settings.match && settings.feature[settings.attachmentKey]) {
     const serviceUrl = settings.layer.url;
     const objectId = settings.feature.attributes[settings.layer.objectIdField];
 

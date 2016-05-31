@@ -15,6 +15,14 @@ export default class Textarea extends FormGroup {
     autosize(this.input);
   }
 
+  componentDidUpdate() {
+    autosize.update(this.input);
+  }
+
+  componentWillUnmount() {
+    autosize.destroy(this.input);
+  }
+
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'textarea','form-group',{

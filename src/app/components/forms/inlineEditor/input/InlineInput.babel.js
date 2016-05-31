@@ -79,7 +79,7 @@ export default class InlineInput extends FormGroup {
         id: this.props.id
       });
 
-      if (!this.state.isValid) {
+      if (!this.state.isValid && this.getErrorMessage()) {
         this.props.addNotifications({
           id: this.props.id,
           type: 'error',
@@ -91,21 +91,36 @@ export default class InlineInput extends FormGroup {
 
   getErrorMessage() {
     if (!this.state.isValid && this.state.errors && this.state.errors.length > 0) {
-      return (
-        <div className="inline-error-message text-danger">
-          <h6>{BuilderText.errors.inlineEditing.heading}</h6>
-          <ul className="form-error-message">
-            {this.state.errors.map((error) => {
-              return (
-                <li key={error.rule}>
-                    <span className="error-message">{error.message}</span>
-                  {error.fixValue ? <button className="btn btn-primary btn-sm fix-btn" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
+
+      const fixable = this.state.errors.reduce((prev,current) => {
+        if (current.fixValue) {
+          return prev.concat(current.fixValue);
+        }
+        return prev;
+      },[]);
+
+      if (this.props.autoFix && fixable.length > 0) {
+        setTimeout(() => {
+          this.fixValue(fixable[0]);
+        },0);
+        return null;
+      } else {
+        return (
+          <div className="inline-error-message text-danger">
+            <h6>{BuilderText.errors.inlineEditing.heading}</h6>
+            <ul className="form-error-message">
+              {this.state.errors.map((error) => {
+                return (
+                  <li key={error.rule}>
+                      <span className="error-message">{error.message}</span>
+                    {error.fixValue ? <button className="btn btn-primary btn-sm fix-btn" type="button" onClick={this.fixValue.bind(this,error.fixValue)}>{ViewerText.validations.fix}</button> : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
     } else {
       return null;
     }

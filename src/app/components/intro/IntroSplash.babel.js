@@ -101,6 +101,8 @@ export const IntroSplash = class IntroSplash extends React.Component {
               maxLength: 25,
               required: true
             },
+            validations: ['required','noNewLine'],
+            autoFix: true,
             autoUpdate: {
               when: 'notChanged',
               value: value
