@@ -3,7 +3,6 @@ import React from 'react';
 import Input from 'babel/components/forms/input/Input';
 import CheckboxGroup from 'babel/components/forms/checkboxGroup/CheckboxGroup';
 import RadioGroup from 'babel/components/forms/radioGroup/RadioGroup';
-import Textarea from 'babel/components/forms/textarea/Textarea';
 import Helper from 'babel/utils/helper/Helper';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -26,7 +25,6 @@ export default class ContributeSettings extends React.Component {
         <RadioGroup {...this.getInputSettings('showNewFeatures')}></RadioGroup>
         <CheckboxGroup {...this.getInputSettings('loginOptions')}></CheckboxGroup>
         <Input {...this.getInputSettings('participateButton')}></Input>
-        <Textarea {...this.getInputSettings('termsAndConditions')}></Textarea>
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
     );
@@ -85,19 +83,6 @@ export default class ContributeSettings extends React.Component {
             label: builderText.settings.panes.contribute.fields[input].optionLabels.google,
             value: 'google'
           }]
-        });
-        break;
-      case 'termsAndConditions':
-        $.extend(true,settings,{
-          required: true,
-          tooltip: {
-            content: builderText.settings.panes.contribute.fields[input].tooltip
-          },
-          inputAttr: {
-            defaultValue: this.props.defaultValues[input],
-            placeholder: builderText.settings.panes.contribute.fields[input].placeholder
-          },
-          validations: ['required']
         });
         break;
       default:

@@ -303,11 +303,6 @@ define({
             participateButton: {
               label: 'Participate Button Label',
               placeholder: 'Enter label'
-            },
-            termsAndConditions: {
-              label: 'Terms and Conditions',
-              placeholder: 'Enter terms',
-              tooltip: 'These are the terms and conditions your participants must accept before they can add their contributions to this story.'
             }
           }
         }
