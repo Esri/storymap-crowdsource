@@ -68,9 +68,9 @@ export const WebmapController = class WebmapController extends EventsEmitter {
             extent: this._map.extent,
             theme: 'home-button'
           },domContruct.create('div',null,document.querySelector('.esriSimpleSlider .esriSimpleSliderIncrementButton'),"after"));
-          $('.esriSimpleSlider .home-button .home').html(getIcon('home'));
+          $('.esriSimpleSlider .home-button .home').html(getIcon('home')).attr('title',viewerText.map.controls.homeButton);
           this._homeButton.on('load', () => {
-            $('.esriSimpleSlider .home-button .home').html(getIcon('home'));
+            $('.esriSimpleSlider .home-button .home').html(getIcon('home')).attr('title',viewerText.map.controls.homeButton);
           });
         }
 

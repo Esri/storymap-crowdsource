@@ -61,6 +61,11 @@ define({
         noDefaultSelection: 'Please choose an option...'
       }
     },
+    map: {
+      controls: {
+        homeButton: 'Go to home location'
+      }
+    },
     selectedShares: {
       enlargePhotoButton: 'View Larger',
       review: {

@@ -9,7 +9,7 @@ import ArcgisActions from 'babel/actions/ArcgisActions';
 import AppActions from 'babel/actions/AppActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
-const _logger = new Logger({source: 'ArcGIS - AppItem'});
+const _logger = new Logger({source: 'ArcGIS - Item'});
 
 const _onError = function onError(err) {
   _logger.logMessage({
@@ -29,6 +29,7 @@ const _onStatus = function onStatus(message,debugOnly) {
 export const getDataById = function getDataById(options) {
   const appState = AppStore.getState();
   const defaults = {
+    item: 'app',
     id: lang.getObject('config.appid',false,appState),
     portal: lang.getObject('app.portal',false,appState)
   };
@@ -41,12 +42,14 @@ export const getDataById = function getDataById(options) {
   };
 
   const onError = function(err) {
-    if (err.toString().search('You do not have access') > -1) {
-      AppActions.displayMainError(viewerText.errors.loading.notAuthorizedApp);
-    } else if (err.toString().search('Item does not exist or is inaccessible') > -1) {
-      AppActions.displayMainError(viewerText.errors.loading.inaccessibleApp);
-    } else {
-      AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+    if (settings.item === 'app') {
+      if (err.toString().search('You do not have access') > -1) {
+        AppActions.displayMainError(viewerText.errors.loading.notAuthorizedApp);
+      } else if (err.toString().search('Item does not exist or is inaccessible') > -1) {
+        AppActions.displayMainError(viewerText.errors.loading.inaccessibleApp);
+      } else {
+        AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+      }
     }
     _onError(err);
   };
@@ -72,7 +75,7 @@ export const getDataById = function getDataById(options) {
     return dfd;
   };
 
-  const getAppItem = function(token) {
+  const getItem = function(token) {
 
     const content = {
       f: 'json',
@@ -86,15 +89,22 @@ export const getDataById = function getDataById(options) {
     }).then((res) => {
       if (res.id && res.id === settings.id) {
         response.item = res;
-        ArcgisActions.receiveAppItem(response);
+        if (settings.item === 'app') {
+          ArcgisActions.receiveAppItem(response);
+        }
+        if (settings.item === 'webmap') {
+          ArcgisActions.receiveWebmapItem(response);
+        }
       } else {
-        AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+        if (settings.item === 'app') {
+          AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+        }
         _onError(res);
       }
     },onError);
   };
 
-  const getAppData = function() {
+  const getItemData = function() {
 
     const content = {
       f: 'json'
@@ -105,17 +115,22 @@ export const getDataById = function getDataById(options) {
       content,
       handleAs: 'json'
     }).then((res) => {
-      if (res.settings) {
+      if (settings.item === 'app' && res.settings) {
         response.data = res;
-        checkUserLogin().then(getAppItem);
+        checkUserLogin().then(getItem);
+      } else if (settings.item === 'webmap' && res.version) {
+        response.data = res;
+        checkUserLogin().then(getItem);
       } else {
-        AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+        if (settings.item === 'app') {
+          AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
+        }
         _onError(res);
       }
     },onError);
   };
 
-  getAppData();
+  getItemData();
 };
 
 export default {

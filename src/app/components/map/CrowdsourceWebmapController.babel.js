@@ -10,7 +10,6 @@ import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
 import MapActions from 'babel/actions/MapActions';
 import AppActions from 'babel/actions/AppActions';
 import ItemActions from 'babel/actions/ItemActions';
-import ArcgisActions from 'babel/actions/ArcgisActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
@@ -47,10 +46,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   onMapLoad() {
     super.onMapLoad();
-    ArcgisActions.receiveWebmapItem({
-      item: this._response.itemInfo.item,
-      data: this._response.itemInfo.itemData
-    });
     this.createClusterLayer();
 
     if (this._settings.homeButton && this._settings.editable) {

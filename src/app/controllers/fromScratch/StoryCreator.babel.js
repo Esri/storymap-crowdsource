@@ -11,7 +11,7 @@ import SettingsActions from 'babel/actions/SettingsActions';
 import BuilderActions from 'babel/actions/BuilderActions';
 import AppActions from 'babel/actions/AppActions';
 import UserActions from 'babel/actions/UserActions';
-import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
+import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'i18n!translations/builder/nls/template';
 
@@ -130,9 +130,9 @@ export default class StoryCreator {
     const portal = lang.getObject('appState.app.portal',false,this);
 
     portal.saveWebmap().then((res) => {
-      if (res.createResponse && res.createResponse.success) {
+      if (res && res.success && res.id) {
         _onStatus('Webmap Created: ' + JSON.stringify(res),true);
-        SettingsActions.updateMapWebmapId(res.createResponse.id);
+        SettingsActions.updateMapWebmapId(res.id);
         this.createApp();
       }
     },(err) => {
@@ -217,7 +217,7 @@ export default class StoryCreator {
     });
     UserActions.signOutUser();
     this.showCoverPageSettingsOnLoad = true;
-    ArcgisAppItem.getDataById(appid);
+    ArcgisItem.getDataById(appid);
   }
 
 }

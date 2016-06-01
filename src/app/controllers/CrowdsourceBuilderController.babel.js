@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import Logger from 'babel/utils/logging/Logger';
+import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import StoryCreator from './fromScratch/StoryCreator';
 import AppItemAttachments from './builder/appItemAttachments/AppItemAttachments';
 import CrowdsourceReviewController from './builder/review/CrowdsourceReviewController';
@@ -38,8 +39,11 @@ export default class CrowdsourceBuilderController {
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
     this.createNewStory = this.createNewStory.bind(this);
+    this.startSaving = this.startSaving.bind(this);
+    this.finishSaving = this.finishSaving.bind(this);
     this.checkAppStateChange = this.checkAppStateChange.bind(this);
     this.checkAppShareChange = this.checkAppShareChange.bind(this);
+    this.checkWebmapStateChange = this.checkWebmapStateChange.bind(this);
 
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
@@ -50,7 +54,7 @@ export default class CrowdsourceBuilderController {
     new ComponentsController();
 
     window.onbeforeunload = () => {
-      if (!lang.getObject('appState.mode.fromScratch',false,this) && this.lastSaveAppData
+      if (!lang.getObject('appState.mode.fromScratch',false,this) && (this.lastSaveAppData || this.lastSaveWebmapData)
         && (lang.getObject('appState.builder.saving',false,this)
           || this.lastSaveAppData !== JSON.stringify(lang.getObject('appState.items.app',false,this)))) {
         return builderText.banner.hintText.leavingBeforeSave;
@@ -67,12 +71,44 @@ export default class CrowdsourceBuilderController {
     } else if (!fromScratch && lang.getObject('appState.app.loading.data',false,this)) {
       this.checkAppStateChange();
       this.checkAppShareChange();
+      this.checkWebmapStateChange();
+    }
+
+    if (!this.webmapLoaded && lang.getObject('appState.app.loading.data',false,this) && lang.getObject('appState.items.app.data.settings.components.map.webmap',false,this)) {
+      this.webmapLoaded = true;
+      ArcgisItem.getDataById({
+        item: 'webmap',
+        id: lang.getObject('appState.items.app.data.settings.components.map.webmap',false,this)
+      });
     }
   }
 
   createNewStory() {
     this.loadStarted = true;
     new StoryCreator();
+  }
+
+  startSaving(item) {
+    if (!this.itemsSaving) {
+      this.itemsSaving = {};
+    }
+
+    this.itemsSaving[item] = true;
+    BuilderActions.updateSaveStatus(true);
+  }
+
+  finishSaving(item) {
+    if (this.itemsSaving) {
+      this.itemsSaving[item] = false;
+
+      const stillSaving = Object.keys(this.itemsSaving).filter((current) => {
+        return this.itemsSaving[current] === true;
+      });
+
+      if (stillSaving.length === 0) {
+        BuilderActions.updateSaveStatus(false);
+      }
+    }
   }
 
   checkAppStateChange(force) {
@@ -84,7 +120,7 @@ export default class CrowdsourceBuilderController {
     } else if (force || ((appDataFromState !== this.currentAppData || this.currentAppData !== this.lastSaveAppData) && !lang.getObject('appState.builder.saving',false,this))) {
       this.currentAppData = appDataFromState;
       this.lastSaveAppData = appDataFromState;
-      BuilderActions.updateSaveStatus(true);
+      this.startSaving('app');
 
       const portal = lang.getObject('appState.app.portal',false,this);
 
@@ -93,7 +129,7 @@ export default class CrowdsourceBuilderController {
           AppActions.removeNotifications({
             id: 'builderNotfication_saveAppError'
           });
-          BuilderActions.updateSaveStatus(false);
+          this.finishSaving('app');
           this.checkAppStateChange();
         }
         // TODO add visibile error dialog to user
@@ -169,6 +205,51 @@ export default class CrowdsourceBuilderController {
         BuilderActions.updateSharingStatus(false);
       });
 
+    }
+  }
+
+  checkWebmapStateChange(force) {
+    const webmapDataFromState = JSON.stringify(lang.getObject('appState.items.webmap',false,this));
+
+    if (this.currentWebmapData === undefined) {
+      this.currentWebmapData = webmapDataFromState;
+      this.lastSaveWebmapData = webmapDataFromState;
+    } else if (force || ((webmapDataFromState !== this.currentWebmapData || this.currentWebmapData !== this.lastSaveWebmapData) && !lang.getObject('appState.builder.saving',false,this))) {
+      this.currentWebmapData = webmapDataFromState;
+      this.lastSaveWebmapData = webmapDataFromState;
+      this.startSaving('webmap');
+
+      const portal = lang.getObject('appState.app.portal',false,this);
+
+      portal.saveWebmap().then((res) => {
+        if (res.success) {
+          AppActions.removeNotifications({
+            id: 'builderNotfication_saveWebmapError'
+          });
+          this.finishSaving('webmap');
+          this.checkWebmapStateChange();
+        }
+        // TODO add visibile error dialog to user
+      }, (err) => {
+        if (err.toString().search('Unable to load')) {
+          AppActions.addNotifications({
+            id: 'builderNotfication_saveWebmapError',
+            type: 'error',
+            content: builderText.errors.saving.checkInternet
+          });
+          setTimeout(this.checkWebmapStateChange.bind(this,true),10000);
+        } else {
+          AppActions.addNotifications({
+            id: 'builderNotfication_saveWebmapError',
+            type: 'error',
+            content: builderText.errors.saving.unknown
+          });
+        }
+        _onError(err);
+      });
+
+    } else if (webmapDataFromState !== this.currentWebmapData) {
+      this.currentWebmapData = webmapDataFromState;
     }
   }
 }

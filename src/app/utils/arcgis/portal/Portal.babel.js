@@ -212,7 +212,15 @@ Portal.prototype.saveWebmap = function (options) {
   const settings = $.extend(true, {}, defaults, options);
 
   const username = this.getPortalUser().username;
-  const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/addItem';
+  const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
+
+  // Remove properties that don't have to be committed
+  delete settings.item.avgRating;
+	delete settings.item.modified;
+	delete settings.item.numComments;
+	delete settings.item.numRatings;
+	delete settings.item.numViews;
+	delete settings.item.size;
 
   // Transform arrays
   settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
@@ -221,8 +229,17 @@ Portal.prototype.saveWebmap = function (options) {
   $.extend(true, settings.item, {
     // Add Webmap JSON
     text: JSON.stringify(settings.data),
+    overwrite: true,
     f: 'json'
   });
+
+  let url = baseRequestPath;
+
+  if (settings.item.id) {
+    url += "/items/" + settings.item.id + "/update";
+  } else {
+    url += '/addItem';
+  }
 
   esriRequest({
     url,
@@ -232,9 +249,7 @@ Portal.prototype.saveWebmap = function (options) {
     usePost: true
   }).then((res) => {
     if (res.success) {
-      dfd.resolve({
-        createResponse: res
-      });
+      dfd.resolve(res);
     } else {
       _onError(res);
       dfd.reject(res);

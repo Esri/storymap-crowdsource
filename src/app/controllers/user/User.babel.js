@@ -6,7 +6,7 @@ import OAuthInfo from 'esri/arcgis/OAuthInfo';
 import IdentityManager from 'esri/IdentityManager';
 import UserActions from 'babel/actions/UserActions';
 import AppActions from 'babel/actions/AppActions';
-import ArcgisAppItem from 'babel/utils/arcgis/appItems/AppItem';
+import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import Logger from 'babel/utils/logging/Logger';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -68,7 +68,7 @@ export default class UserController {
       if (lang.getObject('appState.mode.fromScratch',false,this)) {
         portal.signIn().then(this.verifyCredentials);
       } else if (lang.getObject('appState.config.appid',false,this)) {
-        ArcgisAppItem.getDataById({
+        ArcgisItem.getDataById({
           requiresLogin: lang.getObject('appState.mode.isBuilder',false,this)
         });
       }
