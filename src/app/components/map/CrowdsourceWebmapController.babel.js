@@ -53,6 +53,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         center: this._map.extent.getCenter(),
         zoom: this._map.getLevel()
       };
+      this._homeButton.extent = this._map.extent;
       this._saveHomeExtentButton = domContruct.create('div',{
         'title': builderText.map.editControls.homeLocation.tooltip,
         'class': 'home-location-save-btn btn btn-default',
@@ -81,6 +82,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         center: this._map.extent.getCenter(),
         zoom: this._map.getLevel()
       };
+      this._homeButton.extent = this._map.extent;
       $('.home-location-save-btn').removeClass('location-changed');
     }
   }
