@@ -49,6 +49,13 @@ define({
         }
       }
     },
+    map: {
+      editControls: {
+        homeLocation: {
+          tooltip: 'Save home location'
+        }
+      }
+    },
     contribute: {
       defaultTitle: 'Add your contribution',
       defaultForm: {

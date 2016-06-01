@@ -3,17 +3,64 @@
   height: 100%;
   width: 100%;
 
-  .esriSimpleSliderIncrementButton, .esriSimpleSliderDecrementButton {
+  .home-button, .esriSimpleSliderIncrementButton, .esriSimpleSliderDecrementButton {
+    position: relative;
     overflow: hidden;
+    z-index: 1;
+  }
+
+  .esriSimpleSlider .home-button {
+    background-color: #fff;
+    border-bottom: 1px solid #57585A;
+    border-right: 1px solid #57585a;
+    width: 31px;
+    margin-left: -1px;
+    transform: translateX(1px);
+    z-index: 1;
+
+    &:active {
+      background-color: #ddd;
+    }
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    svg {
+      margin: 2px 0 0;
+    }
+  }
+
+  .esriSimpleSlider .home-location-save-btn {
+    position: relative;
+    display: block;
+    padding: 0;
+    border-radius: 0 5px 5px 0;
+    margin: -31px 0 0;
+    transform: translateX(0);
+    @include transition(transform 200ms ease-in-out);
+    overflow: hidden;
+    z-index: 0;
+
+    &.btn {
+      height: 31px;
+    }
+
+    &.location-changed {
+      transform: translateX(100%);
+      @include transition(transform 200ms ease-in-out);
+    }
+
+    svg {
+      font-size: 22px;
+      margin: 3px 0 0 -2px;
+    }
   }
 }
 
-.home-button svg {
-  margin-top: 3px;
+
+@media (max-width: 768px) {
+  .home-button {
+    display: none;
+  }
 }
-//
-// @media (max-width: 768px) {
-//   .home-button {
-//     display: none;
-//   }
-// }

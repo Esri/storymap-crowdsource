@@ -1,13 +1,19 @@
 import $ from 'jquery';
 import on from 'dojo/on';
+import Helper from 'babel/utils/helper/Helper';
 import Logger from 'babel/utils/logging/Logger';
+import domContruct from 'dojo/dom-construct';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import WebmapController from 'babel/components/map/WebmapController';
 import ClusterFeatureLayer from 'lib/cluster-layer-js/src/clusterfeaturelayer';
 // TODO Move actions out at a prop
 import MapActions from 'babel/actions/MapActions';
 import AppActions from 'babel/actions/AppActions';
+import ItemActions from 'babel/actions/ItemActions';
+import ArcgisActions from 'babel/actions/ArcgisActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 
 const _logger = new Logger({
   source: 'Crowdsource Webmap Controller'
@@ -22,6 +28,14 @@ const _onError = function onError(err) {
 
 export const CrowdsourceWebmapController = class CrowdsourceWebmapController extends WebmapController {
 
+  constructor(options) {
+    super(options);
+
+    // Autobind methods
+    this.isHomeExtentChanged = this.isHomeExtentChanged.bind(this);
+    this.saveHomeExtent = this.saveHomeExtent.bind(this);
+  }
+
   updateMap(options) {
     super.updateMap(options);
 
@@ -33,7 +47,73 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   onMapLoad() {
     super.onMapLoad();
+    ArcgisActions.receiveWebmapItem({
+      item: this._response.itemInfo.item,
+      data: this._response.itemInfo.itemData
+    });
     this.createClusterLayer();
+
+    if (this._settings.homeButton && this._settings.editable) {
+      this._homeSettings = {
+        center: this._map.extent.getCenter(),
+        zoom: this._map.getLevel()
+      };
+      this._saveHomeExtentButton = domContruct.create('div',{
+        'title': builderText.map.editControls.homeLocation.tooltip,
+        'class': 'home-location-save-btn btn btn-default',
+        'innerHTML': '<div tabindex="0">' + getIcon('save') + '</div>'
+      },document.querySelector('.esriSimpleSlider .home-button'),'after');
+      this._map.on('extent-change',() => {
+        if (this.isHomeExtentChanged()) {
+          $('.home-location-save-btn').addClass('location-changed');
+        } else {
+          $('.home-location-save-btn').removeClass('location-changed');
+        }
+      });
+      $('.home-location-save-btn').on('click',this.saveHomeExtent);
+    }
+  }
+
+  saveHomeExtent() {
+    if (this.isHomeExtentChanged()) {
+      ItemActions.updateWebmapItem({
+        extent: Helper.mapUtils.serializeExtentToItem({
+          extent: this._map.extent,
+          type: 'string'
+        })
+      });
+      this._homeSettings = {
+        center: this._map.extent.getCenter(),
+        zoom: this._map.getLevel()
+      };
+      $('.home-location-save-btn').removeClass('location-changed');
+    }
+  }
+
+  isHomeExtentChanged() {
+    const centerMoved = function() {
+      const changeTolerance = 25;
+      const resolutionWidth = this._map.extent.getWidth() / this._map.width;
+      const resolutionHeight = this._map.extent.getHeight() / this._map.height;
+      const homeCenter = this._homeSettings.center;
+      const newCenter = this._map.extent.getCenter();
+      const differenceWidth = Math.abs(homeCenter.x - newCenter.x);
+      const differenceHeight = Math.abs(homeCenter.y - newCenter.y);
+
+      if (differenceWidth / resolutionWidth >= changeTolerance || differenceHeight / resolutionHeight >= changeTolerance) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    if (this._homeSettings && this._homeSettings.zoom !== this._map.getLevel()) {
+      return true;
+    } else if (this._homeSettings && this._homeSettings.zoom === this._map.getLevel() && centerMoved.call(this)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   createClusterLayer() {

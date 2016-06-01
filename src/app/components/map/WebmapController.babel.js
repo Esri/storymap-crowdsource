@@ -54,7 +54,7 @@ export const WebmapController = class WebmapController extends EventsEmitter {
       }
 
       arcgisUtils.createMap(this._settings.webmap, mapDiv, this._settings.webmapOptions).then((response) => {
-        this._itemInfo = response.itemInfo;
+        this._response = response;
         this._map = response.map;
         this._map.webmapId = this._settings.webmap;
 
@@ -68,9 +68,9 @@ export const WebmapController = class WebmapController extends EventsEmitter {
             extent: this._map.extent,
             theme: 'home-button'
           },domContruct.create('div',null,document.querySelector('.esriSimpleSlider .esriSimpleSliderIncrementButton'),"after"));
-          $('.esriSimpleSlider .home-button .home').addClass('esriSimpleSliderIncrementButton').html(getIcon('home'));
+          $('.esriSimpleSlider .home-button .home').html(getIcon('home'));
           this._homeButton.on('load', () => {
-            $('.esriSimpleSlider .home-button .home').addClass('esriSimpleSliderIncrementButton').html(getIcon('home'));
+            $('.esriSimpleSlider .home-button .home').html(getIcon('home'));
           });
         }
 

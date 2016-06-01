@@ -6,6 +6,9 @@ import {
   UPDATE_ITEM_WEBMAP_DATA,
   UPDATE_ITEM_WEBMAP_CROWDSOURCE_LAYER
 } from 'babel/constants/actionsTypes/Items';
+import {
+  RECEIVE_WEBMAP_ITEM
+} from 'babel/constants/actionsTypes/Arcgis';
 
 const defaultItem = {
   extent: '-125,-40,70,70',
@@ -72,9 +75,18 @@ export const item = function (state = defaultItem, action) {
   }
 };
 
-export const webmap = combineReducers({
+export const webmapCombined = combineReducers({
   data,
   item
 });
+
+export const webmap = function(state = {}, action) {
+  switch (action.type) {
+    case RECEIVE_WEBMAP_ITEM:
+      return $.extend(true,{},state,action.response);
+    default:
+      return webmapCombined(state, action);
+  }
+};
 
 export default webmap;

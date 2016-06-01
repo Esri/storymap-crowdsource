@@ -270,6 +270,7 @@ class Viewer extends React.Component {
     }
 
     return $.extend(true,{
+      editable: this.props.mode.isBuilder,
       crowdsourceLayer: {
         where
       }
