@@ -92,7 +92,7 @@ define({
       }
     },
     fromScratchMessage: {
-      saving: 'Launching Crowdsource Story Builder',
+      saving: 'Launching Crowdsource Builder',
       layerNameInWebmap: 'Crowdsource Layer (DO NOT REMOVE)'
     },
     help: {
@@ -231,16 +231,16 @@ define({
           }
         },
         socialSharing: {
-          title: 'Social Sharing',
+          title: 'Social',
           extra: {
             tweetLength: 'Estimated length',
             tweetLengthWarning: 'Your tweet may be too long. Be sure to test it using the Twitter button in the header.'
           },
           fields: {
             includeSharing: {
-              label: 'Sharing buttons',
+              label: 'Social buttons',
               optionLabels: {
-                include: 'Display sharing buttons'
+                include: 'Display social buttons'
               }
             },
             twitterText: {
