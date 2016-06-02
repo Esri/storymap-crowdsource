@@ -72,11 +72,16 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
   saveHomeExtent() {
     if (this.isHomeExtentChanged()) {
+      const extent = Helper.mapUtils.serializeExtentToItem({
+        extent: this._map.extent,
+        type: 'string'
+      });
+
       ItemActions.updateWebmapItem({
-        extent: Helper.mapUtils.serializeExtentToItem({
-          extent: this._map.extent,
-          type: 'string'
-        })
+        extent
+      });
+      ItemActions.updateAppItem({
+        extent
       });
       this._homeSettings = {
         center: this._map.extent.getCenter(),
