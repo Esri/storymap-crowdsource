@@ -229,7 +229,11 @@ class Builder extends React.Component {
           BuilderActions.changeDialog('savingFromScratch');
           break;
         case 'betaMessage':
-          BuilderActions.changeDialog('itemNameScratch');
+          if (this.props.webmap && !this.props.loading.data) {
+            BuilderActions.changeDialog('savingFromScratch');
+          } else {
+            BuilderActions.changeDialog('itemNameScratch');
+          }
           break;
       }
     }

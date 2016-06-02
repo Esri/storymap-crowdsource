@@ -3,6 +3,7 @@ import lang from 'dojo/_base/lang';
 import Helper from 'babel/utils/helper/Helper';
 import UrlUtils from 'esri/urlUtils';
 import Logger from 'babel/utils/logging/Logger';
+import Validator from 'babel/utils/validations/Validator';
 import AppStore from 'babel/store/AppStore';
 import ConfigActions from 'babel/actions/ConfigActions';
 import ModeActions from 'babel/actions/ModeActions';
@@ -47,18 +48,29 @@ export default class StoryCreator {
     this.redirectToEditor = this.redirectToEditor.bind(this);
 
     // Subscribe to state changes
+    this.appState = AppStore.getState();
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
 
-    // TODO dynamic start
-    this.openItemNameDialog();
+    if (lang.getObject('appState.config.webmap',false,this)) {
+      ArcgisItem.getDataById({
+        id: lang.getObject('appState.config.webmap',false,this),
+        item: 'webmap'
+      });
+    }
+
+    this.openFirstDialog('betaMessage');
+
   }
 
   updateAppState() {
     this.appState = AppStore.getState();
 
-    if (lang.getObject('appState.app.portal',false,this) && !this.savedOrgDefaults) {
+    if (!this.savedOrgDefaults && lang.getObject('appState.app.portal',false,this)) {
       this.saveOrgDefaults();
+    }
+    if (!this.savedWebmapDefaults && lang.getObject('appState.items.webmap.item.id',false,this) === lang.getObject('appState.config.webmap',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
+      this.saveAppFromWebmapDefaults();
     }
     if (lang.getObject('appState.builder.activeDialog',false,this) === 'savingFromScratch' && !this.itemCreationPending) {
       this.createFeatureService();
@@ -71,8 +83,8 @@ export default class StoryCreator {
     }
   }
 
-  openItemNameDialog() {
-    BuilderActions.changeDialog('betaMessage');
+  openFirstDialog(dialog) {
+    BuilderActions.changeDialog(dialog);
   }
 
   saveOrgDefaults() {
@@ -91,6 +103,44 @@ export default class StoryCreator {
     });
     ItemActions.updateAppItem({
       extent
+    });
+  }
+
+  saveAppFromWebmapDefaults() {
+    this.savedWebmapDefaults = true;
+    const webmapItem = lang.getObject('appState.items.webmap.item',false,this);
+    const layerNameValidator = new Validator({
+      validations: ['arcgisIsServiceName']
+    });
+
+    ItemActions.updateFeatureServiceItem({
+      ownerFolder: webmapItem.ownerFolder,
+      extent: webmapItem.extent.toString()
+    });
+    ItemActions.updateAppItem({
+      ownerFolder: webmapItem.ownerFolder,
+      title: webmapItem.title,
+      snippet: webmapItem.snippet,
+      description: webmapItem.description,
+      extent: webmapItem.extent.toString()
+    });
+    SettingsActions.updateMapWebmapId(webmapItem.id);
+    SettingsActions.updateIntroTitle(webmapItem.title);
+    SettingsActions.updateIntroSubtitle(webmapItem.snippet);
+    SettingsActions.updateHeaderTitle(webmapItem.title);
+    SettingsActions.updateCommonSharingTwitter({text: webmapItem.title + ' #storymaps'});
+
+    layerNameValidator.validate(webmapItem.title).then((newRes) => {
+      if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
+        const layerName = newRes.errors[0].fixValue;
+
+        ItemActions.updateFeatureServiceItemTitle(layerName);
+        ItemActions.updateFeatureServiceDefinition({name: layerName});
+      } else {
+        ItemActions.updateFeatureServiceItemTitle(webmapItem.title);
+        ItemActions.updateFeatureServiceDefinition({name: webmapItem.title});
+      }
+
     });
   }
 
@@ -203,6 +253,9 @@ export default class StoryCreator {
       if (current.toLowerCase() === 'fromscratch') {
         delete urlQuery[current];
       }
+      if (current.toLowerCase() === 'webmap') {
+        delete urlQuery[current];
+      }
     });
 
     const urlParams = $.param(urlQuery);
@@ -217,7 +270,9 @@ export default class StoryCreator {
     });
     UserActions.signOutUser();
     this.showCoverPageSettingsOnLoad = true;
-    ArcgisItem.getDataById(appid);
+    ArcgisItem.getDataById({
+      id: appid
+    });
   }
 
 }

@@ -20,6 +20,9 @@ export default class AppConfig {
           case 'appid':
             urlConfig.appid = urlQuery[current];
             break;
+          case 'webmap':
+            urlConfig.webmap = urlQuery[current];
+            break;
         }
       });
     }
