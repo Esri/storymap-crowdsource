@@ -82,6 +82,9 @@ export default class ContributeSettings extends React.Component {
           },{
             label: builderText.settings.panes.contribute.fields[input].optionLabels.google,
             value: 'google'
+          },{
+            label: builderText.settings.panes.contribute.fields[input].optionLabels.guest,
+            value: 'guest'
           }]
         });
         break;

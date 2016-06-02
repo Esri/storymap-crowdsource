@@ -79,11 +79,11 @@ define({
     contribute: {
       login: {
         title: 'Sign In',
-        signInWith: 'Sign in with',
         services: {
-          arcgis: 'ArcGIS',
-          facebook: 'Facebook',
-          google: 'Google'
+          arcgis: 'Sign in with ArcGIS',
+          facebook: 'Sign in with Facebook',
+          google: 'Sign in with Google',
+          guest: 'Continue as Guest'
         },
         loginDescription: 'Before participating, you must first sign in with one of the services above.'
       },

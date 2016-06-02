@@ -297,7 +297,8 @@ define({
               optionLabels: {
                 arcgis: 'ArcGIS',
                 facebook: 'Facebook',
-                google: 'Google'
+                google: 'Google',
+                guest: 'Guest'
               }
             },
             participateButton: {

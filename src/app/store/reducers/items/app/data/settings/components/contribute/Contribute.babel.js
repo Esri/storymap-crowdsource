@@ -13,7 +13,8 @@ const defaultTermsAndCondtions = builderText ? builderText.contribute.defaultFor
 const defaultLoginOptions = {
   arcgis: true,
   facebook: true,
-  google: true
+  google: true,
+  guest: true
 };
 
 export const title = function (state = defaultTitle, action) {

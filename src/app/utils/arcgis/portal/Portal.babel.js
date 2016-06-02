@@ -473,8 +473,8 @@ Portal.prototype.shareItems = function (options) {
   const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + '/shareItems';
 
   const appId = lang.getObject('appState.items.app.item.id',false,settings);
-  const webmapId = lang.getObject('appState.app.map.itemInfo.item.id',false,settings);
-  const layers = [].concat(lang.getObject('appState.app.map.itemInfo.itemData.operationalLayers',false,settings)).concat(lang.getObject('appState.app.map.itemInfo.itemData.baseMap.baseMapLayers',false,settings));
+  const webmapId = lang.getObject('appState.items.webmap.item.id',false,settings);
+  const layers = [].concat(lang.getObject('appState.items.webmap.data.operationalLayers',false,settings)).concat(lang.getObject('appState.items.webmap.data.baseMap.baseMapLayers',false,settings));
   let layerIds = [];
 
   layers.forEach((layer) => {

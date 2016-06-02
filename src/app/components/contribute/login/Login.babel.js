@@ -8,11 +8,16 @@ export default class Login extends React.Component {
     super(props);
 
     this.onClose = this.onClose.bind(this);
+    this.autoLoginIfGuestOnly = this.autoLoginIfGuestOnly.bind(this);
+  }
+
+  componentDidMount() {
+    this.autoLoginIfGuestOnly();
   }
 
   render() {
 
-    const closeBtnClasses = Helper.classnames(['btn','btn-default','btn-block','close-btn']);
+    const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
 
     return (
       <div className="row">
@@ -25,11 +30,13 @@ export default class Login extends React.Component {
           <h3>{viewerText.contribute.login.title}</h3>
           { Object.keys(this.props.loginOptions).map((current) => {
             if (this.props.loginOptions[current] && (this.props.socialLogin || current === 'arcgis' )) {
-              const loginBtn = Helper.classnames(['btn','btn-block','btn-' + current,'login-btn',current]);
+              const loginBtn = Helper.classnames(['btn','btn-block','btn-' + current,'login-btn',current],{
+                'btn-default': current === 'guest'
+              });
 
               return (
                 <button type="button" key={current} className={loginBtn} onClick={this.onLogin.bind(this,current)}>
-                  { viewerText.contribute.login.signInWith + ' ' + viewerText.contribute.login.services[current] }
+                  { viewerText.contribute.login.services[current] }
                 </button>
               );
             }
@@ -47,6 +54,16 @@ export default class Login extends React.Component {
     this.props.loginAction(service);
   }
 
+  autoLoginIfGuestOnly() {
+    const loginOptions = Object.keys(this.props.loginOptions).filter((current) => {
+      return this.props.loginOptions[current] === true;
+    });
+
+    if (loginOptions.length === 1 && loginOptions.indexOf('guest') >= 0) {
+      this.onLogin('guest');
+    }
+  }
+
   onClose() {
     this.props.closeAction();
   }
@@ -58,16 +75,13 @@ Login.propTypes = {
   loginOptions: React.PropTypes.shape({
     arcgis: React.PropTypes.bool,
     facebook: React.PropTypes.bool,
-    google: React.PropTypes.bool
+    google: React.PropTypes.bool,
+    guest: React.PropTypes.bool
   })
 };
 
 Login.defaultProps = {
   loginAction: () => {},
   socialLogin: false,
-  loginOptions: {
-    arcgis: true,
-    facebook: true,
-    google: true
-  }
+  loginOptions: {}
 };

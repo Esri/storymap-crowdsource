@@ -120,7 +120,13 @@ export default class UserController {
 
       IdentityManager.registerOAuthInfos([info]);
 
-      if (socialOAuthUrl && service !== 'arcgis') {
+      if (service === 'guest') {
+        this.finishOAuthLogin({
+          verifyCredentialsOptions: {
+            guestContributor: true
+          }
+        });
+      } else if (socialOAuthUrl && service !== 'arcgis') {
         window.open(socialOAuthUrl + '?client_id='+clientId+'&response_type=token&expiration=20160&autoAccountCreateForSocial=true&socialLoginProviderName='+service+'&redirect_uri=' + window.encodeURIComponent(redirectUri), 'oauth-window', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
       } else {
         IdentityManager.useSignInPage = false;
@@ -140,7 +146,9 @@ export default class UserController {
 
   }
 
-  verifyCredentials(forceAuthenticate) {
+  verifyCredentials(options) {
+    const defaults = {};
+    const settings = $.extend(true,{},defaults,options);
     const portal = lang.getObject('appState.app.portal',false,this);
     const userPermissions = {
       publisher: false,
@@ -166,9 +174,13 @@ export default class UserController {
       userPermissions.contributor = true;
     }
 
+    if (settings.guestContributor) {
+      userPermissions.contributor = true;
+    }
+
     if (lang.getObject('appState.user.contributor',false,this) !== userPermissions.contributor || lang.getObject('appState.user.editor',false,this) !== userPermissions.editor || lang.getObject('appState.user.publisher',false,this) !== userPermissions.publisher) {
       UserActions.authenticateUser(userPermissions);
-    } else if (forceAuthenticate) {
+    } else if (settings.forceAuthenticate) {
       UserActions.authenticateUser(userPermissions);
     }
 
@@ -200,12 +212,16 @@ export default class UserController {
     }
   }
 
-  finishOAuthLogin() {
+  finishOAuthLogin(options) {
+    const defaults = {
+      verifyCredentialsOptions: {}
+    };
+    const settings = $.extend(true,{},defaults,options);
     const layer = lang.getObject('appState.app.map.layer',false,this);
 
     // Add credential to layer then finish up
     layer._forceIdentity(() => {
-      this.verifyCredentials();
+      this.verifyCredentials(settings.verifyCredentialsOptions);
       this.pendingLogin = false;
       UserActions.loginOAuthFinish();
     });
