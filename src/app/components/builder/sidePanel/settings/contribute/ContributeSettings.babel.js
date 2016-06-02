@@ -72,6 +72,9 @@ export default class ContributeSettings extends React.Component {
         $.extend(true,settings,{
           required: true,
           defaultValue: this.props.defaultValues[input],
+          tooltip: {
+            content: builderText.settings.panes.contribute.fields[input].tooltip
+          },
           validations: ['required'],
           options: [{
             label: builderText.settings.panes.contribute.fields[input].optionLabels.arcgis,

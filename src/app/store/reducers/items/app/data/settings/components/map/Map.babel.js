@@ -8,6 +8,7 @@ import {
 
 const defaultWebmapOptions = {
   ignorePopups: true,
+  usePopupManager: false,
   mapOptions: {}
 };
 

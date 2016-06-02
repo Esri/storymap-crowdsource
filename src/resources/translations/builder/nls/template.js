@@ -294,6 +294,7 @@ define({
             loginOptions: {
               label: 'Participants can sign in with',
               attribute: 'sign-in option',
+              tooltip: 'placeholder tooltip',
               optionLabels: {
                 arcgis: 'ArcGIS',
                 facebook: 'Facebook',

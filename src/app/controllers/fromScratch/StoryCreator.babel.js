@@ -69,7 +69,7 @@ export default class StoryCreator {
     if (!this.savedOrgDefaults && lang.getObject('appState.app.portal',false,this)) {
       this.saveOrgDefaults();
     }
-    if (!this.savedWebmapDefaults && lang.getObject('appState.items.webmap.item.id',false,this) === lang.getObject('appState.config.webmap',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
+    if (!this.savedWebmapDefaults && typeof lang.getObject('appState.items.webmap.item.id',false,this) === 'string' && lang.getObject('appState.items.webmap.item.id',false,this) === lang.getObject('appState.config.webmap',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
       this.saveAppFromWebmapDefaults();
     }
     if (lang.getObject('appState.builder.activeDialog',false,this) === 'savingFromScratch' && !this.itemCreationPending) {
