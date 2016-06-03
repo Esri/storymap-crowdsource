@@ -162,7 +162,7 @@ define({
             'All of the sign-in options listed above are available to contributors unless you disable them. Facebook and Twitter sign in are not available on Portal.'
           ],
           bold: {
-            fb: 'Facebook',
+            facebook: 'Facebook',
             twitter: 'Twitter',
             arcgis: 'ArcGIS',
             guestContributions: 'guest contributions'
