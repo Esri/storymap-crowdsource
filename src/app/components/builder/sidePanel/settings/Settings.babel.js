@@ -74,6 +74,9 @@ export default class SidePanelSettings extends React.Component {
     const nextBtnClasses = Helper.classnames(['btn','btn-success','btn-block','close-btn']);
     const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
 
+    const ids = this.props.settingsPanes.reduce((prev,current) => {
+      return prev.concat(current.id);
+    },[]);
     const visiblePane = this.getVisibleSettingsPane();
     const selectedPane = this.props.settingsPanes.filter((current) => {
       return componentNames.SIDE_PANEL_SETTINGS_STRING_MATCH + current.id === visiblePane;
@@ -123,7 +126,7 @@ export default class SidePanelSettings extends React.Component {
                 })}
               </ReactCSSTransitionGroup>
               <button type="button" className={nextBtnClasses} onClick={this.goToNext}>
-                { builderText.common.buttons.next }
+                { ids.indexOf(selectedPane.id) === this.props.settingsPanes.length - 1 ? builderText.settings.buttons.backTo + ' ' + this.props.settingsPanes[0].title : builderText.common.buttons.next }
               </button>
               <button type="button" className={closeBtnClasses} onClick={this.props.closeAction}>
                 { viewerText.common.buttons.close }

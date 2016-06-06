@@ -401,7 +401,8 @@ const mapDispatchToProps = () => {
         const options = {
           arcgis: optionsArray.indexOf('arcgis') >= 0,
           facebook: optionsArray.indexOf('facebook') >= 0,
-          google: optionsArray.indexOf('google') >= 0
+          google: optionsArray.indexOf('google') >= 0,
+          guest: optionsArray.indexOf('guest') >= 0
         };
 
         SettingsActions.changeParticipantLoginOptions(options);

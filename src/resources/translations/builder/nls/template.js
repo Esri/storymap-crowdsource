@@ -219,6 +219,9 @@ define({
     },
     settings: {
       title: 'Settings',
+      buttons: {
+        backTo: 'Back to'
+      },
       panes: {
         header: {
           title: 'Header',

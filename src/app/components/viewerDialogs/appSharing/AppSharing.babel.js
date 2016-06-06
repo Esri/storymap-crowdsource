@@ -231,7 +231,7 @@ export default class AppSharing extends React.Component {
           </div>
           <div className="embed-size-wrapper">
             {viewerText.sharing.link.embedSizeHelper}:
-            <div className="dropdown">
+            <div className="dropup">
               <button ref={(ref) => this.embedSizeDropdown = ref} type="button" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                 { this.state.embed.string }
                 <span className="caret"></span>
