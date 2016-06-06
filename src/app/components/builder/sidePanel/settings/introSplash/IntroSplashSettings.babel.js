@@ -20,6 +20,11 @@ export default class IntroSplashSettings extends React.Component {
     return (
       <form className={settingsClasses}>
         <Photo {...this.getInputSettings('backgroundImage')}></Photo>
+        { this.props.uploadingCoverPhoto ? (
+          <p className="uploading-message">
+            <small>{ builderText.settings.messages.uploading }</small>
+          </p>
+        ) : null }
         <p className="required-warning"><small>{viewerText.contribute.form.requiredWarning}</small></p>
       </form>
     );
@@ -62,10 +67,12 @@ export default class IntroSplashSettings extends React.Component {
 }
 
 IntroSplashSettings.propTypes = {
+  uploadingCoverPhoto: React.PropTypes.bool,
   defaultValues: React.PropTypes.shape({
     backgroundImage: React.PropTypes.string
   })
 };
 
 IntroSplashSettings.defaultProps = {
+  uploadingCoverPhoto: false
 };

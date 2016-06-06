@@ -59,6 +59,10 @@ define({
     forms: {
       select: {
         noDefaultSelection: 'Please choose an option...'
+      },
+      photo: {
+        loading: 'Loading Photo',
+        resizing: 'Resizing Photo'
       }
     },
     map: {

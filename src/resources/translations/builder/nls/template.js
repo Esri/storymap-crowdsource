@@ -222,6 +222,9 @@ define({
       buttons: {
         backTo: 'Back to'
       },
+      messages: {
+        uploading: 'Uploading'
+      },
       panes: {
         header: {
           title: 'Header',

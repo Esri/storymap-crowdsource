@@ -65,23 +65,32 @@ export default class Photo extends FormGroup {
       'alert-info': this.state.dragging
     }]);
 
-    const fileUploader = !this.isMobileDevice && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
-      <div className={uploaderClasses}>
-        <h4>
-          {this.props.placeholder}
-        </h4>
-        {ViewerText.common.or}
-        <br />
-        {ViewerText.contribute.form.photo.pickFile}
-        <label className="btn-file" tabIndex="-1" onBlur={this.onBlur}>
-          <input id={this.props.id} style={{display: 'none'}} type="file" tabIndex="-1" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} onChange={this.fileChange}></input>
-        </label>
+    const fileUploader = (
+        <div>
+        {!this.isMobileDevice && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
+          <div className={uploaderClasses}>
+            <h4>
+              {this.props.placeholder}
+            </h4>
+            {ViewerText.common.or}
+            <br />
+            {ViewerText.contribute.form.photo.pickFile}
+            <label className="btn-file" tabIndex="-1" onBlur={this.onBlur}>
+              <input id={this.props.id} style={{display: 'none'}} type="file" tabIndex="-1" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} onChange={this.fileChange}></input>
+            </label>
+          </div>
+        ) : (
+          <button type="button" className="uploader btn btn-default btn-file btn-block" onBlur={this.onBlur}>
+            {ViewerText.contribute.form.photo.choosePhoto}
+            <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
+          </button>
+        )}
+        { this.state.loadingPhoto ? (
+          <p className="loading-photo-message">
+            <small>{ ViewerText.forms.photo.loading }</small>
+          </p>
+        ) : null }
       </div>
-    ) : (
-      <button type="button" className="uploader btn btn-default btn-file btn-block" onBlur={this.onBlur}>
-        {ViewerText.contribute.form.photo.choosePhoto}
-        <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
-      </button>
     );
 
     return (
@@ -106,6 +115,11 @@ export default class Photo extends FormGroup {
             </button>
           </div>
         </div>
+        { this.state.resizingPhoto ? (
+          <p className="loading-photo-message">
+            <small>{ ViewerText.forms.photo.resizing }</small>
+          </p>
+        ) : null }
         {this.getErrorMessage ? this.getErrorMessage() : null}
       </div>
     );
@@ -122,6 +136,10 @@ export default class Photo extends FormGroup {
     if (files && files.length) {
       this.loadImageFromFile(files[0]);
     }
+
+    this.setState({
+      loadingPhoto: true
+    });
   }
 
   onDragOver(e) {
@@ -173,7 +191,8 @@ export default class Photo extends FormGroup {
         maxHeight: 2000,
         done: function(newImg) {
           self.setState({
-            imageUrl: newImg.src
+            imageUrl: newImg.src,
+            loadingPhoto: false
           });
         }
       });
@@ -255,6 +274,10 @@ export default class Photo extends FormGroup {
   generatePhotos(canvas) {
     const value = {};
 
+    this.setState({
+      resizingPhoto: true
+    });
+
     if (this.props.extras && this.props.extras.photoSettings) {
       if ($.isArray(this.props.extras.photoSettings) && this.props.extras.photoSettings.length > 0) {
         let dfd = false;
@@ -291,6 +314,9 @@ export default class Photo extends FormGroup {
               value[name] = res;
               if (isFinished()) {
                 if (dfd) {
+                  this.setState({
+                    resizingPhoto: false
+                  });
                   dfd.resolve(value);
                 } else {
                   return value;
@@ -301,6 +327,9 @@ export default class Photo extends FormGroup {
             value[name] = photo;
             if (isFinished()) {
               if (dfd) {
+                this.setState({
+                  resizingPhoto: false
+                });
                 dfd.resolve(value);
               } else {
                 return value;
@@ -312,6 +341,9 @@ export default class Photo extends FormGroup {
         if (dfd) {
           return dfd;
         } else {
+          this.setState({
+            resizingPhoto: false
+          });
           return value;
         }
       } else if (typeof this.props.extras.photoSettings === 'object') {

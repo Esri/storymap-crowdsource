@@ -22,6 +22,7 @@ import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+let self;
 
 class Builder extends React.Component {
 
@@ -32,7 +33,11 @@ class Builder extends React.Component {
     this.onSettingsNext = this.onSettingsNext.bind(this);
     this.getWebmapLink = this.getWebmapLink.bind(this);
 
+    self = this;
+
     this.state = {
+      uploadingLogo: false,
+      uploadingCoverPhoto: false,
       continueDisabled: true,
       validating: false
     };
@@ -90,7 +95,7 @@ class Builder extends React.Component {
               {
                 id: componentNames.SPS_INTRO_SPLASH,
                 title: builderText.settings.panes.introSplash.title,
-                component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions}></IntroSplashSettings>
+                component: <IntroSplashSettings defaultValues={this.props.defaultValues.introSplash} actions={this.props.introSplashActions} uploadingCoverPhoto={this.state.uploadingCoverPhoto}></IntroSplashSettings>
               },
               {
                 id: componentNames.SPS_CONTRIBUTE,
@@ -100,7 +105,7 @@ class Builder extends React.Component {
               {
                 id: componentNames.SPS_HEADER,
                 title: builderText.settings.panes.header.title,
-                component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions}></HeaderSettings>
+                component: <HeaderSettings defaultValues={this.props.defaultValues.headerSettings} actions={this.props.headerSettingsActions} uploadingLogo={this.state.uploadingLogo}></HeaderSettings>
               },
               {
                 id: componentNames.SPS_SOCIAL_SHARING,
@@ -342,7 +347,15 @@ const mapDispatchToProps = () => {
             attachment: value.logo,
             removeAttachments: true,
             removeFilter: 'logo_',
-            callback: SettingsActions.updateHeaderLogoUrl
+            callback: (url) => {
+              SettingsActions.updateHeaderLogoUrl(url);
+              self.setState({
+                uploadingLogo: false
+              });
+            }
+          });
+          self.setState({
+            uploadingLogo: true
           });
         }
       },
@@ -377,7 +390,13 @@ const mapDispatchToProps = () => {
             removeFilter: 'introSplashBackgroundPhoto_',
             callback: (url) => {
               SettingsActions.updateIntroBackground({source: url});
+              self.setState({
+                uploadingCoverPhoto: false
+              });
             }
+          });
+          self.setState({
+            uploadingCoverPhoto: true
           });
         }
       }

@@ -23,6 +23,11 @@ export default class HeaderSettings extends React.Component {
       <form className={settingsClasses}>
         <RadioGroup {...this.getInputSettings('logoType')}></RadioGroup>
         {this.props.defaultValues.logoType === 'upload' ? <Photo {...this.getInputSettings('logoUpload')}></Photo> : null }
+        { this.props.defaultValues.logoType === 'upload' && this.props.uploadingLogo ? (
+          <p className="uploading-message">
+            <small>{ builderText.settings.messages.uploading }</small>
+          </p>
+        ) : null }
         {this.props.defaultValues.logoType === 'url' ? <Input {...this.getInputSettings('logoUrl')}></Input> : null }
         {this.props.defaultValues.logoType === 'url' || this.props.defaultValues.logoType === 'upload' ? <Input {...this.getInputSettings('logoLink')}></Input> : null }
         <Input {...this.getInputSettings('bannerTitle')}></Input>
@@ -109,6 +114,7 @@ export default class HeaderSettings extends React.Component {
 }
 
 HeaderSettings.propTypes = {
+  uploadingLogo: React.PropTypes.bool,
   defaultValues: React.PropTypes.shape({
     logoType: React.PropTypes.string,
     logoUrl: React.PropTypes.string,
@@ -119,4 +125,5 @@ HeaderSettings.propTypes = {
 };
 
 HeaderSettings.defaultProps = {
+  uploadingLogo: false
 };
