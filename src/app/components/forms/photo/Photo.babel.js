@@ -80,7 +80,7 @@ export default class Photo extends FormGroup {
     ) : (
       <button type="button" className="uploader btn btn-default btn-file btn-block" onBlur={this.onBlur}>
         {ViewerText.contribute.form.photo.choosePhoto}
-
+        <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
       </button>
     );
 

@@ -51,6 +51,10 @@
     }
   }
 
+  button.btn-file {
+    position: relative;
+  }
+
   label.btn-file::after {
     content: "";
     margin-left: 0;
