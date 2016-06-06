@@ -3,6 +3,7 @@ import React from 'react';
 import Clipboard from 'lib/clipboard/dist/clipboard';
 import Helper from 'babel/utils/helper/Helper';
 import Modal from 'babel/components/helper/modal/Modal';
+import autosize from 'lib/autosize/dist/autosize';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import 'bootstrap/tooltip';
 import 'bootstrap/dropdown';
@@ -58,6 +59,8 @@ export default class ShareLink extends React.Component {
 
       clipboard.on('success',this.onCopy);
     }
+
+    autosize(this.embedCodeInput);
   }
 
   componentDidUpdate(prevProps,prevState) { //eslint-disable-line no-unused-vars
@@ -66,6 +69,12 @@ export default class ShareLink extends React.Component {
     } else if (prevState.embed.code !== this.state.embed.code) {
       this.selectAllFromNode(this.embedCodeInput);
     }
+
+    autosize.update(this.embedCodeInput);
+  }
+
+  componentWillUnmount() {
+    autosize.destroy(this.embedCodeInput);
   }
 
   getShortLink() {
@@ -177,7 +186,7 @@ export default class ShareLink extends React.Component {
           </div>
           <div className="embed-size-wrapper">
             {viewerText.sharing.link.embedSizeHelper}:
-            <div className="dropdown">
+            <div className="dropup">
               <button ref={(ref) => this.embedSizeDropdown = ref} type="button" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                 { this.state.embed.string }
                 <span className="caret"></span>

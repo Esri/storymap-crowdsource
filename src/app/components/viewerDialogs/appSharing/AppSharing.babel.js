@@ -4,6 +4,7 @@ import Clipboard from 'lib/clipboard/dist/clipboard';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Modal from 'babel/components/helper/modal/Modal';
+import autosize from 'lib/autosize/dist/autosize';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/tooltip';
@@ -60,6 +61,8 @@ export default class AppSharing extends React.Component {
 
       clipboard.on('success',this.onCopy);
     }
+
+    autosize(this.embedCodeInput);
   }
 
   componentDidUpdate(prevProps,prevState) { //eslint-disable-line no-unused-vars
@@ -68,6 +71,12 @@ export default class AppSharing extends React.Component {
     } else if (prevState.embed.code !== this.state.embed.code) {
       this.selectAllFromNode(this.embedCodeInput);
     }
+
+    autosize.update(this.embedCodeInput);
+  }
+
+  componentWillUnmount() {
+    autosize.destroy(this.embedCodeInput);
   }
 
   getShortLink() {

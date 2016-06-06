@@ -1,3 +1,4 @@
+@import "socialSharing/ShareLink";
 @import "appSharing/AppSharing";
 
 .viewer-dialogs {
@@ -15,7 +16,7 @@
     margin: 5px 5px 0 0;
   }
 
-  .dropdown {
+  .dropup {
     display: inline-block;
     margin: 0 5px;
   }
@@ -25,7 +26,7 @@
   }
 
   @media (max-width: 767px) {
-    .dropdown {
+    .dropup {
       width: 100%;
       margin: 5px 0 0;
 
