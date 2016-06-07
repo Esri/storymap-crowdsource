@@ -52,7 +52,7 @@ const defaultServiceDefinition = {
 	xssPreventionInfo: {
 		xssPreventionEnabled: true,
 		xssPreventionRule: 'InputOnly',
-		xssInputRule: 'rejectInvalid'
+		xssInputRule: 'sanitizeInvalid'
 	},
 	maxRecordCount: 2000
 };
