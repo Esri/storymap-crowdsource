@@ -20,6 +20,7 @@ import ReviewActions from 'babel/actions/ReviewActions';
 import componentNames from 'babel/constants/componentNames/ComponentNames';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import 'babel/utils/helper/strings/StringUtils';
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 let self;

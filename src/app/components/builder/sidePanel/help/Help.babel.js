@@ -3,6 +3,7 @@ import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import builderText from 'i18n!translations/builder/nls/template';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import 'babel/utils/helper/strings/StringUtils';
 
 export default class SidePanelHelp extends React.Component {
 

@@ -3,6 +3,7 @@ import Deferred from 'dojo/Deferred';
 import Logger from 'babel/utils/logging/Logger';
 import BasicRules from 'babel/utils/validations/rules/BasicRules';
 import PatternRules from 'babel/utils/validations/rules/pattern/PatternRules';
+import ArcgisBasicRules from 'babel/utils/validations/rules/arcgis/ArcgisBasicRules';
 import LocationRules from 'babel/utils/validations/rules/arcgis/LocationRules';
 import ItemRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/ItemRules';
 import PortalRules from 'mode!isBuilder?babel/utils/validations/rules/arcgis/PortalRules';
@@ -19,6 +20,7 @@ const _onError = function onError(err) {
 const _rules = $.extend(true,{},
   BasicRules,
   PatternRules,
+  ArcgisBasicRules,
   LocationRules,
   ItemRules,
   PortalRules

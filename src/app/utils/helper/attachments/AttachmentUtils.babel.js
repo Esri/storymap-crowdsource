@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import URI from 'lib/urijs/src/URI';
+import 'babel/utils/helper/strings/StringUtils';
 
 export const dataURItoBlob = function dataURItoBlob(dataURI) {
   let byteString;

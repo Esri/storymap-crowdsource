@@ -4,6 +4,7 @@ import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
 import Logger from 'babel/utils/logging/Logger';
 import ReviewActions from 'babel/actions/ReviewActions';
+import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'Contribute Controller'});
 

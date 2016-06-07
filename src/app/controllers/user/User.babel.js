@@ -9,6 +9,7 @@ import AppActions from 'babel/actions/AppActions';
 import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import Logger from 'babel/utils/logging/Logger';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'User Controller'});
 

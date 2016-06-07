@@ -4,6 +4,7 @@ import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
+import 'babel/utils/helper/strings/StringUtils';
 
 export default class CheckboxGroup extends FormGroup {
 

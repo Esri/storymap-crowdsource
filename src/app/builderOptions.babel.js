@@ -29,7 +29,7 @@ export const featureServiceDefaults = {
       label: builderText.contribute.defaultForm.name.label,
       attributeName: builderText.contribute.defaultForm.name.attribute,
       placeholder: builderText.contribute.defaultForm.name.placeholder,
-      validations: ['required']
+      validations: ['required','arcgisSupportedHtml']
     },{
       required: true,
       type: 'location',
@@ -49,7 +49,7 @@ export const featureServiceDefaults = {
       label: builderText.contribute.defaultForm.description.label,
       attributeName: builderText.contribute.defaultForm.description.attribute,
       placeholder: builderText.contribute.defaultForm.description.placeholder,
-      validations: ['required']
+      validations: ['required','arcgisSupportedHtml']
     }]
   }
 };

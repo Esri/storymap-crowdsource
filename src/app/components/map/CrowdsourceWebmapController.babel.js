@@ -48,26 +48,26 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
     super.onMapLoad();
     this.createClusterLayer();
 
-    // if (this._settings.homeButton && this._settings.editable) {
-    //   this._homeSettings = {
-    //     center: this._map.extent.getCenter(),
-    //     zoom: this._map.getLevel()
-    //   };
-    //   this._homeButton.extent = this._map.extent;
-    //   this._saveHomeExtentButton = domContruct.create('div',{
-    //     'title': builderText.map.editControls.homeLocation.tooltip,
-    //     'class': 'home-location-save-btn btn btn-default',
-    //     'innerHTML': '<div tabindex="0">' + getIcon('save') + '</div>'
-    //   },document.querySelector('.esriSimpleSlider .home-button'),'after');
-    //   this._map.on('extent-change',() => {
-    //     if (this.isHomeExtentChanged()) {
-    //       $('.home-location-save-btn').addClass('location-changed');
-    //     } else {
-    //       $('.home-location-save-btn').removeClass('location-changed');
-    //     }
-    //   });
-    //   $('.home-location-save-btn').on('click',this.saveHomeExtent);
-    // }
+    if (this._settings.homeButton && this._settings.editable) {
+      this._homeSettings = {
+        center: this._map.extent.getCenter(),
+        zoom: this._map.getLevel()
+      };
+      this._homeButton.extent = this._map.extent;
+      this._saveHomeExtentButton = domContruct.create('div',{
+        'title': builderText.map.editControls.homeLocation.tooltip,
+        'class': 'home-location-save-btn btn btn-default',
+        'innerHTML': '<div tabindex="0">' + getIcon('save') + '</div>'
+      },document.querySelector('.esriSimpleSlider .home-button'),'after');
+      this._map.on('extent-change',() => {
+        if (this.isHomeExtentChanged()) {
+          $('.home-location-save-btn').addClass('location-changed');
+        } else {
+          $('.home-location-save-btn').removeClass('location-changed');
+        }
+      });
+      $('.home-location-save-btn').on('click',this.saveHomeExtent);
+    }
   }
 
   saveHomeExtent() {

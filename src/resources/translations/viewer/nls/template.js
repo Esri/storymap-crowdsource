@@ -130,6 +130,9 @@ define({
         noNewLine: 'The <% attribute %> cannot contain line breaks.'
       },
       arcgis: {
+        basic: {
+          arcgisSupportedHtml: 'The <% attribute %> contains unsupported HTML.'
+        },
         location: {
           notValid: 'The location you entered is not valid, please try again.',
           noResults: 'The location you searched for cannot be found. Please try again and be as specifc as you can.'

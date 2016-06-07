@@ -8,6 +8,7 @@ import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
 import Logger from 'babel/utils/logging/Logger';
+import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'Contribute Controller'});
 
@@ -123,6 +124,8 @@ export default class ContributeController {
           }
         } else if (typeof value === 'object') {
           graphic.attributes[key] = JSON.stringify(value);
+        } else if (typeof value === 'string') {
+          graphic.attributes[key] = value.sanitizeHtml();
         }
       });
 

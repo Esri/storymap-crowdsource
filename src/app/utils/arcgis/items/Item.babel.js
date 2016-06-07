@@ -8,6 +8,7 @@ import Logger from 'babel/utils/logging/Logger';
 import ArcgisActions from 'babel/actions/ArcgisActions';
 import AppActions from 'babel/actions/AppActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'ArcGIS - Item'});
 
