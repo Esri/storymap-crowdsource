@@ -153,7 +153,9 @@ export default class ShareLink extends React.Component {
       closeAction: this.props.closeAction,
       title: viewerText.sharing.link.title,
       body: (
-        <form>
+        <form onSubmit={(e) => {
+            e.preventDefault();
+          }}>
           <div className="form-group">
             <h6 className="text-primary">
               <strong>{viewerText.sharing.link.linkHeader}</strong>

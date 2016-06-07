@@ -64,7 +64,9 @@ export default class CrowdsourceForm extends React.Component {
         </div>
         <div className="col-xs-12">
           <h3 className="form-title">{this.props.title}</h3>
-          <form>
+          <form onSubmit={(e) => {
+              e.preventDefault();
+            }}>
           {this.props.fields.map(this.getFormField)}
             <TermsAndConditions {...termsOptions}></TermsAndConditions>
           </form>

@@ -67,7 +67,7 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
           ItemActions.updateAppItemTitle(res.value);
           SettingsActions.updateIntroTitle(res.value);
           SettingsActions.updateHeaderTitle(res.value);
-          SettingsActions.updateCommonSharingTwitter({text: res.value + ' #storymaps'});
+          SettingsActions.updateCommonSharingTwitter({text: res.value + ' #storymap'});
         }
         self.handleFieldChange('appName',res.valid);
       }
@@ -153,7 +153,9 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
             <h5>
               {builderText.settingsModals.itemName.header}
             </h5>
-            <form>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+              }}>
               <Input {...appName}></Input>
               <button id="smCrowdsource_settings_itemName_advanceOptions_toggle" className="btn btn-default btn-xs" type="button" onClick={this.toggleAdvancedOptions} aria-expanded="false" aria-controls="smCrowdsource_settings_itemName_advanceOptions">
                 {builderText.settingsModals.common.advancedOptions}

@@ -1,7 +1,14 @@
 .modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: table;
+  height: 100%;
+  width: 100%;
+
+  .vertical-align-helper {
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+  }
 
   .close-button-wrapper {
     display: none;

@@ -161,7 +161,9 @@ export default class AppSharing extends React.Component {
       closeAction: this.props.closeAction,
       title: builderText.shareApp.title,
       body: (
-        <form>
+        <form onSubmit={(e) => {
+            e.preventDefault();
+          }}>
           <div className="form-group text-center">
             <div className="app-privacy btn-group" role="group">
               <button

@@ -20,7 +20,9 @@ export default class ContributeSettings extends React.Component {
     const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'contribute-settings']);
 
     return (
-      <form className={settingsClasses}>
+      <form onSubmit={(e) => {
+          e.preventDefault();
+        }} className={settingsClasses}>
         <CheckboxGroup {...this.getInputSettings('allowParticipation')}></CheckboxGroup>
         <RadioGroup {...this.getInputSettings('showNewFeatures')}></RadioGroup>
         <CheckboxGroup {...this.getInputSettings('loginOptions')}></CheckboxGroup>

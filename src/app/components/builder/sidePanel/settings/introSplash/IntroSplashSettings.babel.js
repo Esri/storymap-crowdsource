@@ -18,7 +18,9 @@ export default class IntroSplashSettings extends React.Component {
     const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'intro-splash-settings']);
 
     return (
-      <form className={settingsClasses}>
+      <form onSubmit={(e) => {
+          e.preventDefault();
+        }}  className={settingsClasses}>
         <Photo {...this.getInputSettings('backgroundImage')}></Photo>
         { this.props.uploadingCoverPhoto ? (
           <p className="uploading-message">

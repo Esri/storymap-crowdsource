@@ -25,7 +25,9 @@ export default class SocialSharingSetttings extends React.Component {
     });
 
     return (
-      <form className={settingsClasses}>
+      <form onSubmit={(e) => {
+          e.preventDefault();
+        }}  className={settingsClasses}>
         <CheckboxGroup {...this.getInputSettings('includeSharing')}></CheckboxGroup>
         { this.props.defaultValues.includeTwitter ? (<Textarea {...this.getInputSettings('twitterText')}></Textarea>) : null }
           { this.props.defaultValues.includeTwitter && tweetLength > 140 ? (

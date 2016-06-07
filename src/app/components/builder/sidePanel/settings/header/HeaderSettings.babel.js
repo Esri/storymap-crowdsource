@@ -20,7 +20,9 @@ export default class HeaderSettings extends React.Component {
     const settingsClasses = Helper.classnames([this.props.className,this.props.classNames,'header-settings']);
 
     return (
-      <form className={settingsClasses}>
+      <form onSubmit={(e) => {
+          e.preventDefault();
+        }}  className={settingsClasses}>
         <RadioGroup {...this.getInputSettings('logoType')}></RadioGroup>
         {this.props.defaultValues.logoType === 'upload' ? <Photo {...this.getInputSettings('logoUpload')}></Photo> : null }
         { this.props.defaultValues.logoType === 'upload' && this.props.uploadingLogo ? (

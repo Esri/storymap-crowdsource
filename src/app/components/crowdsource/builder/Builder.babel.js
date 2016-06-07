@@ -228,6 +228,9 @@ class Builder extends React.Component {
     if (!this.state.continueDisabled) {
       switch (this.props.activeDialog) {
         case 'layoutScratch':
+          this.setState({
+            continueDisabled: true
+          });
           BuilderActions.changeDialog('itemNameScratch');
           break;
         case 'itemNameScratch':
@@ -237,6 +240,9 @@ class Builder extends React.Component {
           if (this.props.webmap && !this.props.loading.data) {
             BuilderActions.changeDialog('savingFromScratch');
           } else {
+              this.setState({
+                continueDisabled: true
+              });
             BuilderActions.changeDialog('itemNameScratch');
           }
           break;
