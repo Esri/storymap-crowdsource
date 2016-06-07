@@ -73,7 +73,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
         feature: item,
         match: this.props.thumbnailField,
         position: 0
-      })[0];
+      })[0] || '';
 
       photoUrl = Helper.attachmentUtils.checkForCredential({
         url: attachmentUrl,

@@ -91,7 +91,7 @@ export default class SelectedShares extends React.Component {
             feature: item,
             match: media.field,
             position: 0
-          })[0];
+          })[0] || '';
 
           photoUrl = Helper.attachmentUtils.checkForCredential({
             url: attachmentUrl,
