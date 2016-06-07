@@ -35,7 +35,7 @@ export default class SidePanelHelp extends React.Component {
 
       switch (current) {
         case 'galleryLink':
-          link = 'https://storymaps.arcgis.com/en/gallery/#s=0&md=storymaps-apps:crowdsource';
+          link = 'https://storymaps.arcgis.com/en/app-list/crowdsource/gallery/#s=0&md=storymaps-apps:crowdsource';
           break;
         case 'twitterFollowLink':
           link = 'https://twitter.com/EsriStoryMaps';

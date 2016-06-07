@@ -30,7 +30,7 @@ define({
         title: 'Share',
         copied: 'Copied',
         linkHeader: 'Link to story',
-        linkHelper: 'Share this story through email or social media services with the link below.',
+        linkHelper: 'Share this story through email or social media with the link below.',
         copyShortLink: 'Copy short link',
         showShortLink: 'Show short link',
         copyFullLink: 'Copy full URL',
