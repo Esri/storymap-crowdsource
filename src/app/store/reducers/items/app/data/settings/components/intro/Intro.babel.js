@@ -1,14 +1,12 @@
 import $ from 'jquery';
 import { combineReducers } from 'redux';
 import Helper from 'babel/utils/helper/Helper';
-import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
+
 import {
   UPDATE_SETTINGS_INTRO_TITLE,
   UPDATE_SETTINGS_INTRO_SUBTITLE,
   UPDATE_SETTINGS_INTRO_BACKGROUND
 } from 'babel/constants/actionsTypes/Settings';
-
-const defaultSubtitle = builderText ? builderText.appDataPlaceholderText.intro.subtitle : '';
 
 const defaultBackground = {
   type: 'photo',
@@ -24,7 +22,7 @@ export const title = function (state = '', action) {
   }
 };
 
-export const subtitle = function (state = defaultSubtitle, action) {
+export const subtitle = function (state = '', action) {
   switch (action.type) {
     case UPDATE_SETTINGS_INTRO_SUBTITLE:
       return action.subtitle;

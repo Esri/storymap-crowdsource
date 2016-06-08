@@ -95,7 +95,7 @@
     fromScratch: _getUrlVar('fromScratch') || _getUrlVar('fromscratch') || false
   };
 
-  if (!window.app.mode.isBuilder && window.location.protocol !== 'https:') {
+  if (window.location.protocol !== 'https:' && (!window.app.mode.isBuilder || location.hostname.toLowerCase().match('arcgis.com'))) {
     location.href = location.href.replace("http://", "https://");
   }
 

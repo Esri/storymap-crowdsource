@@ -41,7 +41,7 @@ define({
         },
         subtitle: {
           label: 'cover message',
-          placeholder: 'Enter cover message'
+          placeholder: 'Add a cover message...'
         },
         exploreButton: {
           label: 'map button label',
@@ -386,9 +386,6 @@ define({
       }
     },
     appDataPlaceholderText: {
-      intro: {
-        subtitle: 'Add a cover message...'
-      },
       globals: {
         participateShort: 'Participate',
         participateLong: 'Share your experience',
