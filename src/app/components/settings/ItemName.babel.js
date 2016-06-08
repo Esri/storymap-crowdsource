@@ -67,7 +67,6 @@ export const SettingsItemName = class SettingsItemName extends React.Component {
           ItemActions.updateAppItemTitle(res.value);
           SettingsActions.updateIntroTitle(res.value);
           SettingsActions.updateHeaderTitle(res.value);
-          SettingsActions.updateCommonSharingTwitter({text: res.value + ' #storymap'});
         }
         self.handleFieldChange('appName',res.valid);
       }

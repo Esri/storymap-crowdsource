@@ -354,10 +354,16 @@ Viewer.propTypes = {
       exploreText: React.PropTypes.string,
       participateLong: React.PropTypes.string,
       participateShort: React.PropTypes.string,
-      social: React.PropTypes.shape({
-        facebook: React.PropTypes.bool,
-        twitter: React.PropTypes.bool,
-        link: React.PropTypes.bool
+      sharing: React.PropTypes.shape({
+        services: React.PropTypes.shape({
+          facebook: React.PropTypes.bool,
+          twitter: React.PropTypes.bool,
+          link: React.PropTypes.bool
+        }),
+        twitter: React.PropTypes.shape({
+          related: React.PropTypes.string,
+          text: React.PropTypes.string
+        })
       })
     }),
     header: React.PropTypes.shape({
@@ -440,7 +446,10 @@ const mapStateToProps = (state) => {
         bitly: state.config.BITLY_API_KEY,
         facebook: state.config.FACEBOOK_APP_ID
       },
-      twitter: state.items.app.data.values.settings.components.common.sharing.twitter
+      twitter: {
+        text: state.items.app.data.values.settings.components.common.sharing.twitter.text.length > 0 ? state.items.app.data.values.settings.components.common.sharing.twitter.text : (state.items.app.data.values.settings.components.intro.title + ' #storymap'),
+        related: state.items.app.data.values.settings.components.common.sharing.twitter.related
+      }
     },
     loginUser: UserActions.loginOAuthStart,
     changeComponentsVisibility: AppActions.changeComponentsVisibility,
