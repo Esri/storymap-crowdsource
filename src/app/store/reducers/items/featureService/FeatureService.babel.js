@@ -10,7 +10,7 @@ import {
 const defaultItem = {
   extent: '-125,-40,70,70',
   title: '',
-  tags: ['Story Map,Story Maps,Crowdsource'],
+  tags: ['Story Map','Story Maps','Crowdsource'],
   type: 'Web Map',
   typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource-Layer','Feature Service']
 };

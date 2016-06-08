@@ -142,7 +142,7 @@ const mapStateToProps = (state) => {
     error: state.app.mainError,
     mode: state.mode,
     loading: state.app.loading,
-    layout: state.items.app.data.settings.layout,
+    layout: state.items.app.data.values.settings.layout,
     user: state.user,
     visibleComponents: state.app.layout.visibleComponents,
     actions: {

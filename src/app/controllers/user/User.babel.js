@@ -105,7 +105,7 @@ export default class UserController {
     const portal = lang.getObject('appState.app.portal',false,this);
 
     if (!IdentityManager.findCredential(portal.url)) {
-      const clientId = lang.getObject('appState.items.app.data.settings.oauth.clientId',false,this);
+      const clientId = lang.getObject('appState.items.app.data.values.settings.oauth.clientId',false,this);
       const locationUri = new URI(window.location).protocol('https').filename('oauth-callback.html');
       const redirectUri =  locationUri.origin() + locationUri.path();
       const portalUrl = new URI(portal.portalHostname).protocol('https').href().stripTrailingSlash();

@@ -423,10 +423,10 @@ const mapStateToProps = (state) => {
     appPrivacy: state.mode.isBuilder ? state.builder.appShare : 'private',
     appPrivacyUpdating: state.mode.isBuilder ? state.builder.appSharePending : false,
     config: state.config,
-    components: state.items.app.data.settings.components,
+    components: state.items.app.data.values.settings.components,
     contributing: state.app.contributing,
     loading: state.app.loading,
-    layoutId: state.items.app.data.settings.layout.id,
+    layoutId: state.items.app.data.values.settings.layout.id,
     layout: state.app.layout,
     map: state.app.map,
     portal: state.app.portal,
@@ -435,12 +435,12 @@ const mapStateToProps = (state) => {
     notifications: state.app.notifications,
     user: state.user,
     sharing: {
-      services: state.items.app.data.settings.components.common.sharing.services,
+      services: state.items.app.data.values.settings.components.common.sharing.services,
       appIds: {
         bitly: state.config.BITLY_API_KEY,
         facebook: state.config.FACEBOOK_APP_ID
       },
-      twitter: state.items.app.data.settings.components.common.sharing.twitter
+      twitter: state.items.app.data.values.settings.components.common.sharing.twitter
     },
     loginUser: UserActions.loginOAuthStart,
     changeComponentsVisibility: AppActions.changeComponentsVisibility,

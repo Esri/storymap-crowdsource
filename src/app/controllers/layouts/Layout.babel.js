@@ -23,7 +23,7 @@ export default class LayoutController {
   updateAppState() {
     this.appState = AppStore.getState();
 
-    const currentLayout = lang.getObject('appState.items.app.data.settings.layout.id',false,this);
+    const currentLayout = lang.getObject('appState.items.app.data.values.settings.layout.id',false,this);
 
     if (!this.checkedAdminPanel && !lang.getObject('appState.mode.isMobile',false,this) && !lang.getObject('appState.mode.isBuilder',false,this) && lang.getObject('appState.user.editor',false,this)) {
       this.checkedAdminPanel = true;

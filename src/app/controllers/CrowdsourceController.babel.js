@@ -61,7 +61,7 @@ export default class CrowdsourceController {
   }
 
   updatePageTitle() {
-    const title = lang.getObject('appState.items.app.data.settings.components.intro.title',false,this);
+    const title = lang.getObject('appState.items.app.data.values.settings.components.intro.title',false,this);
 
     if (title !== this.htmlTitle) {
       this.htmlTitle = title;

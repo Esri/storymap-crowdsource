@@ -74,11 +74,11 @@ export default class CrowdsourceBuilderController {
       this.checkWebmapStateChange();
     }
 
-    if (!this.webmapLoaded && lang.getObject('appState.app.loading.data',false,this) && lang.getObject('appState.items.app.data.settings.components.map.webmap',false,this)) {
+    if (!this.webmapLoaded && lang.getObject('appState.app.loading.data',false,this) && lang.getObject('appState.items.app.data.values.settings.components.map.webmap',false,this)) {
       this.webmapLoaded = true;
       ArcgisItem.getDataById({
         item: 'webmap',
-        id: lang.getObject('appState.items.app.data.settings.components.map.webmap',false,this)
+        id: lang.getObject('appState.items.app.data.values.settings.components.map.webmap',false,this)
       });
     }
   }

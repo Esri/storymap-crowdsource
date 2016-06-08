@@ -24,10 +24,14 @@ export const _ssl = function (state = false, action) {
   }
 };
 
-export const data = combineReducers({
-  _ssl,
+export const values = combineReducers({
   settings,
   properties
+});
+
+export const data = combineReducers({
+  _ssl,
+  values
 });
 
 export default data;

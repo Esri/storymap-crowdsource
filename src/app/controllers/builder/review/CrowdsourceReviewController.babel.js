@@ -45,8 +45,8 @@ export default class CrowdsourceReviewController {
       this.approved = JSON.stringify(approved);
       this.rejected = JSON.stringify(rejected);
 
-      const idField = lang.getObject('appState.items.app.data.settings.components.map.crowdsourceLayer.idField',false,this);
-      const vettedField = lang.getObject('appState.items.app.data.settings.components.map.crowdsourceLayer.vettedField',false,this);
+      const idField = lang.getObject('appState.items.app.data.values.settings.components.map.crowdsourceLayer.idField',false,this);
+      const vettedField = lang.getObject('appState.items.app.data.values.settings.components.map.crowdsourceLayer.vettedField',false,this);
 
       const approvedFeatures = approved.reduce((prev,current) => {
         const ftr = {

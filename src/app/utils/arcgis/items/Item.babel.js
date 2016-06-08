@@ -116,7 +116,10 @@ export const getDataById = function getDataById(options) {
       content,
       handleAs: 'json'
     }).then((res) => {
-      if (settings.item === 'app' && res.settings) {
+      if (settings.item === 'app' && res.values && res.values.settings) {
+        response.data = res;
+        checkUserLogin().then(getItem);
+      } else if (settings.item === 'app' && res.values && !res.values.settings) {
         response.data = res;
         checkUserLogin().then(getItem);
       } else if (settings.item === 'webmap' && res.version) {
