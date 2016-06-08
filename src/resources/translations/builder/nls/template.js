@@ -60,22 +60,22 @@ define({
       defaultTitle: 'Add your contribution',
       defaultForm: {
         name: {
-          label: 'Add a title',
+          label: 'Title',
           attribute: 'title',
           placeholder: 'Enter a title'
         },
         description: {
-          label: 'Add a description',
+          label: 'Description',
           attribute: 'description',
           placeholder: 'Enter a description (200 words or fewer please)'
         },
         location: {
-          label: 'Add a location',
+          label: 'Location',
           attribute: 'location',
           placeholder: 'Enter a location'
         },
         photo: {
-          label: 'Add a photo',
+          label: 'Photo',
           placeholder: 'Drag and Drop',
           attribute: 'photo'
         },
