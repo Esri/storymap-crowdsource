@@ -2,7 +2,8 @@ import $ from 'jquery';
 import { combineReducers } from 'redux';
 import data from './data/Data';
 import {
-  RECEIVE_APP_ITEM
+  RECEIVE_APP_ITEM,
+  RECEIVE_SCRATCH_CREATION_APP_ITEM
 } from 'babel/constants/actionsTypes/Arcgis';
 import {
   UPDATE_ITEM_APP_ITEM,
@@ -59,6 +60,8 @@ export const app = function(state = {}, action) {
   switch (action.type) {
     case RECEIVE_APP_ITEM:
       return $.extend(true,{},state,action.response);
+    case RECEIVE_SCRATCH_CREATION_APP_ITEM:
+      return $.extend(true,{},state,{item: action.response.item});
     default:
       return appCombined(state, action);
   }

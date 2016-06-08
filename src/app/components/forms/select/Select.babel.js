@@ -25,6 +25,11 @@ export default class Select extends FormGroup {
     super(props);
   }
 
+  componentDidMount() {
+    super.componentDidMount();
+    window.ts = this.input;
+  }
+
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'select','form-group',{

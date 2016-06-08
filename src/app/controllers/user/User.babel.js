@@ -59,6 +59,9 @@ export default class UserController {
     if (lang.getObject('appState.app.loading.data',false,this) && !lang.getObject('appState.user.authenticated',false,this)) {
       this.verifyCredentials();
     }
+    if (lang.getObject('appState.mode.fromScratch',false,this) && lang.getObject('appState.app.portal.user',false,this) && !lang.getObject('appState.user.authenticated',false,this)) {
+      this.verifyCredentials();
+    }
   }
 
   initialLoad() {

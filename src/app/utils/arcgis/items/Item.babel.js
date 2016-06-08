@@ -7,6 +7,7 @@ import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisActions from 'babel/actions/ArcgisActions';
 import AppActions from 'babel/actions/AppActions';
+import ModeActions from 'babel/actions/ModeActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import 'babel/utils/helper/strings/StringUtils';
 
@@ -90,10 +91,12 @@ export const getDataById = function getDataById(options) {
     }).then((res) => {
       if (res.id && res.id === settings.id) {
         response.item = res;
-        if (settings.item === 'app') {
+        if (settings.item === 'app' && response.data.values.settings) {
           ArcgisActions.receiveAppItem(response);
-        }
-        if (settings.item === 'webmap') {
+        } else if (settings.item === 'app') {
+          // ArcgisActions.receiveAppItem(response);
+          ArcgisActions.receiveScratchCreationAppItem(response);
+        } else if (settings.item === 'webmap') {
           ArcgisActions.receiveWebmapItem(response);
         }
       } else {
@@ -116,10 +119,12 @@ export const getDataById = function getDataById(options) {
       content,
       handleAs: 'json'
     }).then((res) => {
-      if (settings.item === 'app' && res.values && res.values.settings) {
-        response.data = res;
-        checkUserLogin().then(getItem);
-      } else if (settings.item === 'app' && res.values && !res.values.settings) {
+      if (settings.item === 'app' && res.values) {
+        if (!res.values.settings) {
+          ModeActions.updateMode({
+            fromScratch: true
+          });
+        }
         response.data = res;
         checkUserLogin().then(getItem);
       } else if (settings.item === 'webmap' && res.version) {

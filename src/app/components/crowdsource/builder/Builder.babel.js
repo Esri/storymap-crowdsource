@@ -190,7 +190,7 @@ class Builder extends React.Component {
         title: welcomeTitle,
         body: <SettingsItemName
           handleChange={this.onItemNamesChange}
-          ownerFolder={this.props.scratchNaming.ownerFolder}
+          ownerFolder={this.props.config.folderid}
           portal={this.props.portal}>
         </SettingsItemName>,
         footer: continueButton
@@ -238,12 +238,12 @@ class Builder extends React.Component {
           BuilderActions.changeDialog('savingFromScratch');
           break;
         case 'betaMessage':
-          if (this.props.webmap && !this.props.loading.data) {
+          if ((this.props.config.webmap && !this.props.loading.data) || (this.props.config.appid && !this.props.loading.data)) {
             BuilderActions.changeDialog('savingFromScratch');
           } else {
-              this.setState({
-                continueDisabled: true
-              });
+            this.setState({
+              continueDisabled: true
+            });
             BuilderActions.changeDialog('itemNameScratch');
           }
           break;
@@ -270,6 +270,10 @@ Builder.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.shape({})
   ]),
+  config: React.PropTypes.shape({
+    webmap: React.PropTypes.string,
+    appid: React.PropTypes.string
+  }).isRequired,
   layout: React.PropTypes.string,
   scratchNaming: React.PropTypes.shape({
     ownerFolder: React.PropTypes.oneOfType([
@@ -294,6 +298,7 @@ const mapStateToProps = (state) => {
       ownerFolder: state.items.app.item.ownerFolder
     },
     visibleComponents: state.app.layout.visibleComponents,
+    config: state.config,
     review: state.review,
     defaultValues: {
       headerSettings: {

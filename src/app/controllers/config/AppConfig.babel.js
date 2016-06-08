@@ -23,6 +23,9 @@ export default class AppConfig {
           case 'webmap':
             urlConfig.webmap = urlQuery[current];
             break;
+          case 'folderid':
+            urlConfig.folderid = urlQuery[current];
+            break;
         }
       });
     }

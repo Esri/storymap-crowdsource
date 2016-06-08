@@ -40,6 +40,8 @@ export default class StoryCreator {
     // Autobind methods
     this.updateAppState = this.updateAppState.bind(this);
     this.saveOrgDefaults = this.saveOrgDefaults.bind(this);
+    this.saveAppFromWebmapDefaults = this.saveAppFromWebmapDefaults.bind(this);
+    this.saveAppFromScratchApp = this.saveAppFromScratchApp.bind(this);
     this.createFeatureService = this.createFeatureService.bind(this);
     this.createWebmap = this.createWebmap.bind(this);
     this.createApp = this.createApp.bind(this);
@@ -71,6 +73,9 @@ export default class StoryCreator {
     }
     if (!this.savedWebmapDefaults && typeof lang.getObject('appState.items.webmap.item.id',false,this) === 'string' && lang.getObject('appState.items.webmap.item.id',false,this) === lang.getObject('appState.config.webmap',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
       this.saveAppFromWebmapDefaults();
+    }
+    if (!this.savedAppFromScratchApp && lang.getObject('appState.config.appid',false,this) && typeof lang.getObject('appState.config.appid',false,this) === 'string' && lang.getObject('appState.config.appid',false,this).length === 32 && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
+      this.saveAppFromScratchApp();
     }
     if (lang.getObject('appState.builder.activeDialog',false,this) === 'savingFromScratch' && !this.itemCreationPending) {
       this.createFeatureService();
@@ -144,6 +149,39 @@ export default class StoryCreator {
     });
   }
 
+  saveAppFromScratchApp() {
+    this.savedAppFromScratchApp = true;
+    const appItem = lang.getObject('appState.items.app.item',false,this);
+    const layerNameValidator = new Validator({
+      validations: ['arcgisIsServiceName']
+    });
+
+    ItemActions.updateFeatureServiceItem({
+      ownerFolder: appItem.ownerFolder
+    });
+    ItemActions.updateWebmapItem({
+      ownerFolder: appItem.ownerFolder,
+      title: appItem.title
+    });
+    SettingsActions.updateIntroTitle(appItem.title);
+    SettingsActions.updateIntroSubtitle(appItem.snippet);
+    SettingsActions.updateHeaderTitle(appItem.title);
+    SettingsActions.updateCommonSharingTwitter({text: appItem.title + ' #storymap'});
+
+    layerNameValidator.validate(appItem.title).then((newRes) => {
+      if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
+        const layerName = newRes.errors[0].fixValue;
+
+        ItemActions.updateFeatureServiceItemTitle(layerName);
+        ItemActions.updateFeatureServiceDefinition({name: layerName});
+      } else {
+        ItemActions.updateFeatureServiceItemTitle(appItem.title);
+        ItemActions.updateFeatureServiceDefinition({name: appItem.title});
+      }
+
+    });
+  }
+
   createFeatureService() {
     const portal = lang.getObject('appState.app.portal',false,this);
 
@@ -192,6 +230,9 @@ export default class StoryCreator {
   }
 
   createApp() {
+    this.savedWebmapDefaults = true;
+    this.savedWebmapDefaults = true;
+    this.savedAppFromScratchApp = true;
     const portal = lang.getObject('appState.app.portal',false,this);
 
     portal.saveApp().then((res) => {
