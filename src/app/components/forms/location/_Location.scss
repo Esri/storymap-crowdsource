@@ -31,20 +31,33 @@
     }
   }
 
+  .zoomLocateButton {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
   .calcite-locate {
     height: 38px;
     width: 44px;
 
     .icon-location {
-      height: 23px;
-      width: 23px;
-      margin-left: -3px;
+      position: absolute;
+      height: 60%;
+      width: 60%;
+      top: 20%;
+      left: 20%;
     }
 
     .loading-gif {
       display: none;
-      height: 26px;
-      margin-left: -4px;
+      position: absolute;
+      height: 80%;
+      width: 80%;
+      top: 10%;
+      left: 10%;
     }
 
     .loading {

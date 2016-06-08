@@ -190,8 +190,7 @@ class Builder extends React.Component {
         title: welcomeTitle,
         body: <SettingsItemName
           handleChange={this.onItemNamesChange}
-          ownerFolder={this.props.config.folderid}
-          portal={this.props.portal}>
+          {...this.props.scratchNaming}>
         </SettingsItemName>,
         footer: continueButton
       },
@@ -295,7 +294,8 @@ const mapStateToProps = (state) => {
     layout: state.items.app.data.values.settings.layout.id,
     webmap: state.items.app.data.values.settings.components.map.webmap,
     scratchNaming: {
-      ownerFolder: state.items.app.item.ownerFolder
+      ownerFolder: state.config.folderid,
+      portal: state.app.portal
     },
     visibleComponents: state.app.layout.visibleComponents,
     config: state.config,
