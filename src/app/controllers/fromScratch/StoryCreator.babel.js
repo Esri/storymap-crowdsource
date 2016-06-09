@@ -71,7 +71,7 @@ export default class StoryCreator {
     if (!this.savedOrgDefaults && lang.getObject('appState.app.portal',false,this)) {
       this.saveOrgDefaults();
     }
-    if (!this.savedWebmapDefaults && typeof lang.getObject('appState.items.webmap.item.id',false,this) === 'string' && lang.getObject('appState.items.webmap.item.id',false,this) === lang.getObject('appState.config.webmap',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
+    if (!this.savedWebmapDefaults && typeof lang.getObject('appState.items.webmap.item.id',false,this) === 'string' && lang.getObject('appState.items.webmap.item.access',false,this) && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
       this.saveAppFromWebmapDefaults();
     }
     if (!this.savedAppFromScratchApp && lang.getObject('appState.config.appid',false,this) && typeof lang.getObject('appState.config.appid',false,this) === 'string' && lang.getObject('appState.config.appid',false,this).length === 32 && !lang.getObject('appState.app.loading.map',false,this) && !lang.getObject('appState.app.loading.data',false,this)) {
@@ -113,6 +113,7 @@ export default class StoryCreator {
 
   saveAppFromWebmapDefaults() {
     this.savedWebmapDefaults = true;
+    this.itemCreationPending = true;
     const webmapItem = lang.getObject('appState.items.webmap.item',false,this);
     const layerNameValidator = new Validator({
       validations: ['arcgisIsServiceName']
@@ -144,40 +145,58 @@ export default class StoryCreator {
         ItemActions.updateFeatureServiceItemTitle(webmapItem.title);
         ItemActions.updateFeatureServiceDefinition({name: webmapItem.title});
       }
-
+      this.itemCreationPending = false;
     });
   }
 
   saveAppFromScratchApp() {
     this.savedAppFromScratchApp = true;
+    this.savedWebmapDefaults = true;
+    this.itemCreationPending = true;
+
+    const self = this;
     const appItem = lang.getObject('appState.items.app.item',false,this);
     const layerNameValidator = new Validator({
       validations: ['arcgisIsServiceName']
     });
+    const setLayerNameAndFinish = function() {
+      layerNameValidator.validate(appItem.title).then((newRes) => {
+        if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
+          const layerName = newRes.errors[0].fixValue;
+
+          ItemActions.updateFeatureServiceItemTitle(layerName);
+          ItemActions.updateFeatureServiceDefinition({name: layerName});
+        } else {
+          ItemActions.updateFeatureServiceItemTitle(appItem.title);
+          ItemActions.updateFeatureServiceDefinition({name: appItem.title});
+        }
+
+        self.itemCreationPending = false;
+      });
+    };
 
     ItemActions.updateFeatureServiceItem({
       ownerFolder: appItem.ownerFolder
-    });
-    ItemActions.updateWebmapItem({
-      ownerFolder: appItem.ownerFolder,
-      title: appItem.title
     });
     SettingsActions.updateIntroTitle(appItem.title);
     SettingsActions.updateIntroSubtitle(appItem.snippet);
     SettingsActions.updateHeaderTitle(appItem.title);
 
-    layerNameValidator.validate(appItem.title).then((newRes) => {
-      if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
-        const layerName = newRes.errors[0].fixValue;
-
-        ItemActions.updateFeatureServiceItemTitle(layerName);
-        ItemActions.updateFeatureServiceDefinition({name: layerName});
+    ArcgisItem.getDataById().then((appItem) => {
+      if (appItem.data && appItem.data.values && appItem.data.values.webmap) {
+        ArcgisItem.getDataById({
+          item: 'webmap',
+          id: appItem.data.values.webmap
+        }).then(setLayerNameAndFinish);
       } else {
-        ItemActions.updateFeatureServiceItemTitle(appItem.title);
-        ItemActions.updateFeatureServiceDefinition({name: appItem.title});
+        ItemActions.updateWebmapItem({
+          ownerFolder: appItem.ownerFolder,
+          title: appItem.title
+        });
+        setLayerNameAndFinish();
       }
-
     });
+
   }
 
   createFeatureService() {
@@ -228,7 +247,7 @@ export default class StoryCreator {
   }
 
   createApp() {
-    this.savedWebmapDefaults = true;
+    this.savedOrgDefaults = true;
     this.savedWebmapDefaults = true;
     this.savedAppFromScratchApp = true;
     const portal = lang.getObject('appState.app.portal',false,this);

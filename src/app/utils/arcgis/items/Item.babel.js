@@ -29,11 +29,11 @@ const _onStatus = function onStatus(message,debugOnly) {
 };
 
 export const getDataById = function getDataById(options) {
-  const appState = AppStore.getState();
+  const deferred = new Deferred();
   const defaults = {
     item: 'app',
-    id: lang.getObject('config.appid',false,appState),
-    portal: lang.getObject('app.portal',false,appState)
+    id: lang.getObject('config.appid',false,AppStore.getState()),
+    portal: lang.getObject('app.portal',false,AppStore.getState())
   };
   const settings = $.extend(true,{},defaults,options);
   const itemUrl = settings.portal.portalUrl.stripTrailingSlash() + '/content/items/' + settings.id;
@@ -94,18 +94,37 @@ export const getDataById = function getDataById(options) {
         if (settings.item === 'app' && response.data.values.settings) {
           ArcgisActions.receiveAppItem(response);
         } else if (settings.item === 'app') {
-          // ArcgisActions.receiveAppItem(response);
           ArcgisActions.receiveScratchCreationAppItem(response);
         } else if (settings.item === 'webmap') {
-          ArcgisActions.receiveWebmapItem(response);
+          if (lang.getObject('mode.fromScratch',false,AppStore.getState()) && lang.getObject('app.portal.user.username',false,AppStore.getState()) !== res.owner) {
+            // If owned by another user, remove id information so app will create a copy of the original webmap in author's content
+            $.extend(true,response.item,{
+              id: '',
+              extent: res.extent.toString(),
+              orgId: '',
+              owner: '',
+              ownerFolder: ''
+            });
+            ArcgisActions.receiveWebmapItem(response);
+          } else {
+            $.extend(true,response.item,{
+              extent: res.extent.toString()
+            });
+            ArcgisActions.receiveWebmapItem(response);
+          }
         }
+        deferred.resolve(response);
       } else {
         if (settings.item === 'app') {
           AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
         }
         _onError(res);
+        deferred.reject(res);
       }
-    },onError);
+    },(err) => {
+      onError(err);
+      deferred.reject(err);
+    });
   };
 
   const getItemData = function() {
@@ -135,11 +154,17 @@ export const getDataById = function getDataById(options) {
           AppActions.displayMainError(viewerText.errors.loading.appLoadingFail);
         }
         _onError(res);
+        deferred.reject(res);
       }
-    },onError);
+    },(err) => {
+      onError(err);
+      deferred.reject(err);
+    });
   };
 
   getItemData();
+
+  return deferred;
 };
 
 export default {
