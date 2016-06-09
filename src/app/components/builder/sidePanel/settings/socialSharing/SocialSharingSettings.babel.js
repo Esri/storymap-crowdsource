@@ -69,6 +69,7 @@ export default class SocialSharingSetttings extends React.Component {
       case 'twitterText':
         $.extend(true,settings,{
           required: true,
+          saveOnlyChanged: true,
           tooltip: {
             content: builderText.settings.panes.socialSharing.fields[input].tooltip
           },

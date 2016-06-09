@@ -218,7 +218,7 @@ export default class FormGroup extends React.Component {
   }
 
   handleChange() {
-    if (this.props.handleChange) {
+    if (this.props.handleChange && ((this.state.changed && this.props.saveOnlyChanged) || !this.props.saveOnlyChanged)) {
       this.props.handleChange({
         valid: this.valid,
         value: this.value
@@ -261,6 +261,7 @@ FormGroup.propTypes = {
   }),
   label: React.PropTypes.string,
   validations: React.PropTypes.array,
+  saveOnlyChanged: React.PropTypes.bool,
   handleChange: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.func
@@ -282,5 +283,6 @@ FormGroup.defaultProps = {
   },
   label: '',
   validations: [],
+  saveOnlyChanged: false,
   handleChange: false
 };

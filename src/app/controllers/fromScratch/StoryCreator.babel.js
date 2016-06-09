@@ -133,7 +133,6 @@ export default class StoryCreator {
     SettingsActions.updateIntroTitle(webmapItem.title);
     SettingsActions.updateIntroSubtitle(webmapItem.snippet);
     SettingsActions.updateHeaderTitle(webmapItem.title);
-    SettingsActions.updateCommonSharingTwitter({text: webmapItem.title + ' #storymap'});
 
     layerNameValidator.validate(webmapItem.title).then((newRes) => {
       if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {
@@ -166,7 +165,6 @@ export default class StoryCreator {
     SettingsActions.updateIntroTitle(appItem.title);
     SettingsActions.updateIntroSubtitle(appItem.snippet);
     SettingsActions.updateHeaderTitle(appItem.title);
-    SettingsActions.updateCommonSharingTwitter({text: appItem.title + ' #storymap'});
 
     layerNameValidator.validate(appItem.title).then((newRes) => {
       if (!newRes.isValid && newRes.errors && newRes.errors[0] && newRes.errors[0].fixValue) {

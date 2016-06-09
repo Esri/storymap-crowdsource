@@ -103,6 +103,15 @@ export default class HeaderSettings extends React.Component {
           validations: ['required']
         });
         break;
+      case 'bannerTitle':
+        $.extend(true,settings,{
+          saveOnlyChanged: true,
+          inputAttr: {
+            defaultValue: this.props.defaultValues[input],
+            placeholder: builderText.settings.panes.header.fields[input].placeholder
+          }
+        });
+        break;
       default:
         $.extend(true,settings,{
           inputAttr: {
