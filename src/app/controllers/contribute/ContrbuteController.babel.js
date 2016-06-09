@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import React from 'react'; //eslint-disable-line no-unused-vars
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
@@ -8,6 +9,7 @@ import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
 import MapActions from 'babel/actions/MapActions';
 import Logger from 'babel/utils/logging/Logger';
+import viewerText from 'i18n!translations/viewer/nls/template';
 import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'Contribute Controller'});
@@ -38,6 +40,7 @@ export default class ContributeController {
     this.checkContributeView = this.checkContributeView.bind(this);
     this.saveGraphic = this.saveGraphic.bind(this);
     this.finishSave = this.finishSave.bind(this);
+    this.displayContributionShownAfterReviewMessage = this.displayContributionShownAfterReviewMessage.bind(this);
 
     // Subscribe to state changes
     this.updateAppState();
@@ -156,9 +159,34 @@ export default class ContributeController {
     });
     this.savingGraphic = false;
 
+    const query = lang.getObject('appState.items.app.data.values.settings.components.map.crowdsourceLayer.visibleFeaturesQuery',false,this);
+
+    if ($.isArray(query) && query.indexOf('vetted:new') < 0) {
+        this.displayContributionShownAfterReviewMessage();
+    }
     if (lang.getObject('appState.app.map.originalObject.refreshCrowdsourceLayer',false,this)) {
         this.appState.app.map.originalObject.refreshCrowdsourceLayer();
     }
+  }
+
+  displayContributionShownAfterReviewMessage() {
+    const removeContributionShownAfterReview = function() {
+      AppActions.removeNotifications({
+        id: 'contributionNotfication_contributionShownAfterReview'
+      });
+    };
+
+    AppActions.addNotifications({
+      id: 'contributionNotfication_contributionShownAfterReview',
+      type: 'info',
+      content: (
+        <div>
+          <p><strong>viewerText.contribute.messages.contributionShownAfterReview.title</strong></p>
+          <p>viewerText.contribute.messages.contributionShownAfterReview.body</p>
+          <button className="btn btn-primary" onClick={removeContributionShownAfterReview}>viewerText.contribute.messages.contributionShownAfterReview.confirmBtn</button>
+        </div>
+      )
+    });
   }
 
 }

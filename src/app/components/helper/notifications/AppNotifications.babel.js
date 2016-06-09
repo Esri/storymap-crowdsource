@@ -24,7 +24,7 @@ export default class AppNotifications extends React.Component {
 
           const notificationClasses = Helper.classnames([this.props.className,'notification','alert'],{
             'alert-danger': current.type === 'error',
-            'alert-info': current.type !== 'error'
+            'alert-info': current.type === 'info' || current.type !== 'error'
           });
 
           return (
