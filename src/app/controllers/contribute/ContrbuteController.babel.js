@@ -170,7 +170,7 @@ export default class ContributeController {
   }
 
   displayContributionShownAfterReviewMessage() {
-    const removeContributionShownAfterReview = function() {
+    const removeContributionShownAfterReviewMessage = function() {
       AppActions.removeNotifications({
         id: 'contributionNotfication_contributionShownAfterReview'
       });
@@ -181,9 +181,9 @@ export default class ContributeController {
       type: 'info',
       content: (
         <div>
-          <p><strong>viewerText.contribute.messages.contributionShownAfterReview.title</strong></p>
-          <p>viewerText.contribute.messages.contributionShownAfterReview.body</p>
-          <button className="btn btn-primary" onClick={removeContributionShownAfterReview}>viewerText.contribute.messages.contributionShownAfterReview.confirmBtn</button>
+          <p><strong>{viewerText.contribute.messages.contributionShownAfterReview.title}</strong></p>
+          <p>{viewerText.contribute.messages.contributionShownAfterReview.body}</p>
+          <button className="btn btn-primary" onClick={removeContributionShownAfterReviewMessage}>{viewerText.contribute.messages.contributionShownAfterReview.confirmBtn}</button>
         </div>
       )
     });

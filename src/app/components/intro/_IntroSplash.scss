@@ -51,6 +51,7 @@
 
   .title-pane {
     position: absolute;
+    padding: 30px;
     width: 76%;
     top: 25%;
     left: 12%;
@@ -58,13 +59,13 @@
     opacity: 0;
 
     .title {
-      margin: 30px;
       position: relative;
+      margin: 0;
       font-size: 4em;
     }
 
     .subtitle {
-      margin: 15px 30px 30px;
+      margin: 15px 0 0;
       position: relative;
       font-size: 2em;
     }
