@@ -79,6 +79,12 @@
         reactRedux: path1 + 'lib/react-redux/index',
         redux: path1 + 'lib/redux/index',
         bootstrap: path1 + 'lib/bootstrap-sass/assets/javascripts/bootstrap',
+        EventEmitter: path1 + 'lib/eventEmitter/EventEmitter',
+        cropper: path1 + 'lib/cropperjs/dist/cropper',
+        clipboard: path1 + 'lib/clipboard/dist/clipboard',
+        loader: path1 + 'lib/loader/dist/loader',
+        Autolinker: path1 + 'lib/Autolinker.js/dist/Autolinker',
+        autosize: path1 + 'lib/autosize/dist/autosize',
         // AMD Plugins
         mode: path1 + 'build/app/utils/amd/plugins/AppMode'
       }

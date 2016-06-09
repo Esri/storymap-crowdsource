@@ -262,21 +262,28 @@ module.exports = function (grunt) {
       options: {
         baseUrl: 'src/',
         paths: {
-          /* Ignore modules of the following packages */
+          // Ignore modules of the following packages
           dojo: 'empty:',
           esri: 'empty:',
           dijit: 'empty:',
           dojox: 'empty:',
           translations: 'empty:',
+          // Package
           babel: '../build/app',
           lib: 'lib',
-          jquery: 'lib/jquery/dist/jquery',
-          velocity: 'lib/velocity/velocity',
-          react: 'lib/react/react-with-addons',
-          reactDom: 'lib/react/react-dom',
+          jquery: 'lib/jquery/dist/jquery.min',
+          velocity: 'lib/velocity/velocity.min',
+          react: 'lib/react/react-with-addons.min',
+          reactDom: 'lib/react/react-dom.min',
           reactRedux: 'lib/react-redux/index',
           redux: 'lib/redux/index',
           bootstrap: 'lib/bootstrap-sass/assets/javascripts/bootstrap',
+          EventEmitter: 'lib/eventEmitter/EventEmitter.min',
+          cropper: 'lib/cropperjs/dist/cropper.min',
+          clipboard: 'lib/clipboard/dist/clipboard.min',
+          loader: 'lib/loader/dist/loader.min',
+          Autolinker: 'lib/Autolinker.js/dist/Autolinker.min',
+          autosize: 'lib/autosize/dist/autosize.min',
           // AMD Plugins
           mode: '../build/app/utils/amd/plugins/AppMode',
           i18n: 'lib/i18n/i18n'

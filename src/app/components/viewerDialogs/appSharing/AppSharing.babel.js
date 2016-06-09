@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import React from 'react';
-import Clipboard from 'lib/clipboard/dist/clipboard';
+import Clipboard from 'clipboard';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Modal from 'babel/components/helper/modal/Modal';
-import autosize from 'lib/autosize/dist/autosize';
+import autosize from 'autosize';
 import viewerText from 'i18n!translations/viewer/nls/template';
 import builderText from 'i18n!translations/builder/nls/template';
 import 'bootstrap/tooltip';

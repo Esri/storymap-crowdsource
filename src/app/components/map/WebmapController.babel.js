@@ -2,7 +2,7 @@ import $ from 'jquery';
 import domContruct from 'dojo/dom-construct';
 import arcgisUtils from 'esri/arcgis/utils';
 import HomeButton from 'esri/dijit/HomeButton';
-import EventsEmitter from 'lib/eventEmitter/EventEmitter';
+import EventsEmitter from 'EventEmitter';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Logger from 'babel/utils/logging/Logger';
 import AppActions from 'babel/actions/AppActions';

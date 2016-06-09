@@ -289,11 +289,11 @@ export default class StoryCreator {
     });
 
     Object.keys(urlQuery).forEach((current) => {
-      if (current.toLowerCase() === 'fromscratch') {
+      if (current.toLowerCase() === 'fromscratch' || current.toLowerCase() === 'webmap' || current.toLowerCase() === 'folderid') {
         delete urlQuery[current];
       }
-      if (current.toLowerCase() === 'webmap') {
-        delete urlQuery[current];
+      if (current.toLowerCase() === 'debug') {
+        urlQuery[current] = true;
       }
     });
 

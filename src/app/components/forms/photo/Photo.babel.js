@@ -7,8 +7,8 @@ import FormGroup from 'babel/components/forms/base/FormGroup';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 import SmartCrop from 'lib/smartcrop/smartcrop';
 import 'lib/resample-hermite/hermite';
-import 'lib/cropperjs/dist/cropper';
-import 'lib/loader/dist/loader';
+import 'cropper';
+import 'loader';
 
 export default class Photo extends FormGroup {
 

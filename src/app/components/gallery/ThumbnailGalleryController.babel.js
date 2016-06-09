@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import EventsEmitter from 'lib/eventEmitter/EventEmitter';
+import EventsEmitter from 'EventEmitter';
 import Helper from 'babel/utils/helper/Helper';
 
 export const ThumbnailGalleryController = class ThumbnailGalleryController extends EventsEmitter {

@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import Helper from 'babel/utils/helper/Helper';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
-import autosize from 'lib/autosize/dist/autosize';
+import autosize from 'autosize';
 
 export default class Textarea extends FormGroup {
 

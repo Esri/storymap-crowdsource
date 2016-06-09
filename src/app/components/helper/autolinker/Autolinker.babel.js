@@ -1,6 +1,6 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
-import AutolinkerJS from 'lib/Autolinker.js/dist/Autolinker';
+import AutolinkerJS from 'Autolinker';
 
 export const Autolinker = class Autolinker extends React.Component {
 
