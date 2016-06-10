@@ -41,7 +41,14 @@ export default class Login extends React.Component {
               );
             }
           }) }
-          <p>{viewerText.contribute.login.loginDescription}</p>
+          <p>
+            {
+              Object.keys(this.props.loginOptions).filter((current) => {
+                return this.props.loginOptions[current] === true;
+              }).length === 1 ? viewerText.contribute.login.loginDescriptionSingle :
+               viewerText.contribute.login.loginDescription
+            }
+          </p>
           <button type="button" className={closeBtnClasses} onClick={this.onClose}>
             { viewerText.common.buttons.close }
           </button>
