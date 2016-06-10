@@ -60,8 +60,8 @@ export default class CheckboxGroup extends FormGroup {
                     name={this.props.id}
                     id={id}
                     value={current.value}
-                    defaultChecked={defaultValues.indexOf(current.value.toString()) >= 0}
-                    onClick={this.onChange}
+                    checked={defaultValues.indexOf(current.value.toString()) >= 0 ? 'checked' : null}
+                    onChange={this.onChange}
                     onBlur={this.onBlur} />
                   {current.label || current.value}
                 </label>

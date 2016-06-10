@@ -45,8 +45,8 @@ export default class RadioInput extends FormGroup {
                     name={this.props.id}
                     id={id}
                     value={current.value}
-                    defaultChecked={current.value === this.props.defaultValue}
-                    onClick={this.onChange}
+                    checked={current.value === this.props.defaultValue ? 'checked' : null}
+                    onChange={this.onChange}
                     onBlur={this.onBlur} />
                   {current.label || current.value}
                 </label>
