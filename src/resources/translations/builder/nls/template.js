@@ -403,6 +403,7 @@ define({
     messages: {
       arcgisItems: {
         webmapNotOwned: {
+          title: 'Message from Crowdsource Builder',
           body: 'You tried to build a Crowdsource story using someone else\'s web map. A copy of their map was created in your account, and your story uses that copy.',
           confirmBtn: 'Ok'
         }

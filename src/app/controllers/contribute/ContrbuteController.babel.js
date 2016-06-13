@@ -189,4 +189,18 @@ export default class ContributeController {
     });
   }
 
+  // displayContributeErrorMessage() {
+  //   AppActions.addNotifications({
+  //     id: 'contributionNotfication_contributionError',
+  //     type: 'info',
+  //     content: (
+  //       <div>
+  //         <p><strong>{viewerText.contribute.messages.contributionShownAfterReview.title}</strong></p>
+  //         <p>{viewerText.contribute.messages.contributionShownAfterReview.body}</p>
+  //       <button className="btn btn-primary" onClick={removeContributeErrorMessage}>{viewerText.contribute.messages.contributionShownAfterReview.confirmBtn}</button>
+  //       </div>
+  //     )
+  //   });
+  // }
+
 }

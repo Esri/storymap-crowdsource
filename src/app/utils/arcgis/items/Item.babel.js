@@ -70,6 +70,7 @@ export const getDataById = function getDataById(options) {
       type: 'info',
       content: (
         <div>
+          <p><strong>{builderText.messages.arcgisItems.webmapNotOwned.title}</strong></p>
           <p>{builderText.messages.arcgisItems.webmapNotOwned.body}</p>
           <button className="btn btn-primary" onClick={removeDifferentWebmapOwnerMessage}>{builderText.messages.arcgisItems.webmapNotOwned.confirmBtn}</button>
         </div>
