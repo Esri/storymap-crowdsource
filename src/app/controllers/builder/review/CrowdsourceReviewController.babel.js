@@ -71,10 +71,12 @@ export default class CrowdsourceReviewController {
       },[]);
 
       const updates = JSON.stringify([].concat(approvedFeatures).concat(rejectedFeatures));
+      const token = lang.getObject('appState.app.portal.user.credential.token',false,this);
       const layer = lang.getObject('appState.app.map.layer',false,this);
       const url = layer.url.stripTrailingSlash() + '/applyEdits';
       const content = {
         f: 'json',
+        token, 
         updates
       };
 
