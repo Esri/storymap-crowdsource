@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import React from 'react'; //eslint-disable-line no-unused-vars
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
@@ -9,6 +10,7 @@ import ArcgisActions from 'babel/actions/ArcgisActions';
 import AppActions from 'babel/actions/AppActions';
 import ModeActions from 'babel/actions/ModeActions';
 import viewerText from 'i18n!translations/viewer/nls/template';
+import builderText from 'mode!isBuilder?i18n!translations/builder/nls/template';
 import 'babel/utils/helper/strings/StringUtils';
 
 const _logger = new Logger({source: 'ArcGIS - Item'});
@@ -54,6 +56,25 @@ export const getDataById = function getDataById(options) {
       }
     }
     _onError(err);
+  };
+
+  const displayDifferentWebmapOwnerMessage = function() {
+    const removeDifferentWebmapOwnerMessage = function() {
+      AppActions.removeNotifications({
+        id: 'scratchCreation_differentWebmapOwnerMessage'
+      });
+    };
+
+    AppActions.addNotifications({
+      id: 'scratchCreation_differentWebmapOwnerMessage',
+      type: 'info',
+      content: (
+        <div>
+          <p>{builderText.messages.arcgisItems.webmapNotOwned.body}</p>
+          <button className="btn btn-primary" onClick={removeDifferentWebmapOwnerMessage}>{builderText.messages.arcgisItems.webmapNotOwned.confirmBtn}</button>
+        </div>
+      )
+    });
   };
 
   const checkUserLogin = function() {
@@ -106,6 +127,7 @@ export const getDataById = function getDataById(options) {
               ownerFolder: ''
             });
             ArcgisActions.receiveWebmapItem(response);
+            displayDifferentWebmapOwnerMessage();
           } else {
             $.extend(true,response.item,{
               extent: res.extent.toString()
