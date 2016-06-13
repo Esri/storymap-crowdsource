@@ -34,6 +34,12 @@ export default class Photo extends FormGroup {
     this.saveCropValue = this.saveCropValue.bind(this);
     this.generatePhotos = this.generatePhotos.bind(this);
     this.generateOptimizedPhoto = this.generateOptimizedPhoto.bind(this);
+    this.resetCropper = this.resetCropper.bind(this);
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    $(window).on('resize',this.resetCropper);
   }
 
   componentDidUpdate(prevProps,prevState) {// eslint-disable-line no-unused-vars
@@ -50,6 +56,7 @@ export default class Photo extends FormGroup {
     if (this.cropper) {
       this.cropper.destroy();
     }
+    $(window).off('resize',this.resetCropper);
   }
 
   render() {
@@ -167,6 +174,12 @@ export default class Photo extends FormGroup {
 			e.stopPropagation();
       this.loadImageFromFile(e.dataTransfer.files[0]);
 		}
+  }
+
+  resetCropper() {
+    if (this.cropper && this.cropper.reset) {
+      this.cropper.reset();
+    }
   }
 
   loadImageFromFile(file) {

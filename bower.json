@@ -31,7 +31,7 @@
     "jquery": "~2.1.4",
     "velocity": "https://github.com/julianshapiro/velocity/archive/1.2.3.zip",
     "bourbon": "~4.2.6",
-    "cropperjs": "~0.5.5",
+    "cropperjs": "~0.7.2",
     "loader": "https://github.com/fengyuanchen/loader/archive/eb81471c8ac608fef799e3b90b8c2ead6ff62a82.zip",
     "resample-hermite": "https://github.com/viliusle/Hermite-resize/archive/ede593b94d8fc9a33141229dc72fd334c7563baf.zip",
     "smartcrop": "*",
