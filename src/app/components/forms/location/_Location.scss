@@ -31,43 +31,42 @@
     }
   }
 
-  .zoomLocateButton {
+  .locator {
+    position: relative;
+    margin: 5px 0;
+  }
+
+  .locating-text, .locate-text {
+    margin-left: 18px;
+  }
+
+  .locator-icon {
     position: absolute;
     height: 100%;
-    width: 100%;
+    width: 30px;
     top: 0;
     left: 0;
   }
 
-  .calcite-locate {
-    height: 38px;
-    width: 44px;
+  .icon-location, .loading-gif {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    top: 6px;
+    left: 6px;
+  }
 
-    .icon-location {
-      position: absolute;
-      height: 60%;
-      width: 60%;
-      top: 20%;
-      left: 20%;
-    }
+  .loading-gif, .locating-text {
+    display: none;
+  }
 
-    .loading-gif {
+  .loading {
+    .icon-location, .locate-text {
       display: none;
-      position: absolute;
-      height: 80%;
-      width: 80%;
-      top: 10%;
-      left: 10%;
     }
 
-    .loading {
-      .icon-location {
-        display: none;
-      }
-
-      .loading-gif {
-        display: block;
-      }
+    .loading-gif, .locating-text {
+      display: block;
     }
   }
 

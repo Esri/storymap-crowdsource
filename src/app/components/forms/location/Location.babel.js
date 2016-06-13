@@ -11,6 +11,7 @@ import Validator from 'babel/utils/validations/Validator';
 import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import ViewerText from 'i18n!translations/viewer/nls/template';
+import focusUtil from 'dijit/focus';
 
 export default class Location extends FormGroup {
 
@@ -33,13 +34,14 @@ export default class Location extends FormGroup {
   }
 
   componentDidMount() {
-    const node = ReactDOM.findDOMNode(this.inputContainer);
+    const geocoderNode = ReactDOM.findDOMNode(this.geocoderContainer);
+    const locatorNode = ReactDOM.findDOMNode(this.locatorContainer);
 
-    $(node).append($('<div class="geocoder-container"></div>'));
-    $(node).append($('<div class="locator-container"></div>'));
+    $(geocoderNode).append($('<div class="geocoder-container"></div>'));
+    $(locatorNode).append($('<div class="locator-container"></div>'));
 
-    this.geocoderContainer = $(node).find('.geocoder-container');
-    this.locateButtonContainer = $(node).find('.locator-container');
+    this.geocoderContainer = $(geocoderNode).find('.geocoder-container');
+    this.locatorContainer = $(locatorNode).find('.locator-container');
 
     this.geocoder = new Geocoder({
       autoComplete: true,
@@ -52,30 +54,29 @@ export default class Location extends FormGroup {
     this.locateButton = new LocateButton({
       map: this.props.map,
       theme: 'calcite-locate'
-    },this.locateButtonContainer[0]);
+    },this.locatorContainer[0]);
 
-    this.geocoderInner = $(node).find('.esriGeocoder');
-    this.geocoderInner.addClass('input-group').append('<span class="input-group-btn"></span>');
-    this.locateButtonContainer = $(node).find('.calcite-locate');
-    this.locateButtonContainer.addClass('btn btn-default').attr('tabindex',0);
-    this.locateButtonContainer.find('.zoomLocateButton').html(getIcon('location') + '<img class="loading-gif" src="resources/images/loader-light.gif" alt="' + ViewerText.contribute.form.location.gettingLocatingAlt + '">');
-    this.geocoderInner.find('.input-group-btn').append(this.locateButtonContainer);
+    this.locatorContainer = $(locatorNode).find('.calcite-locate');
+    this.locatorContainer.find('.zoomLocateButton').addClass('btn btn-default btn-sm').html('<div class="locator-icon">\
+      <img class="loading-gif" src="resources/images/loader-light.gif" alt="' + ViewerText.contribute.form.location.gettingLocation + '">' + getIcon('location') + '</div>\
+      <span class="locating-text">' + ViewerText.contribute.form.location.gettingLocation + '\</span>\
+      <span class="locate-text">' + ViewerText.contribute.form.location.locate + '\</span>');
 
-    this.geocoderSeachButton = $(node).find('.esriGeocoderSearch');
+    this.geocoderSeachButton = $(geocoderNode).find('.esriGeocoderSearch');
     this.geocoderSeachButton.attr('tabindex',-1);
 
-    this.geocoderResetButton = $(node).find('.esriGeocoderReset');
+    this.geocoderResetButton = $(geocoderNode).find('.esriGeocoderReset');
     this.geocoderResetButton.attr('tabindex',-1);
 
-    this.geocoderInput = $(node).find('input');
+    this.geocoderInput = $(geocoderNode).find('input');
     this.geocoderInput.addClass('form-control');
     this.geocoderInput.attr('id',this.props.id);
 
-    this.geocoderAutocomplete = $(node).find('.esriGeocoderResults');
+    this.geocoderAutocomplete = $(geocoderNode).find('.esriGeocoderResults');
     this.geocoderAutocomplete.addClass('form-control');
 
     this.locateButton.on('locate',this.reverseGeocode);
-    this.locateButtonContainer.on('keypress',(e) => {
+    this.locatorContainer.on('keypress',(e) => {
       if (e.which === 13) {
         this.locateButton.locate();
       }
@@ -120,9 +121,13 @@ export default class Location extends FormGroup {
       <div className={inputClasses}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
         {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
-        {this.props.tooltip ? <IconTooltip className="form-tooltip" {...this.props.tooltip} /> : null}
         <div
-          ref={(ref) => this.inputContainer = ref}>
+          className="geocoder"
+          ref={(ref) => this.geocoderContainer = ref}>
+        </div>
+        <div
+          className="locator"
+          ref={(ref) => this.locatorContainer = ref}>
         </div>
         {this.getErrorMessage ? this.getErrorMessage() : null}
       </div>
