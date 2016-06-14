@@ -58,10 +58,10 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
                 aria-haspopup="true"
                 aria-expanded="false">{builderText.review.selection.header}: {builderText.review.selection.options[this.props.reviewSelection]} <span className="caret"></span></button>
               <ul className="dropdown-menu">
-                <li className={Helper.classnames({active: this.props.reviewSelection === 'all'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'all')}>{builderText.review.selection.options.all}</a></li>
-                <li className={Helper.classnames({active: this.props.reviewSelection === 'new'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'new')}>{builderText.review.selection.options.new}</a></li>
-                <li className={Helper.classnames({active: this.props.reviewSelection === 'approved'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'approved')}>{builderText.review.selection.options.approved}</a></li>
-                <li className={Helper.classnames({active: this.props.reviewSelection === 'rejected'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'rejected')}>{builderText.review.selection.options.rejected}</a></li>
+                <li className={Helper.classnames({'bg-info': this.props.reviewSelection === 'all'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'all')}>{builderText.review.selection.options.all}</a></li>
+                <li className={Helper.classnames({'bg-info': this.props.reviewSelection === 'new'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'new')}>{builderText.review.selection.options.new}</a></li>
+                <li className={Helper.classnames({'bg-info': this.props.reviewSelection === 'approved'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'approved')}>{builderText.review.selection.options.approved}</a></li>
+                <li className={Helper.classnames({'bg-info': this.props.reviewSelection === 'rejected'})}><a href="#" onClick={this.props.changeReviewSelection.bind(this,'rejected')}>{builderText.review.selection.options.rejected}</a></li>
               </ul>
             </li>
           ) : null }

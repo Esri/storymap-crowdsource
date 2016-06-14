@@ -64,7 +64,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
           addNotifications={this.props.addNotifications}
           removeNotifications={this.props.removeNotifications}>
           <h1 className="title inline-editable" inlineEditConfig={this.getEditConfig('title')}>{this.props.title}</h1>
-          { this.props.editingAllowed || this.props.subtitle.length > 0 ? <h2 className="subtitle serif-face inline-editable" inlineEditConfig={this.getEditConfig('subtitle')}>{this.props.subtitle}</h2> : null }
+          { this.props.editingAllowed || (this.props.subtitle && typeof this.props.subtitle === 'string' && this.props.subtitle.length > 0) ? <h2 className="subtitle serif-face inline-editable" inlineEditConfig={this.getEditConfig('subtitle')}>{this.props.subtitle}</h2> : null }
         </InlineEditorWrapper>
         <ReactCSSTransitionGroup component="div" className="action-buttons" transitionName="wait-for-action" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} >
           {loader}

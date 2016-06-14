@@ -18,4 +18,8 @@
     color: $nameStandard;
   }
 
+  .dropdown-menu li.bg-info a {
+    background-color: inherit;
+  }
+
 }

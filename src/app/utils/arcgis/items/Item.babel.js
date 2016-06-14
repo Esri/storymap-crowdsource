@@ -4,6 +4,7 @@ import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
 import IdentityManager from 'esri/IdentityManager';
+import URI from 'lib/urijs/src/URI';
 import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisActions from 'babel/actions/ArcgisActions';
@@ -162,10 +163,16 @@ export const getDataById = function getDataById(options) {
       handleAs: 'json'
     }).then((res) => {
       if (settings.item === 'app' && res.values) {
-        if (!res.values.settings) {
+        if (!res.values.settings && builderText) {
           ModeActions.updateMode({
             fromScratch: true
           });
+        } else if (!res.values.settings && !builderText) {
+          const newUrl = new URI(window.location.href);
+
+          newUrl.addSearch('edit');
+          window.history.replaceState({},null,newUrl.href());
+          window.location.reload();
         }
         response.data = res;
         checkUserLogin().then(getItem);
