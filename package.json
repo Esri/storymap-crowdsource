@@ -1,17 +1,17 @@
 {
-  "name": "crowdsource-storytelling-template-js",
-  "version": "0.0.0",
-  "description": "",
+  "name": "story-map-crowdsource",
+  "version": "0.1.0",
+  "description": "Publish and manage a crowdsourced story to which anyone can contribute photos with captions. Use Crowdsource to engage your audience and collect their photos and experiences, thoughts or memories on the subject of your choice, all linked to a map. A vetting function lets you review and approve contributions.",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Esri/story-map-crowdsource"
   },
   "author": "Esri",
   "license": "Apache",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/Esri/story-map-crowdsource/issues"
   },
-  "homepage": "",
+  "homepage": "https://storymapsdev.arcgis.com/en/app-list/crowdsource",
   "devDependencies": {
     "confidence": "^1.2.0",
     "eslint-plugin-react": "^3.5.1",

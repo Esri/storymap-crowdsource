@@ -82,7 +82,7 @@ module.exports = function (grunt) {
       dist: [ 'dist/' ],
       build: [ 'build/' ],
       fontsSrc: ['src/resources/fonts/google/'],
-      fontsDist: ['dist/resources/css','dist/resources/scss']
+      fontsDist: ['dist/resources/fonts/google/css']
     },
 
     concat: {
@@ -465,12 +465,12 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'eslint',
     'clean:dist',
-    'clean:fontsSrc',
-    'clean:fontsDist',
     'googlefonts',
     'concatFontStyle',
     'copy:resources',
     'copy:oauthCallback',
+    'clean:fontsSrc',
+    'clean:fontsDist',
     'swig:dist',
     'htmlmin:dist',
     'regex-replace:distHtml',

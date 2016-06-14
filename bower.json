@@ -1,7 +1,7 @@
 {
-  "name": "crowdsource-storytelling-template-js",
-  "version": "0.0.0",
-  "homepage": "",
+  "name": "story-map-crowdsource",
+  "version": "0.1.0",
+  "homepage": "https://storymapsdev.arcgis.com/en/app-list/crowdsource",
   "authors": [
     "Esri"
   ],

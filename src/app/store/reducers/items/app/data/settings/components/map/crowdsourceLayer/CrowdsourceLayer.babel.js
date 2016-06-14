@@ -79,7 +79,7 @@ export const visibleFeaturesQuery = function (state = ['vetted:new','vetted:appr
       },state);
     case UPDATE_SETTINGS_MAP_CROWDSOURCE_LAYER_VISIBLE_FEATURES_QUERY_REMOVE:
       return state.reduce((prev,current) => {
-        if ([].concat(action.query).indexOf(current) < 0) {
+        if ([].concat(action.query).indexOf(current) < 0 && prev.indexOf(current) < 0) {
           return prev.concat(current);
         }
         return prev;

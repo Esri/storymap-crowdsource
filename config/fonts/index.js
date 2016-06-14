@@ -22,23 +22,23 @@ internals.fontsGroups = [
       family: 'Open Sans',
       styles: [300,'300italic',600,'600italic']
     }]
-  },
-  {
-    longName: 'Lato and Merriweather',
-    shortName: 'latoMerriweather',
-    sassVariables: {
-      primaryFontSanserif: 'Lato',
-      primaryFontSerif: 'Merriweather',
-      primaryHeadingsWeight: 300
-    },
-    fonts: [{
-      family: 'Lato',
-      styles: [300,'300italic',700,'700italic']
-    },{
-      family: 'Merriweather',
-      styles: [300,'300italic',700,'700italic']
-    }]
-  }
+  }//,
+  // {
+  //   longName: 'Lato and Merriweather',
+  //   shortName: 'latoMerriweather',
+  //   sassVariables: {
+  //     primaryFontSanserif: 'Lato',
+  //     primaryFontSerif: 'Merriweather',
+  //     primaryHeadingsWeight: 300
+  //   },
+  //   fonts: [{
+  //     family: 'Lato',
+  //     styles: [300,'300italic',700,'700italic']
+  //   },{
+  //     family: 'Merriweather',
+  //     styles: [300,'300italic',700,'700italic']
+  //   }]
+  // }
 ];
 
 module.exports = internals.Fonts = function() {

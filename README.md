@@ -1,4 +1,4 @@
-# crowdsource-storytelling-template-js-dev
+# Story Map Crowdsource
 
 ### Requirements
 - Node
@@ -12,10 +12,10 @@
 - `grunt`
 
 ### Open Distribution Verison
-- `grunt build`
+- `grunt test`
 
 ### Browswer Support
-- IE9+
+- IE10+
 - Chrome
 - Safari
 - Firefox
