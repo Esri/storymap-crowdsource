@@ -182,11 +182,11 @@ export default class StoryCreator {
     SettingsActions.updateIntroSubtitle(appItem.snippet);
     SettingsActions.updateHeaderTitle(appItem.title);
 
-    ArcgisItem.getDataById().then((appItem) => {
-      if (appItem.data && appItem.data.values && appItem.data.values.webmap) {
+    ArcgisItem.getDataById().then((appResponse) => {
+      if (appResponse.data && appResponse.data.values && appResponse.data.values.webmap) {
         ArcgisItem.getDataById({
           item: 'webmap',
-          id: appItem.data.values.webmap
+          id: appResponse.data.values.webmap
         }).then(setLayerNameAndFinish);
       } else {
         ItemActions.updateWebmapItem({
