@@ -78,7 +78,7 @@ class CrowdsourceApp extends React.Component {
       };
 
       if (this.props.mode.isHosted) {
-        redirectToScratchBuilder();
+        window.location.replace('http://links.esri.com/storymaps/crowdsource-app');
       } else {
         error = {
           message: {__html: viewerText.errors.loading.invalidConfigNoApp},
