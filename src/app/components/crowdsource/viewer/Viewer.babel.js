@@ -246,6 +246,7 @@ class Viewer extends React.Component {
 
   get webmapControllerOptions() {
     const vettedField = lang.getObject('props.components.map.crowdsourceLayer.vettedField',false,this);
+    const hiddenField = lang.getObject('props.components.map.crowdsourceLayer.hiddenField',false,this);
     const visibleFeaturesQuery = lang.getObject('props.components.map.crowdsourceLayer.visibleFeaturesQuery',false,this);
     let where = '1=1';
 
@@ -264,9 +265,9 @@ class Viewer extends React.Component {
           where = vettedField + ' < 3';
       }
     } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:new') >= 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
-      where = vettedField + ' < 2';
+      where = vettedField + ' < 2 AND ' + hiddenField + ' = 0';
     } else if (visibleFeaturesQuery.length > 0 && visibleFeaturesQuery.indexOf('vetted:approved') >= 0) {
-      where = vettedField + ' = 1';
+      where = vettedField + ' = 1 AND ' + hiddenField + ' = 0';
     }
 
     return $.extend(true,{
