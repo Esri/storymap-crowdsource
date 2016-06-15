@@ -109,7 +109,7 @@ export const IntroSplash = class IntroSplash extends React.Component {
             },
             handleChange: this.saveChanges.bind(this,component)
           };
-        default:
+        case 'subtitle':
           return {
             type: 'textarea',
             formId,
@@ -121,6 +121,25 @@ export const IntroSplash = class IntroSplash extends React.Component {
               maxLength: component === 'title' ? 120 : 250
             },
             validations: ['arcgisItemName'],
+            autoUpdate: {
+              when: 'notChanged',
+              value: value
+            },
+            handleChange: this.saveChanges.bind(this,component)
+          };
+        default:
+          return {
+            type: 'textarea',
+            formId,
+            id: component,
+            label: builderText.introSplash.form[component].label,
+            inputAttr: {
+              type: 'text',
+              placeholder: builderText.introSplash.form[component].placeholder,
+              maxLength: component === 'title' ? 120 : 250,
+              required: true
+            },
+            validations: ['arcgisItemName','required'],
             autoUpdate: {
               when: 'notChanged',
               value: value

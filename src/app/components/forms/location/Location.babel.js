@@ -7,11 +7,9 @@ import Locator from 'esri/tasks/locator';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import Validator from 'babel/utils/validations/Validator';
-// import FormActions from 'babel/actions/FormActions';
 import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import ViewerText from 'i18n!translations/viewer/nls/template';
-import focusUtil from 'dijit/focus';
 
 export default class Location extends FormGroup {
 
