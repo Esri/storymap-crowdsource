@@ -465,12 +465,11 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'eslint',
     'clean:dist',
+    'clean:fontsSrc',
     'googlefonts',
     'concatFontStyle',
     'copy:resources',
     'copy:oauthCallback',
-    'clean:fontsSrc',
-    'clean:fontsDist',
     'swig:dist',
     'htmlmin:dist',
     'regex-replace:distHtml',
@@ -479,6 +478,7 @@ module.exports = function (grunt) {
     'requirejs',
     'uglify',
     'concat',
+    'clean:fontsDist',
     'regex-replace:i18nAlias',
     'regex-replace:i18nPlugin'
   ]);

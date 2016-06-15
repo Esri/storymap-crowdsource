@@ -1,5 +1,7 @@
 import $ from 'jquery';
+import React from 'react'; //eslint-disable-line no-unused-vars
 import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
 import Logger from 'babel/utils/logging/Logger';
 import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import StoryCreator from './fromScratch/StoryCreator';
@@ -184,17 +186,39 @@ export default class CrowdsourceBuilderController {
         },[]);
 
         if (errors.length > 0){
-          AppActions.addNotifications({
-            id: 'builderNotfication_shareAppError',
-            type: 'error',
-            content: builderText.errors.shareItems.notShared + ': ' + errors.toString().replace(/,/g, ', ')
-          });
+          const baseURL = new URI(portal.urlKey + '.' + portal.customBaseUrl + '/home/item.html').protocol('https');
+          let errorItemsString = '';
 
-          setTimeout(() => {
+          const hideShareErrorMessage = function() {
             AppActions.removeNotifications({
               id: 'builderNotfication_shareAppError'
             });
-          },7000);
+          };
+
+          errors.forEach((item,index) => {
+            if (index === 0) {
+              errorItemsString =  '<a href="' + baseURL.search({id: item}).href() + '" target="_blank">' + item + '</a>';
+            } else if (index === errors.length - 1) {
+              errorItemsString =  '<a href="' + baseURL.search({id: item}).href() + '" target="_blank">' + item + '</a>';
+            } else {
+              errorItemsString =  ', <a href="' + baseURL.search({id: item}).href() + '" target="_blank">' + item + '</a>';
+            }
+          });
+
+          AppActions.addNotifications({
+            id: 'builderNotfication_shareAppError',
+            type: 'error',
+            content: (
+              <div>
+                <p><strong>{builderText.errors.shareItems.notShared.title}</strong></p>
+                <p>
+                  {builderText.errors.shareItems.notShared.body + ': '}
+                  <span dangerouslySetInnerHTML={{__html: errorItemsString}}></span>
+                </p>
+                <button className="btn btn-primary" onClick={hideShareErrorMessage}>{builderText.errors.shareItems.notShared.confirmBtn}</button>
+              </div>
+            )
+          });
 
           if (errors.indexOf(lang.getObject('appState.items.app.item.id',false,this)) >= 0) {
             BuilderActions.updateShare(this.prevShare);
