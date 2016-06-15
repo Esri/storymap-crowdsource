@@ -3,7 +3,6 @@ import React from 'react'; //eslint-disable-line no-unused-vars
 import Deferred from 'dojo/Deferred';
 import lang from 'dojo/_base/lang';
 import esriRequest from 'esri/request';
-import Graphic from 'esri/graphic';
 import Helper from 'babel/utils/helper/Helper';
 import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
@@ -69,6 +68,7 @@ export default class ContributeController {
     if (!this.savingGraphic && lang.getObject('appState.app.contributing.saving',false,this) && typeof lang.getObject('appState.app.contributing.graphic',false,this) === 'object') {
       this.savingGraphic = true;
       const layer = lang.getObject('appState.app.map.layer',false,this);
+      const token = lang.getObject('appState.app.portal.user.credential.token',false,this);
       const graphic = $.extend(true,{},lang.getObject('appState.app.contributing.graphic',false,this));
       const attachments = [];
 
@@ -83,6 +83,9 @@ export default class ContributeController {
 
           formdata.append('attachment', current.attachment, current.filename);
           formdata.append('f', 'json');
+          if (token) {
+            formdata.append('token',token);
+          }
 
           esriRequest({
             url,
@@ -134,11 +137,23 @@ export default class ContributeController {
         }
       });
 
-      const esriGraphic = new Graphic(graphic);
+      const adds = JSON.stringify([].concat(graphic));
+      const url = layer.url.stripTrailingSlash() + '/applyEdits';
+      const content = {
+        f: 'json',
+        token,
+        adds
+      };
 
-      layer.applyEdits([esriGraphic],null,null,(res) => {
-        if ($.isArray(res) && res[0] && res[0].success) {
-          const oid = res[0].objectId;
+      esriRequest({
+        url,
+        handleAs: 'json',
+        content
+      },{
+        usePost: true
+      }).then((res) => {
+        if ($.isArray(res.addResults) && res.addResults[0] && res.addResults[0].success) {
+          const oid = res.addResults[0].objectId;
 
           MapActions.selectFeatures(oid);
           uploadAttachments(oid).then(this.finishSave,(err) => {
@@ -218,6 +233,7 @@ export default class ContributeController {
 
   hideUncompleted(objectId) {
     const layer = lang.getObject('appState.app.map.layer',false,this);
+    const token = lang.getObject('appState.app.portal.user.credential.token',false,this);
     const oidField = lang.getObject('appState.app.map.layer.objectIdField',false,this);
     const hiddenField = lang.getObject('appState.items.app.data.values.settings.components.map.crowdsourceLayer.hiddenField',false,this);
     const graphic = {
@@ -226,9 +242,22 @@ export default class ContributeController {
 
     graphic.attributes[oidField] = objectId;
     graphic.attributes[hiddenField] = 1;
-    const esriGraphic = new Graphic(graphic);
 
-    layer.applyEdits(null,[esriGraphic],null);
+    const updates = JSON.stringify([].concat(graphic));
+    const url = layer.url.stripTrailingSlash() + '/applyEdits';
+    const content = {
+      f: 'json',
+      token,
+      updates
+    };
+
+    esriRequest({
+      url,
+      handleAs: 'json',
+      content
+    },{
+      usePost: true
+    });
   }
 
 }
