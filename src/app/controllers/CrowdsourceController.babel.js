@@ -28,8 +28,8 @@ export default class CrowdsourceController {
 
     const location = new URI(window.location);
 
-    if (location.filename() === 'index.html') {
-      window.history.replaceState({},null,location.filename('').href());
+    if (location.filename() !== 'index.html') {
+      window.history.replaceState({},null,location.filename('index.html').href());
     }
 
     // TODO configure from app state
