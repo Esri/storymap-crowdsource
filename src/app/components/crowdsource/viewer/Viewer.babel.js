@@ -71,7 +71,7 @@ class Viewer extends React.Component {
         </IntroSplash>
         { this.Layout }
         <MobileBottomNavigation
-          buttons={[
+          buttons={this.props.components.contribute.participationAllowed && this.props.loading.map && !this.props.contributing.active ? [
             {
               name: viewerText.mobile.bottomNav.home,
               icon: 'home',
@@ -92,6 +92,23 @@ class Viewer extends React.Component {
               icon: 'participate',
               active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) >= 0,
               action: this.props.updateContributeState.bind(this,{active: true})
+            }
+          ] : [
+            {
+              name: viewerText.mobile.bottomNav.home,
+              icon: 'home',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.INTRO) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.INTRO)
+            },{
+              name: viewerText.mobile.bottomNav.map,
+              icon: 'map',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.MAP) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.MAP)
+            },{
+              name: viewerText.mobile.bottomNav.gallery,
+              icon: 'gallery',
+              active: this.props.layout.visibleComponents.indexOf(componentNames.CONTRIBUTE) < 0 && this.props.layout.visibleComponents.indexOf(componentNames.GALLERY) >= 0,
+              action: this.props.showComponent.bind(this,componentNames.GALLERY)
             }
           ]}>
         </MobileBottomNavigation>
