@@ -177,23 +177,25 @@ export default class ContributeController {
   }
 
   displayContributionShownAfterReviewMessage() {
-    const removeContributionShownAfterReviewMessage = function() {
-      AppActions.removeNotifications({
-        id: 'contributionNotfication_contributionShownAfterReview'
-      });
-    };
+    if (!lang.getObject('appState.mode.isBuilder',false,this)) {
+      const removeContributionShownAfterReviewMessage = function() {
+        AppActions.removeNotifications({
+          id: 'contributionNotfication_contributionShownAfterReview'
+        });
+      };
 
-    AppActions.addNotifications({
-      id: 'contributionNotfication_contributionShownAfterReview',
-      type: 'info',
-      content: (
-        <div>
-          <p><strong>{viewerText.contribute.messages.contributionShownAfterReview.title}</strong></p>
-          <p>{viewerText.contribute.messages.contributionShownAfterReview.body}</p>
-          <button className="btn btn-primary" onClick={removeContributionShownAfterReviewMessage}>{viewerText.contribute.messages.contributionShownAfterReview.confirmBtn}</button>
-        </div>
-      )
-    });
+      AppActions.addNotifications({
+        id: 'contributionNotfication_contributionShownAfterReview',
+        type: 'info',
+        content: (
+          <div>
+            <p><strong>{viewerText.contribute.messages.contributionShownAfterReview.title}</strong></p>
+            <p>{viewerText.contribute.messages.contributionShownAfterReview.body}</p>
+            <button className="btn btn-primary" onClick={removeContributionShownAfterReviewMessage}>{viewerText.contribute.messages.contributionShownAfterReview.confirmBtn}</button>
+          </div>
+        )
+      });
+    }
   }
 
   displayContributeErrorMessage() {

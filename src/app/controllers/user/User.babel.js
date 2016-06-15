@@ -221,14 +221,10 @@ export default class UserController {
       verifyCredentialsOptions: {}
     };
     const settings = $.extend(true,{},defaults,options);
-    const layer = lang.getObject('appState.app.map.layer',false,this);
 
-    // Add credential to layer then finish up
-    layer._forceIdentity(() => {
-      this.verifyCredentials(settings.verifyCredentialsOptions);
-      this.pendingLogin = false;
-      UserActions.loginOAuthFinish();
-    });
+    this.verifyCredentials(settings.verifyCredentialsOptions);
+    this.pendingLogin = false;
+    UserActions.loginOAuthFinish();
   }
 
 }
