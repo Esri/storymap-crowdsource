@@ -23,20 +23,20 @@ const defaultData = {
   operationalLayers: [],
   baseMap: {
 		baseMapLayers: [{
-      id: 'VectorTile_4183',
-      type: 'VectorTileLayer',
-      layerType: 'VectorTileLayer',
-      title: 'Light Gray Canvas',
-      styleUrl: 'https://www.arcgis.com/sharing/rest/content/items/0e02e6f86d02455091796eaae811d9b5/resources/styles/root.json',
-      visibility: true,
-      opacity: 1
-    }],
-		title: 'Light Gray Canvas'
+			id: 'World_Light_Gray_Base_7270',
+			opacity: 1,
+			visibility: true,
+			url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer'
+		}, {
+			id: 'World_Light_Gray_Reference_6243',
+			isReference: true,
+			opacity: 1,
+			visibility: true,
+			url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer'
+		}],
+		title: "Light Gray Canvas"
 	},
-  spatialReference: {
-    wkid: 102100
-  },
-  version: '2.4'
+  version: '2.3'
 };
 
 export const data = function (state = defaultData, action) {

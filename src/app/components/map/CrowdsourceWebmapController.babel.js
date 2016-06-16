@@ -33,6 +33,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
     // Autobind methods
     this.isHomeExtentChanged = this.isHomeExtentChanged.bind(this);
     this.saveHomeExtent = this.saveHomeExtent.bind(this);
+    this.refreshLayers = this.refreshLayers.bind(this);
   }
 
   updateMap(options) {
@@ -67,7 +68,21 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         }
       });
       $('.home-location-save-btn').on('click',this.saveHomeExtent);
+      this._homeButton.on('home',this.refreshLayers);
     }
+  }
+
+  refreshLayers() {
+    this._map.layerIds.forEach((layer) => {
+      if (this._map.getLayer(layer).refresh && typeof this._map.getLayer(layer).refresh === 'function') {
+        this._map.getLayer(layer).refresh();
+      }
+    });
+    this._map.graphicsLayerIds.forEach((layer) => {
+      if (this._map.getLayer(layer).refresh && typeof this._map.getLayer(layer).refresh === 'function') {
+        this._map.getLayer(layer).refresh();
+      }
+    });
   }
 
   saveHomeExtent() {
