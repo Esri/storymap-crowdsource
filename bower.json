@@ -34,7 +34,7 @@
     "resample-hermite": "https://github.com/viliusle/Hermite-resize/archive/ede593b94d8fc9a33141229dc72fd334c7563baf.zip",
     "smartcrop": "*",
     "autosize": "^3.0.15",
-    "clipboard": "^1.5.9",
+    "clipboard": "^1.5.12",
     "urijs": "^1.18.0",
     "Autolinker.js": "^0.26.0",
     "xss": "^0.2.13"

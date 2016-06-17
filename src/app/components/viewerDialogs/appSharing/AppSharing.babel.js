@@ -39,7 +39,7 @@ export default class AppSharing extends React.Component {
       height: '480px'
     }];
 
-    this.copySupported = document.queryCommandSupported('copy');
+    this.copySupported = document.queryCommandSupported('copy') && window.navigator.userAgent.toLowerCase().indexOf('firefox') === -1 && window.navigator.userAgent.toLowerCase().indexOf('trident/') === -1 && window.navigator.userAgent.toLowerCase().indexOf('msie ') === -1;
     this.link = Helper.getSharingUrl();
     this.shortLink = this.getShortLink();
 
@@ -207,7 +207,7 @@ export default class AppSharing extends React.Component {
               <br/>
               <small className="text-default">{viewerText.sharing.link.linkHelper}</small>
             </h6>
-            <input type="text"  ref={(ref) => this.linkInput = ref} className="form-control" value={this.state.shareUrl} onClick={this.selectAllFromEvent} disabled></input>
+            <input type="text"  ref={(ref) => this.linkInput = ref} className="form-control" value={this.state.shareUrl} onClick={this.selectAllFromEvent} readOnly></input>
             <button
               type="button"
               className="btn btn-primary btn-sm link-button copy-button"
@@ -229,7 +229,7 @@ export default class AppSharing extends React.Component {
               <br/>
               <small className="text-default">{viewerText.sharing.link.embedCodeHelper}</small>
             </h6>
-            <textarea className="form-control" ref={(ref) => this.embedCodeInput = ref} value={this.state.embed.code} onClick={this.selectAllFromEvent} disabled></textarea>
+            <textarea className="form-control" ref={(ref) => this.embedCodeInput = ref} value={this.state.embed.code} onClick={this.selectAllFromEvent} readOnly></textarea>
           </div>
           <div className="embed-size-wrapper">
             {viewerText.sharing.link.embedSizeHelper}:
