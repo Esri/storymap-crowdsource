@@ -6,9 +6,9 @@ The Story Map Crowdsource℠ app enables you to publish and manage a crowdsource
 ![App](story-map-crowdsource.png)
 
 
-[View it live](http://links.esri.com/storymaps/story_map_crowdsource_overview_1) |
-[Download](http://links.esri.com/storymaps/story_map_crowdsource_zip) |
-[Crowdsource page on Esri Story Maps website](http://links.esri.com/storymaps/crowdsource-app)
+[View it live](https://links.esri.com/storymaps/story_map_crowdsource_overview_1) |
+[Download](https://links.esri.com/storymaps/story_map_crowdsource_zip) |
+[Crowdsource page on Esri Story Maps website](https://links.esri.com/storymaps/crowdsource-app)
 
 
 **Latest release is version 0.1.0**, if you want to be informed of new releases, we recommend you to watch this repository ([see GitHub help](https://help.github.com/articles/watching-repositories)). See the [release page](https://github.com/Esri/story-map-crowdsource/releases) for release notes.
@@ -30,7 +30,7 @@ For more information about using and customizing Esri's Storytelling Apps follow
 A Crowdsource application can be created from [ArcGIS Online](http://arcgis.com) or from [Esri Story Maps website](http://storymaps.arcgis.com/). The story's data are stored in a Web Application Item (this includes the narrative content, reference to the web map and the settings). Contributions to the story are stored in a feature service with photos being stored as feature attachments.
 This repository provides the application source code for developers that want to customize Crowdsource.
 
-For more information about the Crowdsource app, including a gallery of examples and a step-by-step tutorial, please see the [Crowdsource](http://links.esri.com/storymaps/crowdsource-app) page on the [Esri Story Maps website](http://storymaps.arcgis.com/).
+For more information about the Crowdsource app, including a gallery of examples and a step-by-step tutorial, please see the [Crowdsource](https://links.esri.com/storymaps/crowdsource-app) page on the [Esri Story Maps website](http://storymaps.arcgis.com/).
 
 ## Instructions
 First create your Crowdsource story in ArcGIS Online using the [step-by-step tutorial](http://storymaps.arcgis.com/en/app-list/crowdsource/tutorial/).
@@ -38,7 +38,7 @@ Once your story is ready, you have to find its ID in ArcGIS Online. The ID is a 
 
 ![App ID](story-map-crowdsource-help-application-id.png)
 
-1. [Download the application](http://links.esri.com/storymaps/story_map_crowdsource_zip)
+1. [Download the application](https://links.esri.com/storymaps/story_map_crowdsource_zip)
 2. Deploy the application on your webserver. See [FAQ](#how-to-deploy-the-application-on-a-web-server) for details
 3. Edit index.html, find the configuration section on line 24 and paste in your application ID
 4. Navigate to index.html (e.g., `https://www.example.org/StoryMapCrowdsource/index.html`)
@@ -50,7 +50,7 @@ You can continue to use the builder in ArcGIS Online to modify your story.
 We would love to hear from you!
 * [StoryMaps Website](http://storymaps.arcgis.com/)
 * [Let us know about your application](http://storymaps.arcgis.com/en/gallery/submission-form/)
-* [Story Maps forum on GeoNet](http://links.esri.com/storymaps/story_maps_geonet)
+* [Story Maps forum on GeoNet](https://links.esri.com/storymaps/story_maps_geonet)
 * [@EsriStoryMaps](http://twitter.com/EsriStoryMaps)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
 
@@ -123,7 +123,7 @@ As Crowdsource doesn't yet offer the ability to create a custom theme through th
 
 For example if you are using the tabbed layout and have kept the default theme, open `app/config.js`, locate the `LAYOUT` property and edit the following line with the desired colors.
 
-Most of the look and feel customization can be done using the [regular Application Download](http://links.esri.com/storymaps/story_map_crowdsource_zip) and including the css/html overrides directly into `index.html`.
+Most of the look and feel customization can be done using the [regular Application Download](https://links.esri.com/storymaps/story_map_crowdsource_zip) and including the css/html overrides directly into `index.html`.
 
 As the application Javascript and CSS are minified, **we don't recommend that you directly edit those files** (e.g. `main-app.min.css`, `main-app.min.js`, ...). In addition to being hard to edit, this will make application update complex for you.
 
