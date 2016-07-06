@@ -3,7 +3,9 @@
   bottom: 0;
   display: none;
   align-items: center;
+  -webkit-align-items: center;
   justify-content: space-around;
+  -webkit-justify-content: space-around;
   height: $mobileBottomNavigationHeight;
   width: 100%;
   z-index: 300;
@@ -33,6 +35,7 @@
 @media (max-width: 767px) {
   .bottom-navigation {
     display: flex;
+    display: -webkit-flex;
   }
 }
 
