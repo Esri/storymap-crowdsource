@@ -356,7 +356,7 @@ const mapDispatchToProps = () => {
           BuilderActions.addAppItemAttatchment({
             id: 'logo_' + Helper.getRandomId(),
             type: 'photo',
-            attachment: value.logo,
+            attachment: value.photos.logo,
             removeAttachments: true,
             removeFilter: 'logo_',
             callback: (url) => {
@@ -397,7 +397,7 @@ const mapDispatchToProps = () => {
           BuilderActions.addAppItemAttatchment({
             id: 'introSplashBackgroundPhoto_' + Helper.getRandomId(),
             type: 'photo',
-            attachment: value.backgroundImage,
+            attachment: value.photos.backgroundImage,
             removeAttachments: true,
             removeFilter: 'introSplashBackgroundPhoto_',
             callback: (url) => {

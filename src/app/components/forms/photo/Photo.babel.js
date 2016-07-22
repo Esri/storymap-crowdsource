@@ -2,13 +2,15 @@ import $ from 'jquery';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Deferred from 'dojo/Deferred';
 import Helper from 'babel/utils/helper/Helper';
-import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import FormGroup from 'babel/components/forms/base/FormGroup';
 import ViewerText from 'i18n!translations/viewer/nls/template';
 import SmartCrop from 'lib/smartcrop/smartcrop';
+import loadImage from 'lib/javascript-load-image/js/load-image';
+import 'lib/javascript-load-image/js/load-image-orientation';
+import 'lib/javascript-load-image/js/load-image-meta';
+import 'lib/javascript-load-image/js/load-image-exif';
+import 'lib/javascript-load-image/js/load-image-exif-map';
 import 'lib/resample-hermite/hermite';
-import 'cropper';
-import 'loader';
 
 export default class Photo extends FormGroup {
 
@@ -25,46 +27,25 @@ export default class Photo extends FormGroup {
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
-    this.resetPicker = this.resetPicker.bind(this);
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
-    this.rotateLeft = this.rotateLeft.bind(this);
-    this.rotateRight = this.rotateRight.bind(this);
+    this.captureImageExif = this.captureImageExif.bind(this);
     this.loadImageFromFile = this.loadImageFromFile.bind(this);
-    this.saveCropValue = this.saveCropValue.bind(this);
+    this.loadImageFromFileForResample = this.loadImageFromFileForResample.bind(this);
+    this.resetPicker = this.resetPicker.bind(this);
+    this.saveInputValue = this.saveInputValue.bind(this);
     this.generatePhotos = this.generatePhotos.bind(this);
     this.generateOptimizedPhoto = this.generateOptimizedPhoto.bind(this);
-    this.resetCropper = this.resetCropper.bind(this);
-  }
-
-  componentDidMount() {
-    super.componentDidMount();
-    $(window).on('resize',this.resetCropper);
   }
 
   componentDidUpdate(prevProps,prevState) {// eslint-disable-line no-unused-vars
-    if (this.state.imageUrl && !this.cropper) {
-      this.createCropper();
-    } else if (this.state.imageUrl && (!prevState.imageUrl || prevState.imageUrl !== this.state.imageUrl)) {
-      this.cropper.replace(this.state.imageUrl);
-    }
     this.validator.setValidations(this.getValidations());
     this.updateValue();
-  }
-
-  componentWillUnmount() {
-    if (this.cropper) {
-      this.cropper.destroy();
-    }
-    $(window).off('resize',this.resetCropper);
   }
 
   render() {
 
     const inputClasses = Helper.classnames([this.props.className,'photo-input','form-group',{
       'required': this.props.required,
-      'has-error': !this.state.isValid,
-      'cropping': this.state.imageUrl ? true : false
+      'has-error': !this.state.isValid
     }]);
 
     const uploaderClasses = Helper.classnames([this.props.className,'drag-area','uploader','alert',{
@@ -100,28 +81,22 @@ export default class Photo extends FormGroup {
       </div>
     );
 
+    const previewPane = (
+      <div className="preview-pane">
+        <img ref={(ref) => this.imagePreview = ref} src={this.state.imageUrl} alt=""></img>
+        <div className="alert alert-default">
+          <button type="button" className="btn btn-default btn-block" onClick={this.resetPicker}>
+            {ViewerText.contribute.form.photo.selectNew}
+          </button>
+        </div>
+      </div>
+    );
+
     return (
       <div className={inputClasses} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}>
         <label htmlFor={this.props.id} className="control-label">{this.props.label}</label>
-        {fileUploader}
-        <div className="cropper-pane">
-          <div className="btn-toolbar photo-controls" role="toolbar">
-            <div className="btn-group zoom-group" role="group">
-              <button type="button" className="btn btn-default" dangerouslySetInnerHTML={this.getIconHtml('zoom-in')} onClick={this.zoomIn}></button>
-              <button type="button" className="btn btn-default" dangerouslySetInnerHTML={this.getIconHtml('zoom-out')} onClick={this.zoomOut}></button>
-            </div>
-            <div className="btn-group rotate-group" role="group">
-              <button type="button" className="btn btn-default" dangerouslySetInnerHTML={this.getIconHtml('rotate-right')} onClick={this.rotateRight}></button>
-              <button type="button" className="btn btn-default" dangerouslySetInnerHTML={this.getIconHtml('rotate-left')} onClick={this.rotateLeft}></button>
-            </div>
-          </div>
-          <img ref={(ref) => this.imagePreview = ref} src={this.state.imageUrl} alt=""></img>
-          <div className="alert alert-default">
-            <button type="button" className="btn btn-default btn-block" onClick={this.resetPicker}>
-              {ViewerText.contribute.form.photo.selectNew}
-            </button>
-          </div>
-        </div>
+        { this.state.imageUrl ? null : fileUploader }
+        { this.state.imageUrl ? previewPane : null }
         { this.state.resizingPhoto ? (
           <p className="loading-photo-message">
             <small>{ ViewerText.forms.photo.resizing }</small>
@@ -133,15 +108,11 @@ export default class Photo extends FormGroup {
 
   }
 
-  getIconHtml(icon) {
-    return {__html: getIcon(icon)};
-  }
-
   fileChange(e) {
     const files = e.target.files;
 
     if (files && files.length) {
-      this.loadImageFromFile(files[0]);
+      this.captureImageExif(files[0]);
     }
 
     this.setState({
@@ -172,88 +143,71 @@ export default class Photo extends FormGroup {
     if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
 			e.preventDefault();
 			e.stopPropagation();
-      this.loadImageFromFile(e.dataTransfer.files[0]);
+      this.captureImageExif(e.dataTransfer.files[0]);
 		}
   }
 
-  resetCropper() {
-    if (this.cropper && this.cropper.reset) {
-      this.cropper.reset();
-    }
-  }
+  captureImageExif(file) {
+    loadImage.parseMetaData(file,(data) => {
+      const exif = data.exif ? data.exif.getAll() : {};
+      let location = null;
 
-  loadImageFromFile(file) {
-    const self = this;
-    let image;
-    let URL = window.URL || window.webkitURL;
+      const convertCoords = function(coord, ref) {
+        const DD = parseFloat(coord[0]) + ((parseFloat(coord[1]) + (parseFloat(coord[2])/60))/60);
 
-    if (URL) {
-      image = new Image();
-
-      image.onload = function () {
-        this.onload = null;
-        URL.revokeObjectURL(file);
+        if (ref === 'S' || ref === 'W') {
+          return Math.abs(DD) * -1;
+        } else {
+          return Math.abs(DD);
+        }
       };
 
-      image.src = URL.createObjectURL(file);
+      if (exif.GPSLatitudeRef && exif.GPSLatitude && exif.GPSLongitudeRef && exif.GPSLongitude) {
+        const latitudeArray = exif.GPSLatitude.split(',');
+        const longitudeArray = exif.GPSLongitude.split(',');
 
-      return new window.Loader(image,{
-        minWidth: 500,
-        minHeight: 500,
-        maxWidth: 2000,
-        maxHeight: 2000,
-        done: function(newImg) {
-          self.setState({
-            imageUrl: newImg.src,
-            loadingPhoto: false
-          });
-        }
-      });
-    }
-  }
+        location = {
+          latitude: convertCoords(latitudeArray,exif.GPSLatitudeRef),
+          longitude: convertCoords(longitudeArray,exif.GPSLongitude)
+        };
 
-  createCropper() {
-    this.cropper = new window.Cropper(this.imagePreview, {
-      dragMode: 'crop',
-      autoCropArea: 1,
-      guides: true,
-      center: false,
-      highlight: false,
-      zoomOnWheel: false,
-      movable: !this.isMobileDevice,
-      cropBoxMovable: !this.isMobileDevice,
-      cropBoxResizable: !this.isMobileDevice,
-      built: this.saveCropValue,
-      cropend: this.saveCropValue
+      }
+
+      this.loadImageFromFile(file,location);
     });
   }
 
-  zoomIn() {
-    if (this.cropper) {
-      this.cropper.zoom(0.1);
-      this.saveCropValue();
-    }
+  loadImageFromFile(file,location) {
+    loadImage(file,(canvas) => {
+      if (canvas && canvas.toDataURL) {
+        const imgDataUrl = canvas.toDataURL('image/jpeg');
+
+        this.setState({
+          imageUrl: imgDataUrl
+        });
+        this.loadImageFromFileForResample(file,canvas,location);
+      }
+    },{
+      canvas: true
+    });
   }
 
-  zoomOut() {
-    if (this.cropper) {
-      this.cropper.zoom(-0.1);
-      this.saveCropValue();
-    }
-  }
+  loadImageFromFileForResample(file,rawPhotoCanvas,location) {
+    loadImage(file,(canvas) => {
+      if (canvas && canvas.toDataURL) {
 
-  rotateLeft() {
-    if (this.cropper) {
-      this.cropper.rotate(-90);
-      this.saveCropValue();
-    }
-  }
-
-  rotateRight() {
-    if (this.cropper) {
-      this.cropper.rotate(90);
-      this.saveCropValue();
-    }
+        this.setState({
+          loadingPhoto: false
+        });
+        this.saveInputValue(rawPhotoCanvas,canvas,location);
+      }
+    },{
+      canvas: true,
+      maxHeight: 2000,
+      maxWidth: 2000,
+      minHeight: 500,
+      minWidth: 500
+    });
   }
 
   resetPicker() {
@@ -264,27 +218,29 @@ export default class Photo extends FormGroup {
     this.validateForm();
   }
 
-  saveCropValue() {
+  saveInputValue(rawPhotoCanvas,optimizedPhotoCanvas,location) {
     this.input.value = false;
-    clearTimeout(this.cropDelay);
-    this.cropDelay = setTimeout(() => {
-      const canvas = this.cropper.getCroppedCanvas();
 
-      const value = this.generatePhotos(canvas);
+    const value = this.generatePhotos(rawPhotoCanvas,optimizedPhotoCanvas);
 
-      if (value.then) {
-        value.then((res) => {
-          this.input.value = res;
-          this.validateForm();
-        });
-      } else {
-        this.input.value = value;
+    if (value.then) {
+      value.then((res) => {
+        this.input.value = {
+          photos: res,
+          location
+        };
         this.validateForm();
-      }
-    },500);
+      });
+    } else {
+      this.input.value = {
+        photos: value,
+        location
+      };
+      this.validateForm();
+    }
   }
 
-  generatePhotos(canvas) {
+  generatePhotos(rawPhotoCanvas,optimizedPhotoCanvas) {
     const value = {};
 
     this.setState({
@@ -314,7 +270,7 @@ export default class Photo extends FormGroup {
 
         this.props.extras.photoSettings.forEach((photoSettings,index) => {
           const name = photoSettings.name ? photoSettings.name : 'photo' + index;
-          const options = $.extend(true,{},{canvas},photoSettings);
+          const options = $.extend(true,{},{rawPhotoCanvas,optimizedPhotoCanvas},photoSettings);
           const photo = this.generateOptimizedPhoto(options);
 
           value[name] = false;
@@ -360,7 +316,7 @@ export default class Photo extends FormGroup {
           return value;
         }
       } else if (typeof this.props.extras.photoSettings === 'object') {
-        const options = $.extend(true,{},{canvas},this.props.extras.photoSettings);
+        const options = $.extend(true,{},{rawPhotoCanvas,optimizedPhotoCanvas},this.props.extras.photoSettings);
         const photo = this.generateOptimizedPhoto(options);
 
         if (photo.then) {
@@ -379,7 +335,6 @@ export default class Photo extends FormGroup {
 
   generateOptimizedPhoto(options) {
     const defaults = {
-      minSide: 1000,
       type: 'jpeg',
       quality: 0.8
     };
@@ -400,16 +355,16 @@ export default class Photo extends FormGroup {
       };
     }
 
-    if (settings.canvas) {
-      const originalHeight = settings.canvas.height;
-      const originalWidth = settings.canvas.width;
+    if (settings.optimizedPhotoCanvas && settings.rawPhotoCanvas) {
+      const originalHeight = settings.optimizedPhotoCanvas.height;
+      const originalWidth = settings.optimizedPhotoCanvas.width;
       const originalAspectRatio = originalHeight / originalWidth;
       const resizeCanvas = document.createElement('canvas');
       const resizeContext = resizeCanvas.getContext('2d');
 
       resizeCanvas.height = originalHeight;
       resizeCanvas.width = originalWidth;
-      resizeContext.drawImage(settings.canvas, 0, 0);
+      resizeContext.drawImage(settings.optimizedPhotoCanvas, 0, 0);
 
       const resizeOptions = {};
 
@@ -468,6 +423,11 @@ export default class Photo extends FormGroup {
         return {
           ext: imageType.ext,
           source: resizeCanvas.toDataURL(imageType.dataUrlStr,settings.quality)
+        };
+      } else if (resizeOptions.resize === false) {
+        return {
+          ext: imageType.ext,
+          source: settings.rawPhotoCanvas.toDataURL(imageType.dataUrlStr,settings.quality)
         };
       }
 

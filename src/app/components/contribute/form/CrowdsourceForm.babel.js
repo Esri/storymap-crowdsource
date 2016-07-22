@@ -136,16 +136,24 @@ export default class CrowdsourceForm extends React.Component {
           if (field.extras && field.extras.dataType) {
             switch (field.extras.dataType) {
               case 'photo':
-                if (typeof res.value === 'object') {
-                  Object.keys(res.value).forEach((currentVal) => {
+                if (typeof res.value === 'object' && typeof res.value.photos === 'object') {
+                  Object.keys(res.value.photos).forEach((currentVal) => {
                     const value = {
                       attachment: true,
                       type: 'photo',
-                      ext: res.value[currentVal].ext,
-                      source: res.value[currentVal].source
+                      ext: res.value.photos[currentVal].ext,
+                      source: res.value.photos[currentVal].source
                     };
 
                     self.graphic.attributes[currentVal] = value;
+                  });
+                }
+                if (typeof res.value === 'object' && typeof res.value.location === 'object') {
+                  self.setState({
+                    locationFromOtherSource: {
+                      type: 'latLong',
+                      latLong: res.value.location
+                    }
                   });
                 }
                 break;

@@ -279,9 +279,7 @@ module.exports = function (grunt) {
           redux: 'lib/redux/index',
           bootstrap: 'lib/bootstrap-sass/assets/javascripts/bootstrap',
           EventEmitter: 'lib/eventEmitter/EventEmitter.min',
-          cropper: 'lib/cropperjs/dist/cropper.min',
           clipboard: 'lib/clipboard/dist/clipboard.min',
-          loader: 'lib/loader/dist/loader.min',
           Autolinker: 'lib/Autolinker.js/dist/Autolinker.min',
           autosize: 'lib/autosize/dist/autosize.min',
           // AMD Plugins

@@ -78,7 +78,7 @@ export default class HeaderSettings extends React.Component {
             photoSettings: [{
               name: 'logo',
               type: 'png',
-              height: 30
+              quality: 1
             }]
           }
         });
