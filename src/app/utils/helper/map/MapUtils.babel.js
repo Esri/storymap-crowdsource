@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Extent from 'esri/geometry/Extent';
+import MoveableGraphic from './MoveableGraphic';
 import webMercatorUtils from 'esri/geometry/webMercatorUtils';
 
 export const serializeExtentToItem = function (options) {
@@ -26,5 +27,6 @@ export const serializeExtentToItem = function (options) {
 };
 
 export default {
-  serializeExtentToItem
+  serializeExtentToItem,
+  MoveableGraphic
 };

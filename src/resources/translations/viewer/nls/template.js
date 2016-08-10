@@ -101,7 +101,11 @@ define({
         location: {
           gettingLocation: 'Locating',
           locate: 'Locate Me',
-          search: 'Search'
+          search: 'Search',
+          longitude: 'Longitude',
+          latitude: 'Latitude',
+          nullIsland: 'Null Island',
+          photoLocation: 'Do you want to use the location where your photo was taken?'
         },
         termsAndConditions: {
           buttonShow: 'Show terms and conditions',

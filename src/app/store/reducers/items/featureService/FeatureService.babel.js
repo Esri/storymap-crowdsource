@@ -88,7 +88,7 @@ const defaultLayerDefinition = {
 				}
 			}
 		},
-		extext: {
+		extent: {
       xmin: -20085668.703089,
       ymin: -20085668.703089,
       xmax: 20085668.703089,

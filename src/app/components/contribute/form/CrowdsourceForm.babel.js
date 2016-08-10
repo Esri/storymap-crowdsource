@@ -190,7 +190,7 @@ export default class CrowdsourceForm extends React.Component {
         case 'textarea':
           return <Textarea {...settings}></Textarea>;
         case 'location':
-          return <Location map={this.props.map} {...settings}></Location>;
+          return <Location map={this.props.map} locationFromOtherSource={this.state.locationFromOtherSource} {...settings}></Location>;
         default:
           return <Input {...settings}></Input>;
         }

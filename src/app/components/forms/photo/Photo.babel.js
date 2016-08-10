@@ -168,7 +168,7 @@ export default class Photo extends FormGroup {
 
         location = {
           latitude: convertCoords(latitudeArray,exif.GPSLatitudeRef),
-          longitude: convertCoords(longitudeArray,exif.GPSLongitude)
+          longitude: convertCoords(longitudeArray,exif.GPSLongitudeRef)
         };
 
       }
