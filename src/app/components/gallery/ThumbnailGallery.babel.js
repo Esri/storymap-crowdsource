@@ -103,7 +103,6 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
         <LazyImage className="background-image" src={photoUrl}></LazyImage>
         <div className="info-card background-fill">
           <h6>{attr[this.props.primaryField]}</h6>
-          <p>{attr[this.props.secondaryField]}</p>
         </div>
       </li>
     );
@@ -123,7 +122,6 @@ ThumbnailGallery.propTypes = {
   attributePath: React.PropTypes.string.isRequired,
   idField: React.PropTypes.string.isRequired,
   primaryField: React.PropTypes.string.isRequired,
-  secondaryField: React.PropTypes.string.isRequired,
   size: React.PropTypes.number.isRequired,
   thumbnailIsAttachment: React.PropTypes.bool,
   thumbnailField: React.PropTypes.string,
