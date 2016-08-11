@@ -96,7 +96,8 @@ define({
         photo: {
           pickFile: 'Click to pick a file',
           choosePhoto: 'Upload a Photo',
-          selectNew: 'Use a different photo'
+          selectNew: 'Use a different photo',
+          photoTooSmall: 'Your photo is too small. The smallest side must be at least'
         },
         location: {
           gettingLocation: 'Locating',

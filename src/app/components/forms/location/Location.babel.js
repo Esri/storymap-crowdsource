@@ -121,7 +121,7 @@ export default class Location extends FormGroup {
     this.locationSymbol = new SimpleMarkerSymbol('circle', 16,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([204, 62, 68, 1]), 3),new Color([255, 255, 255, .5]));
     this.locationLayer = new GraphicsLayer();
     this.props.map.addLayer(this.locationLayer);
-    this.props.map.on('click',this.geocodeMapPoint);
+    this.geocodeClickEvent = this.props.map.on('click',this.geocodeMapPoint);
   }
 
   componentDidUpdate() {
@@ -142,7 +142,7 @@ export default class Location extends FormGroup {
     this.geocoder.destroy();
     this.locateButton.destroy();
     this.props.map.removeLayer(this.locationLayer);
-    this.props.map.off('click',this.geocodeMapPoint);
+    this.geocodeClickEvent.remove();
   }
 
   render() {
@@ -392,7 +392,7 @@ export default class Location extends FormGroup {
       dataVal: options.dataVal
     };
 
-    if (!this.state.changed) {
+    if (!this.state.changed && this.geocoderInput.val().length > 0) {
       this.setState({
         changed: true
       });

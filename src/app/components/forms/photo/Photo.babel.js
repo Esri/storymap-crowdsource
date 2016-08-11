@@ -150,6 +150,8 @@ export default class Photo extends FormGroup {
   captureImageExif(file) {
     loadImage.parseMetaData(file,(data) => {
       const exif = data.exif ? data.exif.getAll() : {};
+      const orientation = data.exif ? data.exif.get('Orientation') : null;
+
       let location = null;
 
       const convertCoords = function(coord, ref) {
@@ -173,26 +175,34 @@ export default class Photo extends FormGroup {
 
       }
 
-      this.loadImageFromFile(file,location);
+      this.loadImageFromFile(file,orientation,location);
     });
   }
 
-  loadImageFromFile(file,location) {
+  loadImageFromFile(file,orientation,location) {
     loadImage(file,(canvas) => {
       if (canvas && canvas.toDataURL) {
-        const imgDataUrl = canvas.toDataURL('image/jpeg');
+        if (canvas.width < this.props.extras.minimumSize, canvas.height < this.props.extras.minimumSize) {
+          this.setState({
+            loadingPhoto: false
+          });
+          alert(ViewerText.contribute.form.photo.photoTooSmall + ' ' + this.props.extras.minimumSize + 'px.'); //eslint-disable-line no-alert
+        } else {
+          const imgDataUrl = canvas.toDataURL('image/jpeg');
 
-        this.setState({
-          imageUrl: imgDataUrl
-        });
-        this.loadImageFromFileForResample(file,canvas,location);
+          this.setState({
+            imageUrl: imgDataUrl
+          });
+          this.loadImageFromFileForResample(file,orientation,canvas,location);
+        }
       }
     },{
-      canvas: true
+      canvas: true,
+      orientation
     });
   }
 
-  loadImageFromFileForResample(file,rawPhotoCanvas,location) {
+  loadImageFromFileForResample(file,orientation,rawPhotoCanvas,location) {
     loadImage(file,(canvas) => {
       if (canvas && canvas.toDataURL) {
 
@@ -205,8 +215,9 @@ export default class Photo extends FormGroup {
       canvas: true,
       maxHeight: 2000,
       maxWidth: 2000,
-      minHeight: 500,
-      minWidth: 500
+      minHeight: this.props.extras.minimumSize,
+      minWidth: this.props.extras.minimumSize,
+      orientation
     });
   }
 
