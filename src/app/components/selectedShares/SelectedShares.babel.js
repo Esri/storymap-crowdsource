@@ -74,9 +74,7 @@ export default class SelectedShares extends React.Component {
   getMedia(item) {
     const media = this.props.media;
     const attributes = item[this.props.attributePath];
-    const fieldProps = this.props.fields.filter((current) => {
-      return current.fieldID === media.field;
-    })[0];
+    const fieldProps = this.props.fields[media.field];
 
     switch (media.type) {
       case 'video':
@@ -122,9 +120,7 @@ export default class SelectedShares extends React.Component {
 
       if (typeof current === 'string') {
         const fieldClasses = Helper.classnames(['field-display', 'field-' + current]);
-        const fieldProps = this.props.fields.filter((fCurrent) => {
-          return fCurrent.fieldID === current;
-        })[0];
+        const fieldProps = this.props.fields[current];
 
         if (fieldProps && fieldProps.type === 'textarea') {
           return (<Autolinker key={current} className={fieldClasses} text={attributes[current]}></Autolinker>);

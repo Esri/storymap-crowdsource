@@ -67,7 +67,7 @@ export default class CrowdsourceForm extends React.Component {
           <form onSubmit={(e) => {
               e.preventDefault();
             }}>
-          {this.props.fields.map(this.getFormField)}
+          {Object.keys(this.props.fields).map(this.getFormField)}
             <TermsAndConditions {...termsOptions}></TermsAndConditions>
           </form>
           <button type="button" className={saveBtnClasses} onClick={this.onSave}>
@@ -113,8 +113,9 @@ export default class CrowdsourceForm extends React.Component {
     return value;
   }
 
-  getFormField(field,index) {
+  getFormField(fieldName,index) {
 
+    const field = this.props.fields[fieldName];
     const self = this;
 
     if (this.formItemStatus[field.fieldID] === undefined) {
@@ -233,7 +234,7 @@ CrowdsourceForm.propTypes = {
   vettedField: React.PropTypes.string,
   hiddenField: React.PropTypes.string,
   title: React.PropTypes.string,
-  fields: React.PropTypes.array,
+  fields: React.PropTypes.shape({}),
   fieldDefinitions: React.PropTypes.array,
   map: React.PropTypes.shape({}),
   saving: React.PropTypes.bool,

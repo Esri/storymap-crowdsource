@@ -1,6 +1,6 @@
 {
   "name": "story-map-crowdsource",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Publish and manage a crowdsourced story to which anyone can contribute photos with captions. Use Crowdsource to engage your audience and collect their photos and experiences, thoughts or memories on the subject of your choice, all linked to a map. A vetting function lets you review and approve contributions.",
   "repository": {
     "type": "git",

@@ -34,7 +34,7 @@ ContributePanel.propTypes = {
   socialLogin: React.PropTypes.bool.isRequired,
   view: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
-  fields: React.PropTypes.array.isRequired,
+  fields: React.PropTypes.shape({}).isRequired,
   fieldDefinitions: React.PropTypes.array.isRequired,
   map: React.PropTypes.shape({}).isRequired,
   closeAction: React.PropTypes.func.isRequired,
