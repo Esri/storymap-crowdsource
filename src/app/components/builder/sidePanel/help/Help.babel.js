@@ -53,6 +53,9 @@ export default class SidePanelHelp extends React.Component {
         case 'agoCredits':
           link = 'https://www.esri.com/software/arcgis/arcgisonline/credits';
           break;
+        case 'formEditBlog':
+          link = 'https://developerscorner.storymaps.arcgis.com/how-to-personalize-your-crowdsource-story-even-more-a9ccfef11af3';
+          break;
       }
 
       templates.push({
