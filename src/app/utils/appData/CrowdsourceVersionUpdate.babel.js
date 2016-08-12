@@ -33,6 +33,7 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
 
   // Update version
   lang.setObject('data.values.properties.version',newVersion,updatedItemInfo);
+  lang.setObject('data.values.properties.versionUpdated',new Date().getTime(),updatedItemInfo);
 
   return updatedItemInfo;
 };

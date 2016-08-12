@@ -119,6 +119,12 @@ export default class CrowdsourceBuilderController {
     if (this.currentAppData === undefined) {
       this.currentAppData = appDataFromState;
       this.lastSaveAppData = appDataFromState;
+      const updatedDate = lang.getObject('appState.items.app.data.values.properties.versionUpdated',false,this);
+      const currentDate = new Date().getTime();
+
+      if (currentDate - updatedDate < 60000) {
+        this.checkAppStateChange(true);
+      }
     } else if (force || ((appDataFromState !== this.currentAppData || this.currentAppData !== this.lastSaveAppData) && !lang.getObject('appState.builder.saving',false,this))) {
       this.currentAppData = appDataFromState;
       this.lastSaveAppData = appDataFromState;
@@ -235,7 +241,7 @@ export default class CrowdsourceBuilderController {
   checkWebmapStateChange(force) {
     const webmapDataFromState = JSON.stringify(lang.getObject('appState.items.webmap',false,this));
 
-    if (this.currentWebmapData === undefined) {
+    if (this.currentWebmapData === undefined || (!lang.getObject('appState.items.webmap.item.access',false,JSON.parse(this.currentWebmapData)) && lang.getObject('appState.items.webmap.item.access',false,this))) {
       this.currentWebmapData = webmapDataFromState;
       this.lastSaveWebmapData = webmapDataFromState;
     } else if (force || ((webmapDataFromState !== this.currentWebmapData || this.currentWebmapData !== this.lastSaveWebmapData) && !lang.getObject('appState.builder.saving',false,this))) {
