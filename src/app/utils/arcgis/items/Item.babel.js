@@ -100,8 +100,9 @@ export const getDataById = function getDataById(options) {
     return dfd;
   };
 
-  const getItem = function(token) {
+  const getItem = function(user) {
 
+    const token = lang.getObject('credential.token',false,user);
     const content = {
       f: 'json',
       token

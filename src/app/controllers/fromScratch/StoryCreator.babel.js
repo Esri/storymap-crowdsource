@@ -201,9 +201,12 @@ export default class StoryCreator {
 
   createFeatureService() {
     const portal = lang.getObject('appState.app.portal',false,this);
+    const isDev = lang.getObject('appState.mode.isDev',false,this);
 
     this.itemCreationPending = true;
-    portal.createService().then((res) => {
+    portal.createService({
+      protectService: isDev ? false : true
+    }).then((res) => {
       if (res.crowdsourceLayerUrl && res.crowdsourceLayerItemId) {
         _onStatus('Feature Service Created: ' + JSON.stringify(res),true);
 

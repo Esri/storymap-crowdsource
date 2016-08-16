@@ -194,7 +194,9 @@ Portal.prototype.createService = function (options) {
     _onError(err);
     deferred.reject(err);
   }).then(() => {
-    protect();
+    if (settings.protectService) {
+      protect();
+    }
     deferred.resolve(response);
   },(err) => {
     _onError(err);

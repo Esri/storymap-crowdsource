@@ -26,13 +26,13 @@ const defaultData = {
 			id: 'World_Light_Gray_Base_7270',
 			opacity: 1,
 			visibility: true,
-			url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer'
+			url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer'
 		}, {
 			id: 'World_Light_Gray_Reference_6243',
 			isReference: true,
 			opacity: 1,
 			visibility: true,
-			url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer'
+			url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer'
 		}],
 		title: "Light Gray Canvas"
 	},
