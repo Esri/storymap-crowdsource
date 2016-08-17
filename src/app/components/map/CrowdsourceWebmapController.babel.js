@@ -181,11 +181,11 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
             return prev.concat(current.attributes[layer.objectIdField]);
           },[]);
 
-          MapActions.selectFeatures(ids);
+          MapActions.selectFeature(ids[0]);
         });
 
         map.on('click', () => {
-          MapActions.selectFeatures([]);
+          MapActions.selectFeature(false);
         });
 
         // Hide original layer

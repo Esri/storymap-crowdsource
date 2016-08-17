@@ -21,17 +21,17 @@ export const updateFeaturesInExtent = function (features) {
   };
 };
 
-export const selectFeatures = function (features) {
+export const selectFeature = function (feature) {
   return {
     type: UPDATE_MAP_SELECTED_FEATURES,
-    features
+    feature
   };
 };
 
 export const boundActions = {
   updateMapReferences: (references) => dispatch(updateMapReferences(references)),
   updateFeaturesInExtent: (features) => dispatch(updateFeaturesInExtent(features)),
-  selectFeatures: (features) => dispatch(selectFeatures(features))
+  selectFeature: (features) => dispatch(selectFeature(features))
 };
 
 export default boundActions;

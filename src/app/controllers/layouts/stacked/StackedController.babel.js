@@ -122,7 +122,7 @@ export default class StackedController {
         switch (component) {
           case componentNames.INTRO:
             this.showIntro(options);
-            MapActions.selectFeatures([]);
+            MapActions.selectFeature(false);
             AppActions.hideComponent([componentNames.MAP,componentNames.GALLERY,componentNames.SELECTED_SHARES]);
             break;
           case componentNames.MAP:

@@ -147,7 +147,7 @@ class Viewer extends React.Component {
                 items={this.props.map.featuresInExtent}
                 layer={this.props.map.layer}
                 selected={this.props.selectFeatureIds}
-                selectAction={this.props.selectFeatures}
+                selectAction={this.props.selectFeature}
                 {...this.props.components.gallery}
                 {...this.props.components.map.crowdsourceLayer}>
               </ThumbnailGallery>;
@@ -166,9 +166,9 @@ class Viewer extends React.Component {
                 {...this.props.components.contribute}
                 {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures().length > 0 ? <SelectedShares
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
                 className="overlay-panel"
-                items={this.getSelectedFeatures()}
+                feature={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
                 approveAction={(features) => {
@@ -177,7 +177,7 @@ class Viewer extends React.Component {
                 rejectAction={(features) => {
                   this.props.rejectFeatures({add: features});
                 }}
-                closeAction={this.props.selectFeatures.bind(null,false)}
+                closeAction={this.props.selectFeature.bind(null,false)}
                 {...this.props.components.shareDisplay}
                 {...this.props.components.map.crowdsourceLayer}>
               </SelectedShares> : null }
@@ -218,7 +218,7 @@ class Viewer extends React.Component {
                   items={this.props.map.featuresInExtent}
                   layer={this.props.map.layer}
                   selected={this.props.selectFeatureIds}
-                  selectAction={this.props.selectFeatures}
+                  selectAction={this.props.selectFeature}
                   {...this.props.components.gallery}
                   {...this.props.components.map.crowdsourceLayer}>
                 </ThumbnailGallery>;
@@ -238,9 +238,9 @@ class Viewer extends React.Component {
                 {...this.props.components.contribute}
                 {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures().length > 0 ? <SelectedShares
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
                 className="overlay-panel"
-                items={this.getSelectedFeatures()}
+                feature={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
                 approveAction={(features) => {
@@ -249,7 +249,7 @@ class Viewer extends React.Component {
                 rejectAction={(features) => {
                   this.props.rejectFeatures({add: features});
                 }}
-                closeAction={this.props.selectFeatures.bind(null,false)}
+                closeAction={this.props.selectFeature.bind(null,false)}
                 {...this.props.components.shareDisplay}
                 {...this.props.components.map.crowdsourceLayer}>
               </SelectedShares> : null }
@@ -298,18 +298,18 @@ class Viewer extends React.Component {
   getSelectedFeatures () {
 
     const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
-    const featureIds = lang.getObject('props.map.selectedFeatureIds',false,this);
+    const featureId = lang.getObject('props.map.selectedFeatureId',false,this);
     const features = this.props.map.featuresInExtent;
 
-    if (oidField && featureIds && featureIds.length > 0) {
+    if (oidField && featureId) {
       return features.reduce((prev,current) => {
-        if (featureIds.indexOf(current.attributes[oidField]) >= 0) {
+        if (featureId === current.attributes[oidField]) {
           return prev.concat(current);
         }
         return prev;
-      },[]);
+      },[])[0];
     } else {
-      return [];
+      return false;
     }
   }
 
@@ -349,7 +349,10 @@ Viewer.propTypes = {
       React.PropTypes.bool
     ]),
     featuresInExtent: React.PropTypes.array.isRequired,
-    selectedFeatureIds: React.PropTypes.array.isRequired
+    selectedFeatureId: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.number
+    ]).isRequired
   }).isRequired,
   portal: React.PropTypes.shape({}),
   mode: React.PropTypes.shape({
@@ -474,7 +477,7 @@ const mapStateToProps = (state) => {
     showComponent: AppActions.showComponent,
     hideComponent: AppActions.hideComponent,
     updateContributeState: AppActions.updateContributeState,
-    selectFeatures: MapActions.selectFeatures,
+    selectFeature: MapActions.selectFeature,
     approveFeatures: state.mode.isBuilder ? ReviewActions.approveFeatures : null,
     rejectFeatures: state.mode.isBuilder ? ReviewActions.rejectFeatures: null,
     noticationsActions: {

@@ -20,8 +20,8 @@ export default class SelectedShares extends React.Component {
     const mainClasses = Helper.classnames([this.props.className,this.props.classNames,
       'selected-shares'
     ]);
-
     const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
+    const attributes = this.props.feature[this.props.attributePath];
 
     return (
       <div className={mainClasses}>
@@ -30,40 +30,29 @@ export default class SelectedShares extends React.Component {
             <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
           </button>
         </div>
-        <ul className="cards-list">
-          {this.props.items.map((current) => {
-
-            const attributes = current[this.props.attributePath];
-
-            return (
-              <li key={attributes[this.props.idField]}>
-                <article className="card">
-                  { this.getMedia(current) }
-                  <div className="info-section">
-                    <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
-                    <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
-                  { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
-                  </div>
-                  {this.props.reviewEnabled ? (
-                    <div className="review-section bg-info">
-                      <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
-                      <div className="btn-group">
-                        <button type="button" className={Helper.classnames(['btn'],{
-                            'btn-default': attributes[this.props.vettedField] !== 1,
-                            'btn-primary': attributes[this.props.vettedField] === 1
-                          })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
-                        <button type="button" className={Helper.classnames(['btn'],{
-                            'btn-default': attributes[this.props.vettedField] !== 2,
-                            'btn-danger': attributes[this.props.vettedField] === 2
-                          })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
-                      </div>
-                    </div>
-                  ) : null}
-                </article>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="selected-display">
+          { this.getMedia() }
+          <div className="info-section">
+            <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
+            <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
+          { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
+          </div>
+          {this.props.reviewEnabled ? (
+            <div className="review-section alert alert-info">
+              <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
+              <div className="btn-group">
+                <button type="button" className={Helper.classnames(['btn'],{
+                    'btn-default': attributes[this.props.vettedField] !== 1,
+                    'btn-primary': attributes[this.props.vettedField] === 1
+                  })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
+                <button type="button" className={Helper.classnames(['btn'],{
+                    'btn-default': attributes[this.props.vettedField] !== 2,
+                    'btn-danger': attributes[this.props.vettedField] === 2
+                  })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
+              </div>
+            </div>
+          ) : null}
+        </div>
         <button type="button" className={closeBtnClasses} onClick={this.props.closeAction}>
           { viewerText.common.buttons.close }
         </button>
@@ -71,9 +60,9 @@ export default class SelectedShares extends React.Component {
     );
   }
 
-  getMedia(item) {
+  getMedia() {
     const media = this.props.media;
-    const attributes = item[this.props.attributePath];
+    const attributes = this.props.feature[this.props.attributePath];
     const fieldProps = this.props.fields[media.field];
 
     switch (media.type) {
@@ -86,7 +75,7 @@ export default class SelectedShares extends React.Component {
         if (fieldProps.isAttachment) {
           const attachmentUrl = Helper.attachmentUtils.getAttachmentUrlsByStringMatch({
             layer: this.props.layer,
-            feature: item,
+            feature: this.props.feature,
             match: media.field,
             position: 0
           })[0] || '';
@@ -108,9 +97,6 @@ export default class SelectedShares extends React.Component {
               autoSizeDiv={true}
               src={photoUrl}>
             </LazyImage>
-            {/*<div className="card-options">
-              <button type="button" className="open-btn">{viewerText.selectedShares.enlargePhotoButton}</button>
-            </div>*/}
           </div>
         );
     }
@@ -137,7 +123,9 @@ SelectedShares.propTypes = {
   approveAction: React.PropTypes.func,
   rejectAction: React.PropTypes.func,
   closeAction: React.PropTypes.func,
-  items: React.PropTypes.array,
+  feature: React.PropTypes.shape({
+    attributes: React.PropTypes.shape({})
+  }),
   displayOrder: React.PropTypes.array,
   attributePath: React.PropTypes.string.isRequired,
   idField: React.PropTypes.string.isRequired,
@@ -163,7 +151,9 @@ SelectedShares.propTypes = {
 };
 
 SelectedShares.defaultProps = {
-  items: [],
+  feature: {
+    attributes: {}
+  },
   displayOrder: [],
   thumbnailUrlPrepend: '',
   thumbnailUrlAppend: '',

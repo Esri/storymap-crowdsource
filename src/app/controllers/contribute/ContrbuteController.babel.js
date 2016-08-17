@@ -155,7 +155,7 @@ export default class ContributeController {
         if ($.isArray(res.addResults) && res.addResults[0] && res.addResults[0].success) {
           const oid = res.addResults[0].objectId;
 
-          MapActions.selectFeatures(oid);
+          MapActions.selectFeature(oid);
           uploadAttachments(oid).then(this.finishSave,(err) => {
             _onError(err);
             this.hideUncompleted(oid);
