@@ -178,6 +178,8 @@ class Viewer extends React.Component {
                   this.props.rejectFeatures({add: features});
                 }}
                 closeAction={this.props.selectFeature.bind(null,false)}
+                nextAction={this.props.nextFeature}
+                previousAction={this.props.previousFeature}
                 {...this.props.components.shareDisplay}
                 {...this.props.components.map.crowdsourceLayer}>
               </SelectedShares> : null }
@@ -250,6 +252,8 @@ class Viewer extends React.Component {
                   this.props.rejectFeatures({add: features});
                 }}
                 closeAction={this.props.selectFeature.bind(null,false)}
+                nextAction={this.props.nextFeature}
+                previousAction={this.props.previousFeature}
                 {...this.props.components.shareDisplay}
                 {...this.props.components.map.crowdsourceLayer}>
               </SelectedShares> : null }
@@ -478,6 +482,8 @@ const mapStateToProps = (state) => {
     hideComponent: AppActions.hideComponent,
     updateContributeState: AppActions.updateContributeState,
     selectFeature: MapActions.selectFeature,
+    nextFeature: MapActions.nextFeature,
+    previousFeature: MapActions.previousFeature,
     approveFeatures: state.mode.isBuilder ? ReviewActions.approveFeatures : null,
     rejectFeatures: state.mode.isBuilder ? ReviewActions.rejectFeatures: null,
     noticationsActions: {

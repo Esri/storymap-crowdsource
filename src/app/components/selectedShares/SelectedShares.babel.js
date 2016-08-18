@@ -95,10 +95,10 @@ export default class SelectedShares extends React.Component {
   navigateWithArrowKeys(e) {
     switch (e.which) {
       case 37:
-        this.previousAction();
+        this.props.previousAction();
         break;
       case 39:
-        this.nextAction();
+        this.props.nextAction();
         break;
     }
 
@@ -149,7 +149,9 @@ export default class SelectedShares extends React.Component {
 
         return (
           <div className="media-section">
-            <LazyImage className="media-photo"
+            <LazyImage
+              key={photoUrl}
+              className="media-photo"
               autoSizeDiv={true}
               src={photoUrl}>
             </LazyImage>

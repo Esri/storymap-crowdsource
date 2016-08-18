@@ -59,7 +59,7 @@ const featuresInExtent = function(state = [], action) {
 const selectedFeatureId = function(state = false, action) {
   switch (action.type) {
     case UPDATE_MAP_SELECTED_FEATURES:
-      return action.feature;
+      return action.id;
     default:
       return state;
   }
