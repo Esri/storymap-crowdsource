@@ -168,6 +168,7 @@ class Viewer extends React.Component {
               </ContributePanel> : null }
               { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
                 className="overlay-panel"
+                featuresInExtent={this.props.map.featuresInExtent}
                 feature={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
@@ -242,6 +243,7 @@ class Viewer extends React.Component {
               </ContributePanel> : null }
               { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
                 className="overlay-panel"
+                featuresInExtent={this.props.map.featuresInExtent}
                 feature={this.getSelectedFeatures()}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}

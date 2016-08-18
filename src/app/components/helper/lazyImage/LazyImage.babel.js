@@ -26,6 +26,7 @@ export const LazyImage = class LazyImage extends React.Component {
         height,
         width
       });
+      this.props.onLoad();
     };
 
     this._scrollableParents = $(ReactDOM.findDOMNode(this)).parents().filter(function(){
@@ -123,7 +124,8 @@ LazyImage.propTypes = {
     backgroundRepeat: React.PropTypes.string,
     backgroundSize: React.PropTypes.string
   }),
-  threshold: React.PropTypes.number
+  threshold: React.PropTypes.number,
+  onLoad: React.PropTypes.func
 };
 
 LazyImage.defaultProps = {
@@ -131,7 +133,8 @@ LazyImage.defaultProps = {
   scrollContainers: [],
   src: '',
   style: {},
-  threshold: 200
+  threshold: 200,
+  onLoad: () => {}
 };
 
 export default LazyImage;
