@@ -6,6 +6,7 @@
   max-height: 100vh;
   z-index: 9999;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   .notification {
     margin: 15px 0 15px 15px;

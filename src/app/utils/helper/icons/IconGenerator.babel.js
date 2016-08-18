@@ -18,6 +18,18 @@ const _icons = {
     viewBox: '0 0 20 20',
     path: 'M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z'
   },
+  'arrow-left-open': {
+    id: 'icon-arrow-left-open',
+    html: '<svg class="icon icon-arrow-left-open"><use xlink:href="#icon-arrow-left-open"></use></svg>',
+    viewBox: '0 0 20 20',
+    path: 'M13.891 17.418c0.268 0.272 0.268 0.709 0 0.979s-0.701 0.271-0.969 0l-7.83-7.908c-0.268-0.27-0.268-0.707 0-0.979l7.83-7.908c0.268-0.27 0.701-0.27 0.969 0s0.268 0.709 0 0.979l-7.141 7.419 7.141 7.418z'
+  },
+  'arrow-right-open': {
+    id: 'icon-arrow-right-open',
+    html: '<svg class="icon icon-arrow-right-open"><use xlink:href="#icon-arrow-right-open"></use></svg>',
+    viewBox: '0 0 20 20',
+    path: 'M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'
+  },
   'arrow-up-open': {
     id: 'icon-arrow-up-open',
     html: '<svg class="icon icon-arrow-up-open"><use xlink:href="#icon-arrow-up-open"></use></svg>',
@@ -29,6 +41,12 @@ const _icons = {
     html: '<svg class="icon icon-circled-check"><use xlink:href="#icon-circled-check"></use></svg>',
     viewBox: '0 0 24 24',
     path: 'M9.984 17.016l9-9-1.406-1.453-7.594 7.594-3.563-3.563-1.406 1.406zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93z'
+  },
+  'close': {
+    id: 'icon-close',
+    html: '<svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg>',
+    viewBox: '0 0 24 24',
+    path: 'M19 4q0.43 0 0.715 0.285t0.285 0.715q0 0.422-0.289 0.711l-6.297 6.289 6.297 6.289q0.289 0.289 0.289 0.711 0 0.43-0.285 0.715t-0.715 0.285q-0.422 0-0.711-0.289l-6.289-6.297-6.289 6.297q-0.289 0.289-0.711 0.289-0.43 0-0.715-0.285t-0.285-0.715q0-0.422 0.289-0.711l6.297-6.289-6.297-6.289q-0.289-0.289-0.289-0.711 0-0.43 0.285-0.715t0.715-0.285q0.422 0 0.711 0.289l6.289 6.297 6.289-6.297q0.289-0.289 0.711-0.289z'
   },
   'facebook': {
     id: 'icon-facebook',

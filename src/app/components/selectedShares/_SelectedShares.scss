@@ -1,11 +1,54 @@
-.selected-shares {
+$selected-navigation-height: 54px;
 
-  .close-button-wrapper {
-    display: none;
+.crowdsource-app .overlay-panel.selected-share {
+  padding: 0;
+
+  &.scrolled .selected-navigation{
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -moz-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
   }
 
-  &:hover .close-button-wrapper{
-    display: block;
+  .selected-navigation {
+    position: relative;
+    height: $selected-navigation-height;
+    text-align: right;
+    padding: 10px 10px 0;
+    color: #999;
+    z-index: 1;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    transition: -webkit-box-shadow 0.3s ease-in-out;
+    transition: -moz-box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
+
+    .next-btn {
+      margin: 0 10px;
+    }
+
+    .btn {
+      padding: 5px;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    svg {
+      vertical-align: middle;
+    }
+  }
+
+  .selected-display {
+    height: calc(100% -  #{$selected-navigation-height});
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .padded-column {
+      padding: 15px;
+    }
   }
 
   .share-title {
@@ -14,7 +57,7 @@
   }
 
   .media-photo.lazy-image.loaded {
-    @include animation(fadeIn 1.5s);
+    @include animation(fadeIn 1s);
   }
 
   .media-section {
@@ -27,16 +70,9 @@
     }
   }
 
-  .info-section {
-    margin: 20px 0 20px;
-
-    .card-info {
-      text-align: center;
-    }
-  }
-
   .review-section {
     padding: 15px;
+    margin: 0;
 
     .review-header {
       height: 1em;

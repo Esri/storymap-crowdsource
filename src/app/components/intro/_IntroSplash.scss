@@ -166,6 +166,7 @@
       top: $navbar-height;
       border-radius: 0;
       overflow: auto;
+      -webkit-overflow-scrolling: touch;
 
       .title {
         font-size: 2em;

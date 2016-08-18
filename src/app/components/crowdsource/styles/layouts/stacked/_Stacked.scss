@@ -61,6 +61,7 @@ $paneNavigationHeight: 40px;
     max-width: 500px;
     z-index: 40;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
 
     &.overlay-toggle-enter {
       opacity: 0;

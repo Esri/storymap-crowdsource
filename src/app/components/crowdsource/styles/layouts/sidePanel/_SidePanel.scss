@@ -48,6 +48,7 @@
     padding: 15px;
     z-index: 40;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
 
     &.overlay-toggle-enter {
       opacity: 0;

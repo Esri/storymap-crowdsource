@@ -8,6 +8,7 @@
   left: 0;
   padding-bottom: 15px;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   &.side-panel-enter-active {
     z-index: 1;

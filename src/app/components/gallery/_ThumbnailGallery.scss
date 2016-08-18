@@ -19,6 +19,7 @@
     padding: 0;
     margin: auto;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gallery-item{

@@ -1,5 +1,6 @@
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import LazyImage from 'babel/components/helper/lazyImage/LazyImage';
 import Autolinker from 'babel/components/helper/autolinker/Autolinker';
 import viewerText from 'i18n!translations/viewer/nls/template';
@@ -10,54 +11,87 @@ export default class SelectedShares extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      scrolled: false
+    };
+
     // autobind methods
+    this.onScroll = this.onScroll.bind(this);
     this.getMedia = this.getMedia.bind(this);
     this.getFieldLayout = this.getFieldLayout.bind(this);
   }
 
   render() {
 
-    const mainClasses = Helper.classnames([this.props.className,this.props.classNames,
-      'selected-shares'
-    ]);
-    const closeBtnClasses = Helper.classnames(['btn','btn-primary','btn-block','close-btn']);
+    const mainClasses = Helper.classnames([this.props.className,this.props.classNames,'selected-share'],{
+      scrolled: this.state.scrolled
+    });
     const attributes = this.props.feature[this.props.attributePath];
 
     return (
       <div className={mainClasses}>
-        <div className="close-button-wrapper">
-          <button type="button" className="close" aria-label="Close" onClick={this.props.closeAction}>
-            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+        <div className="selected-navigation">
+          <button
+            type="button"
+            className="prev-btn btn text-btn"
+            aria-label="Previous"
+            onClick={this.props.previousAction}
+            dangerouslySetInnerHTML={{__html: getIcon('arrow-left-open')}}>
+          </button>
+          <button
+            type="button"
+            className="next-btn btn text-btn"
+            aria-label="Next"
+            onClick={this.props.nextAction}
+            dangerouslySetInnerHTML={{__html: getIcon('arrow-right-open')}}>
+          </button>
+          <button
+            type="button"
+            className="close-btn btn text-btn"
+            aria-label="Close"
+            onClick={this.props.closeAction}
+            dangerouslySetInnerHTML={{__html: getIcon('close')}}>
           </button>
         </div>
-        <div className="selected-display">
+        <div className="selected-display" onScroll={this.onScroll}>
           { this.getMedia() }
-          <div className="info-section">
-            <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
-            <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
-          { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
-          </div>
-          {this.props.reviewEnabled ? (
-            <div className="review-section alert alert-info">
-              <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
-              <div className="btn-group">
-                <button type="button" className={Helper.classnames(['btn'],{
-                    'btn-default': attributes[this.props.vettedField] !== 1,
-                    'btn-primary': attributes[this.props.vettedField] === 1
-                  })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
-                <button type="button" className={Helper.classnames(['btn'],{
-                    'btn-default': attributes[this.props.vettedField] !== 2,
-                    'btn-danger': attributes[this.props.vettedField] === 2
-                  })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
-              </div>
+          <div className="padded-column">
+            <div className="info-section">
+              <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
+              <p><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
+            { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
             </div>
-          ) : null}
+            {this.props.reviewEnabled ? (
+              <div className="review-section alert alert-info">
+                <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
+                <div className="btn-group">
+                  <button type="button" className={Helper.classnames(['btn'],{
+                      'btn-default': attributes[this.props.vettedField] !== 1,
+                      'btn-primary': attributes[this.props.vettedField] === 1
+                    })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
+                  <button type="button" className={Helper.classnames(['btn'],{
+                      'btn-default': attributes[this.props.vettedField] !== 2,
+                      'btn-danger': attributes[this.props.vettedField] === 2
+                    })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
+                </div>
+              </div>
+            ) : null}
+            </div>
         </div>
-        <button type="button" className={closeBtnClasses} onClick={this.props.closeAction}>
-          { viewerText.common.buttons.close }
-        </button>
       </div>
     );
+  }
+
+  onScroll(e) {
+    if (e.target.scrollTop > 0 && !this.state.scrolled) {
+      this.setState({
+        scrolled: true
+      });
+    } else if (e.target.scrollTop === 0 && this.state.scrolled) {
+      this.setState({
+        scrolled: false
+      });
+    }
   }
 
   getMedia() {
@@ -123,6 +157,8 @@ SelectedShares.propTypes = {
   approveAction: React.PropTypes.func,
   rejectAction: React.PropTypes.func,
   closeAction: React.PropTypes.func,
+  previousAction: React.PropTypes.func,
+  nextAction: React.PropTypes.func,
   feature: React.PropTypes.shape({
     attributes: React.PropTypes.shape({})
   }),
@@ -160,5 +196,7 @@ SelectedShares.defaultProps = {
   reviewEnabled: false,
   approveAction: () => {},
   rejectAction: () => {},
-  closeAction: () => {}
+  closeAction: () => {},
+  previousAction: () => {},
+  nextAction: () => {}
 };
