@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import React from 'react';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import Input from 'babel/components/forms/input/Input';
 import Textarea from 'babel/components/forms/textarea/Textarea';
@@ -58,8 +59,8 @@ export default class CrowdsourceForm extends React.Component {
     return (
       <div className="row">
         <div className="close-button-wrapper">
-          <button type="button" className="close" aria-label="Close" onClick={this.onClose}>
-            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          <button type="button" className="close-btn btn text-btn" aria-label="Close" onClick={this.onClose}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: getIcon('close')}}></span>
           </button>
         </div>
         <div className="col-xs-12">

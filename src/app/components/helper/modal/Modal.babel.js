@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'reactDom';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import 'bootstrap/modal';
 import 'bootstrap/transition';
@@ -50,8 +51,8 @@ export default class Modal extends React.Component {
               <div className="modal-header" style={this.props.headerStyle}>
                 { this.props.closeButton ? (
                   <div className="close-button-wrapper">
-                    <button type="button" className="close" aria-label="Close" onClick={this.props.closeAction}>
-                      <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+                    <button type="button" className="close-btn btn text-btn" aria-label="Close" onClick={this.props.closeAction}>
+                      <span aria-hidden="true" dangerouslySetInnerHTML={{__html: getIcon('close')}}></span>
                     </button>
                   </div>
                 ) : null }

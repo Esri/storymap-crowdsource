@@ -72,13 +72,18 @@
     background: inherit;
     z-index: 2;
     overflow: hidden;
+    height: 37px;
+    width: 37px;
+    text-align: center;
 
-    .close {
-      height: 50px;
-      width: 50px;
-      font-size: 50px;
-      font-weight: normal;
-      text-shadow: none;
+    .close-btn {
+      padding: 5px;
+      font-size: 20px;
+      line-height: 1;
+
+      svg {
+        vertical-align: middle;
+      }
     }
   }
 

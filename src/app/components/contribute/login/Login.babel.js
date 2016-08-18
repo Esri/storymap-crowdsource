@@ -1,4 +1,5 @@
 import React from 'react';
+import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
 import viewerText from 'i18n!translations/viewer/nls/template';
 
@@ -22,8 +23,8 @@ export default class Login extends React.Component {
     return (
       <div className="row">
         <div className="close-button-wrapper">
-          <button type="button" className="close" aria-label="Close" onClick={this.onClose}>
-            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: '&times;'}}></span>
+          <button type="button" className="close-btn btn text-btn" aria-label="Close" onClick={this.onClose}>
+            <span aria-hidden="true" dangerouslySetInnerHTML={{__html: getIcon('close')}}></span>
           </button>
         </div>
         <div className="col-xs-12">

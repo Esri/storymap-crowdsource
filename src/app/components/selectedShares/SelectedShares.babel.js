@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
@@ -16,9 +17,18 @@ export default class SelectedShares extends React.Component {
     };
 
     // autobind methods
+    this.navigateWithArrowKeys = this.navigateWithArrowKeys.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.getMedia = this.getMedia.bind(this);
     this.getFieldLayout = this.getFieldLayout.bind(this);
+  }
+
+  componentDidMount() {
+    $(document).on('keydown',this.navigateWithArrowKeys);
+  }
+
+  componentWillUnmount() {
+    $(document).off('keydown',this.navigateWithArrowKeys);
   }
 
   render() {
@@ -80,6 +90,18 @@ export default class SelectedShares extends React.Component {
         </div>
       </div>
     );
+  }
+
+  navigateWithArrowKeys(e) {
+    switch (e.which) {
+      case 37:
+        this.previousAction();
+        break;
+      case 39:
+        this.nextAction();
+        break;
+    }
+
   }
 
   onScroll(e) {

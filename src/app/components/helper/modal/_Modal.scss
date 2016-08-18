@@ -14,7 +14,7 @@
     display: none;
   }
 
-  &:hover .close-button-wrapper{
+  .modal-content:hover .close-button-wrapper{
     display: block;
   }
 }
