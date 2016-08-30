@@ -2,6 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import { connect } from 'reactRedux';
 import lang from 'dojo/_base/lang';
+import Point from 'esri/geometry/Point';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Header from 'babel/components/header/Header';
@@ -11,6 +12,7 @@ import AppSharing from 'mode!isBuilder?babel/components/viewerDialogs/appSharing
 import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
+import MapTip from 'babel/components/helper/mapTip/MapTip';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
 import AppNotifications from 'babel/components/helper/notifications/AppNotifications';
 import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/BottomNavigation';
@@ -32,7 +34,8 @@ class Viewer extends React.Component {
     super();
 
     // Bind class methods
-    this.getSelectedFeatures = this.getSelectedFeatures.bind(this);
+    this.getFeatureFromId = this.getFeatureFromId.bind(this);
+    this.getMapTipProps = this.getMapTipProps.bind(this);
     this.saveContribution = this.saveContribution.bind(this);
   }
 
@@ -141,12 +144,15 @@ class Viewer extends React.Component {
         const sidePanel = (
           <div className="main-content">
             <div className="scroll-container">
+              { this.getMapTipProps() ? <MapTip mapTips={this.getMapTipProps()}></MapTip> : null }
               <CrowdsourceWebmap className="content-pane map-pane" controllerOptions={this.webmapControllerOptions} />
               <ThumbnailGallery
                 className="content-pane gallery-pane"
                 items={this.props.map.featuresInExtent}
                 layer={this.props.map.layer}
-                selected={this.props.selectFeatureIds}
+                highlighted={this.props.map.highlightedFeatureId}
+                selected={this.props.map.selectFeatureIds}
+                highlightAction={this.props.highlightAction}
                 selectAction={this.props.selectFeature}
                 {...this.props.components.gallery}
                 {...this.props.components.map.crowdsourceLayer}>
@@ -166,10 +172,10 @@ class Viewer extends React.Component {
                 {...this.props.components.contribute}
                 {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this)) ? <SelectedShares
                 className="overlay-panel"
                 featuresInExtent={this.props.map.featuresInExtent}
-                feature={this.getSelectedFeatures()}
+                feature={this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this))}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
                 approveAction={(features) => {
@@ -206,6 +212,7 @@ class Viewer extends React.Component {
           <div className="main-content">
             <div className="scroll-container">
               <div className="content-pane map-view">
+                { this.getMapTipProps() ? <MapTip mapTips={this.getMapTipProps()}></MapTip> : null }
                 <CrowdsourceWebmap controllerOptions={this.webmapControllerOptions} />
                 <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
                   <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
@@ -221,7 +228,9 @@ class Viewer extends React.Component {
                   items={this.props.map.featuresInExtent}
                   layer={this.props.map.layer}
                   selected={this.props.selectFeatureIds}
-                  selectAction={this.props.selectFeature}
+                  highlighted={this.props.map.highlightedFeatureId}
+                  selectAction={this.props.map.selectFeature}
+                  highlightAction={this.props.highlightAction}
                   {...this.props.components.gallery}
                   {...this.props.components.map.crowdsourceLayer}>
                 </ThumbnailGallery>;
@@ -241,10 +250,10 @@ class Viewer extends React.Component {
                 {...this.props.components.contribute}
                 {...this.props.components.map.crowdsourceLayer}>
               </ContributePanel> : null }
-              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getSelectedFeatures() ? <SelectedShares
+              { this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this)) ? <SelectedShares
                 className="overlay-panel"
                 featuresInExtent={this.props.map.featuresInExtent}
-                feature={this.getSelectedFeatures()}
+                feature={this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this))}
                 layer={this.props.map.layer}
                 reviewEnabled={this.props.mode.isBuilder}
                 approveAction={(features) => {
@@ -297,14 +306,14 @@ class Viewer extends React.Component {
       editable: this.props.mode.isBuilder,
       crowdsourceLayer: {
         where
-      }
+      },
+      selectedFeature: this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this))
     },this.props.components.map);
   }
 
-  getSelectedFeatures () {
+  getFeatureFromId (featureId) {
 
     const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
-    const featureId = lang.getObject('props.map.selectedFeatureId',false,this);
     const features = this.props.map.featuresInExtent;
 
     if (oidField && featureId) {
@@ -317,6 +326,50 @@ class Viewer extends React.Component {
     } else {
       return false;
     }
+  }
+
+  getMapTipProps() {
+    const selectedFeature = this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this));
+    const highlightedFeature = this.getFeatureFromId(lang.getObject('props.map.highlightedFeatureId',false,this));
+    const features = [];
+
+    if (selectedFeature) {
+      features.push(selectedFeature);
+    }
+    if (highlightedFeature && highlightedFeature !== selectedFeature) {
+      features.push(highlightedFeature);
+    }
+
+    if (highlightedFeature || (this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && selectedFeature)) {
+      return features.reduce((prev,current) => {
+        const primaryField = lang.getObject('props.components.map.crowdsourceLayer.primaryField',false,this);
+        const clusterId = current.attributes.clusterId;
+        const cluster = this.props.map.clusterLayer._clusters.filter((current) => {
+          return current.attributes.clusterId === clusterId;
+        })[0];
+        const container = document.querySelector('.map-pane');
+        const content = current.attributes[primaryField];
+        const screenPoint = lang.getObject('props.map.originalObject',false,this).toScreen(new Point({
+          x: cluster.x,
+          y: cluster.y,
+          spatialReference: {
+            wkid: 102100
+          }
+        }));
+        const symbol = this.props.map.clusterLayer.renderer.getSymbol(cluster);
+
+        return prev.concat({
+          container,
+          content,
+          id: clusterId,
+          screenPoint,
+          symbol
+        });
+      },[]);
+
+    }
+
+    return false;
   }
 
   saveContribution(graphic) {
@@ -484,6 +537,7 @@ const mapStateToProps = (state) => {
     hideComponent: AppActions.hideComponent,
     updateContributeState: AppActions.updateContributeState,
     selectFeature: MapActions.selectFeature,
+    highlightAction: MapActions.highlightFeature,
     nextFeature: MapActions.nextFeature,
     previousFeature: MapActions.previousFeature,
     approveFeatures: state.mode.isBuilder ? ReviewActions.approveFeatures : null,

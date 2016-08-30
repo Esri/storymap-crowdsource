@@ -12,6 +12,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
     // Autobind methods
     this.onSelect = this.onSelect.bind(this);
+    this.onHighlight = this.onHighlight.bind(this);
     this.galleryItemRender = this.galleryItemRender.bind(this);
 
     this.state = {
@@ -92,14 +93,17 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
     };
 
     const itemClasses = Helper.classnames(['gallery-item', {
-      selected: this.props.selected.indexOf(attr[this.props.idField]) >= 0
+      selected: this.props.selected === attr[this.props.idField],
+      highlighted: this.props.highlighted === attr[this.props.idField]
     }]);
 
     return (
       <li className={itemClasses}
         key={attr[this.props.idField]}
         style={itemStyle}
-        onClick={this.onSelect.bind(null,attr[this.props.idField])}>
+        onClick={this.onSelect.bind(null,attr[this.props.idField])}
+        onMouseOver={this.onHighlight.bind(null,attr[this.props.idField])}
+        onMouseOut={this.onHighlight.bind(null,false)}>
         <LazyImage className="background-image" src={photoUrl}></LazyImage>
         <div className="info-card background-fill">
           <h6>{attr[this.props.primaryField]}</h6>
@@ -113,6 +117,14 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
     this.props.selectAction(selection);
     if (selection) {
       this.props.selectAction(selection);
+    }
+  }
+
+  onHighlight(selection,e) {
+    e.stopPropagation();
+    this.props.highlightAction(selection);
+    if (selection) {
+      this.props.highlightAction(selection);
     }
   }
 };
@@ -138,13 +150,15 @@ ThumbnailGallery.propTypes = {
     React.PropTypes.bool
   ]),
   selected: React.PropTypes.array,
-  selectAction: React.PropTypes.func
+  selectAction: React.PropTypes.func,
+  highlightAction: React.PropTypes.func
 };
 
 ThumbnailGallery.defaultProps = {
   items: [],
   selected: [],
   selectAction: () => {},
+  highlightAction: () => {},
   size: 200,
   thumbnailIsAttachment: false,
   thumbnailUrlPrepend: '',

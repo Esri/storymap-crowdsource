@@ -146,7 +146,8 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           MapActions.updateMapReferences({
             itemInfo: this._itemInfo,
             map,
-            layer
+            layer,
+            clusterLayer
           });
         }
 
@@ -186,6 +187,24 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
 
         map.on('click', () => {
           MapActions.selectFeature(false);
+        });
+
+        clusterLayer.on('mouse-over',(e) => {
+          if (e.graphic && e.graphic.attributes.clusterCount && e.graphic.attributes.clusterCount === 1) {
+            const clusterId = e.graphic.attributes.clusterId;
+            const features = clusterLayer._inExtent();
+            const feature = features.filter((current) => {
+              return current.attributes.clusterId === clusterId;
+            })[0];
+
+            if (feature) {
+              MapActions.highlightFeature(feature.attributes[layer.objectIdField]);
+            }
+          }
+        });
+
+        clusterLayer.on('mouse-out',() => {
+          MapActions.highlightFeature(false);
         });
 
         // Hide original layer

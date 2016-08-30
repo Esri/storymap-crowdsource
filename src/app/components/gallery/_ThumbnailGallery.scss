@@ -34,13 +34,13 @@
     cursor: pointer;
     @include transition(opacity 0.3s);
 
-    &:hover:not(.selected) {
+    &:hover:not(.selected), &.highlighted:not(.selected) {
       opacity: 0.75;
       @include transition(opacity 0.3s);
-    }
+    }å
 
     .info-card {
-      position: absolute;
+      position: absolute
       width: 100%;
       bottom: 0;
 

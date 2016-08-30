@@ -11,7 +11,6 @@ export default class SelectedShares extends React.Component {
     super(props);
 
     this.state = {
-      scrolled: false,
       mediaLoaded: false
     };
 
@@ -35,7 +34,7 @@ export default class SelectedShares extends React.Component {
     const attributes = this.props.feature[this.props.attributePath];
 
     return (
-      <div className={mainClasses}>
+      <div className={mainClasses} onScroll={this.props.onScroll}>
         { this.getMedia() }
         { this.state.mediaLoaded ? (
           <div className="padded-column">

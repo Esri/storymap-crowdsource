@@ -10,8 +10,7 @@ export default class SelectedShares extends React.Component {
     super(props);
 
     this.state = {
-      scrolled: false,
-      mediaLoaded: false
+      scrolled: false
     };
 
     // autobind methods
@@ -71,6 +70,7 @@ export default class SelectedShares extends React.Component {
           </div>
         )}
         <SelectedDisplay
+          onScroll={this.onScroll}
           reviewEnabled={this.props.reviewEnabled}
           approveAction={this.props.approveAction}
           rejectAction={this.props.rejectAction}
@@ -93,6 +93,9 @@ export default class SelectedShares extends React.Component {
 
   navigateWithArrowKeys(e) {
     switch (e.which) {
+      case 27:
+        this.props.closeAction();
+        break;
       case 37:
         this.props.previousAction();
         break;
