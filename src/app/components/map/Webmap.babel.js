@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'reactDom';
 import Helper from 'babel/utils/helper/Helper';
 import WebmapController from 'babel/components/map/WebmapController';
 
@@ -12,11 +11,10 @@ export const Webmap = class Webmap extends React.Component {
   }
 
   componentDidMount() {
-    const mapDiv = ReactDOM.findDOMNode(this);
     const MapController = this._MapController;
 
     this.mapController = new MapController({
-      node: mapDiv
+      node: this.mapDiv
     });
 
     if (this.props.controllerOptions.webmap) {
@@ -30,12 +28,10 @@ export const Webmap = class Webmap extends React.Component {
 
   render() {
 
-    const mapClass = Helper.classnames([this.props.className, {
-      map: true
-    }]);
+    const mapClass = Helper.classnames([this.props.className, this.props.classNames, 'map']);
 
     return (
-      <div className={mapClass} tabIndex="-1"></div>
+      <div className={mapClass} ref={(ref) => this.mapDiv = ref} tabIndex="-1"></div>
     );
   }
 

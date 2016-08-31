@@ -142,6 +142,8 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
 
+        window.cl = clusterLayer;
+
         if (layer) {
           MapActions.updateMapReferences({
             itemInfo: this._itemInfo,
@@ -202,6 +204,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         });
 
         clusterLayer.on('mouse-over',(e) => {
+          map.setMapCursor('pointer');
           if (e.graphic && e.graphic.attributes.clusterCount && e.graphic.attributes.clusterCount === 1) {
             const clusterId = e.graphic.attributes.clusterId;
             const features = clusterLayer._inExtent();
@@ -216,6 +219,7 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         });
 
         clusterLayer.on('mouse-out',() => {
+          map.setMapCursor('default');
           MapActions.highlightFeature(false);
         });
 

@@ -12,7 +12,6 @@ import AppSharing from 'mode!isBuilder?babel/components/viewerDialogs/appSharing
 import ContributePanel from 'babel/components/contribute/ContributePanel';
 import SelectedShares from 'babel/components/selectedShares/SelectedShares';
 import CrowdsourceWebmap from 'babel/components/map/CrowdsourceWebmap';
-import MapTip from 'babel/components/helper/mapTip/MapTip';
 import ThumbnailGallery from 'babel/components/gallery/ThumbnailGallery';
 import AppNotifications from 'babel/components/helper/notifications/AppNotifications';
 import MobileBottomNavigation from 'babel/components/mobile/bottomNavigation/BottomNavigation';
@@ -144,10 +143,7 @@ class Viewer extends React.Component {
         const sidePanel = (
           <div className="main-content">
             <div className="scroll-container">
-              {this.getMapTipProps().map((current) => {
-                return <MapTip {...current} key={current.id}></MapTip>;
-              })}
-              <CrowdsourceWebmap className="content-pane map-pane" controllerOptions={this.webmapControllerOptions} />
+              <CrowdsourceWebmap mapTips={this.getMapTipProps()} className="content-pane map-pane" controllerOptions={this.webmapControllerOptions} />
               <ThumbnailGallery
                 className="content-pane gallery-pane"
                 items={this.props.map.featuresInExtent}
@@ -214,10 +210,7 @@ class Viewer extends React.Component {
           <div className="main-content">
             <div className="scroll-container">
               <div className="content-pane map-view">
-                {this.getMapTipProps().map((current) => {
-                  return <MapTip {...current} key={current.id}></MapTip>;
-                })}
-                <CrowdsourceWebmap controllerOptions={this.webmapControllerOptions} />
+                <CrowdsourceWebmap mapTips={this.getMapTipProps()} controllerOptions={this.webmapControllerOptions} />
                 <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
                   <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
                   <span className="icon" dangerouslySetInnerHTML={downArrowHtml}></span>
@@ -350,6 +343,7 @@ class Viewer extends React.Component {
 
     if (highlightedFeature || (this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && selectedFeature)) {
       return features.reduce((prev,current) => {
+
         const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
         const primaryField = lang.getObject('props.components.map.crowdsourceLayer.primaryField',false,this);
         const clusterId = current.attributes.clusterId;
@@ -359,13 +353,31 @@ class Viewer extends React.Component {
         const container = document.querySelector('.map-pane');
         const content = current.attributes[primaryField];
         const id = current.attributes[oidField];
-        const screenPoint = lang.getObject('props.map.originalObject',false,this).toScreen(new Point({
+        const map = lang.getObject('props.map.originalObject',false,this);
+        const ext = map._getAvailExtent();
+        const mapWidth = Math.abs(map.toScreen(new Point(0,0)).x - map.toScreen(new Point(360,0)).x);
+        const testAndAdjustGeometry = function(mapLeft, mapRight, testGeo, direction) {
+
+          if (testGeo.x < mapLeft.x && direction !== 2) {
+            testGeo.x += mapWidth;
+            return testAndAdjustGeometry(mapLeft, mapRight, testGeo, 1);
+          } else if (testGeo.x > mapRight.x && direction !== 1) {
+            testGeo.x -= mapWidth;
+            return testAndAdjustGeometry(mapLeft, mapRight, testGeo, 2);
+          } else {
+            return testGeo;
+          }
+        };
+        const screenMapLeft = map.toScreen(new Point({x: ext.xmin, y: ext.ymax, spatialReference: map.spatialReference}));
+        const screenMapRight = map.toScreen(new Point({x: ext.xmax, y: ext.ymin, spatialReference: map.spatialReference}));
+        const originalScreenPoint = map.toScreen(new Point({
           x: cluster.x,
           y: cluster.y,
           spatialReference: {
             wkid: 102100
           }
         }));
+        const screenPoint = testAndAdjustGeometry(screenMapLeft,screenMapRight,originalScreenPoint);
         const symbol = this.props.map.clusterLayer.renderer.getSymbol(cluster);
 
         return prev.concat({

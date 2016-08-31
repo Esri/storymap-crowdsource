@@ -1,5 +1,7 @@
 import React from 'react';
 import Webmap from 'babel/components/map/Webmap';
+import Helper from 'babel/utils/helper/Helper';
+import MapTip from 'babel/components/helper/mapTip/MapTip';
 import CrowdsourceWebmapController from 'babel/components/map/CrowdsourceWebmapController';
 
 export const CrowdsourceWebmap = class CrowdsourceWebmap extends Webmap {
@@ -8,6 +10,18 @@ export const CrowdsourceWebmap = class CrowdsourceWebmap extends Webmap {
     super(props);
 
     this._MapController = CrowdsourceWebmapController;
+  }
+
+  render() {
+    const mapClass = Helper.classnames([this.props.className, this.props.classNames, 'map']);
+
+    return (
+      <div className={mapClass} ref={(ref) => this.mapDiv = ref} tabIndex="-1">
+        {this.props.mapTips.map((current) => {
+          return <MapTip {...current} key={current.id}></MapTip>;
+        })}
+      </div>
+    );
   }
 
 };
