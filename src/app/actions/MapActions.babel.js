@@ -4,7 +4,8 @@ import {
   UPDATE_MAP_REFERENCES,
   UPDATE_MAP_FEATURES_IN_EXTENT,
   UPDATE_MAP_SELECTED_FEATURES,
-  UPDATE_MAP_HIGHLIGHTED_FEATURES
+  UPDATE_MAP_HIGHLIGHTED_FEATURES,
+  UPDATE_MAP_MOVING
 } from 'babel/constants/actionsTypes/Map';
 
 const dispatch = AppStore.dispatch;
@@ -91,13 +92,21 @@ export const previousFeature = function () {
   };
 };
 
+export const mapMoving = function (moving) {
+  return {
+    type: UPDATE_MAP_MOVING,
+    moving
+  };
+};
+
 export const boundActions = {
   updateMapReferences: (references) => dispatch(updateMapReferences(references)),
   updateFeaturesInExtent: (features) => dispatch(updateFeaturesInExtent(features)),
   selectFeature: (features) => dispatch(selectFeature(features)),
   highlightFeature: (features) => dispatch(highlightFeature(features)),
   nextFeature: () => dispatch(nextFeature()),
-  previousFeature: () => dispatch(previousFeature())
+  previousFeature: () => dispatch(previousFeature()),
+  mapMoving: (moving) => dispatch(mapMoving(moving))
 };
 
 export default boundActions;

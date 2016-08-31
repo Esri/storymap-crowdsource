@@ -189,6 +189,18 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           MapActions.selectFeature(false);
         });
 
+        map.on('pan-start',() => {
+          MapActions.mapMoving(true);
+        });
+
+        map.on('zoom-start',() => {
+          MapActions.mapMoving(true);
+        });
+
+        map.on('extent-change',() => {
+          MapActions.mapMoving(false);
+        });
+
         clusterLayer.on('mouse-over',(e) => {
           if (e.graphic && e.graphic.attributes.clusterCount && e.graphic.attributes.clusterCount === 1) {
             const clusterId = e.graphic.attributes.clusterId;

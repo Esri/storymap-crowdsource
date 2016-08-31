@@ -3,7 +3,8 @@ import {
   UPDATE_MAP_REFERENCES,
   UPDATE_MAP_FEATURES_IN_EXTENT,
   UPDATE_MAP_SELECTED_FEATURES,
-  UPDATE_MAP_HIGHLIGHTED_FEATURES
+  UPDATE_MAP_HIGHLIGHTED_FEATURES,
+  UPDATE_MAP_MOVING
 } from 'babel/constants/actionsTypes/Map';
 
 const itemInfo = function(state = false, action) {
@@ -84,6 +85,17 @@ const highlightedFeatureId = function(state = false, action) {
   switch (action.type) {
     case UPDATE_MAP_HIGHLIGHTED_FEATURES:
       return action.id;
+    case UPDATE_MAP_SELECTED_FEATURES:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const mapMoving = function(state = false, action) {
+  switch (action.type) {
+    case UPDATE_MAP_MOVING:
+      return action.moving ? true : false;
     default:
       return state;
   }
@@ -96,7 +108,8 @@ export const map = combineReducers({
   originalObject,
   featuresInExtent,
   selectedFeatureId,
-  highlightedFeatureId
+  highlightedFeatureId,
+  mapMoving
 });
 
 export default map;

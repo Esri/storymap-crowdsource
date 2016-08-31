@@ -144,7 +144,9 @@ class Viewer extends React.Component {
         const sidePanel = (
           <div className="main-content">
             <div className="scroll-container">
-              { this.getMapTipProps() ? <MapTip mapTips={this.getMapTipProps()}></MapTip> : null }
+              {this.getMapTipProps().map((current) => {
+                return <MapTip {...current} key={current.id}></MapTip>;
+              })}
               <CrowdsourceWebmap className="content-pane map-pane" controllerOptions={this.webmapControllerOptions} />
               <ThumbnailGallery
                 className="content-pane gallery-pane"
@@ -212,7 +214,9 @@ class Viewer extends React.Component {
           <div className="main-content">
             <div className="scroll-container">
               <div className="content-pane map-view">
-                { this.getMapTipProps() ? <MapTip mapTips={this.getMapTipProps()}></MapTip> : null }
+                {this.getMapTipProps().map((current) => {
+                  return <MapTip {...current} key={current.id}></MapTip>;
+                })}
                 <CrowdsourceWebmap controllerOptions={this.webmapControllerOptions} />
                 <div className="pane-navigation" onClick={this.props.showComponent.bind(this,componentNames.GALLERY)}>
                   <span className="text">{CHANGE_VIEW_TO_GALLERY}</span>
@@ -329,10 +333,14 @@ class Viewer extends React.Component {
   }
 
   getMapTipProps() {
+    const mapMoving = lang.getObject('props.map.mapMoving',false,this);
     const selectedFeature = this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this));
     const highlightedFeature = this.getFeatureFromId(lang.getObject('props.map.highlightedFeatureId',false,this));
     const features = [];
 
+    if (mapMoving) {
+      return [];
+    }
     if (selectedFeature) {
       features.push(selectedFeature);
     }
@@ -342,6 +350,7 @@ class Viewer extends React.Component {
 
     if (highlightedFeature || (this.props.layout.visibleComponents.indexOf(componentNames.SELECTED_SHARES) >= 0 && selectedFeature)) {
       return features.reduce((prev,current) => {
+        const oidField = lang.getObject('props.map.layer.objectIdField',false,this);
         const primaryField = lang.getObject('props.components.map.crowdsourceLayer.primaryField',false,this);
         const clusterId = current.attributes.clusterId;
         const cluster = this.props.map.clusterLayer._clusters.filter((current) => {
@@ -349,6 +358,7 @@ class Viewer extends React.Component {
         })[0];
         const container = document.querySelector('.map-pane');
         const content = current.attributes[primaryField];
+        const id = current.attributes[oidField];
         const screenPoint = lang.getObject('props.map.originalObject',false,this).toScreen(new Point({
           x: cluster.x,
           y: cluster.y,
@@ -361,7 +371,7 @@ class Viewer extends React.Component {
         return prev.concat({
           container,
           content,
-          id: clusterId,
+          id,
           screenPoint,
           symbol
         });
@@ -369,7 +379,7 @@ class Viewer extends React.Component {
 
     }
 
-    return false;
+    return [];
   }
 
   saveContribution(graphic) {
