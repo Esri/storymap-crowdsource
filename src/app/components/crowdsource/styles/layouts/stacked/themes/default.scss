@@ -40,14 +40,6 @@ $shadowColor: #fff;
       }
     }
 
-    .participate{
-      color: $actionText;
-
-      &:hover{
-        color: lighten($actionText, 10%);
-      }
-    }
-
   }
 
   .pane-navigation{

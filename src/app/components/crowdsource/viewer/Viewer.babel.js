@@ -116,7 +116,7 @@ class Viewer extends React.Component {
                 items={this.props.map.featuresInExtent}
                 layer={this.props.map.layer}
                 highlighted={this.props.map.highlightedFeatureId}
-                selected={this.props.map.selectFeatureIds}
+                selected={this.props.map.selectedFeatureId}
                 highlightAction={this.props.highlightAction}
                 selectAction={this.props.selectFeature}
                 {...this.props.components.gallery}
@@ -191,9 +191,9 @@ class Viewer extends React.Component {
                 <ThumbnailGallery
                   items={this.props.map.featuresInExtent}
                   layer={this.props.map.layer}
-                  selected={this.props.selectFeatureIds}
+                  selected={this.props.map.selectedFeatureId}
                   highlighted={this.props.map.highlightedFeatureId}
-                  selectAction={this.props.map.selectFeature}
+                  selectAction={this.props.selectFeature}
                   highlightAction={this.props.highlightAction}
                   {...this.props.components.gallery}
                   {...this.props.components.map.crowdsourceLayer}>
@@ -374,7 +374,7 @@ class Viewer extends React.Component {
       features.push(highlightedFeature);
     }
 
-    if (map && map.getLayer('crowdsource-contribute-location') && map.getLayer('crowdsource-contribute-location').graphics && map.getLayer('crowdsource-contribute-location').graphics.length > 0) {
+    if (this.props.contributing.active && map && map.getLayer('crowdsource-contribute-location') && map.getLayer('crowdsource-contribute-location').graphics && map.getLayer('crowdsource-contribute-location').graphics.length > 0) {
       const graphic = map.getLayer('crowdsource-contribute-location').graphics[0];
       const content = (
         <span>

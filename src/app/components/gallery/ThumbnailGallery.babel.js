@@ -42,7 +42,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
 
     const galleryClass = Helper.classnames([this.props.className, {
       'thumbnail-gallery': true,
-      'selection': this.props.selected.length > 0
+      'selection': this.props.selected || this.props.selected === 0
     }]);
 
     return (

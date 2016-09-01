@@ -255,7 +255,7 @@ export default class Location extends FormGroup {
       const latLong = this.parseResultForGeoPoint(this.geocoderInput.val());
 
       if (latLong) {
-        this.reverseGeocode(latLong,true);
+        this.reverseGeocode(latLong,true,true);
       } else if (!this.input.value.dataVal && !this.geocoderAutocomplete.is(':visible') && this.geocoder.results && this.geocoder.results.length > 0) {
         if (this.geocoder.results[0].magicKey) {
           const params = {
@@ -283,8 +283,12 @@ export default class Location extends FormGroup {
     });
   }
 
-  reverseGeocode(response,setReverseCoords) {
+  reverseGeocode(response,setReverseCoords,ignoreShowingMapOnMobile) {
     let point;
+
+    if (ignoreShowingMapOnMobile && ignoreShowingMapOnMobile !== true) {
+      ignoreShowingMapOnMobile = false;
+    }
 
     if (response && response.graphic) {
       point = response.graphic.geometry;
@@ -303,6 +307,7 @@ export default class Location extends FormGroup {
         if (res.address && res.address.Match_addr) {
           this.geocoderInput.val(res.address.Match_addr);
           this.setLocationValue({
+            ignoreShowingMapOnMobile,
             inputVal: this.geocoderInput.val(),
             dataVal: {
               name: res.address.Match_addr,
@@ -314,6 +319,7 @@ export default class Location extends FormGroup {
 
           this.geocoderInput.val(res.address.Match_addr);
           this.setLocationValue({
+            ignoreShowingMapOnMobile,
             setReverseCoords,
             inputVal: this.geocoderInput.val(),
             dataVal: {
@@ -333,6 +339,7 @@ export default class Location extends FormGroup {
 
         this.geocoderInput.val(locationString);
         this.setLocationValue({
+          ignoreShowingMapOnMobile,
           setReverseCoords,
           inputVal: locationString,
           dataVal: {
@@ -442,7 +449,10 @@ export default class Location extends FormGroup {
 
       graphic.clearMoveableEvents = moveable.clean;
 
-      MapActions.forceToTop(true);
+      console.log(options.ignoreShowingMapOnMobile);
+      if (!options.ignoreShowingMapOnMobile) {
+        MapActions.forceToTop(true);
+      }
     }
   }
 }
