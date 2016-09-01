@@ -14,6 +14,7 @@ import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import SimpleLineSymbol from 'esri/symbols/SimpleLineSymbol';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
 import Helper from 'babel/utils/helper/Helper';
+import MapActions from 'babel/actions/MapActions';
 import Validator from 'babel/utils/validations/Validator';
 import IconTooltip from 'babel/components/helper/tooltip/IconTooltip';
 import FormGroup from 'babel/components/forms/base/FormGroup';
@@ -119,7 +120,9 @@ export default class Location extends FormGroup {
 
     // Define Graphic and Add Graphics Layer to map
     this.locationSymbol = new SimpleMarkerSymbol('circle', 16,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([204, 62, 68, 1]), 3),new Color([255, 255, 255, .5]));
-    this.locationLayer = new GraphicsLayer();
+    this.locationLayer = new GraphicsLayer({
+      id: 'crowdsource-contribute-location'
+    });
     this.props.map.addLayer(this.locationLayer);
     this.geocodeClickEvent = this.props.map.on('click',this.geocodeMapPoint);
   }
@@ -160,9 +163,18 @@ export default class Location extends FormGroup {
           className="geocoder"
           ref={(ref) => this.geocoderContainer = ref}>
         </div>
+        <div className="action-btn-wrapper">
         <div
           className="locator"
           ref={(ref) => this.locatorContainer = ref}>
+        </div>
+        <div
+          className="find-on-map btn btn-default btn-sm"
+          ref={(ref) => this.findOnMapContainer = ref}
+          onClick={this.reverseGeocode.bind(this,{useMapCenter: true},false)}>
+            <span className="find-on-map-icon" dangerouslySetInnerHTML={{__html: getIcon('map-pin')}}></span>
+            <span className="find-on-map-text">{ViewerText.contribute.form.location.findOnMap}</span>
+        </div>
         </div>
         { this.state.reverseCoords ? (
           <a href="#" onClick={this.reverseGeocode.bind(this,this.state.reverseCoords)}><small><strong>Did you mean?</strong> Longitude: {this.state.reverseCoords.longLatResult[0]} Latitude: {this.state.reverseCoords.longLatResult[1]}?</small></a>
@@ -276,6 +288,8 @@ export default class Location extends FormGroup {
 
     if (response && response.graphic) {
       point = response.graphic.geometry;
+    } else if (response && response.useMapCenter) {
+      point = this.props.map.extent.getCenter();
     } else if (response && response.hasBeenMoved && response.geometry) {
       point = response.geometry;
     } else if (response && response.longLatResult) {
@@ -417,10 +431,18 @@ export default class Location extends FormGroup {
         map: this.props.map,
         layer: this.locationLayer,
         graphic,
-        onMoveEndCallback: this.reverseGeocode
+        onMoveStartCallback: () => {
+          MapActions.mapMoving(true);
+        },
+        onMoveEndCallback: (e) => {
+          MapActions.mapMoving(false);
+          this.reverseGeocode(e);
+        }
       });
 
       graphic.clearMoveableEvents = moveable.clean;
+
+      MapActions.forceToTop(true);
     }
   }
 }

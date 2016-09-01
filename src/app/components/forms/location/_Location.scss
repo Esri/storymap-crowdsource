@@ -31,16 +31,25 @@
     }
   }
 
-  .locator {
-    position: relative;
-    margin: 5px 0;
+  .action-btn-wrapper {
+    margin-top: 5px;
   }
 
-  .locating-text, .locate-text {
+  .locator, .find-on-map {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+  }
+
+  .find-on-map {
+    margin-left: 5px;
+  }
+
+  .locating-text, .locate-text, .find-on-map-text {
     margin-left: 18px;
   }
 
-  .locator-icon {
+  .locator-icon, .find-on-map-icon {
     position: absolute;
     height: 100%;
     width: 30px;
@@ -48,7 +57,7 @@
     left: 0;
   }
 
-  .icon-location, .loading-gif {
+  .icon-location, .icon-map-pin, .loading-gif {
     position: absolute;
     height: 18px;
     width: 18px;
@@ -70,4 +79,15 @@
     }
   }
 
+}
+
+.mobile-save-button {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-save-button {
+    display: block;
+    margin-top: 5px;
+  }
 }

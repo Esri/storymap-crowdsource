@@ -5,7 +5,6 @@
   overflow: hidden;
   z-index: 51;
   width: 100%;
-  @include animation(slideInHeader 1s);
 
   .cell-wrapper {
     display: table;
@@ -92,13 +91,26 @@
   }
 
   // RESPONSIVE STYLES START
-  @media (max-width: 767px) {
+  @media (min-width: 768px) {
+    .main-app-header.header {
+      @include animation(slideInHeader 1s);
+    }
+  }
+
+  @media (max-width: 767px) {   
     .participate-cell, .title-cell {
       display: none;
     }
   }
   // RESPONSIVE STYLES END
 
+}
+
+@media (max-width: 767px) {
+  .main-app-header.header {
+    bottom: 0;
+    top: auto;
+  }
 }
 
 @include keyframes(slideInHeader) {

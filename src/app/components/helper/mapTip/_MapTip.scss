@@ -10,15 +10,13 @@ $textColor: #000;
     background-color: $backgroundColor;
     color: $textColor;
     text-align: center;
-    max-width: 200px;
+    max-width: 250px;
     padding: 5px 10px;
   }
 
   .top-arrow{
     width: 0;
     height: 0;
-    margin: auto;
-    // margin: 0 0 0 -10px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 10px solid $backgroundColor;
@@ -27,8 +25,6 @@ $textColor: #000;
   .bottom-arrow{
     width: 0;
     height: 0;
-    margin: auto;
-    // margin-left: -10px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 10px solid $backgroundColor;

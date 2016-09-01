@@ -142,8 +142,6 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
 
-        window.cl = clusterLayer;
-
         if (layer) {
           MapActions.updateMapReferences({
             itemInfo: this._itemInfo,

@@ -1,6 +1,6 @@
 .bottom-navigation {
   position: absolute;
-  bottom: 0;
+  top: 0;
   display: none;
   align-items: center;
   -webkit-align-items: center;
@@ -9,7 +9,7 @@
   height: $mobileBottomNavigationHeight;
   width: 100%;
   z-index: 300;
-  @include animation(slideInBottomNavigation 2s);
+  // @include animation(slideInBottomNavigation 2s);
 
   button {
     opacity: 0.4;
@@ -26,7 +26,7 @@
 
     .name {
       margin: 0;
-      margin-top: -0.7em;
+      margin-top: -0.4em;
       line-height: 1;
     }
   }

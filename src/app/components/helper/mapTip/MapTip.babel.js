@@ -9,7 +9,10 @@ export const MapTip = class MapTip extends React.Component {
       showOnTop: true,
       marginLeft: 0,
       marginTop: 0,
-      translateX: 0
+      right: 0,
+      left: 0,
+      arrowMarginLeft: 'auto',
+      arrowMarginRight: 'auto'
     };
 
     // Autobind methods
@@ -27,26 +30,31 @@ export const MapTip = class MapTip extends React.Component {
   render() {
     const classes = Helper.classnames([this.props.className, this.props.classNames, 'map-tip']);
     const top = this.props.screenPoint.y;
-    const left = this.props.screenPoint.x;
 
     return (
-      <div className={classes} key={this.props.id} ref={(ref) => this.mapTip = ref} style={{top, left, marginTop: this.state.marginTop, marginLeft: this.state.marginLeft}}>
-        { this.state.showOnTop ? null : <div className="top-arrow"></div> }
-        <div className="content" style={{transform: 'translateX(' + this.state.translateX + 'px)'}}>
+      <div className={classes} key={this.props.id} ref={(ref) => this.mapTip = ref} style={{top, left: this.state.left, right: this.state.right, marginTop: this.state.marginTop, marginLeft: this.state.marginLeft}}>
+        { this.state.showOnTop ? null : <div style={{marginLeft: this.state.arrowMarginLeft, marginRight: this.state.arrowMarginRight}} ref={(ref) => this.topArrow = ref} className="top-arrow"></div> }
+        <div className="content" >
           {this.props.content}
         </div>
-        { this.state.showOnTop ? <div className="bottom-arrow"></div> : null }
+        { this.state.showOnTop ? <div style={{marginLeft: this.state.arrowMarginLeft, marginRight: this.state.arrowMarginRight}} ref={(ref) => this.bottomArrow = ref}  className="bottom-arrow"></div> : null }
       </div>
     );
   }
 
   positionMapTip() {
     const container = this.props.container || document.querySelector('body');
-    const height = this.mapTip.offsetHeight;
-    const width = this.mapTip.offsetWidth;
-    const containerWidth = container.offsetWidth;
-    const arrowWidth = 8;
+    const height = this.mapTip.clientHeight;
+    const width = this.mapTip.clientWidth;
+    const containerWidth = container.clientWidth;
+    const positionFromRight = this.props.screenPoint.x > containerWidth/2;
+
+    const left = positionFromRight ? 'auto' : this.props.screenPoint.x;
+    let right = positionFromRight ? containerWidth - this.props.screenPoint.x - (width/2) : 'auto';
+    const arrowWidth = this.state.showOnTop ? this.bottomArrow.offsetWidth/2 : this.topArrow.offsetWidth/2;
     let symbolSize = this.props.symbol.size;
+    let arrowMarginLeft = 'auto';
+    let arrowMarginRight = 'auto';
 
     if (this.props.symbol.outline && this.props.symbol.outline.width) {
       symbolSize += this.props.symbol.outline.width;
@@ -56,30 +64,45 @@ export const MapTip = class MapTip extends React.Component {
     let showOnTop = true;
     let marginLeft = -(width / 2);
     let marginTop = -(height + symbolOffsetVertical);
-    let translateX = 0;
 
-    if (this.props.screenPoint.y < Math.abs(marginTop) + 25) {
+    // On top
+    if (this.props.screenPoint.y < ((width/2) + 25)) {
       marginTop = symbolOffsetVertical;
       showOnTop = false;
     }
 
-    if (this.props.screenPoint.x < Math.abs(marginLeft) + 25) {
-      translateX = (width / 2) - arrowWidth;
+    // On left
+    if (this.props.screenPoint.x < ((width/2) + 25)) {
+      marginLeft = -arrowWidth;
+      arrowMarginLeft = 0;
     }
 
-    if (this.props.screenPoint.x > containerWidth - Math.abs(marginLeft) - 25) {
-      translateX = marginLeft + arrowWidth;
+    // On right
+    if (this.props.screenPoint.x > (containerWidth - (width/2) - 25)) {
+      right = containerWidth - this.props.screenPoint.x - arrowWidth;
+      arrowMarginRight = 0;
     }
 
-    if (Math.abs(this.state.marginTop - marginTop) >= 1 ||
+    if (
+      (this.state.left === 'auto' && left !== 'auto') ||
+      (this.state.right === 'auto' && right !== 'auto') ||
+      (this.state.arrowMarginLeft === 'auto' && arrowMarginLeft !== 'auto') ||
+      (this.state.arrowMarginRight === 'auto' && arrowMarginRight !== 'auto') ||
+      Math.abs(this.state.marginTop - marginTop) >= 1 ||
       Math.abs(this.state.marginLeft - marginLeft) >= 1 ||
-      Math.abs(this.state.translateX - translateX) >= 1 ||
+      Math.abs(this.state.right - right) >= 1 ||
+      Math.abs(this.state.left - left) >= 1 ||
+      Math.abs(this.state.arrowMarginLeft - arrowMarginLeft) >= 1 ||
+      Math.abs(this.state.arrowMarginRight - arrowMarginRight) >= 1 ||
       this.state.showOnTop !== showOnTop) {
       this.setState({
         marginTop,
         marginLeft,
-        translateX,
-        showOnTop
+        left,
+        right,
+        showOnTop,
+        arrowMarginLeft,
+        arrowMarginRight
       });
     }
 
@@ -102,3 +125,5 @@ MapTip.propTypes = {
 MapTip.defaultProps = {};
 
 export default MapTip;
+
+// style={{transform: 'arrowMargin(' + this.state.arrowMargin + 'px)'}}

@@ -32,6 +32,10 @@
     max-width: calc(100% - 300px);
   }
 
+  .map-pane.force-on-top {
+    z-index: 100;
+  }
+
   .gallery-pane {
     width: 35%;
     right: 0;
@@ -69,6 +73,11 @@
   @media (max-width: 767px) {
     .main-content {
       height: calc(100% - #{$navbar-height}  - #{$mobileBottomNavigationHeight});
+    }
+
+    .contributing .main-content {
+      height: 100%;
+      top: 0;
     }
 
     .content-pane {

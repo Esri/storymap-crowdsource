@@ -13,7 +13,9 @@ export const CrowdsourceWebmap = class CrowdsourceWebmap extends Webmap {
   }
 
   render() {
-    const mapClass = Helper.classnames([this.props.className, this.props.classNames, 'map']);
+    const mapClass = Helper.classnames([this.props.className, this.props.classNames, 'map'],{
+      'force-on-top': this.props.showOnTop
+    });
 
     return (
       <div className={mapClass} ref={(ref) => this.mapDiv = ref} tabIndex="-1">
@@ -28,6 +30,8 @@ export const CrowdsourceWebmap = class CrowdsourceWebmap extends Webmap {
 
 Webmap.propTypes = {
   className: React.PropTypes.string,
+  mapTips: React.PropTypes.array,
+  showOnTop: React.PropTypes.bool,
   controllerOptions: React.PropTypes.shape({
     webmap: React.PropTypes.string,
     mapOptions: React.PropTypes.shape({}),
@@ -40,6 +44,8 @@ Webmap.propTypes = {
 
 Webmap.defaultProps = {
   className: '',
+  mapTips: [],
+  showOnTop: false,
   controllerOptions: {
     webmap: '',
     mapOptions: {},

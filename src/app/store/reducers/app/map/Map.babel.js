@@ -4,7 +4,8 @@ import {
   UPDATE_MAP_FEATURES_IN_EXTENT,
   UPDATE_MAP_SELECTED_FEATURES,
   UPDATE_MAP_HIGHLIGHTED_FEATURES,
-  UPDATE_MAP_MOVING
+  UPDATE_MAP_MOVING,
+  UPDATE_MAP_ON_TOP
 } from 'babel/constants/actionsTypes/Map';
 
 const itemInfo = function(state = false, action) {
@@ -101,6 +102,15 @@ const mapMoving = function(state = false, action) {
   }
 };
 
+const forceToTop = function(state = false, action) {
+  switch (action.type) {
+    case UPDATE_MAP_ON_TOP:
+      return action.showOnTop ? true : false;
+    default:
+      return state;
+  }
+};
+
 export const map = combineReducers({
   itemInfo,
   clusterLayer,
@@ -109,7 +119,8 @@ export const map = combineReducers({
   featuresInExtent,
   selectedFeatureId,
   highlightedFeatureId,
-  mapMoving
+  mapMoving,
+  forceToTop
 });
 
 export default map;

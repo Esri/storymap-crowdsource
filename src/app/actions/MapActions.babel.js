@@ -5,7 +5,8 @@ import {
   UPDATE_MAP_FEATURES_IN_EXTENT,
   UPDATE_MAP_SELECTED_FEATURES,
   UPDATE_MAP_HIGHLIGHTED_FEATURES,
-  UPDATE_MAP_MOVING
+  UPDATE_MAP_MOVING,
+  UPDATE_MAP_ON_TOP
 } from 'babel/constants/actionsTypes/Map';
 
 const dispatch = AppStore.dispatch;
@@ -99,6 +100,13 @@ export const mapMoving = function (moving) {
   };
 };
 
+export const forceToTop = function (showOnTop) {
+  return {
+    type: UPDATE_MAP_ON_TOP,
+    showOnTop
+  };
+};
+
 export const boundActions = {
   updateMapReferences: (references) => dispatch(updateMapReferences(references)),
   updateFeaturesInExtent: (features) => dispatch(updateFeaturesInExtent(features)),
@@ -106,7 +114,8 @@ export const boundActions = {
   highlightFeature: (features) => dispatch(highlightFeature(features)),
   nextFeature: () => dispatch(nextFeature()),
   previousFeature: () => dispatch(previousFeature()),
-  mapMoving: (moving) => dispatch(mapMoving(moving))
+  mapMoving: (moving) => dispatch(mapMoving(moving)),
+  forceToTop: (showOnTop) => dispatch(forceToTop(showOnTop))
 };
 
 export default boundActions;

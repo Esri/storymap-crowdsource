@@ -84,6 +84,11 @@ $paneNavigationHeight: 40px;
       height: calc(100% - #{$navbar-height}  - #{$mobileBottomNavigationHeight});
     }
 
+    .contributing .main-content {
+      height: 100%;
+      top: 0;
+    }
+
     .content-pane {
       .map, .thumbnail-gallery {
         height: 100%;
