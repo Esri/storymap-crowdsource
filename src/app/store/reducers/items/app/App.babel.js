@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import crowdsourceVersionUpdate from 'babel/utils/appData/CrowdsourceVersionUpdate';
 import { combineReducers } from 'redux';
 import data from './data/Data';
 import {
@@ -20,7 +19,7 @@ const defaultItem = {
   title: '',
   tags: ['Story Map','Story Maps','Crowdsource'],
   type: 'Web Mapping Application',
-  typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMapCrowdsource','layout-stacked','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']
+  typeKeywords: ['Story Map','Story Maps','Crowdsource','StoryMapCrowdsource','layout-sidePanel','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']
 };
 
 export const item = function (state = defaultItem, action) {
@@ -60,7 +59,7 @@ export const appCombined = combineReducers({
 export const app = function(state = {}, action) {
   switch (action.type) {
     case RECEIVE_APP_ITEM:
-      return $.extend(true,{},state,crowdsourceVersionUpdate(action.response));
+      return $.extend(true,{},state,action.response);
     case RECEIVE_SCRATCH_CREATION_APP_ITEM:
       return $.extend(true,{},state,{item: action.response.item});
     default:

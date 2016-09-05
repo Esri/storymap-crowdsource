@@ -224,9 +224,11 @@ Portal.prototype.saveWebmap = function (options) {
 	delete settings.item.numViews;
 	delete settings.item.size;
 
+  const typeKeywords = settings.item.typeKeywords.concat(['Story Map','Story Maps','Crowdsource','StoryMap-Crowdsource-Webmap','Web Map']);
+
   // Transform arrays
   settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
-  settings.item.typeKeywords = settings.item.typeKeywords.join(',');
+  settings.item.typeKeywords = typeKeywords.join(',');
 
   $.extend(true, settings.item, {
     // Add Webmap JSON
@@ -283,9 +285,12 @@ Portal.prototype.saveApp = function (options) {
 
   // TODO add serviceproxyparams
 
+  const layoutTypeKeyword = lang.getObject('data.values.settings.layout.id',false,appState) === 'sidePanel' ? 'layout-sidePanel' : 'layout-stacked';
+  const typeKeywords = settings.item.typeKeywords.concat(layoutTypeKeyword).concat(['Story Map','Story Maps','Crowdsource','StoryMapCrowdsource','JavaScript','Map','Mapping Site','Online Map','Ready To Use','selfConfigured','Web Map']);
+
   // Transform arrays
   settings.item.tags = settings.item.tags ? settings.item.tags.join(',') : '';
-  settings.item.typeKeywords = settings.item.typeKeywords.join(',');
+  settings.item.typeKeywords = typeKeywords.join(',');
 
   // Add item data and upload properties
   $.extend(true, settings.item, {

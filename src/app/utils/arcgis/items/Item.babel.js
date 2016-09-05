@@ -7,6 +7,7 @@ import IdentityManager from 'esri/IdentityManager';
 import URI from 'lib/urijs/src/URI';
 import AppStore from 'babel/store/AppStore';
 import Logger from 'babel/utils/logging/Logger';
+import crowdsourceVersionUpdate from 'babel/utils/appData/CrowdsourceVersionUpdate';
 import ArcgisActions from 'babel/actions/ArcgisActions';
 import AppActions from 'babel/actions/AppActions';
 import ModeActions from 'babel/actions/ModeActions';
@@ -115,8 +116,10 @@ export const getDataById = function getDataById(options) {
     }).then((res) => {
       if (res.id && res.id === settings.id) {
         response.item = res;
-        if (settings.item === 'app' && response.data.values.settings) {
-          ArcgisActions.receiveAppItem(response);
+        if (settings.deferredResponseOnly) {
+          deferred.resolve(response);
+        } else if (settings.item === 'app' && response.data.values.settings) {
+          crowdsourceVersionUpdate(response);
         } else if (settings.item === 'app') {
           ArcgisActions.receiveScratchCreationAppItem(response);
         } else if (settings.item === 'webmap') {

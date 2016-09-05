@@ -149,7 +149,10 @@ ThumbnailGallery.propTypes = {
     }),
     React.PropTypes.bool
   ]),
-  selected: React.PropTypes.array,
+  selected: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.bool
+  ]),
   selectAction: React.PropTypes.func,
   highlightAction: React.PropTypes.func
 };
