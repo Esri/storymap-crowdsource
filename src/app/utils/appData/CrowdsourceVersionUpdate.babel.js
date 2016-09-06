@@ -140,6 +140,8 @@ export const crowdsourceVersionUpdate = function crowdsourceVersionUpdate(itemIn
     return dfd;
   };
 
+  console.log(itemInfo);
+
   updateToLatest(itemInfo).then(ArcgisActions.receiveAppItem);
 };
 

@@ -26,6 +26,9 @@ export default class AppConfig {
           case 'folderid':
             urlConfig.folderid = urlQuery[current];
             break;
+          case 'oauthappid':
+            urlConfig.oAuthAppId = urlQuery[current];
+            break;
         }
       });
     }

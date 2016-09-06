@@ -106,7 +106,7 @@
   // Load ArcGIS API for JavaScript
   _defineDojoConfig();
   _loadCSS(window.app.pathJSAPI + 'esri/css/esri.css', true);
-  _loadCSS(window.app.pathJSAPI + 'dijit/themes/claro/claro.css', true);
+  _loadCSS(window.app.pathJSAPI + 'esri/themes/calcite/dijit/calcite.css', true);
   _loadJS(window.app.pathJSAPI + 'init.js', true);
 
   // TODO Remove when bootstrap option is available

@@ -41,6 +41,8 @@
 			//  whose application are allowed to be viewed by this Crowdsource deployment
 			// This is the Portal username of the Crowdsource owner (e.g. ["user1"] or ["user1", "user2"])
 			authorizedOwners: ["*"],
+      // Optionally to secure Crowdsource's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
+      oAuthAppId: ""
 		};
 		// Optionally sharing, proxy URLs, Bing Maps key, Geometry and Geocode service's URLs can be configured in app/config.js. This is only required
 		//   when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the application isn't deployed as /home/StoryMapCrowdsource/ or /apps/StoryMapCrowdsource/.
@@ -61,7 +63,7 @@
   <![endif]-->
 
 </head>
-<body class="claro">
+<body class="calcite">
   <!-- htmlmin:ignore -->
   <style>
     /* CUSTOM CSS RULES */
@@ -114,7 +116,7 @@
   <script type="text/javascript">
     var app = {
       version: '{{ versionStr }}',
-      pathJSAPI: '//jsdev.arcgis.com/3.18/'
+      pathJSAPI: '//js.arcgis.com/3.18/'
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>
