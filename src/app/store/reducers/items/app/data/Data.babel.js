@@ -24,6 +24,15 @@ export const _ssl = function (state = false, action) {
   }
 };
 
+export const source = function (state = 'StoryMap_Crowdsource_Builder', action) {
+  switch (action.type) {
+    case 'UPDATE_ITEM_APP_DATA_SSL':
+      return action.ssl;
+    default:
+      return state;
+  }
+};
+
 export const values = combineReducers({
   settings,
   properties
@@ -31,6 +40,7 @@ export const values = combineReducers({
 
 export const data = combineReducers({
   _ssl,
+  source,
   values
 });
 

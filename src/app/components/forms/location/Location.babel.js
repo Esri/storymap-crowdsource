@@ -448,8 +448,7 @@ export default class Location extends FormGroup {
       });
 
       graphic.clearMoveableEvents = moveable.clean;
-
-      console.log(options.ignoreShowingMapOnMobile);
+      
       if (!options.ignoreShowingMapOnMobile) {
         MapActions.forceToTop(true);
       }

@@ -29,8 +29,6 @@ export const checkForCredential = function(options) {
 
   const attachmentUrl = new URI(settings.url);
 
-  // console.log(settings);
-
   // Append token to URL for private photo attachments
   if (lang.getObject('layer.credential.token',false,settings) && lang.getObject('layer.credential.server',false,settings)) {
     const serverURI = new URI(lang.getObject('layer.credential.server',false,settings));

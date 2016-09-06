@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
+// import esriRequest from 'esri/request';
 import URI from 'lib/urijs/src/URI';
 import {crowdsourceStore} from 'babel/store/AppStore';
 import ArcgisItem from 'babel/utils/arcgis/items/Item';
@@ -49,6 +50,9 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
     lang.setObject('data.values.settings.components.map.crowdsourceLayer.fields.PrimaryPhoto.extras.minimumSize',1000,updatedItemInfo);
   }
 
+  // Add source attribute
+  lang.setObject('data.source','StoryMap_Crowdsource_Builder',updatedItemInfo);
+
   // Update version
   lang.setObject('data.values.properties.version',newVersion,updatedItemInfo);
   lang.setObject('data.values.properties.versionUpdated',new Date().getTime(),updatedItemInfo);
@@ -58,16 +62,77 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
     const portal = lang.getObject('app.portal',false,appState);
     const webmap = lang.getObject('data.values.settings.components.map.webmap',false,currentItemInfo);
     const layerId = lang.getObject('data.values.settings.components.map.crowdsourceLayer.id',false,currentItemInfo);
+    // const token = lang.getObject('app.portal.user.credential.token',false,appState);
+    //
+    // const updateServiceDefinition = function (serviceurl) {
+    //   const url = (serviceurl.stripTrailingSlash() + '/updateDefinition').replace('rest/services','rest/admin/services');
+    //
+    //   const updateParameters = {
+    //     indexes: [{
+    //       name: 'user_47612.templateTestAGO42ReleaseSept22016_CROWDSOURCEFEATURES_Shape_sidx',
+    //       fields: 'Shape',
+    //       isAscending: false,
+    //       isUnique: false,
+    //       description: 'Shape Index'
+    //     }]
+    //   };
+    //
+    //   const content = {
+    //     token,
+    //     updateDefinition: JSON.stringify(updateParameters),
+    //     f: 'json'
+    //   };
+    //
+    //   esriRequest({
+    //     url,
+    //     handleAs: 'json',
+    //     content
+    //   },{
+    //     usePost: true
+    //   }).then((res) => {
+    //     if (res.success) {
+    //       dfd.resolve.bind(null,updatedItemInfo);
+    //     } else {
+    //       dfd.reject(res);
+    //     }
+    //   },(err) => {
+    //     dfd.reject(err);
+    //   });
+    // };
+    //
+    // const requestServiceDefinition = function (url) {
+    //   const content = {
+    //     token,
+    //     f: 'json'
+    //   };
+    //
+    //   esriRequest({
+    //     url,
+    //     handleAs: 'json',
+    //     content
+    //   }).then((res) => {
+    //     if (res.extent) {
+    //       updateServiceDefinition(url,res.extent);
+    //     } else {
+    //       dfd.reject(res);
+    //     }
+    //   },(err) => {
+    //     dfd.reject(err);
+    //   });
+    // };
 
     ArcgisItem.getDataById({
       id: webmap,
       item: 'webmap',
       returnDeferredOnly: true
     }).then((res) => {
+      let url;
+
       if (res.data && res.data.operationalLayers) {
         res.data.operationalLayers = res.data.operationalLayers.reduce((prev,current) => {
           if (current.id === layerId) {
-            current.url = new URI(current.url).protocol('https').href();
+            url = new URI(current.url).protocol('https').href();
+            current.url = url;
           }
           return prev.concat(current);
         },[]);
@@ -79,6 +144,7 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
           return prev.concat(current);
         },[]);
 
+        // portal.saveWebmap(res).then(requestServiceDefinition.bind(null,url));
         portal.saveWebmap(res).then(dfd.resolve.bind(null,updatedItemInfo));
       }
     });
@@ -139,8 +205,6 @@ export const crowdsourceVersionUpdate = function crowdsourceVersionUpdate(itemIn
 
     return dfd;
   };
-
-  console.log(itemInfo);
 
   updateToLatest(itemInfo).then(ArcgisActions.receiveAppItem);
 };
