@@ -214,7 +214,7 @@ Portal.prototype.saveWebmap = function (options) {
   const settings = $.extend(true, {}, defaults, options);
 
   const username = this.getPortalUser().username;
-  const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
+  const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + (settings.item.owner ? settings.item.owner : username) + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
 
   // Remove properties that don't have to be committed
   delete settings.item.avgRating;
@@ -273,7 +273,7 @@ Portal.prototype.saveApp = function (options) {
   const settings = $.extend(true, {}, defaults, options);
 
   const username = this.getPortalUser().username;
-  const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
+  const baseRequestPath = this.portalUrl.stripTrailingSlash() + '/content/users/' + (settings.item.owner ? settings.item.owner : username) + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '');
 
   // Remove properties that don't have to be committed
   delete settings.item.avgRating;
@@ -378,7 +378,7 @@ Portal.prototype.uploadAppItemAttachments = function (options) {
   const settings = $.extend(true, {}, defaults, options);
 
   const username = this.getPortalUser().username;
-  const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/addResources';
+  const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + (settings.item.owner ? settings.item.owner : username) + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/addResources';
 
   const formdata = new FormData();
 
@@ -415,7 +415,7 @@ Portal.prototype.removeAttachments = function (options) {
   const settings = $.extend(true, {}, defaults, options);
 
   const username = this.getPortalUser().username;
-  const removeUrl = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/removeResources';
+  const removeUrl = this.portalUrl.stripTrailingSlash() + '/content/users/' + (settings.item.owner ? settings.item.owner : username) + (settings.item.ownerFolder ? ('/' + settings.item.ownerFolder) : '') + '/items/' + settings.item.id + '/removeResources';
   const queryUrl = this.portalUrl.stripTrailingSlash() + '/content/items/' + settings.item.id + '/resources';
 
   const removeExtraResouces = function(resources) {
@@ -477,7 +477,7 @@ Portal.prototype.shareItems = function (options) {
 
   const settings = $.extend(true, {}, defaults, options);
   const username = this.getPortalUser().username;
-  const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + username + '/shareItems';
+  const url = this.portalUrl.stripTrailingSlash() + '/content/users/' + (lang.getObject('appState.items.app.item.owner',false,settings) ? lang.getObject('appState.items.app.item.owner',false,settings) : username) + '/shareItems';
 
   const appId = lang.getObject('appState.items.app.item.id',false,settings);
   const webmapId = lang.getObject('appState.items.webmap.item.id',false,settings);

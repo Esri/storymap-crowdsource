@@ -215,9 +215,12 @@ export default class FormGroup extends React.Component {
       });
 
       if (this.props.required === true) {
-        addToValidations('required');
+        addToValidations( {
+          rule: 'required'
+        });
       }
     }
+    
     return validations;
   }
 
