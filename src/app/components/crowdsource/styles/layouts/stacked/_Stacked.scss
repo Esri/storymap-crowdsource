@@ -81,7 +81,8 @@ $paneNavigationHeight: 40px;
   // RESPONSIVE STYLES START
   @media (max-width: 767px) {
     .main-content {
-      height: calc(100% - #{$navbar-height}  - #{$mobileBottomNavigationHeight});
+      top: $navbar-height-mobile;
+      height: calc(100% - #{$navbar-height-mobile}  - #{$mobileBottomNavigationHeight});
     }
 
     .contributing .main-content {

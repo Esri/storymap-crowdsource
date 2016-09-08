@@ -1,7 +1,5 @@
 @import "./SelectedDisplay";
 
-$selected-navigation-height: 54px;
-
 .crowdsource-app .overlay-panel.selected-share {
   padding: 0;
 
@@ -16,7 +14,7 @@ $selected-navigation-height: 54px;
 
   .selected-navigation {
     position: relative;
-    height: $selected-navigation-height;
+    height: 54px;
     text-align: right;
     padding: 10px 10px 0;
     color: #999;
@@ -40,6 +38,23 @@ $selected-navigation-height: 54px;
 
     svg {
       vertical-align: middle;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .selected-navigation {
+      height: 44px;
+      padding: 0 10px;
+
+      .next-btn {
+        margin: 0 5px;
+      }
+
+      .btn {
+        padding: 10px;
+        font-size: 20px;
+        line-height: 1;
+      }
     }
   }
 }

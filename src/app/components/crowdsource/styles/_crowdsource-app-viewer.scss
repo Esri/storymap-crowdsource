@@ -71,3 +71,9 @@ html,body,#app,.crowdsource-app,.viewer {
   }
 
 }
+
+@media (max-width: 767px) {
+  .banner .viewer {
+    height: calc(100% - #{$navbar-height-mobile});
+  }
+}

@@ -97,7 +97,7 @@
     }
   }
 
-  @media (max-width: 767px) {   
+  @media (max-width: 767px) {
     .participate-cell, .title-cell {
       display: none;
     }
@@ -108,8 +108,13 @@
 
 @media (max-width: 767px) {
   .main-app-header.header {
-    bottom: 0;
-    top: auto;
+    height: $navbar-height-mobile;
+    min-height: $navbar-height-mobile;
+
+    img.logo{
+      height: $navbar-height-mobile - 10;
+      margin: 0 $headerMargin;
+    }
   }
 }
 

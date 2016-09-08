@@ -17,7 +17,7 @@ export default class BottomNavigation extends React.Component {
       <div className={navigationClasses}>
         {this.props.buttons.map((current) => {
           const buttonClasses = Helper.classnames([this.props.className,this.props.classNames,'text-btn',{
-            active: current.active
+            active: this.props.selected === false && current.active
           }]);
           const icon = getIcon(current.icon);
           const iconHtml = {
@@ -28,13 +28,18 @@ export default class BottomNavigation extends React.Component {
             key={current.name}
             className={buttonClasses}
             type="button"
-            onClick={current.action}>
+            onClick={this.onClick.bind(this,current.action)}>
             <span className="icon" dangerouslySetInnerHTML={iconHtml}></span>
             <p className="name">{current.name}</p>
           </button>);
         })}
       </div>
     );
+  }
+
+  onClick(action) {
+    this.props.selectAction(false);
+    action();
   }
 
 }

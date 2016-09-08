@@ -160,10 +160,10 @@
 
   @media (max-width: 767px) {
     .title-pane {
-      height: calc(100% - #{$navbar-height});
+      height: calc(100% - #{$navbar-height-mobile});
       width: 100%;
       left: 0;
-      top: $navbar-height;
+      top: $navbar-height-mobile;
       border-radius: 0;
       overflow: auto;
       -webkit-overflow-scrolling: touch;

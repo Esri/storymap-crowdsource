@@ -201,25 +201,27 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           MapActions.mapMoving(false);
         });
 
-        clusterLayer.on('mouse-over',(e) => {
-          map.setMapCursor('pointer');
-          if (e.graphic && e.graphic.attributes.clusterCount && e.graphic.attributes.clusterCount === 1) {
-            const clusterId = e.graphic.attributes.clusterId;
-            const features = clusterLayer._inExtent();
-            const feature = features.filter((current) => {
-              return current.attributes.clusterId === clusterId;
-            })[0];
+        if (!this._settings.isMobile) {
+          clusterLayer.on('mouse-over',(e) => {
+            map.setMapCursor('pointer');
+            if (e.graphic && e.graphic.attributes.clusterCount && e.graphic.attributes.clusterCount === 1) {
+              const clusterId = e.graphic.attributes.clusterId;
+              const features = clusterLayer._inExtent();
+              const feature = features.filter((current) => {
+                return current.attributes.clusterId === clusterId;
+              })[0];
 
-            if (feature) {
-              MapActions.highlightFeature(feature.attributes[layer.objectIdField]);
+              if (feature) {
+                MapActions.highlightFeature(feature.attributes[layer.objectIdField]);
+              }
             }
-          }
-        });
+          });
 
-        clusterLayer.on('mouse-out',() => {
-          map.setMapCursor('default');
-          MapActions.highlightFeature(false);
-        });
+          clusterLayer.on('mouse-out',() => {
+            map.setMapCursor('default');
+            MapActions.highlightFeature(false);
+          });
+        }
 
         // Hide original layer
         layer.hide();

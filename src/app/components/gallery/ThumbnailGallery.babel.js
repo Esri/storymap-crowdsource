@@ -102,7 +102,7 @@ export const ThumbnailGallery = class ThumbnailGallery extends React.Component {
         key={attr[this.props.idField]}
         style={itemStyle}
         onClick={this.onSelect.bind(null,attr[this.props.idField])}
-        onMouseOver={this.onHighlight.bind(null,attr[this.props.idField])}
+        onMouseOver={this.props.isMobile ? null : this.onHighlight.bind(null,attr[this.props.idField])}
         onMouseOut={this.onHighlight.bind(null,false)}>
         <LazyImage className="background-image" src={photoUrl}></LazyImage>
         <div className="info-card background-fill">
@@ -150,16 +150,22 @@ ThumbnailGallery.propTypes = {
     React.PropTypes.bool
   ]),
   selected: React.PropTypes.oneOfType([
-    React.PropTypes.array,
+    React.PropTypes.number,
+    React.PropTypes.bool
+  ]),
+  highlighted: React.PropTypes.oneOfType([
+    React.PropTypes.number,
     React.PropTypes.bool
   ]),
   selectAction: React.PropTypes.func,
-  highlightAction: React.PropTypes.func
+  highlightAction: React.PropTypes.func,
+  isMobile: React.PropTypes.bool
 };
 
 ThumbnailGallery.defaultProps = {
   items: [],
-  selected: [],
+  selected: false,
+  highlighted: false,
   selectAction: () => {},
   highlightAction: () => {},
   size: 200,

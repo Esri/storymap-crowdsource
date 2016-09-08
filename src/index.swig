@@ -88,8 +88,8 @@
 		#loadingOverlay {
       position: absolute;
       top: 0;
-			width: 100vw;
-			height: 100vh;
+			width: 100%;
+			height: 100%;
 			background-color: #E5E5E5;
 			-webkit-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);
 			-moz-box-shadow: inset 0px 0px 82px 19px rgba(0,0,0,0.3);

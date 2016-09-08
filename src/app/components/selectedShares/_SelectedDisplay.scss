@@ -1,9 +1,7 @@
-$selected-navigation-height: 54px;
-
 .crowdsource-app .overlay-panel.selected-share {
 
   .selected-display {
-    height: calc(100% -  #{$selected-navigation-height});
+    height: calc(100% -  44px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 

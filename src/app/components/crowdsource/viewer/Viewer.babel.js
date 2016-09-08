@@ -78,6 +78,8 @@ class Viewer extends React.Component {
         { this.Layout }
         {this.mobileNavigationButtons ? (
           <MobileBottomNavigation
+            selected={this.props.map.selectedFeatureId}
+            selectAction={this.props.selectFeature}
             buttons={this.mobileNavigationButtons}>
           </MobileBottomNavigation>
         ) : null}
@@ -112,6 +114,7 @@ class Viewer extends React.Component {
             <div className="scroll-container">
               <CrowdsourceWebmap showOnTop={this.props.map.forceToTop} mapTips={this.getMapTipProps()} className="content-pane map-pane" controllerOptions={this.webmapControllerOptions} />
               <ThumbnailGallery
+                isMobile={this.props.mode.isMobile}
                 className="content-pane gallery-pane"
                 items={this.props.map.featuresInExtent}
                 layer={this.props.map.layer}
@@ -189,6 +192,7 @@ class Viewer extends React.Component {
                   <span className="icon" dangerouslySetInnerHTML={upArrowHtml}></span>
                 </div>
                 <ThumbnailGallery
+                  isMobile={this.props.mode.isMobile}
                   items={this.props.map.featuresInExtent}
                   layer={this.props.map.layer}
                   selected={this.props.map.selectedFeatureId}
@@ -271,6 +275,7 @@ class Viewer extends React.Component {
       crowdsourceLayer: {
         where
       },
+      isMobile: this.props.mode.isMobile,
       selectedFeature: this.getFeatureFromId(lang.getObject('props.map.selectedFeatureId',false,this))
     },this.props.components.map);
   }
