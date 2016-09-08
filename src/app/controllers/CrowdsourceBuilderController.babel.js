@@ -241,7 +241,7 @@ export default class CrowdsourceBuilderController {
   checkWebmapStateChange(force) {
     const webmapDataFromState = JSON.stringify(lang.getObject('appState.items.webmap',false,this));
 
-    if (this.currentWebmapData === undefined || (!lang.getObject('appState.items.webmap.item.access',false,JSON.parse(this.currentWebmapData)) && lang.getObject('appState.items.webmap.item.access',false,this))) {
+    if (this.currentWebmapData === undefined || !lang.getObject('item.access',false,JSON.parse(this.currentWebmapData))) {
       this.currentWebmapData = webmapDataFromState;
       this.lastSaveWebmapData = webmapDataFromState;
     } else if (force || ((webmapDataFromState !== this.currentWebmapData || this.currentWebmapData !== this.lastSaveWebmapData) && !lang.getObject('appState.builder.saving',false,this))) {
