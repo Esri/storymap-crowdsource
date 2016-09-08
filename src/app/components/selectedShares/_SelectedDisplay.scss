@@ -1,7 +1,7 @@
 .crowdsource-app .overlay-panel.selected-share {
 
   .selected-display {
-    height: calc(100% -  44px);
+    height: calc(100% -  54px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
@@ -37,6 +37,12 @@
       height: 1em;
       margin-top: 0;
       font-weight: bold;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .selected-display {
+      height: calc(100% -  44px);
     }
   }
 }

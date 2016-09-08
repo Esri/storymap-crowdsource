@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
+import URI from 'lib/urijs/src/URI';
 import Helper from 'babel/utils/helper/Helper';
 import UrlUtils from 'esri/urlUtils';
 import Logger from 'babel/utils/logging/Logger';
@@ -211,15 +212,16 @@ export default class StoryCreator {
         _onStatus('Feature Service Created: ' + JSON.stringify(res),true);
 
         const layerId = 'crowdsource-layer-' + new Date().getTime();
+        const layerUrl = new URI(res.crowdsourceLayerUrl).protocol('https').href();
 
         ItemActions.updateFeatureServiceItem({
           id: res.crowdsourceLayerItemId,
-          url: res.crowdsourceLayerUrl
+          url: layerUrl
         });
         ItemActions.updateWebmapCrowdsourceLayer({
           id: layerId,
           title: builderText.fromScratchMessage.layerNameInWebmap,
-          url: res.crowdsourceLayerUrl,
+          url: layerUrl,
           itemId: res.crowdsourceLayerItemId,
           visibility: true,
           opacity: 1,
