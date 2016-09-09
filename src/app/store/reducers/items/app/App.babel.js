@@ -61,7 +61,13 @@ export const app = function(state = {}, action) {
     case RECEIVE_APP_ITEM:
       return $.extend(true,{},state,action.response);
     case RECEIVE_SCRATCH_CREATION_APP_ITEM:
-      return $.extend(true,{},state,{item: action.response.item});
+      return $.extend(true,{},state,{
+        item: action.response.item,
+        data: {
+          source: action.response.data.source,
+          _ssl: action.response.data._ssl
+        }
+      });
     default:
       return appCombined(state, action);
   }
