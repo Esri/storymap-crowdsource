@@ -203,10 +203,11 @@ export default class StoryCreator {
   createFeatureService() {
     const portal = lang.getObject('appState.app.portal',false,this);
     const isDev = lang.getObject('appState.mode.isDev',false,this);
+    const isDevext = lang.getObject('appState.config.sharingurl',false,this) ? lang.getObject('appState.config.sharingurl',false,this).search('devext.arcgis.com') >= 0 : false;
 
     this.itemCreationPending = true;
     portal.createService({
-      protectService: isDev ? false : true
+      protectService: isDev || isDevext ? false : true
     }).then((res) => {
       if (res.crowdsourceLayerUrl && res.crowdsourceLayerItemId) {
         _onStatus('Feature Service Created: ' + JSON.stringify(res),true);
