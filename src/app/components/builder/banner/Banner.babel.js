@@ -46,6 +46,7 @@ export const BuilderBanner = class BuilderBanner extends React.Component {
           <li><a href="#" onClick={this.props.shareAction}>{bannerText.buttons.share}</a></li>
           { this.previewLink !== 'http://www.example.com' ? <li><a href={this.previewLink} target="_blank">{bannerText.buttons.preview}</a></li> : null }
           <li><a href="#" onClick={this.props.helpAction}>{bannerText.buttons.help}</a></li>
+          <li><a href="https://links.esri.com/storymaps/forum" target="_blank">{bannerText.buttons.feedback}</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
           { this.props.displayReviewDropdown ? (
