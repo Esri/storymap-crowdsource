@@ -34,7 +34,12 @@ export const WebmapController = class WebmapController extends EventsEmitter {
 
     let defaults = {
       mapDiv: 'map',
-      homeButton: true
+      homeButton: true,
+      webmapOptions: {
+        mapOptions: {
+          smartNavigation: false
+        }
+      }
     };
 
     this._settings = $.extend(true, {}, defaults, options);

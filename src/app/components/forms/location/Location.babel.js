@@ -109,7 +109,7 @@ export default class Location extends FormGroup {
         const location = this.parseResultForGeoPoint(result);
 
         if (location) {
-          this.reverseGeocode(location);
+          this.reverseGeocode(location,true);
         }
       }
     });
@@ -191,9 +191,16 @@ export default class Location extends FormGroup {
   }
 
   onSelect(selection) {
-    this.locateButton.clear();
-    this.geocoderInput.val(selection.result.name);
-    if (selection.result) {
+    const latLong = this.parseResultForGeoPoint(this.geocoderInput.val());
+
+    if (!latLong){
+      this.locateButton.clear();
+      this.geocoderInput.val(selection.result.name);
+    }
+
+    if (latLong) {
+      this.reverseGeocode(latLong,true);
+    } else if (selection.result) {
       this.setLocationValue({
         inputVal: this.geocoderInput.val(),
         dataVal: {
@@ -219,6 +226,7 @@ export default class Location extends FormGroup {
   }
 
   onAutocomplete() {
+    MapActions.mapMoving(true);
     const latLong = this.parseResultForGeoPoint(this.geocoderInput.val());
 
     if (latLong) {
@@ -360,13 +368,60 @@ export default class Location extends FormGroup {
     let array;
 
     if (result.split(' ').length === 2) {
-      const stringArray = result.split(' ');
-
-      array = [parseFloat(stringArray[0]),parseFloat(stringArray[1])];
+      array = result.split(' ');
     } else if (result.split(',').length === 2) {
-      const stringArray = result.split(',');
+      array = result.split(',');
+    } else if (result.replace(/\s/g,'').split('N').length === 2) {
+      array = result.replace(/\s/g,'').split('N');
+    } else if (result.replace(/\s/g,'').split('n').length === 2) {
+      array = result.replace(/\s/g,'').split('n');
+    } else if (result.replace(/\s/g,'').split('S').length === 2) {
+      array = result.replace(/\s/g,'').split('S');
+    } else if (result.replace(/\s/g,'').split('s').length === 2) {
+      array = result.replace(/\s/g,'').split('s');
+    } else if (result.replace(/\s/g,'').split('W').length === 2) {
+      array = result.replace(/\s/g,'').split('W');
+    } else if (result.replace(/\s/g,'').split('w').length === 2) {
+      array = result.replace(/\s/g,'').split('w');
+    } else if (result.replace(/\s/g,'').split('E').length === 2) {
+      array = result.replace(/\s/g,'').split('E');
+    } else if (result.replace(/\s/g,'').split('e').length === 2) {
+      array = result.replace(/\s/g,'').split('e');
+    }
 
-      array = [parseFloat(stringArray[0]),parseFloat(stringArray[1])];
+    if (array) {
+      if (array[0].search('N') >= 0 || array[0].search('n') >= 0 || array[0].search('S') >= 0 || array[0].search('s') >= 0) {
+        array = [array[1],array[0]];
+      }
+
+      const convertCoords = function(coordString) {
+        const cleanString = coordString.replace(/\s/g,'');
+        const coord = cleanString.split(/[^\d\w]+/);
+        const ref = isNaN(coord[coord.length - 1]) ? coord[coord.length - 1] : null;
+        let seconds = coord[2];
+
+        if (!ref && coord.length === 4) {
+          seconds = seconds + '.' + coord[3];
+        } else if (coord.length === 4) {
+          seconds = seconds + '.' + coord[3];
+        }
+        const DD = parseFloat(coord[0]) + ((parseFloat(coord[1]) + (parseFloat(seconds)/60))/60);
+
+        if (ref === 'S' || ref === 'W') {
+          return Math.abs(DD) * -1;
+        } else {
+          return Math.abs(DD);
+        }
+      };
+
+      if (typeof array[0] === 'string' && (array[0].split(/[^\d\w]+/).length === 4 || array[0].split(/[^\d\w]+/).length === 5)) {
+        array[0] = convertCoords(array[0]);
+      }
+      if (typeof array[1] === 'string' && (array[1].split(/[^\d\w]+/).length === 4 || array[1].split(/[^\d\w]+/).length === 5)) {
+        array[1] = convertCoords(array[1]);
+      }
+
+      array = [parseFloat(array[0]),parseFloat(array[1])];
     }
 
     if (array && typeof array[0] === 'number'
@@ -449,6 +504,7 @@ export default class Location extends FormGroup {
 
       this.locationLayer.add(graphic);
       this.props.map.centerAt(this.input.value.dataVal.geometry);
+
       const moveable = new Helper.mapUtils.MoveableGraphic({
         map: this.props.map,
         layer: this.locationLayer,
