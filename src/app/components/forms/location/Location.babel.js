@@ -408,9 +408,24 @@ export default class Location extends FormGroup {
   }
 
   setLocationValue(options) {
+
+    const normalizeGeometry = function(dataVal) {
+      if (dataVal.geometry && dataVal.geometry.spatialReference && dataVal.geometry.spatialReference.wkid === 102100) {
+        const geoPt = webMercatorUtils.webMercatorToGeographic(dataVal.geometry);
+        const webMecPt = webMercatorUtils.geographicToWebMercator(geoPt);
+        const newDataVal = $.extend(true,{},dataVal,{
+          geometry: webMecPt
+        });
+
+        return newDataVal;
+      }
+
+      return dataVal;
+    };
+
     this.input.value = {
       inputVal: options.inputVal,
-      dataVal: options.dataVal
+      dataVal: normalizeGeometry(options.dataVal)
     };
 
     if (!this.state.changed && this.geocoderInput.val().length > 0) {
@@ -448,7 +463,7 @@ export default class Location extends FormGroup {
       });
 
       graphic.clearMoveableEvents = moveable.clean;
-      
+
       if (!options.ignoreShowingMapOnMobile) {
         MapActions.forceToTop(true);
       }
