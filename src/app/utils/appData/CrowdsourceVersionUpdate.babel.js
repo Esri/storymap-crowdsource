@@ -1,10 +1,9 @@
 import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import Deferred from 'dojo/Deferred';
-import esriRequest from 'esri/request';
-import URI from 'lib/urijs/src/URI';
+import esriRequest from 'mode!isBuilder?esri/request';
+import URI from 'mode!isBuilder?lib/urijs/src/URI';
 import {crowdsourceStore} from 'babel/store/AppStore';
-import ArcgisItem from 'babel/utils/arcgis/items/Item';
 import ArcgisActions from 'babel/actions/ArcgisActions';
 
 const getVersionDateString = function() {
@@ -63,6 +62,35 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
     const webmap = lang.getObject('data.values.settings.components.map.webmap',false,currentItemInfo);
     const layerId = lang.getObject('data.values.settings.components.map.crowdsourceLayer.id',false,currentItemInfo);
     const token = lang.getObject('app.portal.user.credential.token',false,appState);
+    const itemUrl = portal.portalUrl.stripTrailingSlash() + '/content/items/' + webmap;
+
+    const updateWebmapItem = function (item,data) {
+      let url;
+
+      if (data && data.operationalLayers) {
+        data.operationalLayers = data.operationalLayers.reduce((prev,current) => {
+          if (current.id === layerId) {
+            url = new URI(current.url).protocol('https').href();
+            current.url = url;
+          }
+          return prev.concat(current);
+        },[]);
+
+        data.baseMap.baseMapLayers = data.baseMap.baseMapLayers.reduce((prev,current) => {
+          if (current.url.search('http://services.arcgisonline.com') >= 0) {
+            current.url = new URI(current.url).protocol('https').href();
+          }
+          return prev.concat(current);
+        },[]);
+
+        const webmapItem = {
+          item,
+          data
+        };
+
+        portal.saveWebmap(webmapItem).then(requestServiceDefinition.bind(null,url));
+      }
+    };
 
     const updateServiceDefinition = function (serviceurl,indexDefinitionUpdate) {
       const url = (serviceurl.stripTrailingSlash() + '/updateDefinition').replace('rest/services','rest/admin/services');
@@ -122,30 +150,25 @@ const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-d
       });
     };
 
-    ArcgisItem.getDataById({
-      id: webmap,
-      item: 'webmap',
-      returnDeferredOnly: true
-    }).then((res) => {
-      let url;
+    const content = {
+      f: 'json',
+      token
+    };
 
-      if (res.data && res.data.operationalLayers) {
-        res.data.operationalLayers = res.data.operationalLayers.reduce((prev,current) => {
-          if (current.id === layerId) {
-            url = new URI(current.url).protocol('https').href();
-            current.url = url;
-          }
-          return prev.concat(current);
-        },[]);
+    esriRequest({
+      url: itemUrl,
+      content,
+      handleAs: 'json'
+    }).then((item) => {
+      if (item.access) {
 
-        res.data.baseMap.baseMapLayers = res.data.baseMap.baseMapLayers.reduce((prev,current) => {
-          if (current.url.search('http://services.arcgisonline.com') >= 0) {
-            current.url = new URI(current.url).protocol('https').href();
-          }
-          return prev.concat(current);
-        },[]);
-
-        portal.saveWebmap(res).then(requestServiceDefinition.bind(null,url));
+        esriRequest({
+          url: itemUrl + '/data',
+          content,
+          handleAs: 'json'
+        }).then((data) => {
+          updateWebmapItem(item,data);
+        });
       }
     });
   } else {
