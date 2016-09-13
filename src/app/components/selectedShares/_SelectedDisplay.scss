@@ -15,6 +15,10 @@
     margin-bottom: 0;
   }
 
+  .share-location-wrapper {
+    line-height: 1em;
+  }
+
   .media-photo.lazy-image.loaded {
     @include animation(fadeIn 0.5s);
   }
