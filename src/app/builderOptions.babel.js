@@ -14,7 +14,7 @@ export const featureServiceDefaults = {
         isAttachment: true,
         extras: {
           dataType: 'photo',
-          minimumSize: 1000,
+          minimumSize: 700,
           photoSettings: [{
             name: 'PrimaryPhoto',
             smallestSide: 1000
