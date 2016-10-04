@@ -32,9 +32,6 @@ export default class CrowdsourceController {
       window.history.replaceState({},null,location.filename('index.html').href());
     }
 
-    // TODO configure from app state
-    EnvironmentConfig.configSharingUrl();
-
     this.appMode = new AppMode();
     this.appConfig = new AppConfig();
 
@@ -58,6 +55,11 @@ export default class CrowdsourceController {
   updateAppState() {
     this.appState = AppStore.getState();
     this.updatePageTitle();
+
+    if (!this.environmentConfigured && lang.getObject('appState.config.sharingurl',false,this)) {
+      this.environmentConfigured = true;
+      EnvironmentConfig.configSharingUrl(lang.getObject('appState.config.sharingurl',false,this));
+    }
   }
 
   updatePageTitle() {
