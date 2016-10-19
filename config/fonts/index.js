@@ -20,7 +20,8 @@ internals.fontsGroups = [
     },
     fonts: [{
       family: 'Open Sans',
-      styles: [300,'300italic',600,'600italic']
+      styles: [300,'300italic',600,'600italic'],
+      subsets: ['cyrillic','greek','latin-ext','vietnamese']
     }]
   }//,
   // {
