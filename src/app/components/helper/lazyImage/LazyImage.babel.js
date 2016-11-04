@@ -91,9 +91,10 @@ export const LazyImage = class LazyImage extends React.Component {
       // TODO remove temporary zoom of panoramic images
       if (aspectRatio < 0.75) {
         aspectRatio = 0.75;
-      } else if (aspectRatio > 1.33) {
-        aspectRatio = 1.33;
       }
+      // else if (aspectRatio > 1.33) {
+      //   aspectRatio = 1.33;
+      // }
 
       autoSizeStyle = {
         height: 0,
