@@ -37,7 +37,7 @@ export default class ShareLink extends React.Component {
       height: '480px'
     }];
 
-    this.copySupported = document.queryCommandSupported('copy') && window.navigator.userAgent.toLowerCase().indexOf('firefox') === -1 && window.navigator.userAgent.toLowerCase().indexOf('trident/') === -1 && window.navigator.userAgent.toLowerCase().indexOf('msie ') === -1;
+    this.copySupported = false && document.queryCommandSupported('copy') && window.navigator.userAgent.toLowerCase().indexOf('firefox') === -1 && window.navigator.userAgent.toLowerCase().indexOf('trident/') === -1 && window.navigator.userAgent.toLowerCase().indexOf('msie ') === -1;
     this.link = Helper.getSharingUrl();
     this.shortLink = this.getShortLink();
 
