@@ -36,7 +36,6 @@
     script.src = src;
     script.async = false;
     ref.parentNode.insertBefore(script, ref);
-    return script;
   };
 
   const _getUrlVar = function getUrlVar(name) {

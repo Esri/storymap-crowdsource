@@ -1,6 +1,7 @@
 define({
   'root': ({
     loading: {
+      general: 'Loading',
       initializing: 'Loading story',
       map: 'Loading map'
     },

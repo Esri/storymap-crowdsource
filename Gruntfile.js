@@ -165,7 +165,7 @@ module.exports = function (grunt) {
     nodemon: {
       dev: {
         options: {
-          watch: [ '*.js', './config/server/**/*.js' ],
+          watch: [ './src/*.js', './config/server/**/*.js' ],
           ext: 'js,html',
           env: {
             MODE: 'dev'

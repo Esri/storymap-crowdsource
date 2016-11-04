@@ -59,7 +59,12 @@ export default class SelectedShares extends React.Component {
             </div>
           ) : null}
           </div>
-        ) : null }
+        ) : (
+          <div className="loading">
+            <img className="loading-gif" src="resources/images/loader-light.gif" alt={viewerText.loading.general} />
+            <p>{viewerText.loading.general}</p>
+          </div>
+        ) }
       </div>
     );
   }

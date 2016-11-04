@@ -1,5 +1,14 @@
 .crowdsource-app .overlay-panel.selected-share {
 
+  .loading {
+    text-align: center;
+    text-transform: uppercase;
+
+    img {
+      width: 50px;
+    }
+  }
+
   .selected-display {
     height: calc(100% -  54px);
     overflow: auto;
