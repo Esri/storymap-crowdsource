@@ -1,3 +1,4 @@
+/*eslint-env node*/
 (function() {
 
   const _isProduction = window.app.version.search('dev') < 0 ? true : false;
@@ -28,7 +29,14 @@
   };
 
   const _loadJS = function loadJS(url, isExternal) {
-    window.document.write('<script language="javascript" type="text/javascript" src="' + _configUrlString(url, isExternal) + '"><\/script>');
+    const src  =_configUrlString(url, isExternal);
+    const ref = window.document.getElementsByTagName('script')[0];
+    const script = window.document.createElement('script');
+
+    script.src = src;
+    script.async = false;
+    ref.parentNode.insertBefore(script, ref);
+    return script;
   };
 
   const _getUrlVar = function getUrlVar(name) {
