@@ -176,7 +176,7 @@ define({
 				createMap: 'Unable to create map',
         notAuthorizedApp: 'You are not authorized to access this story',
         notAuthorizedMap: 'You are not authorized to access the web map in this story',
-        notAuthorizedLayers: 'You are not authorized to some or all the layers in the web map',
+        notAuthorizedLayers: 'You are not authorized to view one or more layers in the web map',
 				upgradeBrowser: '<a href="http://browsehappy.com/" target="_blank">Please update your browser</a>.',
 				mapLoadingFail: 'Something went wrong, the map did not load correctly.',
         appLoadingFail: 'Something went wrong, the app did not load correctly.',
