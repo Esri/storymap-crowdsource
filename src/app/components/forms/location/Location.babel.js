@@ -87,8 +87,18 @@ export default class Location extends FormGroup {
     this.geocoderAutocomplete.addClass('form-control');
 
     this.locateButton.on('locate',this.reverseGeocode);
+    this.locatorContainer.on('click',(e) => {
+      if (e.which === 13) {
+        this.value = undefined;
+        this.valid = false;
+        this.handleChange();
+      }
+    });
     this.locatorContainer.on('keypress',(e) => {
       if (e.which === 13) {
+        this.value = undefined;
+        this.valid = false;
+        this.handleChange();
         this.locateButton.locate();
       }
     });
@@ -258,8 +268,11 @@ export default class Location extends FormGroup {
   }
 
   onBlur() {
+    this.value = undefined;
+    this.valid = false;
+    this.handleChange();
+
     setTimeout(() => {
-      this.validateForm();
       const latLong = this.parseResultForGeoPoint(this.geocoderInput.val());
 
       if (latLong) {
@@ -279,6 +292,8 @@ export default class Location extends FormGroup {
         } else if (this.geocoder.results.length > 0) {
           this.geocoder.select(this.geocoder.results[0]);
         }
+      } else {
+        this.validateForm();
       }
     },0);
   }
@@ -293,6 +308,10 @@ export default class Location extends FormGroup {
 
   reverseGeocode(response,setReverseCoords,ignoreShowingMapOnMobile) {
     let point;
+
+    this.value = undefined;
+    this.valid = false;
+    this.handleChange();
 
     if (ignoreShowingMapOnMobile && ignoreShowingMapOnMobile !== true) {
       ignoreShowingMapOnMobile = false;
