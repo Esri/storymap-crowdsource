@@ -137,10 +137,41 @@ export const CrowdsourceWebmapController = class CrowdsourceWebmapController ext
           labelColor: '#fff',
           resolution: map.extent.getWidth() / map.width,
           where: this._settings.crowdsourceLayer.where,
-          url
+          url,
+          filterFeaturesOnResponse: this._settings.editable ? false : (features) => {
+            const newFeatures = ([].concat(features)).reduce((prev, current) => {
+
+              const containsAttachments = () => {
+                if (current.attachmentInfos && current.attachmentInfos.length >= 2) {
+                  const thumbnail = current.attachmentInfos.filter((attachment) => {
+                    return attachment.name.search('PrimaryThumbnail') === 0;
+                  })[0];
+                  const photo = current.attachmentInfos.filter((attachment) => {
+                    return attachment.name.search('PrimaryPhoto') === 0;
+                  })[0];
+
+                  if (thumbnail && photo) {
+                    return true;
+                  }
+                }
+                return false;
+              };
+
+              if (containsAttachments()) {
+                return prev.concat(current);
+              }
+
+              return prev;
+            },[]);
+
+            return newFeatures;
+          }
+
         };
         const clusterOptions = $.extend(true, {}, clusterDefaults, this._settings.crowdsourceLayer.clusterOptions);
         const clusterLayer = new ClusterFeatureLayer(clusterOptions);
+
+        window.cl = clusterLayer;
 
         if (layer) {
           MapActions.updateMapReferences({

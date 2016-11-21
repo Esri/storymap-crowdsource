@@ -23,7 +23,7 @@
     "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.6/redux.min.js",
     "bootstrap-sass": "~3.3.5",
     "calcite-bootstrap": "https://github.com/Esri/calcite-bootstrap/releases/download/v0.3.3/calcite-bootstrap.zip",
-    "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/ffadc03967ff6ef9474b5a00fb0ef902650c794a.zip",
+    "cluster-layer-js": "https://github.com/ssylvia/cluster-layer-js/archive/f54ba1604a73ccb1f81cfeca9b399ba701b8624d.zip",
     "eventEmitter": "~4.3.0",
     "i18n": "https://github.com/requirejs/i18n/archive/2.0.6.zip",
     "jquery": "~2.1.4",
