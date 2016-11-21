@@ -185,6 +185,9 @@ define({
       },
       sharing: {
         localhost: 'URLs with "localhost" cannot be shared.'
+      },
+      selectedDisplay: {
+        noPhoto: 'Error: Photo does not exist or is inaccessible.'
       }
     }
   }),

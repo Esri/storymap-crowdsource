@@ -65,6 +65,9 @@ export const LazyImage = class LazyImage extends React.Component {
 
       const preload = new Image();
 
+      preload.onerror = () => {
+        this.props.onError();
+      };
       preload.onload = () => {
         this.markAsLoaded(preload.width,preload.height);
       };
@@ -126,7 +129,8 @@ LazyImage.propTypes = {
     backgroundSize: React.PropTypes.string
   }),
   threshold: React.PropTypes.number,
-  onLoad: React.PropTypes.func
+  onLoad: React.PropTypes.func,
+  onError: React.PropTypes.func
 };
 
 LazyImage.defaultProps = {
@@ -135,7 +139,8 @@ LazyImage.defaultProps = {
   src: '',
   style: {},
   threshold: 200,
-  onLoad: () => {}
+  onLoad: () => {},
+  onError: () => {}
 };
 
 export default LazyImage;

@@ -36,7 +36,34 @@ export default class SelectedShares extends React.Component {
     return (
       <div className={mainClasses} onScroll={this.props.onScroll}>
         { this.getMedia() }
-        { this.state.mediaLoaded ? (
+        { this.state.mediaLoaded ? (this.state.mediaLoaded === 'failed' ?
+          (
+            <div className="padded-column">
+            <div className="info-section">
+              <div className="review-section alert alert-danger">
+                {viewerText.errors.selectedDisplay.noPhoto}
+              </div>
+              <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
+              <p className="share-location-wrapper"><small className="share-location">{attributes[this.props.secondaryField]}</small></p>
+            { this.props.displayOrder.map(this.getFieldLayout.bind(this,attributes))}
+            </div>
+            {this.props.reviewEnabled ? (
+              <div className="review-section alert alert-info">
+                <h6 className="review-header">{builderText.review.selectedShare.header}</h6>
+                <div className="btn-group">
+                  <button type="button" className={Helper.classnames(['btn'],{
+                      'btn-default': attributes[this.props.vettedField] !== 1,
+                      'btn-primary': attributes[this.props.vettedField] === 1
+                    })} onClick={this.props.approveAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.approve}</button>
+                  <button type="button" className={Helper.classnames(['btn'],{
+                      'btn-default': attributes[this.props.vettedField] !== 2,
+                      'btn-danger': attributes[this.props.vettedField] === 2
+                    })} onClick={this.props.rejectAction.bind(null,attributes[this.props.idField])}>{viewerText.selectedShares.review.options.reject}</button>
+                </div>
+              </div>
+            ) : null}
+            </div>
+          ) : (
           <div className="padded-column">
           <div className="info-section">
             <h4 className="share-title">{attributes[this.props.primaryField]}</h4>
@@ -59,7 +86,7 @@ export default class SelectedShares extends React.Component {
             </div>
           ) : null}
           </div>
-        ) : (
+        )) : (
           <div className="loading">
             <img className="loading-gif" src="resources/images/loader-light.gif" alt={viewerText.loading.general} />
             <p>{viewerText.loading.general}</p>
@@ -107,16 +134,17 @@ export default class SelectedShares extends React.Component {
               className="media-photo"
               autoSizeDiv={true}
               src={photoUrl}
-              onLoad={this.onMediaLoad}>
+              onLoad={this.onMediaLoad.bind(this,true)}
+              onError={this.onMediaLoad.bind(this,false)}>
             </LazyImage>
           </div>
         );
     }
   }
 
-  onMediaLoad() {
+  onMediaLoad(success) {
     this.setState({
-      mediaLoaded: true
+      mediaLoaded: success ? true : 'failed'
     });
   }
 
