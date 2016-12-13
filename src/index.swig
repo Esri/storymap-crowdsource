@@ -116,7 +116,7 @@
   <script type="text/javascript">
     var app = {
       version: '{{ versionStr }}',
-      pathJSAPI: '//jsdev.arcgis.com/3.19/'
+      pathJSAPI: '//js.arcgis.com/3.19/'
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>

@@ -34,20 +34,20 @@ export const MovableGraphic = class MovableGraphic {
     this._isEdge = !! window.navigator.userAgent.match(/Edge\/\d+/);
 
     const event1 = connect.connect(this._settings.layer, 'onMouseOver', (event) => {
-      if (event.graphic === this._settings.graphic) {
+      if ((event.graphic === this._settings.graphic || event.target.e_graphic === this._settings.graphic)) {
         this._settings.map.setMapCursor('move');
       }
     });
 
     const event2 = connect.connect(this._settings.layer, 'onMouseOut', (event) => {
-      if (event.graphic === this._settings.graphic) {
+      if ((event.graphic === this._settings.graphic || event.target.e_graphic === this._settings.graphic)) {
         this._settings.map.setMapCursor('default');
       }
     });
 
     const event3 = on(this._settings.layer._div.rawNode, touch.press, (event) =>  {
       // Prevent using another point as a start location on desktop - does not work on touch
-      if (event.graphic === this._settings.graphic || has('touch') || has('ie') === 10 || has('trident') === 7 || this._isEdge) {
+      if ((event.graphic === this._settings.graphic || event.target.e_graphic === this._settings.graphic) || has('touch') || has('ie') === 10 || has('trident') === 7 || this._isEdge) {
         this._settings.map.disablePan();
 
         this._editPointLayer = true;
