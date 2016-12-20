@@ -15,6 +15,20 @@ const getVersionDateString = function() {
   return day + '' + month + '' + year;
 };
 
+const updateVersionOnly = function updateVersionOnly(currentItemInfo,isDev) {
+  const dfd = new Deferred();
+  const updatedItemInfo = $.extend(true,{},currentItemInfo);
+  const newVersion = isDev ? 'dev' + window.app.version + '-' + getVersionDateString() : window.app.version;
+
+  // Update version
+  lang.setObject('data.values.properties.version',newVersion,updatedItemInfo);
+  lang.setObject('data.values.properties.versionUpdated',new Date().getTime(),updatedItemInfo);
+
+  dfd.resolve(updatedItemInfo);
+
+  return dfd;
+};
+
 const updateTo0_2_0 = function updateTo0_2_0(currentItemInfo,isDev) { //eslint-disable-line camelcase
   const dfd = new Deferred();
   const updatedItemInfo = $.extend(true,{},currentItemInfo);
@@ -211,6 +225,8 @@ export const crowdsourceVersionUpdate = function crowdsourceVersionUpdate(itemIn
       switch (versionInfo.version) {
         case 0.1:
           return updateTo0_2_0(currentItemInfo,versionInfo.isDev);
+        default:
+          return updateVersionOnly(currentItemInfo,versionInfo.isDev);
       }
     }
   };
