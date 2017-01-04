@@ -467,6 +467,7 @@ define({
   'fi': false,
   'fr': false,
   'he': false,
+  'hi': false,
   'hr': false,
   'id': false,
   'it': false,
