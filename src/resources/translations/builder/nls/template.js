@@ -3,11 +3,11 @@ define({
     // TODO Remove after beta
     betaMessage: {
       title: 'This is a beta release of Story Map Crowdsource',
-      messageParagraphs: [
-        'This version of Story Map Crowdsource has its core features completed and is stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial release.',
-        'Stories created with this beta version will continue to work with later releases unless you modify it or one of its components outside the Builder.',
-        'Please read the Help for more information on how to use this app and where to submit feedback.'
-      ]
+      messageParagraphs: {
+        p1: 'This version of Story Map Crowdsource has its core features completed and is stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial release.',
+        p2: 'Stories created with this beta version will continue to work with later releases unless you modify it or one of its components outside the Builder.',
+        p3: 'Please read the Help for more information on how to use this app and where to submit feedback.'
+      }
     },
     common: {
       appNameAppend: 'Builder',
@@ -105,29 +105,29 @@ define({
     },
     help: {
       title: 'Help',
-      sections: [
-        {
+      sections: {
+        s1: {
           title: 'Introduction',
-          paragraphs: [
-            'Story Map Crowdsource (beta) is an ArcGIS web application designed to collect photos and captions from anyone and display them on a map. The app is easy to use and configure and can be used in a web browser on laptop and desktop computers, mobile phones, and tablets. Contributors can sign in with their Facebook, Google, or ArcGIS account or participate as an anonymous guest.',
-            'To see examples of Crowdsource stories that other authors are creating, visit the <% galleryLink %>. You can also follow us on Twitter at <% twitterFollowLink %>.',
-            'We would love to hear from you! Whether you have a question, want to request a new feature, or think you\'ve found a bug, please visit the <% geonet %>.'
-          ],
+          paragraphs: {
+            p1: 'Story Map Crowdsource (beta) is an ArcGIS web application designed to collect photos and captions from anyone and display them on a map. The app is easy to use and configure and can be used in a web browser on laptop and desktop computers, mobile phones, and tablets. Contributors can sign in with their Facebook, Google, or ArcGIS account or participate as an anonymous guest.',
+            p2: 'To see examples of Crowdsource stories that other authors are creating, visit the <% galleryLink %>. You can also follow us on Twitter at <% twitterFollowLink %>.',
+            p3: 'We would love to hear from you! Whether you have a question, want to request a new feature, or think you\'ve found a bug, please visit the <% geonet %>.'
+          },
           links: {
             galleryLink: 'gallery on the Story Maps website',
             twitterFollowLink: '@EsriStoryMaps',
             geonet: 'Story Maps space on GeoNet'
           }
         },
-        {
+        s2: {
           title: 'Configuration',
-          paragraphs: [
-            'To create your own unique Crowdsource story use the Builder\'s configuration options. Click <% settings %> in the Builder toolbar to change the cover image, title, logo and sharing options, and more.',
-            'To specify the geographic area that your participants will see when they load your story, pan and zoom the map to the desired location and then click the blue <% saveHomeLocation %> button next to the map navigation controls.',
-            'Configuration changes are <% autosaved %> as you make them. Modifications to text fields can be undone using your browser\'s undo command.',
-            'In this beta release, authors are limited to the simple form provided. In a future release, we will include a form builder which allows you to edit the questions that you ask your participants. Until then, you can modify the form labels by following this <% formEditBlog %>.',
-            'Tip: to return to the <% coverPage %> from the map, click the title bar.'
-          ],
+          paragraphs: {
+            p1: 'To create your own unique Crowdsource story use the Builder\'s configuration options. Click <% settings %> in the Builder toolbar to change the cover image, title, logo and sharing options, and more.',
+            p2: 'To specify the geographic area that your participants will see when they load your story, pan and zoom the map to the desired location and then click the blue <% saveHomeLocation %> button next to the map navigation controls.',
+            p3: 'Configuration changes are <% autosaved %> as you make them. Modifications to text fields can be undone using your browser\'s undo command.',
+            p4: 'In this beta release, authors are limited to the simple form provided. In a future release, we will include a form builder which allows you to edit the questions that you ask your participants. Until then, you can modify the form labels by following this <% formEditBlog %>.',
+            p5: 'Tip: to return to the <% coverPage %> from the map, click the title bar.'
+          },
           links: {
             formEditBlog: 'blog post'
           },
@@ -138,14 +138,14 @@ define({
             coverPage: 'cover page'
           }
         },
-        {
+        s3: {
           title: 'Reviewing Contributions',
-          paragraphs: [
-            'Showing contributions on the map immediately after they are submitted is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, or you want to curate the contributions and select the ones that are shown, you can choose to review and approve submissions first.',
-            'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
-            'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the Builder toolbar. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
-            'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the <% review %> filter in the Builder toolbar. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
-          ],
+          paragraphs: {
+            p1: 'Showing contributions on the map immediately after they are submitted is the best way to encourage and reward your contributors. However, if you\'re concerned about objectionable content, or you want to curate the contributions and select the ones that are shown, you can choose to review and approve submissions first.',
+            p2: 'To prevent content from appearing on the map before it is reviewed go to <% settings %> > <% contributions %> and choose to <% afterReview %>. When using this option new photos will be visible only to you until you approve them for display on the map.',
+            p3: 'To review new contributions go to the map in Crowdsource Builder and select <% newContributions %> in the Builder toolbar. Then click the map to view a contribution and choose <% approve %> or <% reject %>.',
+            p4: 'You can change which contributions are shown on the map by choosing All, New, Approved, or Rejected in the <% review %> filter in the Builder toolbar. It is possible to change your decision on any contribution by clicking it on the map and updating its approval status.'
+          },
           bold: {
             settings: 'Settings',
             contributions: 'Contributions',
@@ -156,14 +156,14 @@ define({
             review: 'Review'
           }
         },
-        {
+        s4: {
           title: 'Tracking Contributors',
-          paragraphs: [
-            'You can have people who contribute to your Crowdsource story identify themselves by signing in with their <% facebook %>, <% twitter %>, or <% arcgis %> account.',
-            'The Facebook and Twitter options use a technology called OAuth to create an ArcGIS public account that is connected to the contributor\'s social media account. This makes it easy for contributors since they do not have to sign up for a new account to contribute to your story. Of course, if contributors already have an ArcGIS subscription or public account they can use that to sign in.',
-            'You can also allow <% guestContributions %> so anyone can contribute without signing in, which may encourage more people to contribute to your story. However, guests will not be able to edit or remove their own contributions (not available in beta), and a username will not be recorded for guest contributions making it impossible to trace them back to an individual. If these capabilities are important to you then should you not allow guest contributions.',
-            'All of the sign-in options listed above are available to contributors unless you disable them. Facebook and Twitter sign in are not available on Portal.'
-          ],
+          paragraphs: {
+            p1: 'You can have people who contribute to your Crowdsource story identify themselves by signing in with their <% facebook %>, <% twitter %>, or <% arcgis %> account.',
+            p2: 'The Facebook and Twitter options use a technology called OAuth to create an ArcGIS public account that is connected to the contributor\'s social media account. This makes it easy for contributors since they do not have to sign up for a new account to contribute to your story. Of course, if contributors already have an ArcGIS subscription or public account they can use that to sign in.',
+            p3: 'You can also allow <% guestContributions %> so anyone can contribute without signing in, which may encourage more people to contribute to your story. However, guests will not be able to edit or remove their own contributions (not available in beta), and a username will not be recorded for guest contributions making it impossible to trace them back to an individual. If these capabilities are important to you then should you not allow guest contributions.',
+            p4: 'All of the sign-in options listed above are available to contributors unless you disable them. Facebook and Twitter sign in are not available on Portal.'
+          },
           bold: {
             facebook: 'Facebook',
             twitter: 'Twitter',
@@ -171,42 +171,42 @@ define({
             guestContributions: 'guest contributions'
           }
         },
-        {
+        s5: {
           title: 'FAQ',
-          questions: [
-            {
+          questions: {
+            q1: {
               question: 'How do I provide feedback about this beta app?',
               response: 'To provide feedback or suggestions, or to let us know about issues, please share your thoughts on the <% geonet %>.'
             },
-            {
+            q2: {
               question: 'Will a Crowdsource story created with the beta version of the app continue to work after future software releases?',
               response: 'Yes it will work, but there are two possible exceptions: 1) If you add layers to your beta Crowdsource story\'s web map (which can only be done outside the Builder), those layers may stop working or their symbols may change after the final release. To avoid this situation you can convert any supporting layers to feature layers before adding them to your map and use simple symbols. 2) There is also a possibility that the data model for the crowdsource layer may change. If this occurs, we intend to provide a workflow or tool to update your layer to the new data model.'
             },
-            {
+            q3: {
               question: 'Can I add other layers to my Crowdsource story\'s map?',
               response: 'Yes, you can add other layers to the map for context, but first read the previous question for important information about doing this with the beta release of Story Map Crowdsource. Open your story\'s <% map %>, add layers and/or change the basemap, and save your changes. The next time you load your story you will see the new layers. Be careful not to delete or modify the contributions layer in your map or your Crowdsource story may stop working properly.'
             },
-            {
+            q4: {
               question: 'Where are are the photos stored?',
               response: 'Submitted photos are resampled to an appropriate size and stored in your ArcGIS account (as feature service attachments). Images uploaded by you in the Builder for the cover image and logo are stored as item resources with your story map application item.'
             },
-            {
+            q5: {
               question: 'Do people need an ArcGIS account to contribute to my Crowdsource story?',
               response: 'No, contributors can sign in using their <% facebook %> or <% google %> account. This will create an ArcGIS public account linked to the contributor\'s social media account, but contributors won\'t receive emails from Esri when they sign in like this. People can also contribute as anonymous guests without signing in to any account. You control which of these sign-in methods are available for your story in <% settingsContributions %>.'
             },
-            {
+            q6: {
               question: 'Can I create a Crowdsource story using my ArcGIS Online public account?',
               response: 'No, since Story Map Crowdsource uses feature service attachments to store the contributed images only Organizational Accounts are supported at this time.'
             },
-            {
+            q7: {
               question: 'How else can I customize a Crowdsource story?',
               response: 'If the available configuration options do not meet your needs, or if you wish to host the application on your own web server, the application source code is available. To download the most recent version visit the <% github %>.'
             },
-            {
+            q8: {
               question: 'Will my Crowdsource story consume credits?',
               response: 'A Crowdsource story hosted on ArcGIS Online will consume a small amount of credits each month due to the storage of photos and data in a feature service. A typical story with several hundred photos will cost much less than US$1 per month. See more information about <% agoCredits %>.'
             }
-          ],
+          },
           bold: {
             facebook: 'Facebook',
             google: 'Google',
@@ -219,7 +219,7 @@ define({
             github: 'GitHub project page'
           }
         }
-      ]
+      }
     },
     settings: {
       title: 'Settings',
@@ -457,38 +457,38 @@ define({
       }
     }
   }),
-  'ar': false,
-  'bs': false,
-  'cs': false,
-  'da': false,
-  'de': false,
-  'es': false,
-  'et': false,
-  'fi': false,
-  'fr': false,
-  'he': false,
-  'hi': false,
-  'hr': false,
-  'id': false,
-  'it': false,
-  'ja': false,
-  'ko': false,
-  'lt': false,
-  'lv': false,
-  'nl': false,
-  'nb': false,
-  'pl': false,
-  'pt-br': false,
-  'pt-pt': false,
-  'ro': false,
-  'ru': false,
-  'su': false,
-  'sr': false,
-  'sv': false,
-  'tr': false,
-  'th': false,
-  'vi': false,
-  'zh-cn': false,
-  'zh-hk': false,
-  'zh-tw': false
+  'ar': 1,
+  'bs': 1,
+  'cs': 1,
+  'da': 1,
+  'de': 1,
+  'es': 1,
+  'et': 1,
+  'fi': 1,
+  'fr': 1,
+  'he': 1,
+  'hi': 1,
+  'hr': 1,
+  'id': 1,
+  'it': 1,
+  'ja': 1,
+  'ko': 1,
+  'lt': 1,
+  'lv': 1,
+  'nl': 1,
+  'nb': 1,
+  'pl': 1,
+  'pt-br': 1,
+  'pt-pt': 1,
+  'ro': 1,
+  'ru': 1,
+  'su': 1,
+  'sr': 1,
+  'sv': 1,
+  'tr': 1,
+  'th': 1,
+  'vi': 1,
+  'zh-cn': 1,
+  'zh-hk': 1,
+  'zh-tw': 1
 });

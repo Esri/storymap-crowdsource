@@ -52,13 +52,13 @@
   <!--[if IE 9]>
   <script type="text/javascript">
     alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
-    window.location = "http://browsehappy.com/";
+    window.location = "https://whatbrowser.org/";
   </script>
   <![endif]-->
   <!--[if lt IE 9]>
   <script type="text/javascript">
     alert('This app requires a modern browsers to run properly. Please update your browser then visit this page again.');
-    window.location = "http://browsehappy.com/";
+    window.location = "https://whatbrowser.org/";
   </script>
   <![endif]-->
 

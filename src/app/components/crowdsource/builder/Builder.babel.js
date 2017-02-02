@@ -205,8 +205,8 @@ class Builder extends React.Component {
         body: (
           <div className="message">
             <h5 className="text-danger">{builderText.betaMessage.title}</h5>
-            {builderText.betaMessage.messageParagraphs.map((current) => {
-              return <p key={current.slice(0,10).toCamelCase()}>{current}</p>;
+            {Object.keys(builderText.betaMessage.messageParagraphs).map((current) => {
+              return <p key={current.slice(0,10).toCamelCase()}>{builderText.betaMessage.messageParagraphs[current]}</p>;
             })}
           </div>
         ),

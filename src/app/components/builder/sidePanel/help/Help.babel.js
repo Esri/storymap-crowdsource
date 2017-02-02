@@ -84,12 +84,16 @@ export default class SidePanelHelp extends React.Component {
             <h2>
               <span className="main">{builderText.help.title}</span>
             </h2>
-            {builderText.help.sections.map((currentSection) => {
+            {Object.keys(builderText.help.sections).map((section) => {
+              const currentSection = builderText.help.sections[section];
+
               return (
                 <div className="help-section" key={currentSection.title}>
                   <h4>{currentSection.title}</h4>
                   {currentSection.paragraphs ? (
-                    currentSection.paragraphs.map((paragraph) => {
+                    Object.keys(currentSection.paragraphs).map((pKey) => {
+                      const paragraph = currentSection.paragraphs[pKey];
+
                       return <p key={currentSection.title + '_' + paragraph.slice(0,15).toCamelCase()} dangerouslySetInnerHTML={{__html: this.getTempatedString({
                         bold: currentSection.bold,
                         links: currentSection.links,
@@ -98,7 +102,9 @@ export default class SidePanelHelp extends React.Component {
                     })
                   ) : null}
                   {currentSection.questions ? (
-                    currentSection.questions.map((question) => {
+                    Object.keys(currentSection.questions).map((qKey) => {
+                      const question = currentSection.questions[qKey];
+
                       return (
                         <div className="question-wrapper" key={currentSection.title + '_' + question.question.slice(0,15).toCamelCase()}>
                           <h6>{question.question}</h6>
