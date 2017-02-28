@@ -33,15 +33,37 @@ This repository provides the application source code for developers that want to
 For more information about the Crowdsource app, including a gallery of examples and a step-by-step tutorial, please see the [Crowdsource](https://links.esri.com/storymaps/crowdsource-app) page on the [Esri Story Maps website](http://storymaps.arcgis.com/).
 
 ## Instructions
+
+### Production Version
 First create your Crowdsource story in ArcGIS Online using the [step-by-step tutorial](http://storymaps.arcgis.com/en/app-list/crowdsource/tutorial/).
 Once your story is ready, you have to find its ID in ArcGIS Online. The ID is a 32 character string that you will find in your web browser's address bar when you are viewing your series.
 
 ![App ID](story-map-crowdsource-help-application-id.png)
 
 1. [Download the application](https://links.esri.com/storymaps/story_map_crowdsource_zip)
-2. Deploy the application on your webserver. See [FAQ](#how-to-deploy-the-application-on-a-web-server) for details
+2. Deploy the application on your webserver. See [FAQ](#how-to-deploy-the-application-on-a-web-server) for details (Your server must be accessible over a secure https connection).
 3. Edit index.html, find the configuration section on line 24 and paste in your application ID
 4. Navigate to index.html (e.g., `https://www.example.org/StoryMapCrowdsource/index.html`)
+
+### Developer Version
+First create your Crowdsource story in ArcGIS Online using the [step-by-step tutorial](http://storymaps.arcgis.com/en/app-list/crowdsource/tutorial/).
+Once your story is ready, you have to find its ID in ArcGIS Online. The ID is a 32 character string that you will find in your web browser's address bar when you are viewing your series.
+
+**Customize**
+
+![App ID](story-map-crowdsource-help-application-id.png)
+
+  1. Fork this repo into your github account.
+  2. Edit index.swig under the `src` folder, find the configuration section on line 39 and paste in your application ID
+  3. Open the console/terminal, go to the uncompressed folder and:
+    - Install npm dependencies: `npm install` ([Node](https://nodejs.org/en/) is Required).
+    - Install bower dependencies: `bower install` ([Bower](https://bower.io/) is Required).
+    - Run the grunt development server: `grunt` ([Grunt](https://gruntjs.com/) is Required).
+
+**Build and Deploy**
+
+1. When you have finished making changes, run `grunt test` to build a production version of your app and test it with the include https server.
+2. After testing your app, deploy it to your production server (Your server must be accessible over a secure https connection).
 
 Enjoy!
 You can continue to use the builder in ArcGIS Online to modify your story.
