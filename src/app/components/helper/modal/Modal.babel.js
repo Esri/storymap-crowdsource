@@ -45,7 +45,6 @@ export default class Modal extends React.Component {
 
     return (
       <div className={modalClasses} tabIndex="-1" role="dialog">
-        <div className="vertical-align-helper">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header" style={this.props.headerStyle}>
@@ -68,7 +67,6 @@ export default class Modal extends React.Component {
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   }

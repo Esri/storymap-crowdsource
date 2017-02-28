@@ -169,7 +169,7 @@ class Builder extends React.Component {
         className: Helper.classnames(['layout'],modalClasses),
         headerStyle: {
           backgroundSize: 'auto',
-          backgroundRepeat: 'repeat-x',
+          backgroundRepeat: 'repeat',
           backgroundImage: 'url(resources/images/builder/builder-banner-background.png)'
         },
         title: welcomeTitle,
@@ -184,7 +184,7 @@ class Builder extends React.Component {
         className: Helper.classnames(['item-name'],modalClasses),
         headerStyle: {
           backgroundSize: 'auto',
-          backgroundRepeat: 'repeat-x',
+          backgroundRepeat: 'repeat',
           backgroundImage: 'url(resources/images/builder/builder-banner-background.png)'
         },
         title: welcomeTitle,
@@ -198,7 +198,7 @@ class Builder extends React.Component {
         className: Helper.classnames(['beta-message'],modalClasses),
         headerStyle: {
           backgroundSize: 'auto',
-          backgroundRepeat: 'repeat-x',
+          backgroundRepeat: 'repeat',
           backgroundImage: 'url(resources/images/builder/builder-banner-background.png)'
         },
         title: welcomeTitle,

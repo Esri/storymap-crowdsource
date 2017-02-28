@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react';
 import Helper from 'babel/utils/helper/Helper';
 import {getIcon} from 'babel/utils/helper/icons/IconGenerator';
@@ -21,6 +22,20 @@ export default class SidePanelSettings extends React.Component {
     if (!this.getVisibleSettingsPane()) {
       this.changeSettingsPane(this.props.settingsPanes[0].id);
     }
+
+    const resize = function resize() {
+      const height = $('.control-banner').height();
+
+      $('.side-panel').css({
+        top: height,
+        height: 'calc(100% - ' + height + 'px)'
+      });
+    };
+
+    $(window).on('resize',resize);
+    setTimeout(() => {
+      resize();
+    },100);
   }
 
   componentDidUpdate(prevProps) {

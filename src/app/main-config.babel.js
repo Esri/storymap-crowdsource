@@ -60,7 +60,7 @@
 
   };
 
-  const _defineDojoConfig = function defineDojoConfig() {
+  const _defineDojoConfig = function defineDojoConfig(locale) {
 
     const path1 = location.pathname.replace(/\/[^/]+$/, '/');
 
@@ -70,6 +70,7 @@
       isDebug: false,
       async: true,
       useDeferredInstrumentation: true,
+      locale,
       map: {
         '*': {
           i18n: 'dojo/i18n'
@@ -111,7 +112,9 @@
   }
 
   // Load ArcGIS API for JavaScript
-  _defineDojoConfig();
+  const locale = _getUrlVar('locale') || undefined;
+
+  _defineDojoConfig(locale);
   _loadCSS(window.app.pathJSAPI + 'esri/css/esri.css', true);
   _loadCSS(window.app.pathJSAPI + 'esri/themes/calcite/dijit/calcite.css', true);
   _loadJS(window.app.pathJSAPI + 'init.js', true);

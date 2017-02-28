@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import lang from 'dojo/_base/lang';
 import AppStore from 'babel/store/AppStore';
 import AppActions from 'babel/actions/AppActions';
@@ -13,11 +14,24 @@ export default class LayoutController {
     this.updateAppState = this.updateAppState.bind(this);
 
     this.layout = false;
+    this.resizedViewer = false;
+    this.mapShown = false;
+    this.adminShown = false;
     this.layoutControllers = {};
 
     // Subscribe to state changes
     this.updateAppState();
     this.unsubscribeAppStore = AppStore.subscribe(this.updateAppState);
+
+    this.resizeViewer = function () {
+      const height = $('.control-banner').height() || 0;
+
+      $('.viewer').css({
+        height: 'calc(100% - ' + height + 'px)'
+      });
+    };
+
+    $(window).on('resize',this.resizeViewer);
   }
 
   updateAppState() {
@@ -32,6 +46,47 @@ export default class LayoutController {
     if (lang.getObject('appState.mode.isMobile',false,this) && lang.getObject('appState.app.layout.visibleComponents',false,this).indexOf(componentNames.ADMIN_BANNER) >= 0) {
       this.checkedAdminPanel = false;
       AppActions.hideComponent(componentNames.ADMIN_BANNER);
+    }
+
+    if (!this.resizedViewer && lang.getObject('appState.app.loading.data',false,this)) {
+      this.resizeViewer();
+    }
+
+    if (this.resizeViewer) {
+      this.resizeViewer();
+    }
+
+    if (!this.resizedViewer && lang.getObject('appState.app.loading.map',false,this)) {
+      this.resizedViewer = true;
+      this.resizeViewer();
+    }
+
+    if (lang.getObject('appState.app.layout.visibleComponents',false,this) && lang.getObject('appState.app.layout.visibleComponents',false,this).indexOf('admin-banner') < 0 && this.adminShown === true) {
+      this.adminShown = false;
+      setTimeout(() => {
+        this.resizeViewer();
+      },0);
+    }
+
+    if (lang.getObject('appState.app.layout.visibleComponents',false,this) && lang.getObject('appState.app.layout.visibleComponents',false,this).indexOf('admin-banner') >= 0 && this.adminShown === false) {
+      this.adminShown = true;
+      setTimeout(() => {
+        this.resizeViewer();
+      },0);
+    }
+
+    if (lang.getObject('appState.app.layout.visibleComponents',false,this) && lang.getObject('appState.app.layout.visibleComponents',false,this).indexOf('map') < 0 && this.mapShown === true) {
+      this.mapShown = false;
+      setTimeout(() => {
+        this.resizeViewer();
+      },100);
+    }
+
+    if (lang.getObject('appState.app.layout.visibleComponents',false,this) && lang.getObject('appState.app.layout.visibleComponents',false,this).indexOf('map') >= 0 && this.mapShown === false) {
+      this.mapShown = true;
+      setTimeout(() => {
+        this.resizeViewer();
+      },100);
     }
 
     if (this.layout !== currentLayout) {
