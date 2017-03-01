@@ -3,14 +3,9 @@
 }
 
 .modal {
-  display: flex;
-  display: -webkit-flex;
+  display: table;
   height: 100%;
   width: 100%;
-  justify-content: center;
-  -webkit-justify-content: space-around;
-  align-items: center;
-  -webkit-align-items: center;
 
   .vertical-align-helper {
     display: table-cell;
@@ -30,14 +25,6 @@
 
 .modal-backdrop {
   z-index: 0;
-}
-
-@media (min-width: 768px) {
-  .modal-dialog {
-    max-height: calc(100% - 20px);
-    overflow: auto;
-    margin: 0;
-  }
 }
 
 @media (max-width: 767px) {
