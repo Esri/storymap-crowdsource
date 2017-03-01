@@ -37,7 +37,6 @@
     "no-underscore-dangle": 0,
     "no-unused-vars": [1, {"vars": "local", "args": "all"}],
     "prefer-arrow-callback": 2,
-    "quote-props": [2, "consistent-as-needed", { "keywords": true }],
     "semi": 2,
     "semi-spacing": [2, {"before": false, "after": true}],
     "sort-vars": [2, { "ignoreCase": true }],
