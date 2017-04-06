@@ -198,6 +198,3 @@ Some open-source components of this project are licensed under other License ter
 | URI |	MIT |
 | AutolinkerJS |	MIT |
 | xss |	MIT |
-
-[](Esri Tags: Storytelling StoryMapCrowdsource ArcGIS-Online Template)
-[](Esri Language: JavaScript)
