@@ -53,6 +53,22 @@ export default class Photo extends FormGroup {
       'alert-info': this.state.dragging
     }]);
 
+    const cameraCapture = function cameraCapture() {
+      if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
+        const v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        const vArray = [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+
+        if (vArray[0] < 10) {
+          return true;
+        } else if (vArray[0] === 10 && vArray[1] < 3) {
+          return true;
+        }
+
+        return false;
+      }
+    };
+
     const fileUploader = (
         <div>
         {!this.isMobileDevice && 'draggable' in document.createElement('span') && typeof(window.FileReader) !== 'undefined' ? (
@@ -70,7 +86,7 @@ export default class Photo extends FormGroup {
         ) : (
           <button type="button" className="uploader btn btn-default btn-file btn-block" onBlur={this.onBlur}>
             {ViewerText.contribute.form.photo.choosePhoto}
-            <input id={this.props.id} type="file" accept="image/*" capture={navigator.userAgent.match(/iPad|iPhone|iPod/g) ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
+            <input id={this.props.id} type="file" accept="image/*" capture={cameraCapture() ? 'camera' : false} tabIndex="-1" onChange={this.fileChange}></input>
           </button>
         )}
         { this.state.loadingPhoto ? (
