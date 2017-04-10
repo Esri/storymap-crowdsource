@@ -31,7 +31,7 @@
     "bourbon": "~4.2.6",
     "resample-hermite": "https://github.com/viliusle/Hermite-resize/archive/ede593b94d8fc9a33141229dc72fd334c7563baf.zip",
     "smartcrop": "*",
-    "autosize": "^3.0.15",
+    "autosize": "3.0.17",
     "clipboard": "^1.5.15",
     "urijs": "^1.18.0",
     "Autolinker.js": "^0.26.0",
