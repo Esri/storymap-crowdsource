@@ -3,7 +3,6 @@
 <head>
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
   <meta name="fragment" content="!">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -116,7 +115,7 @@
   <script type="text/javascript">
     var app = {
       version: '{{ versionStr }}',
-      pathJSAPI: '//js.arcgis.com/3.20/'
+      pathJSAPI: '//jsdev.arcgis.com/3.21/'
     };
   </script>
   <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>
