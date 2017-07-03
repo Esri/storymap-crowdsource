@@ -386,12 +386,6 @@ export default class Photo extends FormGroup {
       const originalHeight = settings.optimizedPhotoCanvas.height;
       const originalWidth = settings.optimizedPhotoCanvas.width;
       const originalAspectRatio = originalHeight / originalWidth;
-      const resizeCanvas = document.createElement('canvas');
-      const resizeContext = resizeCanvas.getContext('2d');
-
-      resizeCanvas.height = originalHeight;
-      resizeCanvas.width = originalWidth;
-      resizeContext.drawImage(settings.optimizedPhotoCanvas, 0, 0);
 
       const resizeOptions = {};
 
@@ -424,32 +418,19 @@ export default class Photo extends FormGroup {
         resizeOptions.resize = false;
       }
 
-      if (resizeOptions.resize && resizeOptions.smartcrop) {
-        const dfd = new Deferred();
-
-        window.resample_hermite(resizeCanvas,originalWidth,originalHeight,resizeOptions.width,resizeOptions.height);
-        SmartCrop.crop(resizeCanvas,{
-          width: settings.width,
-          height: settings.height
-        },(cropResult) => {
-          const thumbnailCanvas = document.createElement('canvas');
-          const thumbnailContext = thumbnailCanvas.getContext('2d');
-
-          thumbnailCanvas.width = settings.width;
-          thumbnailCanvas.height = settings.height;
-          thumbnailContext.drawImage(resizeCanvas, cropResult.topCrop.x, cropResult.topCrop.y, settings.width, settings.height, 0, 0, settings.width, settings.height);
-
-          dfd.resolve({
-            ext: imageType.ext,
-            source: thumbnailCanvas.toDataURL(imageType.dataUrlStr,settings.quality)
-          });
+      if (resizeOptions.resize) {
+        // window.resample_hermite(resizeCanvas,originalWidth,originalHeight,resizeOptions.width,resizeOptions.height);
+        const resizeCanvas = loadImage.scale(settings.rawPhotoCanvas,{
+          maxWidth: resizeOptions.width,
+          maxHeight: resizeOptions.height,
+          minWidth: resizeOptions.width,
+          minHeight: resizeOptions.height,
+          canvas: true
         });
-        return dfd;
-      } else if (resizeOptions.resize) {
-        window.resample_hermite(resizeCanvas,originalWidth,originalHeight,resizeOptions.width,resizeOptions.height);
+
         return {
           ext: imageType.ext,
-          source: resizeCanvas.toDataURL(imageType.dataUrlStr,settings.quality)
+          source: resizeCanvas.toDataURL(imageType.dataUrlStr, settings.quality)
         };
       } else if (resizeOptions.resize === false) {
         return {

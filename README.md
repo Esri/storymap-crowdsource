@@ -11,7 +11,7 @@ The Story Map Crowdsource℠ app enables you to publish and manage a crowdsource
 [Crowdsource page on Esri Story Maps website](https://links.esri.com/storymaps/crowdsource-app)
 
 
-**Latest release is version 0.5.0**, if you want to be informed of new releases, we recommend you to watch this repository ([see GitHub help](https://help.github.com/articles/watching-repositories)). See the [release page](https://github.com/Esri/story-map-crowdsource/releases) for release notes.
+**Latest release is version 0.5.1**, if you want to be informed of new releases, we recommend you to watch this repository ([see GitHub help](https://help.github.com/articles/watching-repositories)). See the [release page](https://github.com/Esri/story-map-crowdsource/releases) for release notes.
 
 For more information about using and customizing Esri's Storytelling Apps follow the [Story Maps Developers' Corner](https://developerscorner.storymaps.arcgis.com).
 
