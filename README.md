@@ -182,6 +182,7 @@ Some open-source components of this project are licensed under other License ter
 | --------------------- | --------- |
 | Bootstrap (Sass) |	MIT |
 | EventEmitter |	Public Domain |
+| React |	[BSD with Patent Grant](https://github.com/facebook/react#license) |
 | Redux |	MIT |
 | React Redux |	MIT |
 | RequireJS i18n |	BSD and MIT |
@@ -191,8 +192,7 @@ Some open-source components of this project are licensed under other License ter
 | Bourbon |	MIT |
 | CropperJS |	MIT |
 | Loader |	MIT |
-| SmartCrop JS |	MIT |
-| Resample Hermite |	MIT |
+| Javascript Load Image |	MIT |
 | Autosize |	MIT |
 | Clipboard JS |	MIT |
 | URI |	MIT |
