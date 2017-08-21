@@ -311,7 +311,7 @@ const mapStateToProps = (state) => {
         includeLink: state.items.app.data.values.settings.components.common.sharing.services.link,
         includeFacebook: state.items.app.data.values.settings.components.common.sharing.services.facebook,
         includeTwitter: state.items.app.data.values.settings.components.common.sharing.services.twitter,
-        twitterText: state.items.app.data.values.settings.components.common.sharing.twitter.text.length > 0 ? state.items.app.data.values.settings.components.common.sharing.twitter.text : (state.items.app.data.values.settings.components.intro.title + ' #storymap'),
+        twitterText: state.items.app.data.values.settings.components.common.sharing.twitter.text.length > 0 ? state.items.app.data.values.settings.components.common.sharing.twitter.text : (state.items.app.data.values.settings.components.intro.title + ' #StoryMaps'),
         twitterRelated: state.items.app.data.values.settings.components.common.sharing.twitter.related
       },
       introSplashSettings: {

@@ -602,7 +602,7 @@ const mapStateToProps = (state) => {
         facebook: state.config.FACEBOOK_APP_ID
       },
       twitter: {
-        text: state.items.app.data.values.settings.components.common.sharing.twitter.text.length > 0 ? state.items.app.data.values.settings.components.common.sharing.twitter.text : (state.items.app.data.values.settings.components.intro.title + ' #storymap'),
+        text: state.items.app.data.values.settings.components.common.sharing.twitter.text.length > 0 ? state.items.app.data.values.settings.components.common.sharing.twitter.text : (state.items.app.data.values.settings.components.intro.title + ' #StoryMaps'),
         related: state.items.app.data.values.settings.components.common.sharing.twitter.related
       }
     },
