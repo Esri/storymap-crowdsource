@@ -140,6 +140,11 @@ Portal.prototype.createService = function (options) {
     const dfd = new Deferred();
     let url = createResponse.serviceurl.stripTrailingSlash() + '/addToDefinition';
 
+    const hostname = new URI(url).hostname();
+
+    // Whitelist hostname for CORS.
+    window.esri.config.defaults.io.corsEnabledServers = window.esri.config.defaults.io.corsEnabledServers.concat(hostname);
+
     response.crowdsourceLayerUrl = createResponse.serviceurl + '/0';
     response.crowdsourceLayerItemId = createResponse.itemId;
 
