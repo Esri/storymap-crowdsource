@@ -287,6 +287,7 @@ Portal.prototype.saveApp = function (options) {
 	delete settings.item.numRatings;
 	delete settings.item.numViews;
 	delete settings.item.size;
+  delete settings.item.serviceProxyParams;
 
   // TODO add serviceproxyparams
 
