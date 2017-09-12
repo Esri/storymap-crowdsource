@@ -447,7 +447,7 @@ define({
       arcgis: {
         naming: {
           arcgisItemName: 'The <% attribute %> must not contain < or >.',
-          arcgisServiceNameFormat: 'The <% attribute %> must contain only contain Basic Latin alphabet letters, numbers, and underscores and cannot begin with a number.'
+          arcgisServiceNameFormat: 'The <% attribute %> must contain only Basic Latin alphabet letters, numbers, and underscores and cannot begin with a number.'
         },
         portal: {
           unableToCheckName: 'Unable to check if the name is available. Please try again.',
