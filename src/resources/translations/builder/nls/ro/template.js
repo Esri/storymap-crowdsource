@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> nu trebuie să conţină < sau >.",
-        "arcgisServiceNameFormat": "<% attribute %> trebuie să conţină doar litere, cifre, caractere de subliniere şi nu poate începe cu o cifră."
+        "arcgisServiceNameFormat": "<% attribute %> trebuie să conţină doar litere ale alfabetului latin de bază, cifre, caractere de subliniere şi nu poate începe cu o cifră."
       },
       "portal": {
         "unableToCheckName": "Nu s-a putut verifica disponibilitatea numelui. Vă rugăm ă încercaţi din nou.",

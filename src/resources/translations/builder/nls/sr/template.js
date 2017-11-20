@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% atribut %> ne sme da sadrži <ili >.",
-        "arcgisServiceNameFormat": "<% atribut %> mora da sadrži samo slova, brojeve i podvlake i ne može da počinje sa brojem."
+        "arcgisServiceNameFormat": "<% atribut %> mora da sadrži samo osnovna slova latinskog alfabeta, brojeve i donje crte i ne može da počinje brojem."
       },
       "portal": {
         "unableToCheckName": "Provera dostupnosti imena nije moguća. Pokušajte ponovo.",

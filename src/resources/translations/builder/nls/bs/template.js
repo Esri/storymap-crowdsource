@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% Atribut %> ne smije sadržavati < ili >.",
-        "arcgisServiceNameFormat": "<% Atribut %> mora sadržavati samo slova, brojeve i podvlake te ne može započeti brojem."
+        "arcgisServiceNameFormat": "<% Atribut %> mora sadržavati samo osnovna latinična slova abecede, brojeve i podvlake te ne može započeti brojem."
       },
       "portal": {
         "unableToCheckName": "Nije moguće provjeriti dostupnost naziva. Pokušajte ponovo.",

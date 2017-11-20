@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "Atribute <% attribute %> negali būti < arba >.",
-        "arcgisServiceNameFormat": "Atributą <% attribute %> turi sudaryti tik raidės, skaičiai ir pabraukimo ženklai, jis taip pat negali prasidėti skaičiumi."
+        "arcgisServiceNameFormat": "Atributą <% attribute %> turi sudaryti tik lotyniškos abėcėlės raidės, skaičiai ir pabraukimo ženklai, jis taip pat negali prasidėti skaičiumi."
       },
       "portal": {
         "unableToCheckName": "Nepavyksta patikrinti, ar pavadinimas galimas. Bandykite dar kartą.",

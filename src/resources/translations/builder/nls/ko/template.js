@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %>에는 < 또는 >이(가) 포함되지 않아야 합니다.",
-        "arcgisServiceNameFormat": "<% attribute %>에는 문자, 숫자, 밑줄만 포함될 수 있으며 숫자로 시작될 수 없습니다."
+        "arcgisServiceNameFormat": "<% attribute %>에는 기본 라틴어 알파벳 문자, 숫자, 밑줄만 포함될 수 있으며 숫자로 시작될 수 없습니다."
       },
       "portal": {
         "unableToCheckName": "사용 가능한 이름인지 확인할 수 없습니다. 다시 확인하세요.",

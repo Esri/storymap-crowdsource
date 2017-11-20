@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "Ominaisuustieto <% attribute %> ei saa sisältää kohdetta < tai >.",
-        "arcgisServiceNameFormat": "Ominaisuustieto <% attribute %> saa sisältää vain kirjaimia, numeroita ja alaviivoja, eikä se saa alkaa numerolla."
+        "arcgisServiceNameFormat": "Ominaisuustieto <% attribute %> saa sisältää vain latinalaisen perusmerkistön kirjaimia, numeroita ja alaviivoja, eikä se saa alkaa numerolla."
       },
       "portal": {
         "unableToCheckName": "Nimen käytettävyystarkistus ei onnistu. Yritä uudelleen.",

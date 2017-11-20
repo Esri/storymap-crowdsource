@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> peab sisaldama väärtust < või väärtust >.",
-        "arcgisServiceNameFormat": "<% attribute %> peab sisaldama ainult tähti, numbreid ja allakriipsutusi ning see ei tohi alata numbriga."
+        "arcgisServiceNameFormat": "Üksuse <% atribuut %> peab sisaldama ainult ladina tähti, numbreid ja allkriipse ning see ei tohi alata numbriga."
       },
       "portal": {
         "unableToCheckName": "Nime saadavust ei saa kontrollida. Proovige uuesti.",

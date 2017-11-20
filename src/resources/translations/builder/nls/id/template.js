@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> tidak boleh mengandung < atau >.",
-        "arcgisServiceNameFormat": "<% attribute %> harus mengandung hanya huruf, angka, dan garis bawah dan tidak boleh diawali dengan angka."
+        "arcgisServiceNameFormat": "<% attribute %> hanya boleh berisi huruf alfabet Latin Dasar, angka, dan garis bawah serta tidak boleh diawali dengan angka."
       },
       "portal": {
         "unableToCheckName": "Tidak dapat memeriksa apakah nama tersedia. Harap coba lagi.",
