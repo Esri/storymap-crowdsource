@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% Attributten %> må ikke indeholde < eller >.",
-        "arcgisServiceNameFormat": "<% Attributten %> må kun indeholde bogstaver, tal og understregningstegn, og den kan ikke begynde med et tal."
+        "arcgisServiceNameFormat": "<% Attributten %> må kun indeholde grundlæggende latinske bogstaver, tal og understregningstegn, og den kan ikke begynde med et tal."
       },
       "portal": {
         "unableToCheckName": "Kunne ikke kontrollere, om navnet er ledigt. Prøv igen.",

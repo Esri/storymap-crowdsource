@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> içinde < veya > bulunamaz.",
-        "arcgisServiceNameFormat": "<% attribute %> yalnızca harf, rakam ve alt çizgi içerebilir ve bir rakamla başlayamaz."
+        "arcgisServiceNameFormat": "<% özniteliği %> yalnızca Temel Latin alfabesi harfleri, rakam ve alt çizgi içerebilir ve rakamla başlayamaz."
       },
       "portal": {
         "unableToCheckName": "Adın kullanılabilir olup olmadığı denetlenemiyor. Yeniden deneyin.",

@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> 不可包含 < 或 >。",
-        "arcgisServiceNameFormat": "<% attribute %> 只能包含字母、數字和底線，且開頭不可是數字。"
+        "arcgisServiceNameFormat": "<% attribute %> 只能包含基本的拉丁字母字元、數字和底線，且開頭不可是數字。"
       },
       "portal": {
         "unableToCheckName": "無法檢查名稱是否可用。請再試一次。",

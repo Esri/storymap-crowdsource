@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "Atribūtā <% attribute %> nedrīkst būt <vai >.",
-        "arcgisServiceNameFormat": "<% attribute %> drīkst saturēt tikai burtus, skaitļus un pasvītrojuma simbolus, bet nedrīkst sākties ar skaitli."
+        "arcgisServiceNameFormat": "<% attribute %> drīkst saturēt tikai latīņu alfabēta pamatburtus, skaitļus un pasvītrojuma simbolus, bet nedrīkst sākties ar skaitli."
       },
       "portal": {
         "unableToCheckName": "Nevar pārbaudīt, vai nosaukums ir pieejams. Mēģiniet vēlreiz.",

@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "Atrybut <% attribute %> nie może zawierać znaków < ani >.",
-        "arcgisServiceNameFormat": "Atrybut <% attribute %> może zawierać tylko litery, cyfry i znaki podkreślenia oraz nie może rozpoczynać się cyfrą."
+        "arcgisServiceNameFormat": "<% Atrybut %> może zawierać jedynie litery podstawowego alfabetu łacińskiego, cyfry i znaki podkreślenia oraz nie może zaczynać się od cyfry."
       },
       "portal": {
         "unableToCheckName": "Nie można sprawdzić dostępności nazwy. Spróbuj ponownie.",

@@ -139,8 +139,8 @@ define({
       "s3": {
         "title": "Bijdragen beoordelen",
         "paragraphs": {
-          "p1": "Het tonen van bijdragen op de kaart direct nadat ze zijn ingediend, is de beste manier om uw bijdragers aan te moedigen en te belonen. Als u zich echter zorgen maakt over aanstootgevende inhoud of u wilt de bijdragen controleren en selecteren wat wordt weergegeven, dan kunt u ervoor kiezen om de inzendingen eerst te beoordelen en goed te keuren.",
-          "p2": "Om te voorkomen dat inhoud op de kaart wordt weergegeven voordat het is beoordeeld, gaat u naar <% instellingen %> > <% bijdragen %> en kiest u voor <% afterReview %>. Bij gebruik van deze optie worden nieuwe foto's alleen zichtbaar voor u totdat u ze goedkeurt voor weergave op de kaart.",
+          "p1": "Het tonen van bijdragen op de kaart direct nadat ze zijn ingediend, is de beste manier om uw bijdragers aan te moedigen en te belonen. Als u zich echter zorgen maakt over aanstootgevende content of u wilt de bijdragen controleren en selecteren wat wordt weergegeven, dan kunt u ervoor kiezen om de inzendingen eerst te beoordelen en goed te keuren.",
+          "p2": "Om te voorkomen dat content op de kaart wordt weergegeven voordat het is beoordeeld, gaat u naar <% instellingen %> > <% bijdragen %> en kiest u voor <% afterReview %>. Bij gebruik van deze optie worden nieuwe foto's alleen zichtbaar voor u totdat u ze goedkeurt voor weergave op de kaart.",
           "p3": "Om nieuwe bijdragen te beoordelen gaat u naar de kaart in Crowdsource Builder en selecteert u <% newContributions %> in de Builder-werkbalk. Klik vervolgens op de kaart om een ​​bijdrage te bekijken en kies <% goedkeuren %> of <% afkeuren %>.",
           "p4": "U kunt wijzigen welke bijdragen op de kaart worden getoond op de kaart door te kiezen voor Alles, Nieuw, Goedgekeurd of Afgekeurd in de <% beoordeling %> filter in de werkbalk Builder. Het is mogelijk om uw beslissing over een eventuele bijdrage te wijzigen door te klikken op de kaart en de status van goedkeuring bij te werken."
         },
@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "Het <% attribuut %> mag niet < of > bevatten.",
-        "arcgisServiceNameFormat": "Het <% attribuut %> mag alleen letters, getallen en underscores bevatten en mag niet beginnen met een getal."
+        "arcgisServiceNameFormat": "Het <% attribuut %> mag alleen Basic Latin-alfabetletters, getallen en underscores bevatten en mag niet beginnen met een getal."
       },
       "portal": {
         "unableToCheckName": "Kan niet controleren of de naam beschikbaar is. Probeer het nogmaals.",

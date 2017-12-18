@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "O <% attribute %> não pode conter < ou >.",
-        "arcgisServiceNameFormat": "O <% attribute %> tem de conter apenas letras, números e traços inferiores e não pode ter um número em primeiro lugar."
+        "arcgisServiceNameFormat": "O <% attribute %> tem de conter apenas letras do alfabeto Básico Latino, números e traços inferiores, e não pode ter um número em primeiro lugar."
       },
       "portal": {
         "unableToCheckName": "Não foi possível verificar se o nome se encontra disponível. Por favor, tente novamente.",

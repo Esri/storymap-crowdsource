@@ -222,7 +222,7 @@ define({
   "settings": {
     "title": "設定",
     "buttons": {
-      "backTo": "戻る："
+      "backTo": "戻る:"
     },
     "messages": {
       "uploading": "アップロードしています"
@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> に < または > を含めることはできません。",
-        "arcgisServiceNameFormat": "<% attribute %> には、半角の英数字またはアンダースコアのみを含めることができ、数字で開始することはできません。"
+        "arcgisServiceNameFormat": "<% attribute %> には、基本的なラテン アルファベット文字、数字、またはアンダースコアのみを含めることができ、数字で開始することはできません。"
       },
       "portal": {
         "unableToCheckName": "この名前が使用できるかどうかを確認できません。もう一度やり直してください。",
