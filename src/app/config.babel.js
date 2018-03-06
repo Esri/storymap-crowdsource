@@ -1,7 +1,7 @@
 window.app.cfg = {
 	BITLY_API_KEY: {
-		login: 'esristorymaps',
-		key: 'R_14fc9f92e48f7c78c21db32bd01f7014'
+		login: '',
+		key: ''
 	},
 	// The Facebook ID is only valid on arcgis.com domain
 	// If used on another domain, user will have an error in the Facebook popup after login

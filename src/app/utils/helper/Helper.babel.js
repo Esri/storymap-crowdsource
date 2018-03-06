@@ -52,7 +52,7 @@ const classnames = function classnames() {
 const getSharingUrl = function getSharingUrl() {
   if (window.location.href.match('localhost')) {
     _onError(viewerText.errors.sharing.localhost);
-    return 'http://www.example.com';
+    return 'https://www.example.com';
   } else {
     const url = new URI(window.location.href);
 

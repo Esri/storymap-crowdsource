@@ -79,21 +79,37 @@ export default class ShareLink extends React.Component {
 
   getShortLink() {
     const self = this;
-    const bitlyRequestUrl = 'https://api-ssl.bitly.com/v3/shorten?callback=?';
 
-    $.getJSON(bitlyRequestUrl,{
-      format: 'json',
-			apiKey: this.props.sharing.appIds.bitly.key,
-			login: this.props.sharing.appIds.bitly.login,
-			longUrl: this.link
-    },(res) => {
-      if (res.data && res.data.url) {
-        self.shortLink = res.data.url;
-        self.setState({
-          shareUrl: self.shortLink
-        });
-      }
-    });
+    if (this.props.sharing.appIds.bitly.key.length > 0 && this.props.sharing.appIds.bitly.login.length > 0) {
+      const bitlyRequestUrl = 'https://api-ssl.bitly.com/v3/shorten?callback=?';
+
+      $.getJSON(bitlyRequestUrl,{
+        format: 'json',
+        apiKey: this.props.sharing.appIds.bitly.key,
+        login: this.props.sharing.appIds.bitly.login,
+        longUrl: this.link
+      },(res) => {
+        if (res.data && res.data.url) {
+          self.shortLink = res.data.url;
+          self.setState({
+            shareUrl: self.shortLink
+          });
+        }
+      });
+    } else {
+      const arcgisShortenerURl = 'https://arcg.is/prod/shorten?callback=?';
+
+      $.getJSON(arcgisShortenerURl,{
+        longUrl: this.link
+      },(res) => {
+        if (res.data && res.data.url) {
+          self.shortLink = res.data.url;
+          self.setState({
+            shareUrl: self.shortLink
+          });
+        }
+      });
+    }
 
     return this.link;
   }
