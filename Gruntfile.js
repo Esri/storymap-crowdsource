@@ -374,7 +374,7 @@ module.exports = function (grunt) {
         + 'This application is released under the Apache License V2.0 by Esri http://www.esri.com/ - '
         + 'https://github.com/Esri/crowdsource-storytelling-template-js */',
         mangle: {
-          except: ['define','require']
+          reserved: ['define','require']
         }
       },
       distConfig: {
