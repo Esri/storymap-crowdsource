@@ -4,6 +4,7 @@
 /*eslint prefer-arrow-callback: 0*/
 var Path = require('path');
 var Config = require('./config/');
+var ejs = require('ejs');
 
 module.exports = function (grunt) {
 
@@ -350,23 +351,6 @@ module.exports = function (grunt) {
       }
     },
 
-    swig: {
-      dev: {
-        options: {
-          data: configDev
-        },
-        dest: 'build/index.html',
-        src: [ 'src/index.swig' ]
-      },
-      dist: {
-        options: {
-          data: configDist
-        },
-        dest: 'dist/index.html',
-        src: [ 'src/index.swig' ]
-      }
-    },
-
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - '
@@ -409,9 +393,9 @@ module.exports = function (grunt) {
         files: ['src/resources/fonts/google/**/*.scss'],
         tasks: ['babelAndAppend']
       },
-      swig: {
-        files: [ 'src/*.swig' ],
-        tasks: [ 'swig:dev' ]
+      ejs: {
+        files: [ 'src/*.ejs' ],
+        tasks: [ 'ejsTemplateDev' ]
       },
       otherFiles: {
         files: ['.rebooted', 'src/app/**/*.html']
@@ -446,6 +430,26 @@ module.exports = function (grunt) {
     grunt.file.write(fontImportFile,importString);
   });
 
+  grunt.registerTask('ejsTemplateDev', 'Complile html from ejs templates', function() {
+    var src = 'src/index.ejs';
+    var dest = 'build/index.html';
+    var config = configDev;
+    var string = grunt.file.read(src);
+    var templatedString = ejs.render(string,config);
+
+    grunt.file.write(dest,templatedString);
+  });
+
+  grunt.registerTask('ejsTemplateDist', 'Complile html from ejs templates', function() {
+    var src = 'src/index.ejs';
+    var dest = 'dist/index.html';
+    var config = configDist;
+    var string = grunt.file.read(src);
+    var templatedString = ejs.render(string,config);
+
+    grunt.file.write(dest,templatedString);
+  });
+
   // Grunt tasks
   grunt.registerTask('default', [
     'eslint',
@@ -453,7 +457,7 @@ module.exports = function (grunt) {
     'clean:fontsSrc',
     'googlefonts',
     'concatFontStyle',
-    'swig:dev',
+    'ejsTemplateDev',
     'babelAndAppend',
     'sass:dev',
     'open:dev',
@@ -468,7 +472,7 @@ module.exports = function (grunt) {
     'concatFontStyle',
     'copy:resources',
     'copy:oauthCallback',
-    'swig:dist',
+    'ejsTemplateDist',
     'htmlmin:dist',
     'regex-replace:distHtml',
     'sass:dist',

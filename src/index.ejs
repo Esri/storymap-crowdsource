@@ -114,12 +114,12 @@
 
   <script type="text/javascript">
     var app = {
-      version: '{{ versionStr }}',
+      version: '<%= versionStr %>',
       pathJSAPI: 'https://js.arcgis.com/3.23/'
     };
   </script>
-  <script type="text/javascript" src="{{ pathMods.resourcePath }}app/main-config{{ pathMods.minPath }}.js"></script>
-  {% if environment === 'dev' %}<script src="//localhost:8888/livereload.js"></script>{% endif %}
+  <script type="text/javascript" src="<%= pathMods.resourcePath %>app/main-config<%= pathMods.minPath %>.js"></script>
+  <% if (environment === 'dev') { %><script src="//localhost:8888/livereload.js"></script><% } %>
 
 </body>
 </html>
