@@ -30,7 +30,7 @@ define({
     }
   },
   "header": {
-    "participateBtnDisabledTooltip": "Zapri ploščo nastavitev za omogočanje"
+    "participateBtnDisabledTooltip": "Zapri ploščo nastavitev omogočanja"
   },
   "introSplash": {
     "form": {
@@ -121,7 +121,7 @@ define({
         "title": "Konfiguracija",
         "paragraphs": {
           "p1": "Da ustvarite svojo edinstveno karto z zgodbo Crowdsource, uporabite možnost konfiguracije graditelja. Kliknite <% settings %> v orodni vrstici graditelja, da spremenite naslovno sliko, ime, logotip in možnosti deljenja ter drugo.",
-          "p2": "Da določite geografsko območje, ki ga bodo videli vaši udeleženci, ko naložite svojo zgodbo, se premikajte po karti in povečajte prikaz na želeni lokaciji, nato pa kliknite moder gumb <% saveHomeLocation %> zraven ukazov za navigacijo po karti.",
+          "p2": "Da določite geografsko območje, ki ga bodo videli vaši udeleženci, ko naložite svojo zgodbo, se pomikajte po karti in povečajte prikaz na želeni lokaciji, nato pa kliknite moder gumb <% saveHomeLocation %> zraven ukazov za navigacijo po karti.",
           "p3": "Spremembe konfiguracije so <% autosaved %>, ko jih naredite. Spremembe v besedilnih poljih lahko razveljavite z gumbom brskalnika za razveljavitev.",
           "p4": "V tej beta izdaji so avtorji omejeni na preprost obrazec. V prihodnjih izdajah bomo vključili graditelja obrazcev, ki vam bo omogočil urejanje vprašanj za sodelujoče. Dotlej lahko spreminjate napise obrazca s tem obrazcem  <% formEditBlog %>.",
           "p5": "Namig: Za vrnitev s karte na <% coverPage %>, kliknite naslovno vrstico."
@@ -182,7 +182,7 @@ define({
           },
           "q3": {
             "question": "Ali lahko svoji zgodbi s karto Crowdsource dodajam druge sloje?",
-            "response": "Da, zaradi konteksta lahko na karto dodajate tudi druge sloje, vendar prej preberite prejšnja vprašanja, ki vsebujejo pomembne informacije o beta izdaji karte z zgodbo Crowdsource. Odprite <% map %> svoje zgodbe, dodajte sloje in/ali spremenite temeljno karto ter shranite svoje spremembe. Naslednjič ko naložite svojo zgodbo, boste videli nove sloje. Pazite, da ne izbrišete ali spremenite slojev prispevkov na karti, sicer vaša zgodba Crowdsource morda ne bo delovala pravilno."
+            "response": "Da, zaradi konteksta lahko na karto dodajate tudi druge sloje, vendar prej preberite prejšnja vprašanja, ki vsebujejo pomembne informacije o beta izdaji karte z zgodbo Crowdsource. Odprite <% karto %> svoje zgodbe, dodajte sloje in/ali spremenite temeljno karto ter shranite svoje spremembe. Naslednjič ko naložite svojo zgodbo, boste videli nove sloje. Pazite, da ne izbrišete ali spremenite slojev prispevkov na karti, sicer vaša zgodba Crowdsource morda ne bo delovala pravilno."
           },
           "q4": {
             "question": "Kje so shranjene fotografije?",
@@ -445,7 +445,7 @@ define({
     "arcgis": {
       "naming": {
         "arcgisItemName": "<% attribute %> ne sme vsebovati < ali >.",
-        "arcgisServiceNameFormat": "<% Atribut %> mora vsebovati le osnovne latinične črke, številke in podčrtaje ter ne sme imeti na začetku številke."
+        "arcgisServiceNameFormat": "<% attribute %> mora vsebovati le osnovne latinične črke, številke in podčrtaje ter ne sme imeti na začetku številke."
       },
       "portal": {
         "unableToCheckName": "Ni mogoče preveriti, ali je ime na voljo. Poskusite znova.",

@@ -103,7 +103,7 @@ define({
       "location": {
         "gettingLocation": "Iskanje",
         "locate": "Najdi me",
-        "findOnMap": "Poišči na karti",
+        "findOnMap": "Najdi na karti",
         "findOnMapTooltip": "Kliknite na karto ali povlecite to točko za natančnejšo določitev svoje lokacije.",
         "saveLocation": "Shrani lokacijo",
         "search": "Išči",
