@@ -32,7 +32,7 @@
     "grunt-nodemon": "^0.4.0",
     "grunt-open": "^0.2.3",
     "grunt-regex-replace": "^0.2.6",
-    "grunt-sass": "^1.2.1",
+    "grunt-sass": "^2.1.0",
     "hapi": "^13.0.0",
     "hoek": "^2.14.0",
     "inert": "^3.0.1",
