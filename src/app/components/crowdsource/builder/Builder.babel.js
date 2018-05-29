@@ -208,6 +208,7 @@ class Builder extends React.Component {
             {Object.keys(builderText.betaMessage.messageParagraphs).map((current) => {
               return <p key={current.slice(0,10).toCamelCase()}>{builderText.betaMessage.messageParagraphs[current]}</p>;
             })}
+            <a href="https://links.esri.com/storymaps/crowdsource_mature_faq">{builderText.betaMessage.link}</a>
           </div>
         ),
         footer: continueButton

@@ -2,12 +2,12 @@ define({
   'root': ({
     // TODO Remove after beta
     betaMessage: {
-      title: 'This is a beta release of Story Map Crowdsource',
+      title: 'Story Map Crowdsource is in mature support',
       messageParagraphs: {
-        p1: 'This version of Story Map Crowdsource has its core features completed and is stable. It is being made available as a beta release so the Story Maps Team can collect and incorporate feedback from you, the Esri community, prior to its initial release.',
-        p2: 'Stories created with this beta version will continue to work with later releases unless you modify it or one of its components outside the Builder.',
-        p3: 'Please read the Help for more information on how to use this app and where to submit feedback.'
-      }
+        p1: 'As of June 2018, the Story Map Crowdsource app template has been moved to the mature support phase of the Esri Product Lifecycle.',
+        p2: 'Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break.'
+      },
+      link: 'Please see this FAQ on the Story Maps website for more information.'
     },
     common: {
       appNameAppend: 'Builder',
