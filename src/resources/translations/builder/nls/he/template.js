@@ -56,7 +56,7 @@ define({
     }
   },
   "contribute": {
-    "defaultTitle": "הוסף לתרומה שלך",
+    "defaultTitle": "הוסף תמונה",
     "defaultForm": {
       "name": {
         "label": "כותרת",
