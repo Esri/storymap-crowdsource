@@ -7,7 +7,7 @@ define({
         p1: 'As of June 2018, the Story Map Crowdsource app template has been moved to the mature support phase of the Esri Product Lifecycle.',
         p2: 'Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break.'
       },
-      link: 'Please see this FAQ on the Story Maps website for more information.'
+      link: 'Read the FAQ on the Story Maps website for more information.'
     },
     common: {
       appNameAppend: 'Builder',

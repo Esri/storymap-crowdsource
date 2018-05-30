@@ -18,6 +18,10 @@
     display: none;
   }
 
+  .modal-body {
+    padding: 15px 30px;
+  }
+
   .modal-content:hover .close-button-wrapper{
     display: block;
   }
