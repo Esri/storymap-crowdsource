@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Ini adalah rilis beta Story Map Crowdsource",
+    "title": "ng_Story Map Crowdsource is in mature support______________ny",
     "messageParagraphs": {
-      "p1": "Versi Story Map Crowdsource ini memiliki fitur utama yang sudah lengkap dan stabil. Versi ini disediakan dalam rilis beta sehingga Tim Peta Cerita dapat mengumpulkan dan memadukan umpan balik dari Anda, komunitas Esri, sebelum rilis awal.",
-      "p2": "Cerita yang dibuat dengan versi beta ini akan tetap berfungsi dengan rilis berikutnya kecuali jika Anda memodifikasinya atau salah satu komponennya di luar Builder.",
-      "p3": "Harap baca Bantuan untuk informasi selengkapnya mengenai cara menggunakan aplikasi ini dan tempat mengirim umpan balik."
-    }
+      "p1": "ng_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ny.",
+      "p2": "ng_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ny."
+    },
+    "link": "ng_Read the FAQ on the Story Maps website for more information___________________ny."
   },
   "common": {
     "appNameAppend": "Penyusun",

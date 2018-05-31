@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Story Map Crowdsource 베타 릴리스입니다.",
+    "title": "한_Story Map Crowdsource is in mature support______________빠",
     "messageParagraphs": {
-      "p1": "이 버전의 Story Map Crowdsource에서는 핵심 기능이 완성되어 안정적으로 작동됩니다. 이 앱은 베타 릴리스로 제공되므로 초기 릴리스에 앞서 스토리 맵 팀이 Esri 커뮤니티의 피드백을 수집하여 앱에 포함시킬 수 있습니다.",
-      "p2": "이 베타 버전으로 생성된 스토리는 빌더 외부에서 스토리 또는 해당 컴포넌트 중 하나를 수정하지 않는 한 이후 릴리스에서도 계속 사용할 수 있습니다.",
-      "p3": "이 앱을 사용하는 방법과 피드백 제출 위치에 대한 자세한 내용은 도움말을 참고하세요."
-    }
+      "p1": "한_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________빠.",
+      "p2": "한_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________빠."
+    },
+    "link": "한_Read the FAQ on the Story Maps website for more information___________________빠."
   },
   "common": {
     "appNameAppend": "빌더",

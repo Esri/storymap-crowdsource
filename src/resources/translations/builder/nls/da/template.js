@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Dette er en betaversion af Story Map Crowdsource",
+    "title": "ø_Story Map Crowdsource is in mature support______________å",
     "messageParagraphs": {
-      "p1": "Denne version af Story Map Crowdsource er forsynet med sine grundlæggende funktioner, og programmet er stabilt. Det stilles til rådighed som betaversion, så Story Maps-teamet kan indsamle og inkorporere feedback fra dig og Esri-fællesskabet før programmets første frigivelse.",
-      "p2": "De historier, der skabes ved hjælp af denne betaversion, vil også fungere sammen med senere versioner, medmindre du redigerer den eller en af dens komponenter uden for builder-programmet.",
-      "p3": "Læs Hjælp for at få yderligere oplysninger om, hvordan du skal bruge denne app, og hvortil du skal sende feedback."
-    }
+      "p1": "ø_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________å.",
+      "p2": "ø_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________å."
+    },
+    "link": "ø_Read the FAQ on the Story Maps website for more information___________________å."
   },
   "common": {
     "appNameAppend": "Builder",

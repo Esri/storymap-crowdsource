@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Đây là phiên bản phát hành beta của Story Map Crowdsource",
+    "title": "Đ_Story Map Crowdsource is in mature support______________ớ",
     "messageParagraphs": {
-      "p1": "Phiên bản này của Story Map Crowdsource đã có các tính năng chính hoàn thiện và ổn định. Phiên bản đang được cung cấp làm phiên bản phát hành beta vì vậy Đội ngũ Story Maps có thể thu thập và tổng hợp ý kiến phản hồi từ bạn, từ cộng đồng Esri trước khi phát hành lần đầu.",
-      "p2": "Câu chuyện được tạo với phiên bản beta này sẽ tiếp tục sử dụng được với các phiên bản phát hành sau này trừ khi bạn sửa đổi toàn bộ hoặc một trong các thành phần của phiên bản ngoài Bộ thiết lập.",
-      "p3": "Vui lòng đọc Trợ giúp để biết thêm thông tin về cách sử dụng ứng dụng này và nơi gửi phản hồi."
-    }
+      "p1": "Đ_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ớ.",
+      "p2": "Đ_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ớ."
+    },
+    "link": "Đ_Read the FAQ on the Story Maps website for more information___________________ớ."
   },
   "common": {
     "appNameAppend": "Bộ thiết lập",

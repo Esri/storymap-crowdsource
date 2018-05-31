@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Bu, Story Map Crowdsource uygulamasının bir beta sürümüdür",
+    "title": "ı_Story Map Crowdsource is in mature support______________İ",
     "messageParagraphs": {
-      "p1": "Story Map Crowdsource uygulamasının bu sürümü tamamlanmış temel detaylara sahiptir ve kararlı durumdadır. Beta sürümü olarak kullanıma sunulmasının amacı Story Maps Ekibinin ilk sürümden önce sizden ve Esri topluluğundan alacağı geri bildirimleri uygulama olanağı elde etmesidir.",
-      "p2": "Bu beta sürümünde oluşturulan öyküler, Builder dışında bir veya birkaç bileşeni değiştirilmediği sürece daha sonraki sürümlerde de çalışmayı sürdürecektir.",
-      "p3": "Bu uygulamayı nasıl kullanacağınız ve geri bildiriminizi nereye göndereceğiniz hakkında daha fazla bilgi için Yardım bölümünü okuyun."
-    }
+      "p1": "ı_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________İ.",
+      "p2": "ı_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________İ."
+    },
+    "link": "ı_Read the FAQ on the Story Maps website for more information___________________İ."
   },
   "common": {
     "appNameAppend": "Builder",

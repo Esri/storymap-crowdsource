@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "นี่คือเบต้าของเรื่องราวแผนที่ crowdsource",
+    "title": "ก้_Story Map Crowdsource is in mature support______________ษฺ",
     "messageParagraphs": {
-      "p1": "เวอร์ชันของเรื่องราวแผนที่ crowdsource นี้ฟีเจอร์หลักของมันสมบูรณ์แบบและมีความเสถียรภาพ มันจะถูกทำให้ใช้ได้ในเวอร์ชันเบต้าเพื่อให้ทีมงานเรื่องราวแผนที่สามารถรวบรวมและนำความคิดเห็นจากคุณ, ชุมชน Esri, ก่อนที่จะปล่อยในเบื้องต้น",
-      "p2": "เรื่องราวที่สร้างขึ้นด้วยเวอร์ชันเบต้านี้จะยังคงทำงานร่วมกับเวอร์ชันต่อมาจนกว่าคุณจะแก้ไขได้หรือหนึ่งในส่วนประกอบที่นอกเหนือจากบิลเดอร์",
-      "p3": "กรุณาอ่านความช่วยเหลือสำหรับข้อมูลเพิ่มเติมเกี่ยวกับวิธีการใช้ app นี้และการที่จะส่งข้อเสนอแนะ"
-    }
+      "p1": "ก้_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ษฺ.",
+      "p2": "ก้_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ษฺ."
+    },
+    "link": "ก้_Read the FAQ on the Story Maps website for more information___________________ษฺ."
   },
   "common": {
     "appNameAppend": "ตัวสร้าง",

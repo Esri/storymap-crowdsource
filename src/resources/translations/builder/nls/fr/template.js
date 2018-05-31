@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Cette version de Story Map Crowdsource est une version bêta",
+    "title": "æ_Story Map Crowdsource is in mature support______________Â",
     "messageParagraphs": {
-      "p1": "Cette version de Story Map Crowdsource, qui est stable, possède un ensemble enrichi de fonctionnalités principales. Elle est disponible en version bêta afin que l’équipe Story Maps puisse recueillir le retour d'informations de votre part, la communauté Esri, et l’intégrer avant la version initiale.",
-      "p2": "Les récits créés avec cette version bêta continueront de fonctionner avec des versions ultérieures, si vous ne modifiez aucun de leurs composants en dehors du générateur.",
-      "p3": "Consultez l’Aide pour obtenir plus d'informations sur l’utilisation de cette application et la procédure d’envoi de commentaires."
-    }
+      "p1": "æ_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________Â.",
+      "p2": "æ_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________Â."
+    },
+    "link": "æ_Read the FAQ on the Story Maps website for more information___________________Â."
   },
   "common": {
     "appNameAppend": "Générateur",

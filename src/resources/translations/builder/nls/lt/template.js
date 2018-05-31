@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Tai yra visuomenės kuriamų žemėlapių pasakojimų beta leidimas",
+    "title": "Į_Story Map Crowdsource is in mature support______________š",
     "messageParagraphs": {
-      "p1": "Ši visuomenės kuriamų žemėlapių pasakojimų versija turi užbaigtą funkcionalumą. Ji sukurta kaip beta leidimas, kad žemėlapių pasakojimų komanda galėtų iš jūsų ir Esri bendruomenės surinkti atsiliepimus ir juos įtraukti iki pradinio leidimo.",
-      "p2": "Pasakojimai, sukurti naudojant šią betą versiją, veiks vėlesniuose leidimuose, nebent modifikuosite juos arba vieną iš jų komponentų už kūrimo priemonės ribų.",
-      "p3": "Daugiau informacijos, kaip naudoti šią aplikaciją ir kur pateikti atsiliepimus, rasite pagalbos skyrelyje."
-    }
+      "p1": "Į_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________š.",
+      "p2": "Į_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________š."
+    },
+    "link": "Į_Read the FAQ on the Story Maps website for more information___________________š."
   },
   "common": {
     "appNameAppend": "Kūrimo priemonė",

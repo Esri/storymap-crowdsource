@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "這是 beta 版本的故事地圖群眾外包",
+    "title": "試_Story Map Crowdsource is in mature support______________驗",
     "messageParagraphs": {
-      "p1": "此故事地圖群眾外包版本具有完整和穩定的核心功能。它是作為 beta 版本釋出，因此 Story Maps 團隊可先收集和納入您和 Esri 社群的回饋意見，再推出初始版本。",
-      "p2": "除非您在建立器外部修改使用此 beta 版本所建立的故事或其某個元件，否則可使用後續的版本來持續使用該故事。",
-      "p3": "有關如何使用此應用程式及提交回饋意見的位置等詳細資訊，請閱讀說明。"
-    }
+      "p1": "試_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________驗.",
+      "p2": "試_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________驗."
+    },
+    "link": "試_Read the FAQ on the Story Maps website for more information___________________驗."
   },
   "common": {
     "appNameAppend": "建立器",

@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "これはストーリー マップ クラウドソースのベータ版です",
+    "title": "須_Story Map Crowdsource is in mature support______________鷗",
     "messageParagraphs": {
-      "p1": "このバージョンのストーリー マップ クラウドソースは、主な機能が完成し、安定してご利用いただけます。これは、ストーリー マップ チームが初期リリースの前にお客様や Esri コミュニティからのフィードバックを収集して組み込むことができるように、ベータ版として提供されています。",
-      "p2": "このベータ版を使用して作成されたストーリーは、ストーリーまたはいずれかのコンポーネントをビルダーの外部で変更しない限り、以降のリリースでも引き続き動作します。",
-      "p3": "このアプリの使用方法とフィードバックの送信先については、ヘルプをご参照ください。"
-    }
+      "p1": "須_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________鷗.",
+      "p2": "須_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________鷗."
+    },
+    "link": "須_Read the FAQ on the Story Maps website for more information___________________鷗."
   },
   "common": {
     "appNameAppend": "ビルダー",

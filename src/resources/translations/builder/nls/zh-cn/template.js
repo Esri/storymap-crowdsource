@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "此版本为 Story Map Crowdsource 的 beta 版本",
+    "title": "试_Story Map Crowdsource is in mature support______________验",
     "messageParagraphs": {
-      "p1": "此版本 Story Map Crowdsource 的核心功能已完成并处于稳定状态。之所以作为 beta 版本是因为 Story Maps 团队希望在初始版本之前收集和集成来自您和 Esri 社区的反馈。",
-      "p2": "使用此 beta 版本创建的故事可在后续版本中继续使用，在构建器外部修改故事或其组件的情况例外。",
-      "p3": "请阅读帮助以了解有关如何使用此应用程序以及在何处提交反馈的详细信息。"
-    }
+      "p1": "试_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________验.",
+      "p2": "试_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________验."
+    },
+    "link": "试_Read the FAQ on the Story Maps website for more information___________________验."
   },
   "common": {
     "appNameAppend": "构建器",

@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Aceasta este o versiune beta a Story Map Crowdsource",
+    "title": "Ă_Story Map Crowdsource is in mature support______________ș",
     "messageParagraphs": {
-      "p1": "Această versiune a Story Map Crowdsource are toate funcţiunile de bază şi este stabilă. Este făcută disponibilă sub formă de versiune beta astfel încât echipa Story Map să poată strânge şi încorpora feedback de la dvs., de la comunitatea Esri, înainte de lansarea iniţială.",
-      "p2": "Poveştile create cu această versiune beta vor funcţiona şi cu următoarele versiuni doar dacă nu o modificaţi pe ea se pe componentele acesteia în afara aplicaţiei de creare.",
-      "p3": "Vă rugăm să citiţi Ajutorul pentru informaţii suplimentare despre cum să utilizaţi această aplicaţie şi unde să trimiteţi feedbackul."
-    }
+      "p1": "Ă_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ș.",
+      "p2": "Ă_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ș."
+    },
+    "link": "Ă_Read the FAQ on the Story Maps website for more information___________________ș."
   },
   "common": {
     "appNameAppend": "Aplicaţie de creare",

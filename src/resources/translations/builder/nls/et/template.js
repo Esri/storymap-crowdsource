@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Ühisloome kaardiloo beetaväljaanne",
+    "title": "Š_Story Map Crowdsource is in mature support______________ä",
     "messageParagraphs": {
-      "p1": "Selle ühisloome kaardiloo versiooni põhifunktsioonid on valmis ja versioon on stabiilne. Versioon on saadaval beetaväljaandena ja seega saab kaardilugude meeskond koguda ja ühendada teie ja Esri kogukonna tagasiside enne selle esimest väljalaset.",
-      "p2": "Selle beetaversiooniga loodud lood jätkavad töötamist ka hilisemates versioonides, välja arvatud siis kui muudate seda või selle komponente väljaspool Koosturit.",
-      "p3": "Lisateabe saamiseks lugege Abi selle rakenduse kasutuse ja tagasiside esitamise kohta."
-    }
+      "p1": "Š_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ä.",
+      "p2": "Š_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ä."
+    },
+    "link": "Š_Read the FAQ on the Story Maps website for more information___________________ä."
   },
   "common": {
     "appNameAppend": "Koostaja",

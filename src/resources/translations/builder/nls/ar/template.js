@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "إصدار بيتا من \"تعهيد خريطة القصة\"",
+    "title": "بيت_Story Map Crowdsource is in mature support______________لاحقة",
     "messageParagraphs": {
-      "p1": "يتميز هذا الإصدار من \"تعهيد خريطة القصة\" باكتمال مزاياه الأساسية، كما أنه إصدار مُستقر. وقد تم إطلاقه كإصدار بيتا حتى يمكن لـ \"فريق خرائط القصة\" تجميع ملاحظاتك والملاحظات التي يبديها مجتمع Esri ودمجها قبل الإصدار الأوّلي.",
-      "p2": "ستستمر القصص المُنشأة بهذا الإصدار البيتا في العمل كالمعتاد مع الإصدارات اللاحقة إلا إذا قمت بتعديلها أو وُجِدَ أحد مكوناتها خارج \"المنشئ\".",
-      "p3": "يرجى قراءة التعليمات لمزيد من المعلومات عن كيفية استخدام هذا التطبيق وموضع إرسال الملاحظات."
-    }
+      "p1": "بيت_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________لاحقة.",
+      "p2": "بيت_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________لاحقة."
+    },
+    "link": "بيت_Read the FAQ on the Story Maps website for more information___________________لاحقة."
   },
   "common": {
     "appNameAppend": "مُنشئ",

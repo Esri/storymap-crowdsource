@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "To je beta izdaja kart z zgodbo Crowdsource",
+    "title": "Š_Story Map Crowdsource is in mature support______________č",
     "messageParagraphs": {
-      "p1": "Ta različica karte z zgodbo Crowdsource je stabilna in ima zaključene ključne funkcionalnosti. Na voljo je kot beta izdaja, da lahko ekipa Kart z zgodbo zbira in vključuje povratne informacije, ki jih pred prvo izdajo dobi od vas, skupnosti Esri.",
-      "p2": "Zgodbe, ki bodo ustvarjene s to beta različico, bodo v naslednjih izdajah še naprej delovale, razen če jih boste spremenili ali boste spremenili katero od komponent zunaj graditelja.",
-      "p3": "Za več informacij o uporabi te aplikacije in kam poslati povratne informacije glejte Pomoč."
-    }
+      "p1": "Š_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________č.",
+      "p2": "Š_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________č."
+    },
+    "link": "Š_Read the FAQ on the Story Maps website for more information___________________č."
   },
   "common": {
     "appNameAppend": "Graditelj",

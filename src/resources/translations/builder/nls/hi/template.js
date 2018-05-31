@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "यह स्टोरी मैप क्राउडसोर्स का एक बीटा रिलीज है",
+    "title": "आ_Story Map Crowdsource is in mature support______________ज",
     "messageParagraphs": {
-      "p1": "स्टोरी मैप क्राउडसोर्स के इस संस्करण ने अपनी मूल विशिष्टताओं को पूरा करवा लिया है और यह स्थिर है। इसे एक बीटा निर्गम के रूप में पलब्ध कराया जा रहा है ताकि इसके आरंभिक रिलीज से पहले, स्टोरी मैप टीम आप, Esri समुदाय, से प्रतिपुष्टि को इकट्ठा और शामिल कर सके।",
-      "p2": "इस बीटा संस्करण से बनायी गई कहानियाँ बाद के रिलीजों के साथ काम करना जारी रखेगी जब तक कि आप बिल्डर के बाहर इसे या इसके घटकों में से एक को संशोधित नहीं करते हैं।",
-      "p3": "इस अनुप्रयोग को कैसे उपयोग करें और प्रतिपुष्टि को कहाँ प्रस्तुत करें इस बारे में अधिक जानकारी के लिए कृपया हेल्प को पढ़ें।"
-    }
+      "p1": "आ_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ज.",
+      "p2": "आ_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ज."
+    },
+    "link": "आ_Read the FAQ on the Story Maps website for more information___________________ज."
   },
   "common": {
     "appNameAppend": "बिल्डर",

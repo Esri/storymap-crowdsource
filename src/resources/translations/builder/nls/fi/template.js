@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Tämä on Story Map Crowdsourcen beetaversio",
+    "title": "Å_Story Map Crowdsource is in mature support______________ö",
     "messageParagraphs": {
-      "p1": "Tämän Story Map Crowdsourcen version ydinominaisuudet ovat valmiit, ja sovellus on vakaa. Se on julkaistu beetaversiona, jotta Story Maps -tiimi voi kerätä palautetta Esri-yhteisöltä ja toimia sen mukaan ennen sovelluksen ensimmäistä julkaisua.",
-      "p2": "Tällä beetaversiolla luodut tarinat toimivat myöhemmissä versioissa, ellet muokkaa tarinaa tai jotain sen osaa luontitoiminnon ulkopuolella.",
-      "p3": "Lisätietoja tämän sovelluksen käytöstä ja palautteen lähettämisestä on ohjeessa."
-    }
+      "p1": "Å_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ö.",
+      "p2": "Å_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ö."
+    },
+    "link": "Å_Read the FAQ on the Story Maps website for more information___________________ö."
   },
   "common": {
     "appNameAppend": "Muodostusohjelma",

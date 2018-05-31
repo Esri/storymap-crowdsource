@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "זוהי גרסת בטא של Story Map Crowdsource",
+    "title": "כן_Story Map Crowdsource is in mature support______________ש",
     "messageParagraphs": {
-      "p1": "גרסה זו של Story Map Crowdsource יציבה ומכילה ישויות מלאות. היא מתפרסמת כגרסת בטא כדי שצוות מפות הסיפור יוכלו לאסוף וליישם את המשוב המגיע מכם, קהילת Esri, לפני צאת המהדורה הרשמית הראשונה.",
-      "p2": "סיפורים שנוצרים בגרסת בטא זו ימשיכו לפעול גם במהדורות עתידיות אלא אם כן תשנה את הסיפור או את אחד מרכיביו מחוץ לאשף הבנייה.",
-      "p3": "קרא את פרטי העזרה כדי ללמוד כיצד להשתמש באפליקציה ולאן אפשר לשלוח משוב."
-    }
+      "p1": "כן_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ש.",
+      "p2": "כן_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ש."
+    },
+    "link": "כן_Read the FAQ on the Story Maps website for more information___________________ש."
   },
   "common": {
     "appNameAppend": "אשף בנייה",

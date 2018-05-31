@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Este é um lançamento beta de Informações Coletivas do Mapa Histórico",
+    "title": "ã_Story Map Crowdsource is in mature support______________Ç",
     "messageParagraphs": {
-      "p1": "Esta versão de Informações Coletivas do Mapa Histórico tem seus recursos de núcleo finalizados e é estável. Está sendo disponibilizado como um lançamento beta de forma que o Informações Coletivas do Mapa Histórico possa coletar e incorporar um retorno de você, a comunidade da Esri, antes de seu lançamento inicial.",
-      "p2": "Histórias criadas com esta versão beta continuarão a funcionar com a versão posterior a menos que você modifique um de seus componentes fora do Construtor.",
-      "p3": "Leia a Ajuda para mais informações sobre como utilizar este aplicativo e onde enviar o retorno."
-    }
+      "p1": "ã_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________Ç.",
+      "p2": "ã_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________Ç."
+    },
+    "link": "ã_Read the FAQ on the Story Maps website for more information___________________Ç."
   },
   "common": {
     "appNameAppend": "Construtor",

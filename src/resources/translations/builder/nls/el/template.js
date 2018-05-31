@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Αυτή είναι μια έκδοση beta του Story Map Crowdsource",
+    "title": "π_Story Map Crowdsource is in mature support______________Ω",
     "messageParagraphs": {
-      "p1": "Αυτή η έκδοση του Story Map Crowdsource διαθέτει τις βασικές της δυνατότητες ολοκληρωμένες και είναι σταθερή. Διατίθεται ως έκδοση beta έτσι, ώστε η Ομάδα Story Maps να μπορεί να συλλέξει και να ενσωματώσει παρατηρήσεις από εσάς, την κοινότητα Esri, πριν από την αρχική έκδοση.",
-      "p2": "Οι αφηγήσεις που δημιουργούνται με τη συγκεκριμένη έκδοση beta θα εξακολουθούν να λειτουργούν με τις μετέπειτα εκδόσεις, εκτός εάν τις τροποποιήσετε, τις ίδιες ή κάποιο από τα στοιχεία τους εκτός του Εργαλείου δημιουργίας.",
-      "p3": "Παρακαλούμε ανατρέξτε στη Βοήθεια για περισσότερες πληροφορίες σχετικά με τον τρόπο χρήσης αυτής της εφαρμογής και την υποβολή παρατηρήσεων."
-    }
+      "p1": "π_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________Ω.",
+      "p2": "π_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________Ω."
+    },
+    "link": "π_Read the FAQ on the Story Maps website for more information___________________Ω."
   },
   "common": {
     "appNameAppend": "Εργαλείο δημιουργίας",

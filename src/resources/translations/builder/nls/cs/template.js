@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Toto je beta verze aplikace Mapa s příběhem s informacemi z externích zdrojů",
+    "title": "Ř_Story Map Crowdsource is in mature support______________ů",
     "messageParagraphs": {
-      "p1": "Tato verze aplikace Mapa s příběhem s informacemi z externích zdrojů má dokončené hlavní funkce a je stabilní. Je zpřístupněna jako beta verze, aby tým map s příběhem mohl před jejím počátečním vydáním od vás, komunity Esri, získat a zapracovat zpětnou vazbu.",
-      "p2": "Příběhy vytvořené pomocí této beta verze budou fungovat i s pozdějšími verzemi, pokud ji nebo její součásti neupravíte mimo nástroj pro tvorbu.",
-      "p3": "Další informace o tom, jak tuto aplikaci používat a kde je možné odeslat zpětnou vazbu, naleznete v nápovědě."
-    }
+      "p1": "Ř_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ů.",
+      "p2": "Ř_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ů."
+    },
+    "link": "Ř_Read the FAQ on the Story Maps website for more information___________________ů."
   },
   "common": {
     "appNameAppend": "Nástroj pro tvorbu",

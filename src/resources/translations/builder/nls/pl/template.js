@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "To jest wersja beta aplikacji Mapa narracyjna ze zgłoszeń użytkowników",
+    "title": "ł_Story Map Crowdsource is in mature support______________ą",
     "messageParagraphs": {
-      "p1": "Ta wersja aplikacji Mapa narracyjna ze zgłoszeń użytkowników ma w pełni działające podstawowe funkcje i jest wersją stabilną. Jest ona dostępna jako wersja beta, aby zespół twórców map narracyjnych mógł zebrać i uwzględnić opinie członków społeczności Esri przed wydaniem początkowej wersji.",
-      "p2": "Narracje utworzone za pomocą tej wersji beta będą działały w późniejszych wydaniach, chyba że zmodyfikujesz je lub jeden z ich komponentów poza tym kreatorem.",
-      "p3": "Zapoznaj się z treścią pomocy, aby uzyskać więcej informacji na temat sposobu korzystania z tej aplikacji oraz przekazywania opinii."
-    }
+      "p1": "ł_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ą.",
+      "p2": "ł_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ą."
+    },
+    "link": "ł_Read the FAQ on the Story Maps website for more information___________________ą."
   },
   "common": {
     "appNameAppend": "Kreator",

@@ -1,11 +1,11 @@
 define({
   "betaMessage": {
-    "title": "Šis ir Story Map Crowdsource lietotnes beta versijas laidiens",
+    "title": "ķ_Story Map Crowdsource is in mature support______________ū",
     "messageParagraphs": {
-      "p1": "Šajā Story Map Crowdsource versijā lietotnes pamatelementi ir pabeigti un darbojas stabili. Tā ir pieejama kā beta versijas laidiens, lai Story Maps komanda pirms sākotnējā laidiena izlaišanas varētu savākt un iestrādāt no jums — Esri kopienas — saņemtās atsauksmes.",
-      "p2": "Ar šo beta versiju izveidotie stāsti turpinās darboties arī turpmākajos laidienos, ja vien tie vai kāds no to komponentiem netiks mainīts ārpus Veidotāja.",
-      "p3": "Lai uzzinātu vairāk informācijas par šīs lietotnes lietošanu un atsauksmju iesniegšanu, izlasiet palīdzību."
-    }
+      "p1": "ķ_As of June 2018, the Story Map Crowdsource template has been moved to the mature support phase of the Esri Product Lifecycle_______________________________________ū.",
+      "p2": "ķ_Using Crowdsource Builder to create new stories for high-profile projects is not recommended at this time. Existing stories created with this template will continue to work unless changes in dependent technologies or web browsers cause them to break____________________________________________________________________________ū."
+    },
+    "link": "ķ_Read the FAQ on the Story Maps website for more information___________________ū."
   },
   "common": {
     "appNameAppend": "Veidotājs",
