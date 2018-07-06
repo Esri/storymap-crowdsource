@@ -1,6 +1,9 @@
 # Story Map Crowdsource
 
-#### Beta Release
+### Deprecated App (Mature Support)
+This application is no longer in active development. For more information, read our [blog post](https://www.esri.com/arcgis-blog/products/story-maps/announcements/story-map-crowdsource-mature-support/).
+
+---
 
 The Story Map Crowdsource℠ app enables you to publish and manage a crowdsourced story to which anyone can contribute photos with captions. Use it to engage a specific or general audience on the subject of your choice. To contribute to your story people can sign in with their Facebook, Google, or ArcGIS account, or use a guest option. A vetting function lets you review and approve contributions.
 
@@ -10,7 +13,7 @@ The Story Map Crowdsource℠ app enables you to publish and manage a crowdsource
 [Download](https://links.esri.com/storymaps/story_map_crowdsource_zip) |
 [Crowdsource page on Esri Story Maps website](https://links.esri.com/storymaps/crowdsource-app)
 
-**Latest release is version 0.9.0**. See the [release page](https://github.com/Esri/story-map-crowdsource/releases) for release notes.
+**Latest release is version 0.10.0**. See the [release page](https://github.com/Esri/story-map-crowdsource/releases) for release notes.
 
 For more information about using and customizing Esri's Storytelling Apps follow the [Story Maps Developers' Corner](https://developerscorner.storymaps.arcgis.com).
 
